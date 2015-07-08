@@ -1,0 +1,32 @@
+- clean: ['~']
+
+- link:
+    ~/.amethyst:
+        path: amethyst
+    ~/.config/beets/config.yaml:
+        path: config/beets/config.yaml
+    ~/.config/boot/profile.boot:
+        path: config/boot/profile.boot
+    ~/.config/car/config.edn:
+        path: config/car/config.edn
+    ~/.config/fish/config.fish:
+        path: config/fish/config.fish
+    ~/.gitconfig: gitconfig
+    ~/.hushlogin:
+        path: hushlogin
+    ~/.inputrc:
+        path: inputrc
+    ~/.lein/profiles.clj:
+        path: lein/profiles.clj
+    ~/.ssh/config:
+        path: ssh/config
+        create: true
+    ~/.vimrc: 
+        path: vimrc
+    ~/.vim_runtime/my_configs.vim:
+        path: vim_runtime/my_configs.vim
+    ~/.vim_runtime/vimrcs:
+        path: vim_runtime/vimrcs
+                            
+
+

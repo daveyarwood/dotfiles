@@ -1,0 +1,4 @@
+directory: ~/Music/Dave's Music Library
+library: ~/Music/Dave's Music Library/musiclibrary.blb
+import:
+  copy: no

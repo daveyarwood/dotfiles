@@ -1,0 +1,8 @@
+[user]
+	name = Dave Yarwood
+	email = dave.yarwood@gmail.com
+[push]
+	default = simple
+[core]
+	autocrlf = input
+	editor = vim
