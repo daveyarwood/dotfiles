@@ -18,6 +18,8 @@
         path: inputrc
     ~/.lein/profiles.clj:
         path: lein/profiles.clj
+    ~/.nvimrc:
+        path: nvimrc
     ~/.ssh/config:
         path: ssh/config
         create: true
@@ -27,6 +29,4 @@
         path: vim_runtime/my_configs.vim
     ~/.vim_runtime/vimrcs:
         path: vim_runtime/vimrcs
-                            
-
-
+        
