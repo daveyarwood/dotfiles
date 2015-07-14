@@ -14,6 +14,7 @@ Plugin 'bling/vim-airline'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'junegunn/goyo.vim'
+Plugin 'ntpeters/vim-airline-colornum'
 
 " editor enhancements
 Plugin 'dyng/ctrlsf.vim'
