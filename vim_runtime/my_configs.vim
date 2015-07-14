@@ -16,10 +16,10 @@ augroup END
 
 set noerrorbells visualbell t_vb=
 
-set cursorline      " highlights line numbers (vim-airline-colornum)
-hi clear CursorLine " don't highlight the whole line though
-" disable shortcut to go into Ex mode, which I never use
+set cursorline        " highlights line numbers (vim-airline-colornum)
+" hi clear CursorLine " don't highlight the whole line though
 
+" disable shortcut to go into Ex mode, which I never use
 nnoremap Q <nop>
 
 " the nuclear option - close everything without saving and quit
