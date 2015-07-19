@@ -28,6 +28,7 @@ Plugin 'Shougo/vimfiler.vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
 
 " clojure things
