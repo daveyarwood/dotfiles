@@ -150,3 +150,7 @@ vmap <leader>f <Plug>CtrlSFVwordExec
 
 nnoremap <leader>r :Require!<CR>
 nnoremap <leader>t :RunTests<CR>
+
+" insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
+nnoremap <leader>; 80i;<Esc> 
+
