@@ -154,3 +154,5 @@ nnoremap <leader>t :RunTests<CR>
 " insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
 nnoremap <leader>; 80i;<Esc> 
 
+" insert-mode abbreviation for my copyright/license info (i.e. for a README.md)
+iabbrev coplice ## License<cr><cr>Copyright © 2015 Dave Yarwood<cr><cr>Distributed under the Eclipse Public License version 1.0.
