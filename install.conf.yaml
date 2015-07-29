@@ -20,9 +20,6 @@
         path: lein/profiles.clj
     ~/.nvimrc:
         path: nvimrc
-    ~/.ssh/config:
-        path: ssh/config
-        create: true
     ~/.vimrc: 
         path: vimrc
     ~/.vim_runtime/my_configs.vim:

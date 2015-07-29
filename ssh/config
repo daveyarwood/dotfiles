@@ -1,3 +1,0 @@
-Host *.adzerk.net
-    StrictHostKeyChecking no
-    IdentityFile ~/.ssh/bifrost.pem
