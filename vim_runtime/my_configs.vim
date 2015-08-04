@@ -11,7 +11,7 @@ syntax on
 filetype plugin indent on
 augroup i_dont_like_folding
   autocmd!
-  au BufWinEnter * silent! :%foldopen!
+  autocmd BufWinEnter * silent! :%foldopen!
 augroup END
 
 set noerrorbells visualbell t_vb=
