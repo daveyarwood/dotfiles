@@ -120,7 +120,7 @@ nnoremap <C-o> o<Esc>O
 nnoremap <C-j> kJ
 
 " jump to the end of a sexp and be in insert mode
-nnoremap <Bslash>a f)i 
+nnoremap <Bslash>a f)i
 
 " shortcuts for switching tabs, etc.
 nnoremap <leader>h :bp<CR>
