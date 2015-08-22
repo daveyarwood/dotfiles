@@ -98,6 +98,10 @@ let g:paredit_leader = '\'
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\|_site'
 
+if executable("ag")
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
+
 nnoremap ga :UnicodeName<CR>
 
 " remap leader key to ,
@@ -156,3 +160,6 @@ nnoremap <leader>; 80i;<Esc>
 
 " insert-mode abbreviation for my copyright/license info (i.e. for a README.md)
 iabbrev coplice ## License<cr><cr>Copyright © 2015 Dave Yarwood<cr><cr>Distributed under the Eclipse Public License version 1.0.
+
+" liquid code blocks
+iabbrev liqcode {% highlight text %}<cr><cr>{% endhighlight %}<cr>
