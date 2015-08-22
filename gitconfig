@@ -6,3 +6,5 @@
 [core]
 	autocrlf = input
 	editor = vim
+[credential]
+	helper = osxkeychain
