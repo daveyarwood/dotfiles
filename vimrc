@@ -47,6 +47,7 @@ Plugin 'dag/vim-fish'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim'
+Plugin 'matze/vim-lilypond'
 Plugin 'tpope/vim-endwise'
 
 " misc

@@ -73,3 +73,10 @@ if test -d $GHC_DOT_APP
     set -gx PATH $HOME/.cabal/bin $GHC_DOT_APP/Contents/bin $PATH
 end
 
+##### TeX #####
+
+set -gx PATH /usr/texbin $PATH
+
+##### LilyPond #####
+
+set -gx PATH /Applications/LilyPond.app/Contents/Resources/bin $PATH
