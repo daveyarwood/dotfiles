@@ -24,6 +24,10 @@
         path: vimrc
     ~/.vim_runtime/my_configs.vim:
         path: vim_runtime/my_configs.vim
+    ~/.vim_runtime/my_iabbrevs.vim:
+        path: vim_runtime/my_iabbrevs.vim
+    ~/.vim_runtime/my_mappings.vim:
+        path: vim_runtime/my_mappings.vim
     ~/.vim_runtime/vimrcs:
         path: vim_runtime/vimrcs
         

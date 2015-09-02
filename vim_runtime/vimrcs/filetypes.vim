@@ -55,12 +55,14 @@ au FileType coffee call CoffeeScriptFold()
 
 au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fish section
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd Filetype fish compiler fish
 autocmd Filetype fish setlocal textwidth=79
 autocmd Filetype fish setlocal foldmethod=expr
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => markdown section
@@ -71,6 +73,7 @@ augroup markdown
   "for some reason, I have to set the filetype to ghmarkdown, and then set it to markdown, in order to get all of the syntax highlighting. cool!
   au BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
 augroup END
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => help text section
@@ -86,3 +89,28 @@ function! s:at_help()
     nnoremap <buffer> q :q<CR>
   endif
 endfunction
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => netrw section
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" why the fuck is it so hard to close netrw?
+" I just want to press q
+" augroup wtf_netrw
+"   autocmd!
+"   autocmd filetype netrw nnoremap <buffer> q :e#<CR>
+" augroup END
+
+" <CR> opens file in new tab (doesn't seem to work...)
+" let g:netrw_browse_split = 3
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Clojure section
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup clojure_and_hoplon
+  autocmd!
+  autocmd BufNewFile,BufRead  *.cljs.hl,*.boot set filetype=clojure
+  autocmd BufNewFile,BufRead  *.html.hl        set filetype=html
+augroup END
+
