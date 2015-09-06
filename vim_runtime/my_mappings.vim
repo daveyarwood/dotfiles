@@ -70,3 +70,8 @@ vnoremap <Space>p "*p
 nnoremap <Space>P "*P
 vnoremap <Space>P "*P
 
+" Enter -> go to last line
+" (bonus: 12<Enter> -> go to line 12)
+nnoremap <CR> G
+" Backspace -> go to first line
+nnoremap <BS> gg
