@@ -32,6 +32,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
+Plugin 'vim-scripts/gitignore'
 
 " clojure things
 Plugin 'guns/vim-clojure-static'
