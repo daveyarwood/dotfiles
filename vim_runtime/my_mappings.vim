@@ -60,3 +60,13 @@ nnoremap <leader>t :RunTests<CR>
 " insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
 nnoremap <leader>; 80i;<Esc> 
 
+" copy & paste to system clipboard
+nnoremap <Space>y "*y
+vnoremap <Space>y "*y
+nnoremap <Space>d "*d
+vnoremap <Space>d "*d
+nnoremap <Space>p "*p
+vnoremap <Space>p "*p
+nnoremap <Space>P "*P
+vnoremap <Space>P "*P
+
