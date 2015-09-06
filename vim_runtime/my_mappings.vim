@@ -1,3 +1,6 @@
+" remap leader key to ,
+let mapleader = ","
+
 " disable shortcut to go into Ex mode, which I never use
 nnoremap Q <nop>
 
@@ -5,9 +8,6 @@ nnoremap Q <nop>
 nnoremap <leader>Q :qa!<CR>
 
 nnoremap ga :UnicodeName<CR>
-
-" remap leader key to ,
-let mapleader = ","
 
 nnoremap <leader>s :source ~/.vim_runtime/my_configs.vim<CR>
 nnoremap <leader>p :e! ~/.vimrc<CR>
