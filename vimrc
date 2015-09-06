@@ -43,6 +43,7 @@ Plugin 'vim-scripts/paredit.vim'
 Plugin 'vim-scripts/vim-niji'
 
 " language support
+Plugin 'andreimaxim/vim-io'
 Plugin 'dag/vim-fish'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'kchmck/vim-coffee-script'
