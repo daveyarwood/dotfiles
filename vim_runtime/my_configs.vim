@@ -7,6 +7,7 @@ set foldcolumn=0
 set expandtab
 set tabstop=2
 set shiftwidth=2
+set showcmd
 syntax on
 filetype plugin indent on
 
