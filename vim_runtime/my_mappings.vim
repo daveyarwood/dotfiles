@@ -23,7 +23,7 @@ nnoremap <C-o> o<Esc>O
 
 " like J (which appends next line to current line),
 " but works the other way (appends current line to previous line)
-nnoremap <C-j> kJ
+nnoremap <Space>j kJ
 
 " jump to the end of a sexp and be in insert mode
 nnoremap <Bslash>a f)i
