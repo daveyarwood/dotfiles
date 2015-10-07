@@ -7,3 +7,5 @@ source ~/.vimrc
 " OPEN A FISH TERMINAL IN VIM, ZOMG
 nnoremap <leader>F :terminal fish<CR>
 
+" terminal mode -> normal mode
+tnoremap <Esc> <C-\><C-n>
