@@ -60,6 +60,9 @@ nnoremap <leader>t :RunTests<CR>
 " insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
 nnoremap <leader>; 80i;<Esc> 
 
+" make system clipboard available both in & out of tmux
+set clipboard=unnamed
+
 " copy & paste to system clipboard
 nnoremap <Space>y "*y
 vnoremap <Space>y "*y

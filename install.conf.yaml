@@ -20,6 +20,8 @@
         path: lein/profiles.clj
     ~/.nvimrc:
         path: nvimrc
+    ~/.tmux.conf:
+        path: tmux.conf
     ~/.vimrc: 
         path: vimrc
     ~/.vim_runtime/my_configs.vim:

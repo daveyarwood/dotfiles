@@ -17,6 +17,7 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'ntpeters/vim-airline-colornum'
 
 " editor enhancements
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
