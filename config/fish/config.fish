@@ -9,6 +9,9 @@ set fish_custom $HOME/dotfiles/oh-my-fish
 # Load oh-my-fish configuration.
 source $fish_path/oh-my-fish.fish
 
+# on start-up, start tmux or attach to an existing session
+tmux attach; or tmux new -s default
+
 # Custom plugins and themes may be added to ~/.oh-my-fish/custom
 # Plugins and themes can be found at https://github.com/oh-my-fish/
 Theme 'tomita'
