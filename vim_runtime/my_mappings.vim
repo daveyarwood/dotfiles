@@ -37,7 +37,7 @@ nnoremap <leader>, :b#<CR>
 nnoremap <leader>d :bp <BAR> bd #<CR>
 nnoremap Q :bp <BAR> bd #<CR>
 nnoremap <leader>dd :bp <BAR> bd! #<CR>
-" creates an empty buffer and closes everything else 
+" creates an empty buffer and closes everything else
 " (doesn't close any buffers with unsaved changes)
 nnoremap <leader>c :enew<CR>:BufOnly<CR>
 
@@ -58,7 +58,7 @@ nnoremap <leader>r :Require!<CR>
 nnoremap <leader>t :RunTests<CR>
 
 " insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
-nnoremap <leader>; 80i;<Esc> 
+nnoremap <leader>; 80i;<Esc>
 
 " make system clipboard available both in & out of tmux
 set clipboard=unnamed
@@ -78,3 +78,6 @@ vnoremap <Space>P "*P
 nnoremap <CR> G
 " Backspace -> go to first line
 nnoremap <BS> gg
+
+" strip whitespace (via vim-better-whitespace)
+nnoremap <leader><Space> :StripWhitespace<CR>
