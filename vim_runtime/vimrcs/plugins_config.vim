@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Important: 
+" Important:
 "       This requries that you install https://github.com/amix/vimrc !
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -83,7 +83,7 @@ let g:NERDTreeWinPos = "right"
 let NERDTreeIgnore = ['\.pyc$']
 let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark 
+map <leader>nb :NERDTreeFromBookmark
 map <leader>nf :NERDTreeFind<cr>
 
 
@@ -161,12 +161,12 @@ let g:salve_auto_start_repl = 1
 " => Startify
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:startify_custom_header = [
-      \ '               ________________________________   ',  
-      \ '              /    o   oooo ooo oooo   o o o  /\  ',  
-      \ '             /    oo  ooo  oo  oooo   o o o  / /  ',  
-      \ '            /    _________________________  / /   ',  
-      \ '           / // / // /// // /// // /// / / / /    ',  
-      \ '          /___ //////////////////////////_/ /     ',  
+      \ '               ________________________________   ',
+      \ '              /    o   oooo ooo oooo   o o o  /\  ',
+      \ '             /    oo  ooo  oo  oooo   o o o  / /  ',
+      \ '            /    _________________________  / /   ',
+      \ '           / // / // /// // /// // /// / / / /    ',
+      \ '          /___ //////////////////////////_/ /     ',
       \ '          \____\________________________\_\/      ',
       \ '',
       \ '',
@@ -197,9 +197,13 @@ let g:paredit_leader = '\'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-ctrlspace 
+" => vim-ctrlspace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if executable("ag")
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-better-whitespace
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
