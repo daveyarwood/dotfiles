@@ -9,3 +9,6 @@ balias gd 'git diff'
 balias gp 'git push'
 balias gpr 'git pull-request'
 
+function gaa
+	git add --all $argv; git status;
+end
