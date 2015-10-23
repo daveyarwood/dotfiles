@@ -54,3 +54,6 @@ source $fish_runtime/custom/fish_logo.fish
 #     msg @random:random $feesh
 # end
 set -gx feesh "><(((('>"
+
+# decrypt and run encrypted .fish files (sensitive credentials, etc.)
+source $fish_runtime/custom/gpg.fish
