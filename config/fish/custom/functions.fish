@@ -13,9 +13,6 @@
 # 	command bc -l $argv;
 # end
 
-# I can't seem to shake BC_ENV_ARGS... weird. Explicitly unset it.
-set -ex BC_ENV_ARGS
-
 # translate Bash `export x=42` syntax into fish `set -gx x 42` syntax, so I can
 # copy-paste Bash export snippets into my fish terminal
 function export
