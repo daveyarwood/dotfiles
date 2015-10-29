@@ -1,6 +1,3 @@
-# on start-up, start tmux or attach to an existing session
-tmux attach; or tmux new -s default
-
 ##### oh-my-fish #####
 
 # Path to your oh-my-fish.
