@@ -15,6 +15,13 @@ nnoremap <leader>p :e! ~/.vimrc<CR>
 " gimme a fish shell! (exit / ^D to return to vim)
 " nnoremap <leader>t :!fish<CR>
 
+" Prompt for a command to be run in a 20% lower tmux split, witohut losing
+" focus on vim :)
+nnoremap <leader>v :VimuxPromptCommand<CR>
+
+" Close vimux runner window
+nnoremap <leader>V :VimuxCloseRunner<CR>
+
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
 nnoremap <leader>O O<Esc>O
