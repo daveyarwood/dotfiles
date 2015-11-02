@@ -55,7 +55,7 @@ end
 
 # copy N random GitHub-style emoji codes (e.g. :panda_face:) to clipboard
 function randomoji
-  set emoji (~/Code/randomoji/randomoji $argv[1])
+  set emoji (eval $HOME/Code/randomoji/randomoji $argv[1])
   printf $emoji | pbcopy
   echo "$emoji copied to clipboard"
 end

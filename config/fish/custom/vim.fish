@@ -12,7 +12,7 @@ end
 
 # edit vimrc
 function vimrc
-	vim ~/.vimrc $argv;
+	vim $HOME/.vimrc $argv;
 end
 
 # bring up a scratch buffer
@@ -21,7 +21,7 @@ function vims
 end
 
 function vimwiki
-	vim ~/Dropbox/vimwiki/index.wiki $argv;
+	vim $HOME/Dropbox/vimwiki/index.wiki $argv;
 end
 
 function vw

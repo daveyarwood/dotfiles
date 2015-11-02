@@ -5,10 +5,10 @@ end
 
 # adzerk credentials, useful functions, etc.
 function adzerk-env
-  gpg-source ~/.adzerk.fish.asc
+  gpg-source $HOME/.adzerk.fish.asc
 end
 
 # other sensitive things i need in my environment
 function sensitive-env
-  gpg-source ~/.sensitive.fish.asc
+  gpg-source $HOME/.sensitive.fish.asc
 end
