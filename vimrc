@@ -58,6 +58,7 @@ Plugin 'tpope/vim-endwise'
 
 " misc
 Plugin 'chrisbra/unicode.vim'
+Plugin 'gregsexton/gitv'
 Plugin 'itchyny/calendar.vim'
 Plugin 'mhinz/vim-startify'
 Plugin 'mileszs/ack.vim'
