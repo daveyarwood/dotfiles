@@ -4,10 +4,8 @@ function docker-ip
   boot2docker ip ^ /dev/null
 end
 
-# I don't remember how I got these set up. I was following a guide I found on
-# getting an OS X environment set up for Docker development.
-# TODO: look up how I got these variables, set them dynamically by running
-# the commands instead of having them hard-coded.
-set -gx DOCKER_CERT_PATH $HOME/.boot2docker/certs/boot2docker-vm
-set -gx DOCKER_HOST tcp://192.168.59.103:2376
-set -gx DOCKER_TLS_VERIFY 1
+# sets DOCKER_HOST, DOCKER_MACHINE_NAME, DOCKER_TLS_VERIFY, DOCKER_CERT_PATH
+# if the default Docker VM (the only one I use) is running
+if [ (docker-machine status default) = 'Running' ]
+  eval (docker-machine env default)
+end
