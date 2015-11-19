@@ -207,3 +207,10 @@ endif
 " => vim-better-whitespace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vimagit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:magit_show_help=0
+nmap <leader>G :Magit<CR>
+
