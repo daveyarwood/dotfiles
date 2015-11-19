@@ -1,4 +1,4 @@
-(set-env! :dependencies '[[boot-deps "0.1.4"]
+(set-env! :dependencies '[[boot-deps "0.1.6"]
                           ; [com.cemerick/piggieback "0.2.1"]
                           ; [org.clojure/tools.nrepl "0.2.10"]
                           ; [weasel "0.7.0"]
