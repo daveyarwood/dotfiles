@@ -86,6 +86,12 @@ nnoremap <BS> gg
 " strip whitespace (via vim-better-whitespace)
 nnoremap <leader><Space> :StripWhitespace<CR>
 
+" magically format json in the current buffer
+nnoremap <leader>j :%!python -m json.tool<CR>
+" or just the current visual selection
+vnoremap <leader>j :!python -m json.tool<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Next and Last (from a gist by sjl)
 
 " Motion for "next/last object".  "Last" here means "previous", not "final".
@@ -136,4 +142,6 @@ function! s:NextTextObject(motion, dir)
 
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
