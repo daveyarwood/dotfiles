@@ -86,10 +86,12 @@ nnoremap <BS> gg
 " strip whitespace (via vim-better-whitespace)
 nnoremap <leader><Space> :StripWhitespace<CR>
 
-" magically format json in the current buffer
+" magically format/minify json in the current buffer
 nnoremap <leader>j :%!python -m json.tool<CR>
+nnoremap <leader>J :%!json-minify<CR>
 " or just the current visual selection
 vnoremap <leader>j :!python -m json.tool<CR>
+vnoremap <leader>J :!json-minify<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Next and Last (from a gist by sjl)
