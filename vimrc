@@ -48,6 +48,7 @@ Plugin 'vim-scripts/vim-niji'
 
 " language/filetype support
 Plugin 'andreimaxim/vim-io'
+Plugin 'cohama/lexima.vim'
 Plugin 'dag/vim-fish'
 Plugin 'daveyarwood/vim-alda'
 Plugin 'jtratner/vim-flavored-markdown'
@@ -55,9 +56,6 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim'
 Plugin 'matze/vim-lilypond'
 Plugin 'tmux-plugins/vim-tmux'
-Plugin 'tpope/vim-endwise'
-" lexima must be loaded after endwise (cohama/lexima.vim#15)
-Plugin 'cohama/lexima.vim'
 
 " misc
 Plugin 'chrisbra/unicode.vim'

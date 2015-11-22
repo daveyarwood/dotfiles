@@ -119,6 +119,13 @@ nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => lexima
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call lexima#add_rule({'char': '/* ', 'input_after': ' */', 'filetype': 'c'})
+call lexima#add_rule({'char': '<BS>', 'at': '/\*\%# ', 'input': '<BS><BS>', 'delete': 3, 'filetype': 'c'})
+call lexima#add_rule({'char': '<CR>', 'at': '/\*.*\%#.*\*/', 'input': '<CR><CR><BS><BS><Esc>kA<Space>', 'filetype': 'c'})
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:NERDTreeWinPos = "right"
