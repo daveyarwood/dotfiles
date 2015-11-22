@@ -55,6 +55,8 @@ Plugin 'mattn/emmet-vim'
 Plugin 'matze/vim-lilypond'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tpope/vim-endwise'
+" lexima must be loaded after endwise (cohama/lexima.vim#15)
+Plugin 'cohama/lexima.vim'
 
 " misc
 Plugin 'chrisbra/unicode.vim'
