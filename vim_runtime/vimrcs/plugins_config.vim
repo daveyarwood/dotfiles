@@ -176,7 +176,8 @@ nnoremap ga :UnicodeName<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimagit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:magit_show_help=0
+let g:magit_show_help = 0
+let g:magit_toggle_help_mapping = '?'
 nmap <leader>G :Magit<CR>
 
 
