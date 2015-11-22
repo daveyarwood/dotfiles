@@ -7,20 +7,11 @@ nnoremap Q <nop>
 " the nuclear option - close everything without saving and quit
 nnoremap <leader>Q :qa!<CR>
 
-nnoremap ga :UnicodeName<CR>
-
 nnoremap <leader>s :source ~/.vim_runtime/my_configs.vim<CR>
 nnoremap <leader>p :e! ~/.vimrc<CR>
 
 " gimme a fish shell! (exit / ^D to return to vim)
 " nnoremap <leader>t :!fish<CR>
-
-" Prompt for a command to be run in a 20% lower tmux split, witohut losing
-" focus on vim :)
-nnoremap <leader>v :VimuxPromptCommand<CR>
-
-" Close vimux runner window
-nnoremap <leader>V :VimuxCloseRunner<CR>
 
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
@@ -48,22 +39,6 @@ nnoremap <leader>dd :bp <BAR> bd! #<CR>
 " (doesn't close any buffers with unsaved changes)
 nnoremap <leader>c :enew<CR>:BufOnly<CR>
 
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-
-nmap <leader>f <Plug>CtrlSFPrompt
-vmap <leader>f <Plug>CtrlSFVwordExec
-
-nnoremap <leader>r :Require!<CR>
-nnoremap <leader>t :RunTests<CR>
-
 " insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
 nnoremap <leader>; 80i;<Esc>
 
@@ -82,9 +57,6 @@ vnoremap <Space>P "*P
 nnoremap <CR> G
 " Backspace -> go to first line
 nnoremap <BS> gg
-
-" strip whitespace (via vim-better-whitespace)
-nnoremap <leader><Space> :StripWhitespace<CR>
 
 " magically format/minify json in the current buffer
 nnoremap <leader>j :%!python -m json.tool<CR>

@@ -16,11 +16,23 @@ let g:airline#extensions#tabline#show_tab_nr = 1     " Show buffer # in tabline
 let g:airline#extensions#tabline#show_tab_type = 1   " Show the tab type
 let g:airline#extensions#tabline#buffer_idx_mode = 1 " Show buffer index
 
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => better-whitespace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
+
+nnoremap <leader><Space> :StripWhitespace<CR>
 
 
 """"""""""""""""""""""""""""""
@@ -75,6 +87,13 @@ else
 endif
 
 
+""""""""""""""""""""""""""""""
+" => ctrlsf
+""""""""""""""""""""""""""""""
+nmap <leader>f <Plug>CtrlSFPrompt
+vmap <leader>f <Plug>CtrlSFVwordExec
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ctrlspace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -83,11 +102,20 @@ if executable("ag")
 endif
 
 
-""""""""""""""""""""""""""""""
-" => MRU
-""""""""""""""""""""""""""""""
-let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => fireplace
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>r :Require!<CR>
+nnoremap <leader>t :RunTests<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => goyo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:goyo_width=100
+let g:goyo_margin_top = 2
+let g:goyo_margin_bottom = 2
+nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -140,6 +168,12 @@ let g:syntastic_python_checkers=['pyflakes']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => unicode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap ga :UnicodeName<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimagit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:magit_show_help=0
@@ -159,19 +193,21 @@ call vimfiler#custom#profile('default', 'context', {
 
 
 """"""""""""""""""""""""""""""
-" => Vim grep
+" => vim grep
 """"""""""""""""""""""""""""""
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
 set grepprg=/bin/grep\ -nH
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimroom
+" => vimux
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
+" Prompt for a command to be run in a 20% lower tmux split, witohut losing
+" focus on vim :)
+nnoremap <leader>v :VimuxPromptCommand<CR>
+
+" Close vimux runner window
+nnoremap <leader>V :VimuxCloseRunner<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
