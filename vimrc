@@ -49,6 +49,7 @@ Plugin 'vim-scripts/vim-niji'
 " language/filetype support
 Plugin 'andreimaxim/vim-io'
 Plugin 'dag/vim-fish'
+Plugin 'daveyarwood/vim-alda'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim'
