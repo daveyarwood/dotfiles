@@ -38,6 +38,7 @@ source $fish_runtime/custom/tex.fish
 source $fish_runtime/custom/lilypond.fish
 source $fish_runtime/custom/android.fish
 source $fish_runtime/custom/vim.fish
+source $fish_runtime/custom/go.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
