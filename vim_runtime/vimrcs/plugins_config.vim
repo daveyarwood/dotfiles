@@ -110,6 +110,25 @@ nnoremap <leader>t :RunTests<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => go
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+au FileType go nnoremap <buffer> <leader>r  :GoRun<CR>
+au FileType go nnoremap <buffer> <leader>b  :GoBuild<CR>
+au FileType go nnoremap <buffer> <leader>t  :GoTest<CR>
+au FileType go nnoremap <buffer> <leader>c  :GoCoverage<CR>
+au FileType go nnoremap <buffer> <leader>gd :GoDoc<CR>
+au FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
+au FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
+au FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => goyo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:goyo_width=100
@@ -174,6 +193,9 @@ let g:startify_enable_special = 0
 " => syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_python_checkers=['pyflakes']
+" fixes lag related to having both vim-go and syntastic installed
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
