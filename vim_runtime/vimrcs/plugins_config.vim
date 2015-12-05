@@ -127,7 +127,6 @@ au FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
 au FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => goyo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
