@@ -1,1 +1,1 @@
-{:current 111000, :nomad/instance :default, :nomad/hostname "skeggox.local", :nomad/environment :default, :tasks [{:interval 7500, :name "Oil change", :last-done 105000} {:name "Rotate tires", :interval 6000, :last-done 108000}]}
+{:current 114000, :nomad/instance :default, :nomad/hostname "skeggox.local", :nomad/environment :default, :tasks [{:interval 7500, :name "Oil change", :last-done 112500} {:name "Rotate tires", :interval 6000, :last-done 108000}]}
