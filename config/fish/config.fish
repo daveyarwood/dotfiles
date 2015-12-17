@@ -1,23 +1,9 @@
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
+# Path to Oh My Fish install.
+set -gx OMF_PATH $HOME/.local/share/omf
 
-# Path to your custom folder (default path is ~/.oh-my-fish/custom)
-# set fish_custom $HOME/.dotfiles/oh-my-fish
+source $OMF_PATH/init.fish
 
 set fish_runtime $HOME/.config/fish
-
-# Load oh-my-fish configuration.
-source $fish_path/oh-my-fish.fish
-
-# Custom plugins and themes may be added to ~/.oh-my-fish/custom
-# Plugins and themes can be found at https://github.com/oh-my-fish/
-Theme 'tomita'
-Plugin 'theme'
-Plugin 'balias'
-Plugin 'jump'
-Plugin 'msg'
-Plugin 'tab'
-Plugin 'vi-mode'
 
 # Default PATH
 set -gx PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /opt/X11/bin

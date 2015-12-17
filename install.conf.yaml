@@ -8,6 +8,7 @@
     ~/.config/car/config.edn: config/car/config.edn
     ~/.config/fish/config.fish: config/fish/config.fish
     ~/.config/fish/custom: config/fish/custom/
+    ~/.config/omf: config/omf/
     ~/.gitconfig: gitconfig
     ~/.hushlogin: hushlogin
     ~/.inputrc: inputrc
