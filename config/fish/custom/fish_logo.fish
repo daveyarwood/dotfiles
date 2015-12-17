@@ -16,6 +16,3 @@ function fish_logo
                        (UU)'(set_color normal)
 end
 
-function fish_greeting
-  fish_logo
-end

@@ -29,13 +29,35 @@ source $fish_runtime/custom/go.fish
 # useful shell functions
 source $fish_runtime/custom/functions.fish
 
-# show fish ascii art on start
+# fish ascii art
 source $fish_runtime/custom/fish_logo.fish
+source $fish_runtime/custom/fish_swimming.fish
+
+function fish_greeting;
+  fish_logo
+end
+
+# erase the default fish_mode_prompt; I have one built into my theme
+function fish_mode_prompt; end
+
+# turn on vi mode on shell start
+fish_vi_mode
+
+# vi mode remaps Ctrl-F to go forward a word;
+# I'd rather keep the default behavior of accepting autocomplete suggestions
+function fish_slightly_modified_vi_key_bindings
+  fish_vi_key_bindings
+  bind -M insert \cf end-of-line
+end
+
+set fish_key_bindings fish_slightly_modified_vi_key_bindings
 
 # for x in (seq 20)
-#     msg @random:random $feesh
+#     msg @random:random $big_fish
 # end
-set -gx feesh "><(((('>"
+set -gx big_fish "><(((('>"
+set -gx little_fish '⋊>'
 
 # decrypt and run encrypted .fish files (sensitive credentials, etc.)
 source $fish_runtime/custom/gpg.fish
+
