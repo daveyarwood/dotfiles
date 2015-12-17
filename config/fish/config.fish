@@ -45,9 +45,13 @@ fish_vi_mode
 
 # vi mode remaps Ctrl-F to go forward a word;
 # I'd rather keep the default behavior of accepting autocomplete suggestions
+#
+# also Ctrl-A and Ctrl-E don't do anything anymore... let's get those back
 function fish_slightly_modified_vi_key_bindings
   fish_vi_key_bindings
   bind -M insert \cf end-of-line
+  bind -M insert \ca beginning-of-line
+  bind -M insert \ce end-of-line
 end
 
 set fish_key_bindings fish_slightly_modified_vi_key_bindings
