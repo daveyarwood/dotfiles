@@ -11,6 +11,7 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set showcmd
+set updatetime=250
 syntax on
 filetype plugin indent on
 
