@@ -1,6 +1,9 @@
 colorscheme gruvbox
 set background=dark
-set encoding=utf-8
+if !has('nvim')
+  " nvim sets encoding to utf-8 by default
+  set encoding=utf-8
+endif
 set guifont=Anonymous\ Pro\ for\ Powerline
 set number
 set foldcolumn=0
