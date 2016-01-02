@@ -15,7 +15,7 @@
 ; (swap! boot.repl/*default-middleware*
 ;       conj 'lighttable.nrepl.handler/lighttable-ops)
 
-(swap! boot.repl/*default-dependencies* 
+(swap! boot.repl/*default-dependencies*
        concat '[[cider/cider-nrepl "0.9.1"]])
 
 (swap! boot.repl/*default-middleware*
