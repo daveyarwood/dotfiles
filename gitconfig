@@ -8,3 +8,5 @@
 	editor = vim
 [credential]
 	helper = osxkeychain
+[rerere]
+	enabled = true
