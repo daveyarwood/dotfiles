@@ -9,6 +9,7 @@
     ~/.config/fish/config.fish: config/fish/config.fish
     ~/.config/fish/custom: config/fish/custom/
     ~/.config/omf: config/omf/
+    ~/.config/nvim: config/nvim/
     ~/.gitconfig: gitconfig
     ~/.hushlogin: hushlogin
     ~/.inputrc: inputrc
