@@ -37,6 +37,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
 Plugin 'vim-scripts/gitignore'
+" Plugin 'vim-scripts/ingo-library'
+" Plugin 'vim-scripts/SyntaxRange'
 
 " clojure things
 Plugin 'guns/vim-clojure-static'
