@@ -18,3 +18,5 @@ function jenv
     end
 end
 
+# Required in order to build Alda with support for JDK7
+set -gx JDK7_BOOTCLASSPATH /Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/jre/lib/rt.jar
