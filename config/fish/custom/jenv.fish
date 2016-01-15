@@ -19,4 +19,6 @@ function jenv
 end
 
 # Required in order to build Alda with support for JDK7
+# NOTE: this is machine-specific.
+# TODO: come up with some way to have different paths on different hosts
 set -gx JDK7_BOOTCLASSPATH /Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/jre/lib/rt.jar

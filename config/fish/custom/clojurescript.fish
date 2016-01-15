@@ -1,3 +1,3 @@
-set -gx CLOJURESCRIPT_HOME $HOME/Code/clojurescript
+set -gx CLOJURESCRIPT_HOME $CODEDIR/clojurescript
 set -gx PATH $CLOJURESCRIPT_HOME/bin $PATH
 

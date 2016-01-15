@@ -8,6 +8,11 @@ set fish_runtime $HOME/.config/fish
 # Default PATH
 set -gx PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /opt/X11/bin
 
+# hardcoded paths to directories on my Macbook
+# TODO: come up with some way to have different paths on different hosts
+set -gx CODEDIR $HOME/Code
+set -gx MUSICDIR $HOME/Music/Dave\'s\ Music\ Library
+
 # git shortcuts (ga = git add, etc.)
 source $fish_runtime/custom/git.fish
 

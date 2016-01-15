@@ -1,3 +1,5 @@
+# this path is OSX specific.
+# TODO: come up with some way to have different paths on different hosts
 set -gx ANDROID_HOME $HOME/Library/Android/sdk
 
 # wrappers for android dev programs
