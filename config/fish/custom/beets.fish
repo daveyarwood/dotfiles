@@ -1,0 +1,3 @@
+# hardcoding in my current music library path for now...
+# TODO: come up with some way to have different paths on different hosts
+set -gx BEETSDIR $HOME/Music/Dave\'s\ Music\ Library

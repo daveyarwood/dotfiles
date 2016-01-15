@@ -1,9 +1,9 @@
 - clean: ['~']
 
 - link:
+    $BEETSDIR/config.yaml: config/beets/config.yaml
     ~/.amethyst: amethyst
     ~/.bc.cfg: bc.cfg
-    ~/.config/beets/config.yaml: config/beets/config.yaml
     ~/.config/boot/profile.boot: config/boot/profile.boot
     ~/.config/car/config.edn: config/car/config.edn
     ~/.config/fish/config.fish: config/fish/config.fish
