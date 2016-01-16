@@ -34,6 +34,7 @@ function light-table
 	open -a /Applications/LightTable/LightTable.app $argv;
 end
 
+# alias lt = light-table
 function lt
 	light-table $argv;
 end
