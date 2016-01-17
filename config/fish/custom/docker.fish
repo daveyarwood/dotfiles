@@ -18,3 +18,11 @@ if [ (docker-machine status default) = 'Running' ]
   eval (docker-machine env default)
 end
 
+function docker-clean
+  # make sure that exited containers are deleted
+  docker rm -v (docker ps -a -q -f status=exited)
+  # remove dangling images
+  docker rmi (docker images -f "dangling=true" -q)
+  # remove untagged images
+  docker rmi (docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3) -f
+end
