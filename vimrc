@@ -61,6 +61,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim'
 Plugin 'matze/vim-lilypond'
 Plugin 'tmux-plugins/vim-tmux'
+Plugin 'wlangstroth/vim-racket'
 
 " misc
 Plugin 'chrisbra/unicode.vim'
