@@ -31,7 +31,6 @@ source $fish_runtime/custom/android.fish
 source $fish_runtime/custom/vim.fish
 source $fish_runtime/custom/go.fish
 source $fish_runtime/custom/beets.fish
-source $fish_runtime/custom/ocaml.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
