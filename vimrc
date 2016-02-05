@@ -10,11 +10,12 @@ Plugin 'gmarik/Vundle.vim'
 " aesthetic
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'amix/vim-zenroom2'
-Plugin 'bling/vim-airline'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'junegunn/goyo.vim'
 Plugin 'ntpeters/vim-airline-colornum'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " editor enhancements
 Plugin 'airblade/vim-gitgutter'
@@ -37,8 +38,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
 Plugin 'vim-scripts/gitignore'
-" Plugin 'vim-scripts/ingo-library'
-" Plugin 'vim-scripts/SyntaxRange'
 
 " clojure things
 Plugin 'guns/vim-clojure-static'
@@ -60,6 +59,7 @@ Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim'
 Plugin 'matze/vim-lilypond'
+Plugin 'stephencelis/vim-mml'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'wlangstroth/vim-racket'
 
