@@ -15,6 +15,7 @@
     ~/.inputrc: inputrc
     ~/.lein/profiles.clj: lein/profiles.clj
     ~/.nvimrc: nvimrc
+    ~/.spacemacs: spacemacs
     ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
     ~/.vim_runtime/my_configs.vim: vim_runtime/my_configs.vim
