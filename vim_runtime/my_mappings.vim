@@ -27,9 +27,9 @@ nnoremap <Space>j kJ
 nnoremap <Bslash>a f)i
 
 " shortcuts for switching tabs, etc.
-nnoremap <leader>h :bp<CR>
+" nnoremap <leader>h :bp<CR>
 nnoremap H :bp<CR>
-nnoremap <leader>l :bn<CR>
+" nnoremap <leader>l :bn<CR>
 nnoremap L :bn<CR>
 nnoremap <leader>, :b#<CR>
 nnoremap <leader>d :bp <BAR> bd #<CR>
