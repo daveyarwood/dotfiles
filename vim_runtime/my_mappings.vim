@@ -35,9 +35,13 @@ nnoremap <leader>, :b#<CR>
 nnoremap <leader>d :bp <BAR> bd #<CR>
 nnoremap Q :bp <BAR> bd #<CR>
 nnoremap <leader>dd :bp <BAR> bd! #<CR>
+
+" closes all buffers except for the current one
+" (doesn't close any buffers with unsaved changes)
+nnoremap <leader>c :BufOnly<CR>
 " creates an empty buffer and closes everything else
 " (doesn't close any buffers with unsaved changes)
-nnoremap <leader>c :enew<CR>:BufOnly<CR>
+nnoremap <leader>C :enew<CR>:BufOnly<CR>
 
 " insert 80 semicolons (useful as a make-shift <hr> in Clojure files)
 nnoremap <leader>; 80i;<Esc>
