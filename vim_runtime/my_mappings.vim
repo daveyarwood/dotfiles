@@ -58,6 +58,15 @@ nnoremap <CR> G
 " Backspace -> go to first line
 nnoremap <BS> gg
 
+" Remap Enter back to normal behavior when in location list, where it will jump
+" to the location on the current line.
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+" Press q to close quickfix or location buffer.
+autocmd BufReadPost quickfix nnoremap <buffer> q :q!<CR>
+
+" open location list
+nnoremap <leader>l :lopen<CR>
+
 " magically format/minify json in the current buffer
 nnoremap <leader>j :%!jq '.'<CR>
 nnoremap <leader>J :%!json-minify<CR>
