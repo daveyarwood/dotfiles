@@ -49,6 +49,11 @@ function shrug
 	printf '¯\_(ツ)_/¯' | pbcopy; echo 'shrug copied to clipboard ¯\_(ツ)_/¯' $argv;
 end
 
+# this one's pretty awesome too
+function shrug2
+	printf 'ㄟ( ･ө･ )ㄏ' | pbcopy; echo 'shrug copied to clipboard ㄟ( ･ө･ )ㄏ' $argv;
+end
+
 # strip ANSI color codes
 function stripcolor
 	gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" $argv;
