@@ -15,6 +15,7 @@
     ~/.inputrc: inputrc
     ~/.lein/profiles.clj: lein/profiles.clj
     ~/.nvimrc: nvimrc
+    ~/.parallel/will-cite: parallel/will-cite
     ~/.spacemacs: spacemacs
     ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
