@@ -34,3 +34,5 @@ set directory=~/.vim-tmp
 source ~/.vim_runtime/my_mappings.vim
 source ~/.vim_runtime/my_iabbrevs.vim
 
+" italic comments! https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
+highlight Comment cterm=italic
