@@ -10,6 +10,7 @@ set foldcolumn=0
 set expandtab
 set tabstop=2
 set shiftwidth=2
+set cmdheight=1
 set showcmd
 set updatetime=250
 syntax on
