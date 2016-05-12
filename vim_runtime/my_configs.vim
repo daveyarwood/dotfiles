@@ -36,3 +36,5 @@ source ~/.vim_runtime/my_iabbrevs.vim
 
 " italic comments! https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
 highlight Comment cterm=italic
+set showtabline=0 " turn off tabline
+

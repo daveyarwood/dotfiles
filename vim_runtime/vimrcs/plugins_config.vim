@@ -9,12 +9,13 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme = 'luna'                         " airline colorscheme
 let g:airline_powerline_fonts = 1                    " Fancy symbols
-let g:airline#extensions#tabline#enabled = 1         " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t'     " Show just the filename
-let g:airline#extensions#tabline#tab_nr_type = 1     " Show buffer #, not # of splits
-let g:airline#extensions#tabline#show_tab_nr = 1     " Show buffer # in tabline
-let g:airline#extensions#tabline#show_tab_type = 1   " Show the tab type
-let g:airline#extensions#tabline#buffer_idx_mode = 1 " Show buffer index
+" let g:airline#extensions#tabline#enabled = 1         " Enable the list of buffers
+" let g:airline#extensions#tabline#fnamemod = ':t'     " Show just the filename
+" let g:airline#extensions#tabline#tab_nr_type = 1     " Show buffer #, not # of splits
+" let g:airline#extensions#tabline#show_tab_nr = 1     " Show buffer # in tabline
+" let g:airline#extensions#tabline#show_tab_type = 1   " Show the tab type
+" let g:airline#extensions#tabline#buffer_idx_mode = 1 " Show buffer index
+let g:airline#extensions#hunks#enabled = 0 " don't show +N ~N -N for changed hunks
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
