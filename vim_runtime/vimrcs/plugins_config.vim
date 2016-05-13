@@ -16,6 +16,7 @@ let g:airline_powerline_fonts = 1                    " Fancy symbols
 " let g:airline#extensions#tabline#show_tab_type = 1   " Show the tab type
 " let g:airline#extensions#tabline#buffer_idx_mode = 1 " Show buffer index
 let g:airline#extensions#hunks#enabled = 0 " don't show +N ~N -N for changed hunks
+let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%3v'])
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
