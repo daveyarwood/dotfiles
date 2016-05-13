@@ -5,7 +5,7 @@
 	default = simple
 [core]
 	autocrlf = input
-	editor = vim
+	editor = nvim
 [credential]
 	helper = osxkeychain
 [rerere]
