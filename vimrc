@@ -50,6 +50,7 @@ Plugin 'vim-scripts/vim-niji'
 
 " language/filetype support
 Plugin 'andreimaxim/vim-io'
+Plugin 'cespare/vim-toml'
 Plugin 'cohama/lexima.vim'
 Plugin 'dag/vim-fish'
 Plugin 'daveyarwood/vim-alda'
