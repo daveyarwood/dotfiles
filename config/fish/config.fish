@@ -47,9 +47,6 @@ end
 # erase the default fish_mode_prompt; I have one built into my theme
 function fish_mode_prompt; end
 
-# turn on vi mode on shell start
-fish_vi_mode
-
 # vi mode remaps Ctrl-F to go forward a word;
 # I'd rather keep the default behavior of accepting autocomplete suggestions
 #
