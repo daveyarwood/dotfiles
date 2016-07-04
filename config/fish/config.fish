@@ -32,6 +32,7 @@ source $fish_runtime/custom/vim.fish
 source $fish_runtime/custom/go.fish
 source $fish_runtime/custom/beets.fish
 source $fish_runtime/custom/php.fish
+source $fish_runtime/custom/pony.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
