@@ -63,6 +63,24 @@ install_oh_my_fish() {
   curl -L http://get.oh-my.fish | fish
 }
 
+install_neovim() {
+  if [[ $platform == osx ]]; then
+    brew install neovim/neovim/neovim
+  elif [[ $os == ubuntu ]];  then
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository ppa:neovim-ppa/unstable
+    sudo apt-get update
+    sudo apt-get install neovim
+    sudo apt-get install python-dev python-pip python3-dev python3-pip
+    sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+    sudo update-alternatives --config vi
+    sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+    sudo update-alternatives --config vim
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+    sudo update-alternatives --config editor
+  fi
+}
+
 if [[ $platform == osx ]]; then
   install_homebrew
 fi
@@ -75,3 +93,4 @@ install_git
 install_dotfiles
 install_fish_shell
 install_oh_my_fish
+install_neovim
