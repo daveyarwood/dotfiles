@@ -34,6 +34,7 @@ source $fish_runtime/custom/beets.fish
 source $fish_runtime/custom/php.fish
 source $fish_runtime/custom/pony.fish
 source $fish_runtime/custom/carp.fish
+source $fish_runtime/custom/erlang.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
