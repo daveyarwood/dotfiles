@@ -1,3 +1,5 @@
+set -gx GPG_TTY (tty)
+
 # decrypt encrypted .fish files and source them
 function gpg-source
   gpg -d $argv | source
