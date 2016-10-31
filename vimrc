@@ -70,6 +70,7 @@ Plugin 'matze/vim-lilypond'
 Plugin 'rust-lang/rust.vim'
 Plugin 'stephencelis/vim-mml'
 Plugin 'tmux-plugins/vim-tmux'
+Plugin 'tfnico/vim-gradle'
 Plugin 'udalov/kotlin-vim'
 Plugin 'wlangstroth/vim-racket'
 
