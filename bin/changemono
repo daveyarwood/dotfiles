@@ -1,0 +1,11 @@
+#! /bin/bash
+
+cd $MONO_PATH
+PS3='pick your mono version: '
+options=($(ls | egrep -v '^Current'))
+select opt in "${options[@]}"
+do
+  rm Current
+  ln -s $opt Current
+  break;
+done

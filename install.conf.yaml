@@ -8,6 +8,7 @@
     $BEETSDIR/config.yaml: config/beets/config.yaml
     ~/.amethyst: amethyst
     ~/.bc.cfg: bc.cfg
+    ~/.bin: bin
     ~/.config/boot/profile.boot: config/boot/profile.boot
     ~/.config/car/config.edn: config/car/config.edn
     ~/.config/fish/config.fish: config/fish/config.fish
