@@ -38,6 +38,7 @@ source $fish_runtime/custom/erlang.fish
 source $fish_runtime/custom/sdk.fish
 source $fish_runtime/custom/ocaml.fish
 source $fish_runtime/custom/mono.fish
+source $fish_runtime/custom/rust.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
