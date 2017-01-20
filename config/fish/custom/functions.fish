@@ -59,6 +59,11 @@ function stripcolor
 	gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" $argv;
 end
 
+# strip trailing whitespace from file
+function stripwhitespace
+  gsed -i 's/[[:space:]]\+$//' $argv;
+end
+
 # copy N random GitHub-style emoji codes (e.g. :panda_face:) to clipboard
 function randomoji
   set emoji (eval $CODEDIR/randomoji/randomoji $argv[1])
