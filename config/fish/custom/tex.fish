@@ -1,2 +1,2 @@
-set -gx PATH /usr/texbin $PATH
+set -gx PATH /Library/TeX/texbin $PATH
 
