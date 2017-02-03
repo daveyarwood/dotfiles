@@ -44,15 +44,18 @@ function pt
 	papertrail $argv;
 end
 
-# most useful emoji ever
-function shrug
-	printf '¯\_(ツ)_/¯' | pbcopy; echo 'shrug copied to clipboard ¯\_(ツ)_/¯' $argv;
+# shrug emojis are vitally important to my workflow
+function copy_shrug
+  set shrug $argv[1]
+	printf "$shrug" | pbcopy
+  echo "shrug copied to clipboard $shrug"
 end
 
-# this one's pretty awesome too
-function shrug2
-	printf 'ㄟ( ･ө･ )ㄏ' | pbcopy; echo 'shrug copied to clipboard ㄟ( ･ө･ )ㄏ' $argv;
-end
+function shrug; copy_shrug '¯\_(ツ)_/¯'; end
+function shrug2; copy_shrug 'ㄟ( ･ө･ )ㄏ'; end
+function shrug3; copy_shrug "┐('～`;)┌"; end
+function shrug4; copy_shrug '┐(￣ヘ￣;)┌'; end
+function shrug5; copy_shrug '╮(￣ω￣;)╭ '; end
 
 # strip ANSI color codes
 function stripcolor
