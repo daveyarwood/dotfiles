@@ -6,6 +6,7 @@
 [core]
 	autocrlf = input
 	editor = nvim
+  excludesfile = ~/.gitignore_global
 [credential]
 	helper = osxkeychain
 [rerere]
