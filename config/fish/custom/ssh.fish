@@ -26,3 +26,6 @@ end
 if not __ssh_agent_is_started
     __ssh_agent_start
 end
+
+# apparently this has to be run once per session now
+ssh-add -A > /dev/null ^&1
