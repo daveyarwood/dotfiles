@@ -40,3 +40,19 @@ source ~/.vim_runtime/my_iabbrevs.vim
 highlight Comment cterm=italic
 set showtabline=0 " turn off tabline
 
+" Go to the last edited file if I run `vim` without arguments.
+autocmd VimEnter * nested if
+  \ argc() == 0 &&
+  \ bufname("%") == "" &&
+  \ bufname("2" + 0) != "" |
+  \   exe "normal! `0" |
+  \ endif
+
+" From vimrc_example.vim distributed with Vim 7.
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
