@@ -62,6 +62,7 @@ let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let']
 let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
 let g:clojure_special_indent_words = 'deftype,defrecord,reify<Plug>PeepOpenroxy,extend-type,extend-protocol,letfn'
 let g:clojure_align_multiline_strings = 1
+let g:clojure_maxlines = 0
 
 
 """"""""""""""""""""""""""""""
