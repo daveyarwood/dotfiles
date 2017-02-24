@@ -36,6 +36,26 @@ install_git() {
   fi
 }
 
+install_fish_shell() {
+  echo Installing fish shell...
+
+  if [[ $platform == osx ]]; then
+    brew install fish
+  elif [[ $os == ubuntu ]]; then
+    sudo apt-add-repository ppa:fish-shell/release-2
+    sudo apt-get update
+    sudo apt-get install fish
+  fi
+
+  echo Making fish the default shell...
+  chsh -s /usr/local/bin/fish
+}
+
+install_oh_my_fish() {
+  echo Installing oh-my-fish...
+  curl -L http://get.oh-my.fish | fish
+}
+
 install_dotfiles() {
   # my dotfiles rely on $CODEDIR and $MUSICDIR being set already, which may not
   # be the case, so we need to set them here if they aren't set
@@ -55,26 +75,6 @@ install_dotfiles() {
 install_vundle() {
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   vim +PluginInstall +qall
-}
-
-install_fish_shell() {
-  echo Installing fish shell...
-
-  if [[ $platform == osx ]]; then
-    brew install fish
-  elif [[ $os == ubuntu ]]; then
-    sudo apt-add-repository ppa:fish-shell/release-2
-    sudo apt-get update
-    sudo apt-get install fish
-  fi
-
-  echo Making fish the default shell...
-  chsh -s /usr/local/bin/fish
-}
-
-install_oh_my_fish() {
-  echo Installing oh-my-fish...
-  curl -L http://get.oh-my.fish | fish
 }
 
 install_neovim() {
@@ -104,8 +104,8 @@ if [[ $os == ubuntu ]]; then
 fi
 
 install_git
-install_dotfiles
-install_vundle
 install_fish_shell
 install_oh_my_fish
+install_dotfiles
+install_vundle
 install_neovim
