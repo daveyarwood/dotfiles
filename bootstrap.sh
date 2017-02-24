@@ -37,10 +37,14 @@ install_git() {
 }
 
 install_dotfiles() {
-  cd $HOME
-  git clone https://github.com/daveyarwood/dotfiles.git .dotfiles
+  git clone https://github.com/daveyarwood/dotfiles.git "$HOME/.dotfiles"
   cd .dotfiles
   ./install
+}
+
+install_vundle() {
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  vim +PluginInstall +qall
 }
 
 install_fish_shell() {
@@ -91,6 +95,7 @@ fi
 
 install_git
 install_dotfiles
+install_vundle
 install_fish_shell
 install_oh_my_fish
 install_neovim
