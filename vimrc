@@ -50,6 +50,7 @@ Plugin 'vim-scripts/paredit.vim'
 Plugin 'vim-scripts/vim-niji'
 
 " language/filetype support
+Plugin 'adimit/prolog.vim'
 Plugin 'andreimaxim/vim-io'
 Plugin 'cespare/vim-toml'
 Plugin 'chochos/ceylon-vim'
