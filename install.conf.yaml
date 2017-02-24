@@ -13,7 +13,7 @@
     ~/.config/car/config.edn: config/car/config.edn
     ~/.config/fish/config.fish: config/fish/config.fish
     ~/.config/fish/custom: config/fish/custom/
-    ~/.config/i3/config: config/i3/config
+    ~/.i3/config: config/i3/config
     ~/.config/omf: config/omf/
     ~/.config/nvim: config/nvim/
     ~/.ctags: ctags

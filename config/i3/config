@@ -26,10 +26,10 @@ font pango:monospace 8
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
-set $up l
-set $down k
-set $left j
-set $right semicolon
+set $up k
+set $down j
+set $left h
+set $right l
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier Mod1
@@ -38,7 +38,7 @@ floating_modifier Mod1
 bindsym Mod1+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym Mod1+Shift+q kill
+bindsym Mod1+x kill
 
 # start dmenu (a program launcher)
 bindsym Mod1+d exec dmenu_run
@@ -72,7 +72,7 @@ bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+h split h
+bindsym Mod1+w split h
 
 # split in vertical orientation
 bindsym Mod1+v split v
@@ -82,7 +82,7 @@ bindsym Mod1+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
+bindsym Mod1+t layout tabbed
 bindsym Mod1+e layout toggle split
 
 # toggle tiling / floating
