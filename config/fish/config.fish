@@ -21,7 +21,7 @@ source $fish_runtime/custom/rbenv.fish
 source $fish_runtime/custom/jenv.fish
 source $fish_runtime/custom/heroku.fish
 source $fish_runtime/custom/postgres.fish
-source $fish_runtime/custom/docker.fish
+# source $fish_runtime/custom/docker.fish
 source $fish_runtime/custom/clojure.fish
 source $fish_runtime/custom/clojurescript.fish
 source $fish_runtime/custom/haskell.fish
