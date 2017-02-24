@@ -10,8 +10,8 @@ set -gx PATH $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /
 
 # hardcoded paths to directories on my Macbook
 # TODO: come up with some way to have different paths on different hosts
-set -gx CODEDIR $HOME/Code
-set -gx MUSICDIR $HOME/Music/Dave\'s\ Music\ Library
+set -q $CODEDIR; or set -gx CODEDIR $HOME/Code
+set -q $MUSICDIR; or set -gx MUSICDIR $HOME/Music/Dave\'s\ Music\ Library
 
 # git shortcuts (ga = git add, etc.)
 source $fish_runtime/custom/git.fish
