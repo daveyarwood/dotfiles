@@ -29,3 +29,11 @@ end
 
 # apparently this has to be run once per session now
 ssh-add -A > /dev/null ^&1
+
+# if gnome-keyring-daemon exists, start it and use the result to set
+# SSH_AUTH_SOCK
+which gnome-keyring-daemon >/dev/null
+if test $status -eq 0
+  eval (gnome-keyring-daemon --start | sed 's/SSH_AUTH_SOCK=/set SSH_AUTH_SOCK /')
+end
+
