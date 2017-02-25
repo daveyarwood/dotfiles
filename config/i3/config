@@ -37,6 +37,9 @@ floating_modifier Mod1
 # start a terminal
 bindsym Mod1+Return exec i3-sensible-terminal
 
+# start a web browser
+bindsym Mod1+b exec sensible-browser
+
 # kill focused window
 bindsym Mod1+x kill
 
