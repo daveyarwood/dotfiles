@@ -1,3 +1,5 @@
+generate_gitconfig
+
 balias git hub
 balias g git
 balias gs 'git status'

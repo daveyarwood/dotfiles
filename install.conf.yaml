@@ -17,7 +17,6 @@
     ~/.config/omf: config/omf/
     ~/.config/nvim: config/nvim/
     ~/.ctags: ctags
-    ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
     ~/.hushlogin: hushlogin
     ~/.inputrc: inputrc
