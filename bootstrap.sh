@@ -15,10 +15,10 @@ else
   exit 1
 fi
 
-update_and_upgrade_apt_get_packages() {
-  echo Updating/upgrading apt-get packages...
-  sudo apt-get update
-  sudo apt-get upgrade
+update_and_upgrade_apt_packages() {
+  echo Updating/upgrading apt packages...
+  sudo apt update
+  sudo apt upgrade
 }
 
 install_homebrew() {
@@ -32,13 +32,13 @@ install_git() {
     # running git for the first time will install xcode cli tools if needed
     git
   elif [[ $os == ubuntu ]]; then
-    sudo apt-get install git-all
+    sudo apt install git-all
   fi
 }
 
 install_curl() {
   if [[ $platform == ubuntu ]]; then
-    sudo apt-get install curl
+    sudo apt install curl
   fi
 }
 
@@ -49,8 +49,8 @@ install_fish_shell() {
     brew install fish
   elif [[ $os == ubuntu ]]; then
     sudo apt-add-repository ppa:fish-shell/release-2
-    sudo apt-get update
-    sudo apt-get install fish
+    sudo apt update
+    sudo apt install fish
   fi
 
   echo Making fish the default shell...
@@ -82,11 +82,11 @@ install_neovim() {
   if [[ $platform == osx ]]; then
     brew install neovim/neovim/neovim
   elif [[ $os == ubuntu ]];  then
-    sudo apt-get install software-properties-common
+    sudo apt install software-properties-common
     sudo add-apt-repository ppa:neovim-ppa/unstable
-    sudo apt-get update
-    sudo apt-get install neovim
-    sudo apt-get install python-dev python-pip python3-dev python3-pip
+    sudo apt update
+    sudo apt install neovim
+    sudo apt install python-dev python-pip python3-dev python3-pip
     sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
     sudo update-alternatives --config vi
     sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -106,7 +106,7 @@ if [[ $platform == osx ]]; then
 fi
 
 if [[ $os == ubuntu ]]; then
-  update_and_upgrade_apt_get_packages
+  update_and_upgrade_apt_packages
 fi
 
 install_git
