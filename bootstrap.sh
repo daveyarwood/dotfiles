@@ -62,6 +62,14 @@ install_oh_my_fish() {
   curl -L http://get.oh-my.fish | fish
 }
 
+install_rbenv() {
+  if [[ $platform == osx ]]; then
+    brew install rbenv
+  elif [[ $os == ubuntu ]]; then
+    sudo apt install rbenv
+  fi
+}
+
 install_dotfiles() {
   # my dotfiles rely on $CODEDIR and $MUSICDIR being set already, which may not
   # be the case, so we need to set them here if they aren't set
@@ -113,6 +121,7 @@ install_git
 install_curl
 install_fish_shell
 install_oh_my_fish
+install_rbenv
 install_dotfiles
 install_neovim
 install_vundle
