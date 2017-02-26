@@ -6,7 +6,14 @@ source $OMF_PATH/init.fish
 set fish_runtime $HOME/.config/fish
 
 # Default PATH
-set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /opt/X11/bin
+set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
+
+# add these folders to PATH if they exist
+for dir in /opt/X11/bin
+  if test -d $dir
+    set -gx PATH $dir $PATH
+  end
+end
 
 # hardcoded paths to directories on my Macbook
 # TODO: come up with some way to have different paths on different hosts
