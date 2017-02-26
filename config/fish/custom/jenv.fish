@@ -1,6 +1,7 @@
-set -gx PATH $HOME/.jenv/shims $HOME/.jenv/bin $PATH
-
+set -gx PATH $HOME/.jenv/bin $PATH
 command jenv rehash 2>/dev/null
+set -gx PATH $HOME/.jenv/shims $PATH
+
 function jenv
   set cmd $argv[1]
   set arg ""

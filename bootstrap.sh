@@ -62,6 +62,14 @@ install_oh_my_fish() {
   curl -L http://get.oh-my.fish | fish
 }
 
+install_jenv() {
+  if [[ $platform == osx ]]; then
+    brew install jenv
+  elif [[ $os == ubuntu ]]; then
+    git clone https://github.com/gcuisinier/jenv.git ~/.jenv
+  fi
+}
+
 install_rbenv() {
   if [[ $platform == osx ]]; then
     brew install rbenv
@@ -132,6 +140,7 @@ install_git
 install_curl
 install_fish_shell
 install_oh_my_fish
+install_jenv
 install_rbenv
 install_hub
 install_dotfiles
