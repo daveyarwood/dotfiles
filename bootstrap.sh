@@ -36,6 +36,12 @@ install_git() {
   fi
 }
 
+install_curl() {
+  if [[ $platform == ubuntu ]]; then
+    sudo apt-get install curl
+  fi
+}
+
 install_fish_shell() {
   echo Installing fish shell...
 
@@ -104,6 +110,7 @@ if [[ $os == ubuntu ]]; then
 fi
 
 install_git
+install_curl
 install_fish_shell
 install_oh_my_fish
 install_dotfiles
