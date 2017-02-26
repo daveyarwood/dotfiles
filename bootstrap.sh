@@ -72,11 +72,6 @@ install_dotfiles() {
   ./install
 }
 
-install_vundle() {
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  vim +PluginInstall +qall
-}
-
 install_neovim() {
   if [[ $platform == osx ]]; then
     brew install neovim/neovim/neovim
@@ -95,6 +90,11 @@ install_neovim() {
   fi
 }
 
+install_vundle() {
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  vim +PluginInstall +qall
+}
+
 if [[ $platform == osx ]]; then
   install_homebrew
 fi
@@ -107,5 +107,5 @@ install_git
 install_fish_shell
 install_oh_my_fish
 install_dotfiles
-install_vundle
 install_neovim
+install_vundle
