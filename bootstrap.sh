@@ -37,7 +37,7 @@ install_git() {
 }
 
 install_curl() {
-  if [[ $platform == ubuntu ]]; then
+  if [[ $os == ubuntu ]]; then
     sudo apt install curl
   fi
 }
