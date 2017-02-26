@@ -70,6 +70,17 @@ install_rbenv() {
   fi
 }
 
+install_hub() {
+  if [[ $platform == osx ]]; then
+    brew install hub
+  elif [[ $os == ubuntu ]]; then
+    sudo apt install golang
+    cd /tmp
+    git clone https://github.com/github/hub.git && cd hub
+    script/build -o $HOME/bin/hub
+  fi
+}
+
 install_dotfiles() {
   # my dotfiles rely on $CODEDIR and $MUSICDIR being set already, which may not
   # be the case, so we need to set them here if they aren't set
@@ -122,6 +133,7 @@ install_curl
 install_fish_shell
 install_oh_my_fish
 install_rbenv
+install_hub
 install_dotfiles
 install_neovim
 install_vundle
