@@ -1,3 +1,6 @@
-# NOTE: OS X specific
-# TODO: come up with some way to have different paths on different hosts
-set -gx PATH $PATH /Applications/LilyPond.app/Contents/Resources/bin
+set -l lilypond_dir /Applications/LilyPond.app/Contents/Resources/bin
+
+if test -d $lilypond_dir
+  set -gx PATH $lilypond_dir $PATH
+end
+

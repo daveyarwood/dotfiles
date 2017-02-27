@@ -1,4 +1,6 @@
-# NOTE: OS X specific
-# TODO: come up with some way to have different paths on different hosts
-set -gx PATH $PATH /Applications/Postgres.app/Contents/Versions/9.3/bin
+set -l pg_dir /Applications/Postgres.app/Contents/Versions/9.3/bin
+
+if test -d $pg_dir
+  set -gx PATH $pg_dir $PATH
+end
 
