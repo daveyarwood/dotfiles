@@ -172,4 +172,5 @@ bar {
 }
 
 # misc startup things
+exec sh ~/.fehbg
 exec eval `gnome-keyring-daemon --start`
