@@ -104,6 +104,9 @@ if executable("ag")
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
 
+" VirtualBox doesn't send Ctrl-Space to my Linux VM for some reason;
+nnoremap <space><space> :CtrlSpace<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fireplace
