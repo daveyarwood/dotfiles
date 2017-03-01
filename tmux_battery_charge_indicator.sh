@@ -3,10 +3,11 @@
 HEART='♥'
 
 if [[ `uname` == 'Linux' ]]; then
-  current_charge=$(cat /proc/acpi/battery/BAT1/state | grep 'remaining capacity' | awk '{print $3}')
-  charging="0" # I don't feel like figuring out how to do this on Linux right now
-  fully_charged="0" # see above
-  total_charge=$(cat /proc/acpi/battery/BAT1/info | grep 'last full capacity' | awk '{print $4}')
+  battery_info=$(upower -i $(upower -e | grep BAT))
+  current_charge=$(echo $battery_info | grep -o 'percentage: \+[0-9]\+' | awk '{print $2}')
+  charging=$(echo $battery_info | grep -c 'state: \+charging')
+  fully_charged=$(echo $battery_info | grep -c 'state: \+fully-charged')
+  total_charge=$(echo $battery_info | grep -o 'capacity: \+[0-9]\+' | awk '{print $2}')
 else
   battery_info=`ioreg -rc AppleSmartBattery`
   current_charge=$(echo $battery_info | grep -o '"CurrentCapacity" = [0-9]\+' | awk '{print $3}')
