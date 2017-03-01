@@ -24,9 +24,9 @@
     ~/.nvimrc: nvimrc
     ~/.parallel/will-cite: parallel/will-cite
     ~/.spacemacs: spacemacs
-    ~/.tmux.conf: tmux.conf
-    ~/.tmux-osx.conf: tmux-osx.conf
-    ~/.tmux-linux.conf: tmux-linux.conf
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux-osx.conf: tmux/tmux-osx.conf
+    ~/.tmux-linux.conf: tmux/tmux-linux.conf
     ~/.vimrc: vimrc
     ~/.vim_runtime/my_configs.vim: vim_runtime/my_configs.vim
     ~/.vim_runtime/my_iabbrevs.vim: vim_runtime/my_iabbrevs.vim
