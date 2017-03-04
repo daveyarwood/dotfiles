@@ -47,11 +47,13 @@ bindsym Mod1+b exec sensible-browser
 bindsym Mod1+x kill
 
 # start dmenu (a program launcher)
-bindsym Mod1+d exec dmenu_run
+# bindsym Mod1+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+
+bindsym Mod1+d exec rofi -show run
 
 # change focus
 bindsym Mod1+$left focus left
