@@ -1,6 +1,6 @@
 function sdk --description 'Software Development Kit Manager'
-  set after_env (mktemp -t env)
-  set path_env (mktemp -t env)
+  set after_env (mktemp -t env.XXX)
+  set path_env (mktemp -t env.XXX)
 
     bash -c "source ~/.sdkman/bin/sdkman-init.sh && sdk $argv && printenv > $after_env"
 
