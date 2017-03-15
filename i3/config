@@ -53,7 +53,7 @@ bindsym Mod1+x kill
 # installed.
 # bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym Mod1+d exec rofi -show run
+bindsym Mod1+space exec rofi -show run
 
 # change focus
 bindsym Mod1+$left focus left
@@ -97,7 +97,7 @@ bindsym Mod1+e layout toggle split
 bindsym Mod1+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod1+space focus mode_toggle
+# bindsym Mod1+space focus mode_toggle
 
 # focus the parent container
 bindsym Mod1+a focus parent
