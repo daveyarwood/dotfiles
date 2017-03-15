@@ -114,10 +114,20 @@ augroup clojure_and_hoplon
   autocmd BufNewFile,BufRead  *.html.hl        set filetype=html
 augroup END
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Prolog section
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup prolog
   autocmd!
   au BufNewFile,BufRead *.plt set syntax=prolog
+augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spark MVC section
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup spark_mvc
+  autocmd!
+  autocmd BufNewFile,BufRead *.spark set filetype=html
 augroup END
