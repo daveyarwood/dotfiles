@@ -9,7 +9,7 @@ set fish_runtime $HOME/.config/fish
 set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
 
 # add these folders to PATH if they exist
-for dir in /opt/X11/bin
+for dir in /opt/X11/bin $HOME/.local/bin
   if test -d $dir
     set -gx PATH $dir $PATH
   end
