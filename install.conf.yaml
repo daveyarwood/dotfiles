@@ -19,6 +19,7 @@
     ~/.gitignore_global: gitignore_global
     ~/.hushlogin: hushlogin
     ~/.i3/config: i3/config
+    ~/.i3/i3status.conf: i3/i3status.conf
     ~/.inputrc: inputrc
     ~/.lein/profiles.clj: lein/profiles.clj
     ~/.nvimrc: vim/nvimrc
