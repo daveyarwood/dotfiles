@@ -20,6 +20,19 @@ function export
   set -gx $arr[1] $arr[2]
 end
 
+# make pbcopy and pbpaste available when not using OS X, via xsel
+if not which pbcopy >/dev/null; and which xsel >/dev/null
+  function pbcopy
+    cat 1>| xsel --clipboard --input
+  end
+end
+
+if not which pbpaste >/dev/null; and which xsel >/dev/null
+  function pbpaste
+    xsel --clipboard --output
+  end
+end
+
 # (OS X) show/hide hidden files in Finder
 function hidefiles
 	defaults write com.apple.finder AppleShowAllFiles -bool false; and killall Finder;
