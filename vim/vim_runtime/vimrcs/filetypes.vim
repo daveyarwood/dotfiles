@@ -125,8 +125,13 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spark MVC section
+" => C# / Spark MVC section
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup csharp
+  autocmd!
+  autocmd Filetype cs setlocal shiftwidth=4
+augroup END
+
 augroup spark_mvc
   autocmd!
   autocmd BufNewFile,BufRead *.spark set filetype=html
