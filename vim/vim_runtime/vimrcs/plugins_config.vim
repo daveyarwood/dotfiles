@@ -5,6 +5,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => acid.nvim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:acid_auto_require=1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme = 'luna'                         " airline colorscheme
@@ -109,6 +115,21 @@ nnoremap <space><space> :CtrlSpace<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => deoplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:deoplete#enable_at_startup = 1
+
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+
+" Use TAB and SHIFT-TAB to cycle through completions
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+
+" Close the popup window when I accept a completion
+autocmd CompleteDone * pclose!
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fireplace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>r :Require!<CR>
@@ -172,6 +193,13 @@ nnoremap <silent> <leader>z :Goyo<cr>
 " => paredit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:paredit_leader = '\'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => rainbow
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rainbow_active = 1
+let g:rainbow_conf = {'separately': {'html': 0}} " disable for html
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

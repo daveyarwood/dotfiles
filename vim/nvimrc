@@ -9,3 +9,7 @@ nnoremap <leader>F :terminal fish<CR>
 
 " terminal mode -> normal mode
 tnoremap <Esc> <C-\><C-n>
+
+" required for python/python3 remote plugins
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'

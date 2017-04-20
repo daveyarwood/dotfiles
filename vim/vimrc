@@ -7,6 +7,9 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
+" neovim-specific
+Plugin 'neovim/node-host'
+
 " aesthetic
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'amix/vim-zenroom2'
@@ -22,13 +25,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'dyng/ctrlsf.vim'
-Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'schickling/vim-bufonly'
 Plugin 'scrooloose/syntastic'
+Plugin 'Shougo/deoplete.nvim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'szw/vim-ctrlspace'
@@ -42,15 +45,20 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'vim-scripts/gitignore'
 
 " clojure things
+Plugin 'clojure-vim/async-clj-omni'
 Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
+Plugin 'guns/vim-sexp'
+Plugin 'luochen1990/rainbow'
+Plugin 'snoe/clj-refactor.nvim'
+Plugin 'tpope/vim-classpath'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-salve'
-Plugin 'vim-scripts/paredit.vim'
-Plugin 'vim-scripts/vim-niji'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 
-" language/filetype support
+" other languages/filetypes
 Plugin 'adimit/prolog.vim'
 Plugin 'andreimaxim/vim-io'
 Plugin 'cespare/vim-toml'

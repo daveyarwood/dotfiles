@@ -10,19 +10,11 @@
          '[cpmcdaniel.boot-with-pom :refer :all]
          '[boot.new                 :refer (new)])
 
-; (swap! boot.repl/*default-dependencies*
-;       concat '[[lein-light-nrepl "0.1.0"]
-;                [org.clojure/clojurescript "0.0-2511"]])
-
-; (swap! boot.repl/*default-middleware*
-;       conj 'lighttable.nrepl.handler/lighttable-ops)
-
 (swap! boot.repl/*default-dependencies*
-       concat '[[cider/cider-nrepl "0.9.1"]])
+       concat '[[refactor-nrepl "2.3.0-SNAPSHOT"]
+                [cider/cider-nrepl "0.14.0"]])
 
 (swap! boot.repl/*default-middleware*
-       conj 'cider.nrepl/cider-middleware)
-
-; (swap! boot.repl/*default-middleware*
-;       conj 'cemerick.piggieback/wrap-cljs-repl)
+       concat '[refactor-nrepl.middleware/wrap-refactor
+                cider.nrepl/cider-middleware])
 
