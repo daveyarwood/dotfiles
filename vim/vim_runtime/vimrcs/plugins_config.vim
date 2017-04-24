@@ -11,53 +11,11 @@ let g:acid_auto_require=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => airline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme = 'luna'                         " airline colorscheme
-let g:airline_powerline_fonts = 1                    " Fancy symbols
-" let g:airline#extensions#tabline#enabled = 1         " Enable the list of buffers
-" let g:airline#extensions#tabline#fnamemod = ':t'     " Show just the filename
-" let g:airline#extensions#tabline#tab_nr_type = 1     " Show buffer #, not # of splits
-" let g:airline#extensions#tabline#show_tab_nr = 1     " Show buffer # in tabline
-" let g:airline#extensions#tabline#show_tab_type = 1   " Show the tab type
-" let g:airline#extensions#tabline#buffer_idx_mode = 1 " Show buffer index
-let g:airline#extensions#hunks#enabled = 0 " don't show +N ~N -N for changed hunks
-let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%3v'])
-
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => better-whitespace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
 
 nnoremap <leader><Space> :StripWhitespace<CR>
-
-
-""""""""""""""""""""""""""""""
-" => bufExplorer
-""""""""""""""""""""""""""""""
-" let g:bufExplorerDefaultHelp=0
-" let g:bufExplorerShowRelativePath=1
-" let g:bufExplorerFindActive=1
-" let g:bufExplorerSortBy='name'
-" map <leader>o :BufExplorer<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => calendar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -170,26 +128,6 @@ nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => lexima
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" call lexima#add_rule({'char': '/* ', 'input_after': ' */', 'filetype': 'c'})
-" call lexima#add_rule({'char': '<BS>', 'at': '/\*\%# ', 'input': '<BS><BS>', 'delete': 3, 'filetype': 'c'})
-" call lexima#add_rule({'char': '<CR>', 'at': '/\*.*\%#.*\*/', 'input': '<CR><CR><BS><BS><Esc>kA<Space>', 'filetype': 'c'})
-" " Disable lexima.vim in clojure buffers
-" autocmd FileType clojure let b:lexima_disabled = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Nerd Tree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:NERDTreeWinPos = "right"
-" let NERDTreeIgnore = ['\.pyc$']
-" let g:NERDTreeWinSize=35
-" map <leader>nn :NERDTreeToggle<cr>
-" map <leader>nb :NERDTreeFromBookmark
-" map <leader>nf :NERDTreeFind<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => paredit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:paredit_leader = '\'
@@ -236,8 +174,9 @@ let g:syntastic_python_checkers=['pyflakes']
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => syntastic
+" => tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>T :TagbarToggle<CR>
 
