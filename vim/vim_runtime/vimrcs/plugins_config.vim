@@ -38,7 +38,7 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => auto-pairs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:AutoPairsFlyMode = 1
+au Filetype clojure let g:AutoPairsFlyMode = 1
 
 " don't pair single quotes or backticks when editing clojure code
 au Filetype clojure let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
