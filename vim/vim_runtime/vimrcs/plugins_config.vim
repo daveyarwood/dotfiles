@@ -224,7 +224,7 @@ nnoremap ga :UnicodeName<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType cs setlocal commentstring=//\ %s
+autocmd FileType cs,kotlin setlocal commentstring=//\ %s
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
