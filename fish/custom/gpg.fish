@@ -7,10 +7,6 @@ end
 
 # adzerk credentials, useful functions, etc.
 function adzerk-env
-  # source base environment file
-  gpg-source $HOME/.adzerk.fish.asc
-
-  # depending on arg, source either prod or qa env file
   if count $argv > /dev/null
     if [ $argv[1] = prod ]
       set -gx ADZERK_ENV prod
@@ -21,8 +17,7 @@ function adzerk-env
     set -gx ADZERK_ENV qa
   end
 
-  set -l env_file "$HOME/.adzerk-$ADZERK_ENV.fish.asc"
-  gpg-source "$env_file"
+  gpg-source $HOME/.adzerk.fish.asc
 end
 
 # other sensitive things i need in my environment
