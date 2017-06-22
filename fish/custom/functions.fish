@@ -72,12 +72,12 @@ function shrug5; copy_shrug '╮(￣ω￣;)╭ '; end
 
 # strip ANSI color codes
 function stripcolor
-	gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" $argv;
+	sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" $argv;
 end
 
 # strip trailing whitespace from file
 function stripwhitespace
-  gsed -i 's/[[:space:]]\+$//' $argv;
+  sed -i 's/[[:space:]]\+$//' $argv;
 end
 
 # copy N random GitHub-style emoji codes (e.g. :panda_face:) to clipboard
