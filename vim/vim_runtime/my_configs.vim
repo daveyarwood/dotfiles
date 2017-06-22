@@ -14,7 +14,6 @@ set textwidth=80
 set cmdheight=1
 set showcmd
 set updatetime=250
-set cscopetag "search both cscopes db and the tags file
 syntax on
 filetype plugin indent on
 
