@@ -9,6 +9,7 @@ function ga; git add $argv; git status; end
 balias gl "git log --graph --pretty=format:\"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]\" --decorate --all --date=short"
 balias gd 'git diff'
 balias gp 'git push'
+balias gpf 'git push --force-with-lease'
 balias gpr 'git pull-request'
 
 function gaa
