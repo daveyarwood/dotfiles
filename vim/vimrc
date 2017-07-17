@@ -79,6 +79,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'keith/swift.vim'
 Plugin 'lambdatoast/elm.vim'
 Plugin 'lfe/vim-lfe'
+Plugin 'l04m33/vlime', {'rtp': 'vim/'}
 Plugin 'mattn/emmet-vim'
 Plugin 'matze/vim-lilypond'
 Plugin 'OrangeT/vim-csharp'

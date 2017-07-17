@@ -62,9 +62,9 @@ vnoremap <Space>P "*P
 
 " Enter -> go to last line
 " (bonus: 12<Enter> -> go to line 12)
-nnoremap <CR> G
+" nnoremap <CR> G
 " Backspace -> go to first line
-nnoremap <BS> gg
+" nnoremap <BS> gg
 
 " Remap Enter back to normal behavior when in location list, where it will jump
 " to the location on the current line.
