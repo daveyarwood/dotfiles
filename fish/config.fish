@@ -26,7 +26,6 @@ source $fish_runtime/custom/git.fish
 # misc configs (adding dirs to $PATH, etc.)
 source $fish_runtime/custom/rbenv.fish
 source $fish_runtime/custom/jenv.fish
-source $fish_runtime/custom/heroku.fish
 source $fish_runtime/custom/postgres.fish
 # source $fish_runtime/custom/docker.fish
 source $fish_runtime/custom/clojure.fish
