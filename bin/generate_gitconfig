@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ "$(uname)" == Darwin ]]; then
+  CREDENTIAL_HELPER="osxkeychain"
+elif [[ -n "$(which gnome-keyring-daemon)" ]]; then
+  CREDENTIAL_HELPER="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
+fi
+
 cat <<EOF > $HOME/.gitconfig
 # This gitconfig was generated via ~/.bin/generate_gitconfig.
 # Edit that file, not this one!
@@ -7,8 +13,14 @@ cat <<EOF > $HOME/.gitconfig
 [user]
 	name = Dave Yarwood
 	email = dave.yarwood@gmail.com
+[credential]
+  helper = $CREDENTIAL_HELPER
 [push]
 	default = simple
+[pull]
+  rebase = true
+[rerere]
+	enabled = true
 [core]
 	autocrlf = input
 	editor = nvim
@@ -21,24 +33,6 @@ EOF
 if [[ "$(hostname)" == astrocat ]]; then
   cat <<EOF >> $HOME/.gitconfig
   filemode = false
-EOF
-fi
-
-cat <<EOF >> $HOME/.gitconfig
-[rerere]
-	enabled = true
-EOF
-
-if [[ "$(uname)" == Darwin ]]; then
-  CREDENTIAL_HELPER="osxkeychain"
-elif [[ -n "$(which gnome-keyring-daemon)" ]]; then
-  CREDENTIAL_HELPER="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
-fi
-
-if [[ -n "$CREDENTIAL_HELPER" ]]; then
-  cat <<EOF >> $HOME/.gitconfig
-[credential]
-  helper = $CREDENTIAL_HELPER
 EOF
 fi
 
