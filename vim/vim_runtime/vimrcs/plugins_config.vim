@@ -40,8 +40,8 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au Filetype clojure let g:AutoPairsFlyMode = 1
 
-" don't pair single quotes or backticks when editing clojure code
-au Filetype clojure let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+" don't pair single quotes or backticks when editing lisp code
+au Filetype lisp,clojure let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -269,6 +269,25 @@ nnoremap <leader>V :VimuxCloseRunner<CR>
 " => vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki', 'path_html': '~/Dropbox/vimwiki/html'}]
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vlime
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" A handful of vlime mappings conflict with vim-sexp mappings.
+" vlime courteously does not overwrite them, so I can redefine the conflicting
+" mappings to different keys here.
+augroup LocalVlimeKeys
+  autocmd!
+  " mnemonic: Send File
+  autocmd FileType lisp nnoremap <silent> <buffer> <LocalLeader>sf
+        \ :call vlime#plugin#LoadFile(expand("%:p"))<cr>
+  " mnemonic: Vlime Interactive mode
+  autocmd FileType lisp nnoremap <silent> <buffer> <LocalLeader>vi
+        \ :call vlime#plugin#LoadFile(expand("%:p"))<cr>
+augroup end
 
 
 """"""""""""""""""""""""""""""
