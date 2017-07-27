@@ -278,7 +278,7 @@ nnoremap <leader>vc :call VimuxSendKeys("C-l")<CR>
 nnoremap <leader>vC :VimuxCloseRunner<CR>
 
 " An operator for sending text to Vimux.
-function! VimuxOperator(type)
+function! VimuxOperator(type, ...)
   let previous = @n
 
   " yank target/selected text into "n
@@ -293,6 +293,10 @@ function! VimuxOperator(type)
   " restore whatever was in "n before
   let @n = previous
 
+  if exists('a:1')
+    let input = substitute(input, '\n', ' ', 'g')
+  endif
+
   " if input already ends with a newline, don't send an extra newline
   if input =~# '\n$'
     call VimuxRunCommand(input, 0)
@@ -305,19 +309,23 @@ endfunction
 nnoremap <buffer> <leader>vs :set operatorfunc=VimuxOperator<cr>g@
 nmap <buffer> <leader>vss V<leader>vs
 vnoremap <buffer> <leader>vs :<c-u>call VimuxOperator(visualmode())<cr>
+vnoremap <buffer> <leader>vS :<c-u>call VimuxOperator(visualmode(), 0)<cr>
 
-function! VimuxSendBuffer()
+function! VimuxSendBuffer(...)
   let pos = winsaveview()
-  execute "normal! ggvG$:\<c-u>call VimuxOperator(visualmode())\<cr>"
+  let arg = exists('a:1') ? ", 0" : ""
+  execute "normal! ggvG$:\<c-u>call VimuxOperator(visualmode()".arg.")\<cr>"
   call winrestview(pos)
 endfunction
 
 command! VimuxSendBuffer
   \ call VimuxSendBuffer()
 
-nnoremap <buffer> <leader>vS
+nnoremap <buffer> <leader>vf
   \ :call VimuxSendBuffer()<CR>
 
+nnoremap <buffer> <leader>vF
+  \ :call VimuxSendBuffer(0)<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
