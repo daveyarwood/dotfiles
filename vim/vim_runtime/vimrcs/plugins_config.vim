@@ -258,12 +258,66 @@ set grepprg=/bin/grep\ -nH
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimux
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Prompt for a command to be run in a 20% lower tmux split, witohut losing
+" Prompt for a command to be run in a 20% lower tmux split, without losing
 " focus on vim :)
-nnoremap <leader>v :VimuxPromptCommand<CR>
+nnoremap <leader>vp :VimuxPromptCommand<CR>
 
-" Close vimux runner window
-nnoremap <leader>V :VimuxCloseRunner<CR>
+" Re-run the last command.
+nnoremap <leader>vv :VimuxRunLastCommand<CR>
+
+" Interrupt whatever process is running in the runner pane.
+nnoremap <leader>vi :VimuxInterruptRunner<CR>
+
+" Zoom the runner pane.
+nnoremap <leader>vz :VimuxZoomRunner<CR>
+
+" Clear the runner pane. (i.e. Ctrl-L)
+nnoremap <leader>vc :call VimuxSendKeys("C-l")<CR>
+
+" Close vimux runner pane.
+nnoremap <leader>vC :VimuxCloseRunner<CR>
+
+" An operator for sending text to Vimux.
+function! VimuxOperator(type)
+  let previous = @n
+
+  " yank target/selected text into "n
+  if a:type ==# 'char' || a:type ==# 'line'
+    silent! normal `[v`]"ny
+  else "visual
+    silent! normal gv"ny
+  endif
+
+  let input = @n
+
+  " restore whatever was in "n before
+  let @n = previous
+
+  " if input already ends with a newline, don't send an extra newline
+  if input =~# '\n$'
+    call VimuxRunCommand(input, 0)
+  else
+    call VimuxRunCommand(input)
+  endif
+
+endfunction
+
+nnoremap <buffer> <leader>vs :set operatorfunc=VimuxOperator<cr>g@
+nmap <buffer> <leader>vss V<leader>vs
+vnoremap <buffer> <leader>vs :<c-u>call VimuxOperator(visualmode())<cr>
+
+function! VimuxSendBuffer()
+  let pos = winsaveview()
+  execute "normal! ggvG$:\<c-u>call VimuxOperator(visualmode())\<cr>"
+  call winrestview(pos)
+endfunction
+
+command! VimuxSendBuffer
+  \ call VimuxSendBuffer()
+
+nnoremap <buffer> <leader>vS
+  \ :call VimuxSendBuffer()<CR>
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
