@@ -349,7 +349,7 @@ augroup LocalVlimeKeys
         \ :call vlime#plugin#LoadFile(expand("%:p"))<cr>
   " mnemonic: Vlime Interactive mode
   autocmd FileType lisp nnoremap <silent> <buffer> <LocalLeader>vi
-        \ :call vlime#plugin#LoadFile(expand("%:p"))<cr>
+        \ :call vlime#plugin#InteractionMode()<cr>
 augroup end
 
 
