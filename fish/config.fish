@@ -47,6 +47,7 @@ source $fish_runtime/custom/mono.fish
 source $fish_runtime/custom/rust.fish
 source $fish_runtime/custom/ssh.fish
 source $fish_runtime/custom/ruby.fish
+source $fish_runtime/custom/adzerk.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
