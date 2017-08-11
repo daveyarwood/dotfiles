@@ -19,6 +19,10 @@ function adzerk-ops-mode
   end
 end
 
+function adzerk-vpn
+	sudo openvpn --config /usr/local/etc/openvpn/dave.conf $argv;
+end
+
 # Start a new mono-docker container.
 balias monovm $ADZERK_REPO_PATH/docker/run.sh
 
