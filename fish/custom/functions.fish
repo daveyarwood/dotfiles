@@ -86,3 +86,11 @@ function randomoji
   printf $emoji | pbcopy
   echo "$emoji copied to clipboard"
 end
+
+# for some reason, gnu-parallel is significantly slower when $SHELL is not bash.
+# Temporarily setting SHELL to bash makes it a lot faster.
+# source: https://github.com/fish-shell/fish-shell/issues/1084#issuecomment-27746587
+function parallel
+  set -lx SHELL bash
+  command parallel $argv
+end
