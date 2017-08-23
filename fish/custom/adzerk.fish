@@ -1,6 +1,9 @@
-function zerkenv
-  bass . $CODEDIR/zerkenv/zerkenv.sh $argv
-end
+balias zerkenv "bass . $CODEDIR/zerkenv/zerkenv.sh"
+balias zd "zerkenv -d"
+balias zl "zerkenv -l"
+balias zs "zerkenv -s"
+balias zsy "zerkenv -y -s"
+balias zu "zerkenv -u"
 
 set -gx DOCKER_USER_MODE no
 set -gx ZERKENV_BUCKET zerkenv
