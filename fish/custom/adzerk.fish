@@ -4,6 +4,7 @@ balias zl "zerkenv -l"
 balias zs "zerkenv -s"
 balias zsy "zerkenv -y -s"
 balias zu "zerkenv -u"
+balias zys "zerkenv -y -s"
 
 set -gx DOCKER_USER_MODE no
 set -gx ZERKENV_BUCKET zerkenv
