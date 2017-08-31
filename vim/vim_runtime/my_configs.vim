@@ -14,8 +14,6 @@ set textwidth=80
 set cmdheight=1
 set showcmd
 set updatetime=250
-syntax on
-filetype plugin indent on
 
 augroup i_dont_like_folding
   autocmd!
