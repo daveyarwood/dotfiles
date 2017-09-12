@@ -90,6 +90,7 @@ Plug 'tfnico/vim-gradle'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'udalov/kotlin-vim'
 Plug 'wlangstroth/vim-racket'
+Plug 'zah/nim.vim'
 
 " misc
 Plug 'chrisbra/unicode.vim'

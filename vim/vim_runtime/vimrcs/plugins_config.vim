@@ -169,6 +169,22 @@ nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => nim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+fun! JumpToDef()
+  if exists("*GotoDefinition_" . &filetype)
+    call GotoDefinition_{&filetype}()
+  else
+    exe "norm! \<C-]>"
+  endif
+endfun
+
+" Jump to tag
+nn <M-g> :call JumpToDef()<cr>
+ino <M-g> <esc>:call JumpToDef()<cr>i
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => paredit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:paredit_leader = '\'
@@ -179,12 +195,6 @@ let g:paredit_leader = '\'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active = 1
 let g:rainbow_conf = {'separately': {'html': 0}} " disable for html
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => salve
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:salve_auto_start_repl = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
