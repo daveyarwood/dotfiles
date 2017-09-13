@@ -1,37 +1,23 @@
 set -gx EDITOR nvim
 
 # use neovim by default
-function vim
-	nvim $argv;
-end
-
+balias vim nvim
 # oldvim starts literal vim
-function oldvim
-	/usr/local/bin/vim $argv;
-end
+balias oldvim /usr/local/bin/vim
 
 # edit vimrc
-function vimrc
-	vim $HOME/.vimrc $argv;
-end
+balias vimrc "vim $HOME/.vimrc"
 
 # bring up a scratch buffer
-function vims
-	vim /tmp/scratch $argv;
-end
+balias vims "vim /tmp/scratch"
 
-function vimwiki
-	vim $HOME/Dropbox/vimwiki/index.wiki $argv;
-end
-
-function vw
-	vimwiki $argv;
-end
+balias vimwiki "vim $HOME/Dropbox/vimwiki/index.wiki"
+balias vw vimwiki
 
 # alias vc = vimcat (cats what a file looks like in vim)
-function vc
-	vimcat $argv;
-end
+balias vc vimcat
+
+balias vf "vim (fzf)"
 
 # update Vundle plugins
 function updatevim
