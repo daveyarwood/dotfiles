@@ -13,6 +13,7 @@ balias gpf 'git push --force-with-lease'
 balias gpr 'git pull-request'
 balias gpt 'git push --tags'
 balias gpuo 'git push -u origin'
+balias gpud 'git push -u daveyarwood'
 
 function gaa
 	git add --all $argv; git status;
