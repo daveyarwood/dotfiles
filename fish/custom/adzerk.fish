@@ -1,6 +1,7 @@
 balias zerkenv "bass . $CODEDIR/zerkenv/zerkenv.sh"
 balias zd "zerkenv -d"
 balias zl "zerkenv -l"
+balias zm 'eval \'echo $ZERKENV_MODULES\''
 balias zs "zerkenv -s"
 balias zsy "zerkenv -y -s"
 balias zu "zerkenv -u"
