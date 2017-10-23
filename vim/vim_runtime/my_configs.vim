@@ -25,11 +25,7 @@ set noerrorbells visualbell t_vb=
 set cursorline        " highlights line numbers (vim-airline-colornum)
 " hi clear CursorLine " don't highlight the whole line though
 
-" keeps vim swap files from interfering w/ boot-clj
-set backup
-set swapfile
-set backupdir=~/.vim-tmp
-set directory=~/.vim-tmp
+set noswapfile
 
 source ~/.vim_runtime/my_mappings.vim
 source ~/.vim_runtime/my_iabbrevs.vim
