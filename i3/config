@@ -185,3 +185,7 @@ exec eval `gnome-keyring-daemon --start`
 exec sh ~/.fehbg # set wallpaper
 exec xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec xset s off # disable screen blanking
+
+# Toggle touchpad on/off. (default: off)
+exec synclient TouchpadOff=1
+bindsym $mod+Shift+t exec sh ~/.bin/toggle_touchpad
