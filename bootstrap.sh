@@ -129,16 +129,35 @@ install_vim-plug() {
   vim +PlugInstall +qall
 }
 
+install_ack() {
+  if [[ $platform == osx ]]; then
+    brew install ack
+  elif [[ $os == ubuntu ]]; then
+    sudo apt install ack-grep
+  fi
+}
+
+install_ag() {
+  if [[ $platform == osx ]]; then
+    brew install the_silver_searcher
+  elif [[ $os == ubuntu ]]; then
+    sudo apt install silversearcher-ag
+  fi
+}
+
 if [[ $platform == osx ]]; then
   install_homebrew
 fi
 
 if [[ $os == ubuntu ]]; then
   update_and_upgrade_apt_packages
+  sudo apt install xsel
 fi
 
 install_git
 install_curl
+install_ack
+install_ag
 install_fish_shell
 install_oh_my_fish
 install_jenv
