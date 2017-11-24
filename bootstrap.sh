@@ -54,7 +54,7 @@ install_fish_shell() {
   fi
 
   echo Making fish the default shell...
-  chsh -s /usr/local/bin/fish
+  chsh -s $(which fish)
 }
 
 install_oh_my_fish() {
