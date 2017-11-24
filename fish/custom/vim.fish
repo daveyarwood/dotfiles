@@ -1,9 +1,17 @@
 set -gx EDITOR nvim
 
-# use neovim by default
-balias vim nvim
+# Use Neovim by default.
+# NB: The --wraps part is a workaround for an issue with fish where it doesn't
+# do tab completion on filenames when using an alias.
+# See: https://github.com/fish-shell/fish-shell/issues/2277
+function vim --wraps nvim
+  nvim $argv
+end
+
 # oldvim starts literal vim
-balias oldvim /usr/local/bin/vim
+function oldvim --wraps vim
+  /usr/bin/vim $argv
+end
 
 # edit vimrc
 balias vimrc "vim $HOME/.vimrc"
@@ -18,10 +26,4 @@ balias vw vimwiki
 balias vc vimcat
 
 balias vf "vim (fzf)"
-
-# update Vundle plugins
-function updatevim
-  set -lx SHELL (which sh)
-  vim +BundleInstall! +BundleClean +qall
-end
 
