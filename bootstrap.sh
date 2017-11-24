@@ -137,6 +137,14 @@ install_ack() {
   fi
 }
 
+install_tmux() {
+  if [[ $platform == osx ]]; then
+    brew install tmux
+  elif [[ $os == ubuntu ]]; then
+    sudo apt install tmux
+  fi
+}
+
 install_ag() {
   if [[ $platform == osx ]]; then
     brew install the_silver_searcher
@@ -158,6 +166,7 @@ install_git
 install_curl
 install_ack
 install_ag
+install_tmux
 install_fish_shell
 install_oh_my_fish
 install_jenv
