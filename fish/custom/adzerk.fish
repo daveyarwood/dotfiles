@@ -35,8 +35,21 @@ function adzerk-vpn
 end
 
 # Start a new mono-docker container.
-balias monovm $ADZERK_REPO_PATH/docker/run.sh
+function monovm
+  if test (hostname) = moondog
+    sudo $ADZERK_REPO_PATH/docker/run.sh $argv
+  else
+    $ADZERK_REPO_PATH/docker/run.sh $argv
+  end
+end
 
 # Run a command (or start a shell) in a running mono-docker container.
-balias in-monovm $ADZERK_REPO_PATH/docker/attach.sh
+function in-monovm
+  if test (hostname) = moondog
+    sudo $ADZERK_REPO_PATH/docker/attach.sh $argv
+  else
+    $ADZERK_REPO_PATH/docker/attach.sh $argv
+  end
+end
+
 
