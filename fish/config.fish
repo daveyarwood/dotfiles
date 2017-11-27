@@ -15,9 +15,9 @@ for dir in /opt/X11/bin $HOME/.local/bin
   end
 end
 
-# hardcoded paths to directories on my Macbook
+# hardcoded paths to directories on my Thinkpad
 # TODO: come up with some way to have different paths on different hosts
-set -q $CODEDIR; or set -gx CODEDIR $HOME/Code
+set -q $CODEDIR; or set -gx CODEDIR $HOME/code
 set -q $MUSICDIR; or set -gx MUSICDIR $HOME/Music/Dave\'s\ Music\ Library
 
 # git shortcuts (ga = git add, etc.)
