@@ -25,7 +25,13 @@ function adzerk-ops-mode
 end
 
 function adzerk-vpn
-	sudo openvpn --config /usr/local/etc/openvpn/dave.conf $argv;
+  set openvpn_dir /usr/local/etc/openvpn
+
+  if test (hostname) = moondog
+    set openvpn_dir /etc/openvpn
+  end
+
+	sudo openvpn --config $openvpn_dir/dave.conf $argv;
 end
 
 # Start a new mono-docker container.
