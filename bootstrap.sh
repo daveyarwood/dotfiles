@@ -159,7 +159,7 @@ fi
 
 if [[ $os == ubuntu ]]; then
   update_and_upgrade_apt_packages
-  sudo apt install xsel
+  sudo apt install xsel xclip
 fi
 
 install_git
