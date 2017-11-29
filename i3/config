@@ -186,8 +186,12 @@ exec --no-startup-id nm-applet
 exec sh ~/.fehbg # set wallpaper
 exec xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec xset s off # disable screen blanking
-exec xmodmap -e "clear lock" # Disable CapsLock...
-exec xmodmap -e "keysym Caps_Lock = Escape" # ...and remap it to Escape.
+
+# Toggle keyboard layout between Dvorak and QWERTY. (default: Dvorak)
+# NB: This script also disables CapsLock and remaps it to Escape, since this is
+# something that needs to be done whenever you change the keyboard layout.
+exec sh ~/.bin/toggle_keyboard_layout dvorak
+bindsym $mod+Print exec sh ~/.bin/toggle_keyboard_layout
 
 # Toggle touchpad on/off. (default: off)
 exec synclient TouchpadOff=1

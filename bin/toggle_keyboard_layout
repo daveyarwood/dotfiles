@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set_layout() {
+  if [ "$1" = "dvorak" ]; then
+    setxkbmap -layout "us" -variant "dvorak"
+    notify-send "Keyboard layout: dvorak"
+  elif [ "$1" = "qwerty" ]; then
+    setxkbmap -layout "us"
+    notify-send "Keyboard layout: qwerty"
+  else
+    notify-send -u critical "Invalid keyboard layout: $1"
+  fi
+
+  # Re-map CapsLock to Escape.
+  # This needs to be re-done every time the keyboard layout changes.
+  xmodmap -e "clear lock"
+  xmodmap -e "keysym Caps_Lock = Escape"
+}
+
+toggle_layout() {
+  if setxkbmap -print | grep dvorak > /dev/null; then
+    set_layout qwerty
+  else
+    set_layout dvorak
+  fi
+}
+
+if [ "$1" = "dvorak" ]; then
+  set_layout dvorak
+elif [ "$1" = "qwerty" ]; then
+  set_layout qwerty
+else
+  toggle_layout
+fi
