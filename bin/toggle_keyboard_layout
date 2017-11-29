@@ -1,11 +1,14 @@
 #!/bin/bash
 
+layout='-layout "us"'
+options="-option compose:ralt"
+
 set_layout() {
   if [ "$1" = "dvorak" ]; then
-    setxkbmap -layout "us" -variant "dvorak"
+    setxkbmap $layout -variant "dvorak" $options
     notify-send "Keyboard layout: dvorak"
   elif [ "$1" = "qwerty" ]; then
-    setxkbmap -layout "us"
+    setxkbmap $layout $options
     notify-send "Keyboard layout: qwerty"
   else
     notify-send -u critical "Invalid keyboard layout: $1"
