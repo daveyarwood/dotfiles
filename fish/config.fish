@@ -50,6 +50,7 @@ source $fish_runtime/custom/ruby.fish
 source $fish_runtime/custom/adzerk.fish
 source $fish_runtime/custom/fzf.fish
 source $fish_runtime/custom/sql.fish
+source $fish_runtime/custom/dart.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
