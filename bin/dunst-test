@@ -1,0 +1,5 @@
+#!/bin/bash
+
+notify-send -u low 'test message: LOW'
+notify-send -u normal 'test message: NORMAL'
+notify-send -u critical 'test message: CRITICAL'

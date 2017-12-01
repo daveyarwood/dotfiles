@@ -16,6 +16,7 @@
     ~/.config/omf: fish/omf/
     ~/.config/nvim: vim/nvim/
     ~/.ctags: ctags
+    ~/.dunstrc: dunstrc
     ~/.gitignore_global: gitignore_global
     ~/.hushlogin: hushlogin
     ~/.i3/config: i3/config

@@ -141,7 +141,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -182,6 +182,7 @@ bar {
 
 # misc startup things
 exec eval `gnome-keyring-daemon --start`
+exec --no-startup-id dunst -config ~/.dunstrc
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id volnoti
