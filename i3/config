@@ -184,6 +184,7 @@ bar {
 exec eval `gnome-keyring-daemon --start`
 exec --no-startup-id dunst -config ~/.dunstrc
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id volnoti
 exec sh ~/.fehbg # set wallpaper
