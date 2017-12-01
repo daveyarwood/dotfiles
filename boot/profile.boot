@@ -11,8 +11,8 @@
          '[boot.new                 :refer (new)])
 
 (swap! boot.repl/*default-dependencies*
-       concat '[[refactor-nrepl "2.3.0-SNAPSHOT"]
-                [cider/cider-nrepl "0.14.0"]])
+       concat '[[refactor-nrepl "2.3.1"]
+                [cider/cider-nrepl "0.15.1"]])
 
 (swap! boot.repl/*default-middleware*
        concat '[refactor-nrepl.middleware/wrap-refactor
