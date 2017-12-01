@@ -183,6 +183,7 @@ bar {
 # misc startup things
 exec eval `gnome-keyring-daemon --start`
 exec --no-startup-id nm-applet
+exec --no-startup-id dropbox start
 exec sh ~/.fehbg # set wallpaper
 exec xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec xset s off # disable screen blanking
