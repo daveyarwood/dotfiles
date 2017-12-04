@@ -41,7 +41,7 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 au Filetype clojure let g:AutoPairsFlyMode = 1
 
 " don't pair single quotes or backticks when editing lisp code
-au Filetype lisp,clojure let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+au Filetype lisp,clojure,lfe let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
