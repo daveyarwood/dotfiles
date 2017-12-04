@@ -12,18 +12,28 @@ for repo in $repos; do
   repodir="$basedir/$repo"
   if [[ -d "$repodir" ]]; then
     cd "$repodir"
-    dirtiness="$(git status --porcelain > /dev/null 2>&1)"
-    dirtiness_exit="$?"
-    unpushed_changes="$(git cherry -v > /dev/null 2>&1)"
-    unpushed_changes_exit="$?"
-    if [[ "$dirtiness_exit" -ne 0 ]]; then
+    dirtiness=$(git status --porcelain > /dev/null 2>&1)
+    if [[ $? -ne 0 ]]; then
       echo "$repodir: not a git repo"
     elif [[ -n "$dirtiness" ]]; then
       echo "$repodir: uncommitted changes"
-    elif [ "$unpushed_changes_exit" -ne 0 ]; then
-      echo "$repodir: no remote branch for current branch"
-    elif [ -n "$unpushed_changes" ]; then
-      echo "$repodir: unpushed changes on current branch"
+    else
+      current_branch=$(git symbolic-ref --short -q HEAD)
+      if [[ -z "$current_branch" ]]; then
+        echo "$repodir: in detached head state"
+      else
+        for branch in $(git branch | tr -d " *"); do
+          git checkout "$branch" > /dev/null 2>&1
+          unpushed_changes="$(git cherry -v > /dev/null 2>&1)"
+          unpushed_changes_exit="$?"
+          if [ "$unpushed_changes_exit" -ne 0 ]; then
+            echo "$repodir: no remote branch for local branch: $branch"
+          elif [ -n "$unpushed_changes" ]; then
+            echo "$repodir: unpushed changes on local branch: $branch"
+          fi
+        done
+        git checkout "$current_branch" > /dev/null 2>&1
+      fi
     fi
     cd - > /dev/null
   else
