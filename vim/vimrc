@@ -106,6 +106,7 @@ Plug 'mileszs/ack.vim'
 Plug 'szw/vim-dict'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'vimwiki/vimwiki'
 
 call plug#end()
