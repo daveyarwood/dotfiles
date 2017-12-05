@@ -35,13 +35,9 @@ function adzerk-vpn
 end
 
 # Start a new mono-docker container.
-function monovm
-  $ADZERK_REPO_PATH/docker/run.sh $argv
-end
+balias monovm $ADZERK_REPO_PATH/docker/run.sh
 
 # Run a command (or start a shell) in a running mono-docker container.
-function in-monovm
-  $ADZERK_REPO_PATH/docker/attach.sh $argv
-end
+balias in-monovm $ADZERK_REPO_PATH/docker/attach.sh
 
 
