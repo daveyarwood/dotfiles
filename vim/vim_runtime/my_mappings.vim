@@ -77,10 +77,10 @@ nnoremap <leader>l :lopen<CR>
 
 " magically format/minify json in the current buffer
 nnoremap <leader>j :%!jq '.'<CR>
-nnoremap <leader>J :%!json-minify<CR>
+nnoremap <leader>J :%!jq -c '.'<CR>
 " or just the current visual selection
 vnoremap <leader>j :!jq '.'<CR>
-vnoremap <leader>J :!json-minify<CR>
+vnoremap <leader>J :!jq -c '.'<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Next and Last (from a gist by sjl)
