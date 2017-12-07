@@ -66,18 +66,17 @@ end
 # erase the default fish_mode_prompt; I have one built into my theme
 function fish_mode_prompt; end
 
-# vi mode remaps Ctrl-F to go forward a word;
-# I'd rather keep the default behavior of accepting autocomplete suggestions
+# vi mode remaps Ctrl-F to go forward a word, and also apparently remaps Ctrl-A
+# and Ctrl-E for some purpose.
 #
-# also Ctrl-A and Ctrl-E don't do anything anymore... let's get those back
-function fish_slightly_modified_vi_key_bindings
-  fish_vi_key_bindings
-  bind -M insert \cf end-of-line
-  bind -M insert \ca beginning-of-line
-  bind -M insert \ce end-of-line
+# Let's get those back.
+function fish_user_key_bindings
+  for mode in insert default visual
+    bind -M $mode \cf forward-char
+    bind -M $mode \ca beginning-of-line
+    bind -M $mode \ce end-of-line
+  end
 end
-
-set fish_key_bindings fish_slightly_modified_vi_key_bindings
 
 # for x in (seq 20)
 #     msg @random:random $big_fish
