@@ -215,3 +215,6 @@ bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# lock screen
+bindsym $mod+BackSpace exec i3lock -t -i ~/i3lock.png
