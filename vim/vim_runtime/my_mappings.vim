@@ -51,14 +51,26 @@ nnoremap <leader>C :enew<CR>:BufOnly<CR>
 nnoremap <leader>; 80i;<Esc>
 
 " copy & paste to system clipboard
-nnoremap <Space>y "*y
-vnoremap <Space>y "*y
-nnoremap <Space>d "*d
-vnoremap <Space>d "*d
-nnoremap <Space>p "*p
-vnoremap <Space>p "*p
-nnoremap <Space>P "*P
-vnoremap <Space>P "*P
+let g:os = substitute(system('uname'), '\n', '', '')
+if g:os == 'Linux'
+  nnoremap <Space>y "+y
+  vnoremap <Space>y "+y
+  nnoremap <Space>d "+d
+  vnoremap <Space>d "+d
+  nnoremap <Space>p "+p
+  vnoremap <Space>p "+p
+  nnoremap <Space>P "+P
+  vnoremap <Space>P "+P
+else
+  nnoremap <Space>y "*y
+  vnoremap <Space>y "*y
+  nnoremap <Space>d "*d
+  vnoremap <Space>d "*d
+  nnoremap <Space>p "*p
+  vnoremap <Space>p "*p
+  nnoremap <Space>P "*P
+  vnoremap <Space>P "*P
+endif
 
 " Enter -> go to last line
 " (bonus: 12<Enter> -> go to line 12)
