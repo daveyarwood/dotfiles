@@ -182,7 +182,7 @@ bar {
 
 # misc startup things
 exec eval `gnome-keyring-daemon --start`
-exec_always --no-startup-id "killall dunst && dunst -config ~/.dunstrc"
+exec_always --no-startup-id "killall dunst; dunst -config ~/.dunstrc"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
