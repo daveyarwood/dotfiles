@@ -50,6 +50,7 @@ Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-sexp'
 Plug 'luochen1990/rainbow'
+Plug 'SevereOverfl0w/vim-replant', { 'do': ':UpdateRemotePlugins' }
 Plug 'snoe/clj-refactor.nvim'
 Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-dispatch'
