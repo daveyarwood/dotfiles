@@ -121,6 +121,12 @@ inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 " Close the popup window when I accept a completion
 autocmd CompleteDone * pclose!
 
+" Enable integration with the OCAML tool Merlin
+if !exists('g:deoplete#omni_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fireplace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -224,6 +230,9 @@ let g:syntastic_python_checkers=['pyflakes']
 " fixes lag related to having both vim-go and syntastic installed
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+" enable syntastic integration with the OCAML tool Merlin
+let g:syntastic_ocaml_checkers = ['merlin']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -380,3 +389,8 @@ else
 endif
 
 
+"""""""""""""""""""""""""""""""
+" => Merlin (OCAML)
+"""""""""""""""""""""""""""""""
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
