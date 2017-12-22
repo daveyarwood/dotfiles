@@ -18,6 +18,9 @@ set_layout() {
   # This needs to be re-done every time the keyboard layout changes.
   xmodmap -e "clear lock"
   xmodmap -e "keysym Caps_Lock = Escape"
+
+  # Ensure that Caps Lock is TURNED OFF.
+  xset -q | grep "Caps Lock: *on" > /dev/null; and xdotool key Caps_Lock
 }
 
 toggle_layout() {
