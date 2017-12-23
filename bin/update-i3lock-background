@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+wallpaper_dir="$HOME/backgrounds/i3lock"
+mkdir -p "$wallpaper_dir"
+current_wallpaper_dir="$HOME"
+current_wallpaper_basename="i3lock.png"
+current_wallpaper="$current_wallpaper_dir/$current_wallpaper_basename"
+generator_dir="$HOME/code/code-wallpaper"
+history_size=25 # number of previous wallpapers to keep
+
+cd "$generator_dir"
+wallpaper=$(bundle exec generate-wallpaper.rb)
+echo "New wallpaper: $wallpaper"
+mv "$wallpaper" "$wallpaper_dir/"
+
+cd "$wallpaper_dir"
+cp "$wallpaper" "$current_wallpaper"
+wallpapers=$(ls | grep -v "$current_wallpaper_basename")
+wallpapers_count=$(echo -e "$wallpapers" | wc -l)
+if (( $wallpapers_count > $history_size )); then
+  oldest_file=$(echo -e "$wallpapers" | head -n1)
+  echo "History full; removing oldest file: $oldest_file"
+  rm "$oldest_file"
+fi
