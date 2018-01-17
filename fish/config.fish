@@ -8,12 +8,21 @@ set fish_runtime $HOME/.config/fish
 # Default PATH
 set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
 
-# add these folders to PATH if they exist
-for dir in /opt/X11/bin $HOME/.local/bin
+# Adds a directory to PATH, but only if the directory exists.
+function add-dir-to-path
+  set dir $argv[1]
   if test -d $dir
     set -gx PATH $dir $PATH
   end
 end
+
+function add-dirs-to-path
+  for dir in $argv
+    add-dir-to-path $dir
+  end
+end
+
+add-dirs-to-path /opt/X11/bin $HOME/.local/bin
 
 # hardcoded paths to directories on my Thinkpad
 # TODO: come up with some way to have different paths on different hosts
