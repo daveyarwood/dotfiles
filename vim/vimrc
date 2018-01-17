@@ -82,6 +82,7 @@ Plug 'junegunn/vader.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'keith/swift.vim'
 Plug 'lambdatoast/elm.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'lfe/vim-lfe'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
 Plug 'mattn/emmet-vim'
