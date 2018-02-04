@@ -164,8 +164,3 @@ endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <leader>a :ZoomToggle<CR>
 
-" Strip off the symbol's namespace
-function! SanitizeTag(word)
-  return (split(a:word, '/')[-1])
-  endfunction
-nnoremap <C-]> :exe ":tag ".SanitizeTag(expand("<cword>"))<cr>

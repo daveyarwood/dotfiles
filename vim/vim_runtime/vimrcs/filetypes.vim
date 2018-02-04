@@ -121,10 +121,22 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Clojure
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Strip off a symbol's namespace
+function! SanitizeTag(word)
+  return (split(a:word, '/')[-1])
+endfunction
+
 augroup clojure_and_hoplon
   autocmd!
   autocmd BufNewFile,BufRead  *.cljs.hl,*.boot set filetype=clojure
   autocmd BufNewFile,BufRead  *.html.hl        set filetype=html
+
+  " When editing a Clojure(Script) buffer, make C-] smarter about jumping to
+  " tags when the symbol is namespace-qualified.
+  autocmd FileType clojure
+        \ nnoremap <buffer> <C-]>
+        \ :exe ":tag ".SanitizeTag(expand("<cword>"))<cr>
 augroup END
 
 
