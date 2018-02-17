@@ -194,6 +194,39 @@ nnoremap <leader>B :Boot<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => neoterm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neoterm_shell = 'fish'
+let g:neoterm_autoscroll = 1
+let g:neoterm_keep_term_open = 0
+let g:neoterm_autoinsert = 1
+
+nmap gt <Plug>(neoterm-repl-send)
+xmap gt <Plug>(neoterm-repl-send)
+nmap gtt <Plug>(neoterm-repl-send-line)
+
+" nnoremap <silent> <f10> :TREPLSendFile<cr>
+" nnoremap <silent> <f9> :TREPLSendLine<cr>
+" vnoremap <silent> <f9> :TREPLSendSelection<cr>
+
+" open the default terminal (mnemonic: terminal prompt)
+nnoremap <silent> ,tp :Topen<CR>
+
+" prompt to use the default terminal or terminals 1-3
+" Usage: ,t<space>ls<CR>
+nnoremap ,t<space> :T<space>
+nnoremap ,t1 :T1<space>
+nnoremap ,t2 :T2<space>
+nnoremap ,t3 :T3<space>
+
+" hide/close terminal
+nnoremap <silent> ,tC :call neoterm#close()<cr>
+" clear terminal
+nnoremap <silent> ,tc :call neoterm#clear()<cr>
+" interrupts the current job (send a <c-c>)
+nnoremap <silent> ,ti :call neoterm#kill()<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => nim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 fun! JumpToDef()
