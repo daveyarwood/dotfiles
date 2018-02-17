@@ -344,10 +344,10 @@ function! VimuxOperator(type, ...)
 
 endfunction
 
-nnoremap <buffer> <leader>vs :set operatorfunc=VimuxOperator<cr>g@
-nmap <buffer> <leader>vss V<leader>vs
-vnoremap <buffer> <leader>vs :<c-u>call VimuxOperator(visualmode())<cr>
-vnoremap <buffer> <leader>vS :<c-u>call VimuxOperator(visualmode(), 0)<cr>
+nnoremap <leader>vs :set operatorfunc=VimuxOperator<cr>g@
+nmap <leader>vss V<leader>vs
+vnoremap <leader>vs :<c-u>call VimuxOperator(visualmode())<cr>
+vnoremap <leader>vS :<c-u>call VimuxOperator(visualmode(), 0)<cr>
 
 function! VimuxSendBuffer(...)
   let pos = winsaveview()
