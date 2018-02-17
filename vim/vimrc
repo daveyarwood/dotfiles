@@ -47,10 +47,12 @@ Plug 'vim-scripts/gitignore'
 
 " clojure things
 Plug 'clojure-vim/async-clj-omni'
+Plug 'clojure-vim/vim-jack-in'
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-sexp'
 Plug 'luochen1990/rainbow'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'SevereOverfl0w/vim-replant', { 'do': ':UpdateRemotePlugins' }
 Plug 'snoe/clj-refactor.nvim'
 Plug 'tpope/vim-classpath'
