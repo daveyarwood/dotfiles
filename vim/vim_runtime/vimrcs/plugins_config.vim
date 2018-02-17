@@ -340,6 +340,9 @@ set grepprg=/bin/grep\ -nH
 " focus on vim :)
 nnoremap <leader>vp :VimuxPromptCommand<CR>
 
+" Opens a shell in the split.
+nnoremap <leader>vo :call VimuxOpenRunner()<CR>
+
 " Re-run the last command.
 nnoremap <leader>vv :VimuxRunLastCommand<CR>
 
