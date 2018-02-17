@@ -133,6 +133,18 @@ let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
 nnoremap <leader>r :Require!<CR>
 nnoremap <leader>t :RunTests<CR>
 
+" vim-fireplace provides a formatexpr that relies on Cider connection. I don't
+" like this because sometimes I want to edit Clojure code without being
+" connected to Cider or a REPL, and I want to be able to type gq and have my
+" code by formatted to 80 columns. I don't really care about the cljfmt features
+" provided by vim-fireplace's formatexpr, so let's just turn that off and retain
+" the default gq behavior.
+"
+" Reference:
+" https://clojurians-log.clojureverse.org/vim-fireplace/2017-06-07.html
+" https://github.com/tpope/vim-fireplace/issues/298#issuecomment-306863402
+autocmd FileType clojure nnoremap <buffer> gq gw
+autocmd FileType clojure vnoremap <buffer> gq gw
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fzf
