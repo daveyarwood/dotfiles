@@ -14,9 +14,6 @@ command Q q
 nnoremap <leader>s :source ~/.vim_runtime/my_configs.vim<CR>
 nnoremap <leader>p :e! ~/.vimrc<CR>
 
-" gimme a fish shell! (exit / ^D to return to vim)
-" nnoremap <leader>t :!fish<CR>
-
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
 nnoremap <leader>O O<Esc>O
