@@ -304,7 +304,7 @@ nnoremap ga :UnicodeName<CR>
 " => vim-commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType cs,kotlin setlocal commentstring=//\ %s
-autocmd FileType lisp,clojure setlocal commentstring=;;\ %s
+autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
