@@ -280,12 +280,16 @@ let g:startify_enable_special = 0
 " => syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_python_checkers=['pyflakes']
+
 " fixes lag related to having both vim-go and syntastic installed
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " enable syntastic integration with the OCAML tool Merlin
 let g:syntastic_ocaml_checkers = ['merlin']
+
+" enable syntastic integration with swiftpm and swiftlint
+let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
