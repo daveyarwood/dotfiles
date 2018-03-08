@@ -145,6 +145,7 @@ nnoremap <leader>r :Require!<CR>
 " https://github.com/tpope/vim-fireplace/issues/298#issuecomment-306863402
 autocmd FileType clojure nnoremap <buffer> gq gw
 autocmd FileType clojure vnoremap <buffer> gq gw
+autocmd FileType clojure nnoremap <buffer> gqq gww
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fzf
