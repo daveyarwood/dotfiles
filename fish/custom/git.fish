@@ -10,7 +10,6 @@ balias gl "git log --graph --pretty=format:\"%C(yellow)%h %ad%Cred%d %Creset%s%C
 balias gd 'git diff'
 balias gp 'git push'
 balias gpf 'git push --force-with-lease'
-balias gpl 'git fetch --all --prune; and git merge'
 balias gpr 'git pull-request'
 balias gpt 'git push --tags'
 balias gpuo 'git push -u origin'
@@ -18,4 +17,21 @@ balias gpud 'git push -u daveyarwood'
 
 function gaa
 	git add --all $argv; git status;
+end
+
+function gpl
+  if count $argv >/dev/null
+    echo "`gpl` is not a `git pull` alias! It uses `git fetch` and `git merge`. Unable to insert `git pull` arguments, assuming that's what you're trying to do."
+    return 1
+  end
+
+  git fetch --all --prune
+  if test $status -eq 0
+    git merge
+  end
+
+  git submodule init 2>/dev/null
+  if test $status -eq 0
+    git submodule update
+  end
 end
