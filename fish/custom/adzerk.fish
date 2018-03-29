@@ -1,14 +1,4 @@
-balias zerkenv "bass . $CODEDIR/zerkenv/zerkenv.sh"
-balias zd "zerkenv -d"
-balias zl "zerkenv -l"
-balias zm 'eval \'echo $ZERKENV_MODULES\''
-balias zs "zerkenv -s"
-balias zsy "zerkenv -y -s"
-balias zu "zerkenv -u"
-balias zys "zerkenv -y -s"
-
 set -gx DOCKER_USER_MODE no
-set -gx ZERKENV_BUCKET zerkenv
 
 set -gx ADZERK_REPO_PATH $CODEDIR/adzerk
 set -gx ADZERK_CLI_TOOLS_REPO_PATH $CODEDIR/cli-tools
