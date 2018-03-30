@@ -453,6 +453,6 @@ endif
 " => Merlin (OCAML)
 """""""""""""""""""""""""""""""
 if executable('opam')
-  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+  let g:opamshare = substitute(system('opam config var share 2>/dev/null'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
