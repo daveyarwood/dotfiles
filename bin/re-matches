@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+pattern = Regexp.new(ARGV[0])
+
+if pattern.nil?
+  puts "Usage: some-other-program | #{$0} REGEX_PATTERN"
+  exit 1
+end
+
+# ARGV interferes with reading from STDIN unless it's empty, so if we want to
+# use both ARGV and pipe in input from STDIN, we have to do this.
+ARGV.shift until ARGV.empty?
+
+while line = gets
+  puts line.scan(pattern).join("\t")
+end
