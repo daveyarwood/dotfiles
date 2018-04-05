@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+gem 'octokit', '~> 4.0'
+
+require 'octokit'
+require 'pp'
+
+GITHUB_TOKEN = ENV['GITHUB_TOKEN'] or raise 'GITHUB_TOKEN environment variable not set.'
+
+unless ARGV.length == 2
+  puts "Usage: #{$0} ORG/REPO WEBHOOK_URL"
+  exit 1
+end
+
+repo, webhook_url = ARGV
+
+github = Octokit::Client.new(:access_token => GITHUB_TOKEN)
+
+config = {
+  url: webhook_url,
+  content_type: "json"
+}
+
+events = [
+  "commit_comment",
+  "create",
+  "delete",
+  "fork",
+  "issues",
+  "issue_comment",
+  "label",
+  "pull_request",
+  "pull_request_review",
+  "pull_request_review_comment",
+  "push",
+  "release"
+]
+
+pp github.create_hook(repo, "web", config, {events: events})
+
