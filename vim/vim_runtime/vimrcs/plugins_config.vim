@@ -309,6 +309,7 @@ nnoremap ga :UnicodeName<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType cs,kotlin setlocal commentstring=//\ %s
 autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
+autocmd FileType sml setlocal commentstring=(*\ %s\ *)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
