@@ -72,7 +72,7 @@ source $fish_runtime/custom/fish_logo.fish
 source $fish_runtime/custom/fish_swimming.fish
 
 function fish_greeting;
-  # fish_logo
+  which task >/dev/null; and task
 end
 
 # erase the default fish_mode_prompt; I have one built into my theme
