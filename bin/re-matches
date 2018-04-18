@@ -11,7 +11,13 @@ end
 # use both ARGV and pipe in input from STDIN, we have to do this.
 ARGV.shift until ARGV.empty?
 
+results = []
+
 while line = gets
-  results = line.scan(pattern)
-  puts results.join("\t") unless results.empty?
+  line_results = line.scan(pattern)
+  results << line_results.join("\t") unless line_results.empty?
 end
+
+exit 1 if results.empty?
+
+puts results
