@@ -94,3 +94,7 @@ function parallel
   set -lx SHELL bash
   command parallel $argv
 end
+
+function todo
+  which task >/dev/null; and task ready
+end
