@@ -12,5 +12,6 @@ end
 ARGV.shift until ARGV.empty?
 
 while line = gets
-  puts line.scan(pattern).join("\t")
+  results = line.scan(pattern)
+  puts results.join("\t") unless results.empty?
 end
