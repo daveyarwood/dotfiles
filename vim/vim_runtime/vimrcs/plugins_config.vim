@@ -143,9 +143,18 @@ nnoremap <leader>r :Require!<CR>
 " Reference:
 " https://clojurians-log.clojureverse.org/vim-fireplace/2017-06-07.html
 " https://github.com/tpope/vim-fireplace/issues/298#issuecomment-306863402
-autocmd FileType clojure nnoremap <buffer> gq gw
-autocmd FileType clojure vnoremap <buffer> gq gw
-autocmd FileType clojure nnoremap <buffer> gqq gww
+"
+" autocmd FileType clojure nnoremap <buffer> gq gw
+" autocmd FileType clojure vnoremap <buffer> gq gw
+" autocmd FileType clojure nnoremap <buffer> gqq gww
+"
+" UPDATE 2018-04-23: gq is significantly faster than = or gw at formatting large
+" clj/cljs files. So, it's valuable to have gq as an option when I'm connected
+" to a REPL.
+"
+" I'm so used to using =, I'm just going to make that use gq.
+autocmd FileType clojure nnoremap <buffer> = gq
+autocmd FileType clojure nnoremap <buffer> == gqq
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fzf
