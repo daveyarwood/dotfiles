@@ -220,14 +220,14 @@ nmap gtt <Plug>(neoterm-repl-send-line)
 " vnoremap <silent> <f9> :TREPLSendSelection<cr>
 
 " open the default terminal (mnemonic: terminal prompt)
-nnoremap <silent> ,tp :Topen<CR>
+nnoremap <silent> ,tp :above Topen<CR>
 
 " prompt to use the default terminal or terminals 1-3
 " Usage: ,t<space>ls<CR>
-nnoremap ,t<space> :T<space>
-nnoremap ,t1 :T1<space>
-nnoremap ,t2 :T2<space>
-nnoremap ,t3 :T3<space>
+nnoremap ,t<space> :above T<space>
+nnoremap ,t1 :above T1<space>
+nnoremap ,t2 :above T2<space>
+nnoremap ,t3 :above T3<space>
 
 " hide/close terminal
 nnoremap <silent> ,tC :call neoterm#close()<cr>
