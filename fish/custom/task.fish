@@ -1,0 +1,43 @@
+function todo
+  task ready
+end
+
+function tadd
+  task add $argv
+  todo
+end
+
+function tdel
+  task $argv delete
+  todo
+end
+
+function tdone
+  task $argv done
+  todo
+end
+
+function tmod
+  task $argv[1] modify $argv[2..-1]
+  todo
+end
+
+function tsnooze
+  task $argv[1] modify scheduled:$argv[2]
+  todo
+end
+
+function tstart
+  task $argv start
+  todo
+end
+
+function tstop
+  task $argv stop
+  todo
+end
+
+function tundo
+  task undo
+  todo
+end

@@ -95,6 +95,3 @@ function parallel
   command parallel $argv
 end
 
-function todo
-  which task >/dev/null; and task ready
-end

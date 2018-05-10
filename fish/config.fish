@@ -63,6 +63,7 @@ source $fish_runtime/custom/dart.fish
 source $fish_runtime/custom/perl.fish
 source $fish_runtime/custom/zerkenv.fish
 source $fish_runtime/custom/lenv.fish
+source $fish_runtime/custom/task.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
