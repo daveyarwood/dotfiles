@@ -22,6 +22,11 @@ function tdone
   todo
 end
 
+function tedit
+  task $argv edit
+  todo
+end
+
 function tmod
   task $argv[1] modify $argv[2..-1]
   todo
