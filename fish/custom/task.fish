@@ -7,6 +7,11 @@ function tadd
   todo
 end
 
+function tann
+  task $argv[1] annotate $argv[2..-1]
+  todo
+end
+
 function tdel
   task $argv delete
   todo
