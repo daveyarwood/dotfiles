@@ -3,9 +3,6 @@ set nocompatible
 
 call plug#begin('~/.vim/bundle')
 
-" neovim-specific
-Plug 'neovim/node-host'
-
 " aesthetic
 Plug 'altercation/vim-colors-solarized'
 Plug 'amix/vim-zenroom2'
