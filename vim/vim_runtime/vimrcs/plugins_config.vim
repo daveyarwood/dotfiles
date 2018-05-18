@@ -38,10 +38,13 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => auto-pairs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au Filetype clojure let g:AutoPairsFlyMode = 1
+" au Filetype clojure let g:AutoPairsFlyMode = 1
 
 " don't pair single quotes or backticks when editing lisp code
-au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+" au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+
+" disable auto-pairs for lisp -- it interferes with parinfer
+au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -269,6 +272,12 @@ let g:paredit_leader = '\'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active = 1
 let g:rainbow_conf = {'separately': {'html': 0}} " disable for html
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => sexp
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:sexp_enable_insert_mode_mappings = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
