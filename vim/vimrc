@@ -90,6 +90,7 @@ Plug 'lfe/vim-lfe'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
 Plug 'mattn/emmet-vim'
 Plug 'matze/vim-lilypond'
+Plug 'mustache/vim-mustache-handlebars'
 Plug 'OrangeT/vim-csharp'
 Plug 'PProvost/vim-ps1'
 Plug 'raichoo/purescript-vim'
