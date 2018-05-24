@@ -170,6 +170,17 @@ autocmd FileType clojure nnoremap <buffer> == gqq
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-f> :FZF<CR>
 nnoremap <C-g> :GFiles<CR>
+nnoremap <C-m> :Maps<CR>
+" <C-t> is already the stock Vim keybinding for 'go back to where you were after
+" following a tag', and it's so ingrained in my muscle memory, I can't remap it
+" to something else. So this mapping is a bit of an oddball, but I'm OK with it.
+" It actually kind of fits in with the <leader>T mapping for tagbar, another Vim
+" plugin also related to tags, so it feels alright.
+"
+" Another note: I wanted <leader>t but I have other mappings for the neoterm
+" plugin that are <leader>t followed by another key. <leader>tt isn't so bad,
+" though.
+nnoremap <leader>tt :Tags<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
