@@ -1,3 +1,4 @@
+set -gx ADZERK_USE_DOCKER yes
 set -gx DOCKER_USER_MODE no
 
 set -gx ADZERK_REPO_PATH $CODEDIR/adzerk
