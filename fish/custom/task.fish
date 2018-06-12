@@ -1,6 +1,5 @@
-function todo
-  task ready
-end
+balias todo "task ready"
+balias td "task ready"
 
 function tadd
   task add $argv
