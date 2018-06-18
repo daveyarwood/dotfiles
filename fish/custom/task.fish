@@ -36,6 +36,8 @@ function tsnooze
   todo
 end
 
+balias tsn tsnooze
+
 function tstart
   task $argv start
   todo
