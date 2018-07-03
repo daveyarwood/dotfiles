@@ -102,6 +102,7 @@ let g:clojure_maxlines = 0
 """"""""""""""""""""""""""""""
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
+let g:ctrlsf_auto_focus = {"at": "start"}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
