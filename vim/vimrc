@@ -65,6 +65,10 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " other languages/filetypes
 Plug 'adimit/prolog.vim'
 Plug 'andreimaxim/vim-io'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'dart-lang/dart-vim-plugin'
@@ -93,6 +97,7 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'OrangeT/vim-csharp'
 Plug 'PProvost/vim-ps1'
 Plug 'raichoo/purescript-vim'
+Plug 'reasonml-editor/vim-reason-plus'
 Plug 'rhysd/vim-crystal'
 Plug 'rust-lang/rust.vim'
 Plug 'stephencelis/vim-mml'

@@ -166,6 +166,7 @@ nnoremap <leader>r :Require!<CR>
 autocmd FileType clojure nnoremap <buffer> = gq
 autocmd FileType clojure nnoremap <buffer> == gqq
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fzf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -226,6 +227,15 @@ nnoremap <silent> <leader>z :Goyo<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>L :Lein<CR>
 nnoremap <leader>B :Boot<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LanguageClient
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['ocaml-language-server', '--stdio'],
+    \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
