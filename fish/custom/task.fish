@@ -32,7 +32,7 @@ function tmod
 end
 
 function tsnooze
-  task $argv[1] modify scheduled:$argv[2]
+  task $argv[1] modify wait:$argv[2]
   todo
 end
 
