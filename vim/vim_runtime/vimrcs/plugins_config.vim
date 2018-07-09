@@ -192,7 +192,11 @@ nnoremap <leader>tt :Tags<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => gina
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>g :Gina 
+nnoremap <leader>g<space> :Gina 
+nnoremap <leader>gs :Gina status<CR>
+nnoremap <leader>gc :Gina commit<CR>
+nnoremap <leader>gd :Gina diff<CR>
+nnoremap <leader>gp :Gina push<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
