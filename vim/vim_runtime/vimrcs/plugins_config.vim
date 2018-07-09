@@ -245,6 +245,14 @@ let g:LanguageClient_serverCommands = {
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => neomake
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run neomake on insert and normal mode change and upon reading or writing a
+" buffer, with a 500ms delay.
+call neomake#configure#automake('nrwi', 500)
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => neoterm
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:neoterm_shell = 'fish'
