@@ -1,0 +1,13 @@
+#!/usr/bin/env boot
+;; vim: ft=clojure
+
+(require '[clojure.data   :as    data]
+         '[clojure.pprint :refer (pprint)])
+
+(defn -main
+  [file-1 file-2]
+  (->> [file-1 file-2]
+       (pmap #(read-string (slurp %)))
+       (apply data/diff)
+       butlast
+       pprint))
