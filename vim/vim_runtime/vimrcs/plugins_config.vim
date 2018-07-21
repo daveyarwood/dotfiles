@@ -193,11 +193,18 @@ nnoremap <leader>tt :Tags<CR>
 " => gina
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>g<space> :Gina 
-nnoremap <leader>gs :Gina status<CR>
 nnoremap <leader>gc :Gina commit<CR>
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gg :Gina grep 
+nnoremap <leader>gl :Gina log<CR>
 nnoremap <leader>gp :Gina push<CR>
+nnoremap <leader>gs :Gina status<CR>
+
+" press q to close gina buffers
+augroup gina_buffers
+  autocmd!
+  autocmd BufEnter gina://* nnoremap <buffer> q :bd<CR>
+augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
