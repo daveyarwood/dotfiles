@@ -19,8 +19,18 @@ function tdel
   todo
 end
 
+function tdep
+  task $argv[1] modify depends:$argv[2]
+  todo
+end
+
 function tdone
   task $argv done
+  todo
+end
+
+function tdue
+  task $argv[1] modify due:$argv[2]
   todo
 end
 
