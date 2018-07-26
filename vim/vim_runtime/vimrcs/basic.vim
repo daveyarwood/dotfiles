@@ -223,10 +223,12 @@ map <c-space> ?
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" (2018-07-26 update: commenting these out as they conflict with
+"  vim-tmux-navigator; that plugin provides the same behavior)
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-h> <C-W>h
+" map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>

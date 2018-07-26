@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# I use the tmux-next package in the ppa:pi-rho/dev repo, which is a lot more
+# up to date than the version in the official Ubuntu ppa. Some tools I use rely
+# on tmux being on the PATH, so that's what this script is for.
+
+tmux-next $@

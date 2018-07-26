@@ -1,5 +1,16 @@
+" terminal color / italics finagling
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+highlight Comment cterm=italic
+
+" apparently it helps to set this before `colorscheme gruvbox`
+let g:gruvbox_italic=1
+
+" color theme
 colorscheme gruvbox
 set background=dark
+
 if !has('nvim')
   " nvim sets encoding to utf-8 by default
   set encoding=utf-8
@@ -30,8 +41,6 @@ set noswapfile
 source ~/.vim_runtime/my_mappings.vim
 source ~/.vim_runtime/my_iabbrevs.vim
 
-" italic comments! https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
-highlight Comment cterm=italic
 set showtabline=0 " turn off tabline
 
 " Go to last file(s) if invoked without arguments.
