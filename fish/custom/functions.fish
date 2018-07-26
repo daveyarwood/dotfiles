@@ -47,15 +47,8 @@ function light-table
 	open -a /Applications/LightTable/LightTable.app $argv;
 end
 
-# alias lt = light-table
-function lt
-	light-table $argv;
-end
-
-# alias pt = papertrail
-function pt
-	papertrail $argv;
-end
+balias lt light-table
+balias pt papertrail
 
 # shrug emojis are vitally important to my workflow
 function copy_shrug
