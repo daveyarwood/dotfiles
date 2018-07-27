@@ -8,10 +8,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'amix/vim-zenroom2'
 Plug 'flazz/vim-colorschemes'
 Plug 'gorodinskiy/vim-coloresque'
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'ntpeters/vim-airline-colornum'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " editor enhancements
 Plug 'airblade/vim-gitgutter'

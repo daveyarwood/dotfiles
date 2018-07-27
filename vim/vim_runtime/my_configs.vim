@@ -4,10 +4,8 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 highlight Comment cterm=italic
 
-" apparently it helps to set this before `colorscheme gruvbox`
-let g:gruvbox_italic=1
-
 " color theme
+let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 
@@ -15,7 +13,6 @@ if !has('nvim')
   " nvim sets encoding to utf-8 by default
   set encoding=utf-8
 endif
-set guifont=Anonymous\ Pro\ for\ Powerline
 set number
 set foldcolumn=0
 set expandtab
