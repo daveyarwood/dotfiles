@@ -53,7 +53,7 @@ balias pt papertrail
 # shrug emojis are vitally important to my workflow
 function copy_shrug
   set shrug $argv[1]
-	printf "$shrug" | pbcopy
+  printf "$shrug" | pbcopy
   echo "shrug copied to clipboard $shrug"
 end
 
