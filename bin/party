@@ -1,0 +1,43 @@
+#!/bin/bash
+
+function party {
+  if ! command -v figlet >/dev/null; then
+    if [[ "$(uname)" == Darwin ]]; then
+      if ! command -v brew >/dev/null; then
+        echo Requires figlet or brew to be installed
+        return 1
+      fi
+      >&2 echo "Installing figlet..."
+      brew install figlet
+    else
+      >&2 echo "Installing figlet..."
+      sudo apt-get install figlet
+    fi
+  fi
+
+  if [ -z "$1" ]; then
+    echo "Enter party word: "
+    read PARTY_WORD |  tr '[:upper:]' '[:lower:]'
+  else
+    PARTY_WORD=$1
+  fi
+
+  if [ -z "$2" ]; then
+    echo "Enter party word emoji (without colons): "
+    read WORD_EMOJI
+  else
+    WORD_EMOJI=$2
+  fi
+
+  if [ -z "$3" ]; then
+    echo "Enter background emoji (without colons): "
+    read BACKGROUND_EMOJI
+  else
+    BACKGROUND_EMOJI=$3
+  fi
+
+  echo
+  figlet -f banner $PARTY_WORD | sed -e "s/#/:$WORD_EMOJI:/g" -e 's/^/ /g' -e "s/ /:$BACKGROUND_EMOJI:/g"
+}
+
+party "$@"
