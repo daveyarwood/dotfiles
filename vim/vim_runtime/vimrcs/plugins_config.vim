@@ -196,6 +196,7 @@ nnoremap <leader>g<space> :Gina
 nnoremap <leader>gc :Gina commit<CR>
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gg :Gina grep 
+nnoremap <leader>gi :Gina init<CR>
 nnoremap <leader>gl :Gina log<CR>
 nnoremap <leader>gp :Gina push<CR>
 nnoremap <leader>gs :Gina status<CR>
