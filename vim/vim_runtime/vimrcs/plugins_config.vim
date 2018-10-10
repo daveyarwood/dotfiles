@@ -59,6 +59,7 @@ nnoremap <leader><Space> :StripWhitespace<CR>
 " => calendar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:calendar_google_calendar = 1
+let g:calendar_clock_12hour = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
