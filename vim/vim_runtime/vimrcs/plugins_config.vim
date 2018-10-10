@@ -207,6 +207,7 @@ nnoremap <leader>gi :Gina init<CR>
 nnoremap <leader>gl :Gina log<CR>
 nnoremap <leader>gp :Gina push<CR>
 nnoremap <leader>gs :Gina status<CR>
+nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 
 " press q to close gina buffers
 augroup gina_buffers
