@@ -29,7 +29,7 @@ data.location=~/.task
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
-urgency.user.project.home.coefficient=3.0
+urgency.user.project.home.coefficient=4.0
 urgency.user.project.blog.coefficient=2.0
 urgency.user.project.talks.coefficient=2.0
-urgency.user.project.alda.coefficient=1.5
+urgency.user.project.alda.coefficient=3.0
