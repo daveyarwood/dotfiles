@@ -88,3 +88,4 @@ function parallel
   command parallel $argv
 end
 
+balias vcal 'vim +Cal /dev/null'
