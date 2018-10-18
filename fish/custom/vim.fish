@@ -19,7 +19,7 @@ balias vimrc "vim $HOME/.vimrc"
 # bring up a scratch buffer
 balias vims "vim /tmp/scratch"
 
-balias vimwiki "vim $HOME/Dropbox/vimwiki/index.wiki"
+balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
 
 # alias vc = vimcat (cats what a file looks like in vim)
