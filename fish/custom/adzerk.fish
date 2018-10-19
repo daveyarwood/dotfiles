@@ -31,4 +31,13 @@ balias monovm $ADZERK_REPO_PATH/docker/run.sh
 # Run a command (or start a shell) in a running mono-docker container.
 balias in-monovm $ADZERK_REPO_PATH/docker/attach.sh
 
+function zerkurl
+  if test -z $ADZERK_API_KEY
+    echo "ERROR: ADZERK_API_KEY not set."
+    return 1
+  end
 
+  curl -H X-Adzerk-ApiKey:$ADZERK_API_KEY \
+       -H Content-Type:application/json \
+       $argv
+end
