@@ -204,7 +204,7 @@ nnoremap <leader>gc :Gina commit<CR>
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gg :Gina grep 
 nnoremap <leader>gi :Gina init<CR>
-nnoremap <leader>gl :Gina log<CR>
+nnoremap <leader>gl :Gina log --graph --pretty=format:"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --all --date=short<CR><CR>
 nnoremap <leader>gp :Gina push<CR>
 nnoremap <leader>gs :Gina status<CR>
 nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
