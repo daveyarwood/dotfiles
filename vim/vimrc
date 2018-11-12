@@ -54,7 +54,6 @@ Plug 'luochen1990/rainbow'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'SevereOverfl0w/vim-replant', { 'do': ':UpdateRemotePlugins' }
 Plug 'snoe/clj-refactor.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-projectionist'
