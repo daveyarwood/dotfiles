@@ -275,6 +275,7 @@ nnoremap <leader>B :Boot<CR>
 let g:LanguageClient_serverCommands = {
     \ 'reason': ['ocaml-language-server', '--stdio'],
     \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ 'clojure': ['bash', '~/bin/clojure-lsp'],
     \ }
 
 
