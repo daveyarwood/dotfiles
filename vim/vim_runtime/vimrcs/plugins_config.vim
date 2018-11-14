@@ -318,7 +318,7 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " set completeopt=noinsert,menuone,noselect
 
 " enter inserts newline when completion window is open
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" inoremap <expr> <CR> pumvisible() ? "\<c-y>\<cr>" : "\<CR>"
 
 " tab completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
