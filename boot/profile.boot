@@ -1,8 +1,11 @@
-(set-env! :dependencies '[[boot/new "0.5.2"]
-                          ; [com.cemerick/piggieback "0.2.1"]
-                          ; [org.clojure/tools.nrepl "0.2.10"]
-                          ; [weasel "0.7.0"]
-                          [cpmcdaniel/boot-with-pom "1.0"]])
+(set-env!
+  :dependencies '[[boot/new "0.5.2"]
+                  [cpmcdaniel/boot-with-pom "1.0"]])
+
+(task-options!
+  push {:repo-map {:url "https://repo.clojars.org/"
+                   :username (System/getenv "CLOJARS_USER")
+                   :password (System/getenv "CLOJARS_PASS")}})
 
 (require 'boot.repl
          '[cpmcdaniel.boot-with-pom :refer :all]
