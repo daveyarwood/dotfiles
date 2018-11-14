@@ -138,11 +138,11 @@ let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 
 " Use TAB and SHIFT-TAB to cycle through completions
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 
 " Close the popup window when I accept a completion
-autocmd CompleteDone * pclose!
+" autocmd CompleteDone * pclose!
 
 " Enable integration with the OCAML tool Merlin
 if !exists('g:deoplete#omni_patterns')
@@ -315,8 +315,18 @@ let g:lightline.tabline = {
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " IMPORTANTE: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
+" set completeopt=noinsert,menuone,noselect
 
+" enter inserts newline when completion window is open
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" tab completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" from :help Ncm2PopupOpen
+au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
+au User Ncm2PopupClose set completeopt=menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => neomake
