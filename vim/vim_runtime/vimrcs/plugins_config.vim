@@ -309,6 +309,16 @@ let g:lightline.tabline = {
   \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ncm2 (fka nvim-completion-manager)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANTE: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => neomake
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run neomake on insert and normal mode change and upon reading or writing a
