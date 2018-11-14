@@ -4,12 +4,11 @@ set nocompatible
 call plug#begin('~/.vim/bundle')
 
 " aesthetic
-Plug 'altercation/vim-colors-solarized'
 Plug 'amix/vim-zenroom2'
-Plug 'flazz/vim-colorschemes'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " editor enhancements
