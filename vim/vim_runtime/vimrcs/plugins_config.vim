@@ -11,6 +11,12 @@ let g:acid_auto_require=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ALE (asynchronous lint engine)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_completion_enabled = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:airline_theme = 'luna'                         " airline colorscheme
@@ -269,6 +275,7 @@ nnoremap <leader>B :Boot<CR>
 let g:LanguageClient_serverCommands = {
     \ 'reason': ['ocaml-language-server', '--stdio'],
     \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ 'clojure': ['bash', '~/bin/clojure-lsp'],
     \ }
 
 
@@ -306,7 +313,7 @@ let g:lightline.tabline = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run neomake on insert and normal mode change and upon reading or writing a
 " buffer, with a 500ms delay.
-call neomake#configure#automake('nrwi', 500)
+" call neomake#configure#automake('nrwi', 500)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
