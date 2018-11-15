@@ -27,3 +27,4 @@ balias vc vimcat
 
 balias vf "vim (fzf)"
 
+balias vcal 'vim +Cal /dev/null'
