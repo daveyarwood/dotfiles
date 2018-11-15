@@ -28,3 +28,6 @@ balias vc vimcat
 balias vf "vim (fzf)"
 
 balias vcal 'vim +Cal /dev/null'
+
+balias vpi 'vim +PlugInstall /dev/null'
+balias vpu 'vim +PlugUpdate /dev/null'
