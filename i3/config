@@ -188,7 +188,6 @@ exec eval `gnome-keyring-daemon --start`
 exec_always --no-startup-id "killall dunst; dunst -config ~/.dunstrc"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id dropbox start
 exec --no-startup-id volnoti
 exec_always sh ~/.fehbg # set wallpaper
 exec_always xset r rate 250 50 # set keyboard autorepeat delay and rate
