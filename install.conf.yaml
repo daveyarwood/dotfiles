@@ -27,6 +27,7 @@
     ~/.nvimrc: vim/nvimrc
     ~/.parallel/will-cite: parallel/will-cite
     ~/.spacemacs: spacemacs
+    ~/.surfingkeys.js: surfingkeys.js
     ~/.taskrc: taskrc
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux-osx.conf: tmux/tmux-osx.conf
