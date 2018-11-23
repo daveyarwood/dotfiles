@@ -6,8 +6,13 @@ mapkey('<Ctrl-y>', 'Show me the money', function() {
 // an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
 map('gt', 'T');
 
-map("L", "R");
-map("H", "E");
+// J and K move left/right through tabs
+map("J", "E");
+map("K", "R");
+
+// H and L move backward/forward through history of current tab
+map("H", "S");
+map("L", "D");
 
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
