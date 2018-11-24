@@ -3,9 +3,6 @@ mapkey('<Ctrl-y>', 'Show me the money', function() {
     Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
 });
 
-// an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
-map('gt', 'T');
-
 // J and K move left/right through tabs
 map("J", "E");
 map("K", "R");
@@ -14,8 +11,8 @@ map("K", "R");
 map("H", "S");
 map("L", "D");
 
-// an example to remove mapkey `Ctrl-i`
-unmap('<Ctrl-i>');
+// F is like f, but opens the link in a new, unfocused tab
+map("F", "gf");
 
 // set theme
 settings.theme = `
