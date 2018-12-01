@@ -320,6 +320,12 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " enter inserts newline when completion window is open
 " inoremap <expr> <CR> pumvisible() ? "\<c-y>\<cr>" : "\<CR>"
 
+" A variation on the above that plays nicely with vim-endwise.
+" source: https://github.com/roxma/nvim-completion-manager/issues/49#issuecomment-285923119
+let g:endwise_no_mappings = 1
+imap <C-X><CR>   <CR><Plug>AlwaysEnd
+imap <expr> <CR> (pumvisible() ? "\<C-Y>\<CR>\<Plug>DiscretionaryEnd" : "\<CR>\<Plug>DiscretionaryEnd")
+
 " tab completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
