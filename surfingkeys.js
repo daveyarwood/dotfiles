@@ -14,6 +14,10 @@ map("L", "D");
 // F is like f, but opens the link in a new, unfocused tab
 map("F", "gf");
 
+// disable surfingkeys' emoji completion on github, which has its own emoji
+// completion already
+iunmap(":", /github\.com/);
+
 // set theme
 settings.theme = `
 .sk_theme {
