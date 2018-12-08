@@ -11,11 +11,11 @@
          '[cpmcdaniel.boot-with-pom :refer :all]
          '[boot.new                 :refer (new)])
 
-(swap! boot.repl/*default-dependencies*
-       concat '[[refactor-nrepl "2.4.0"]
-                [cider/cider-nrepl "0.18.0"]])
+;; (swap! boot.repl/*default-dependencies*
+;;        concat '[[refactor-nrepl "2.4.0"]
+;;                 [cider/cider-nrepl "0.18.0"]])
 
-(swap! boot.repl/*default-middleware*
-       concat '[refactor-nrepl.middleware/wrap-refactor
-                cider.nrepl/cider-middleware])
+;; (swap! boot.repl/*default-middleware*
+;;        concat '[refactor-nrepl.middleware/wrap-refactor
+;;                 cider.nrepl/cider-middleware])
 
