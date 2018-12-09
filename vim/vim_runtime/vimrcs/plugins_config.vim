@@ -347,7 +347,10 @@ let g:lightline = {
   \     'left':[ [ 'mode', 'paste' ],
   \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
   \     ],
-  \     'right': [['iced']],
+  \     'right': [['iced'],
+  \               ['lineinfo'],
+  \               ['percent'],
+  \               ['fileformat', 'fileencoding', 'filetype']]
   \   },
 	\   'component': {
 	\     'lineinfo': ' %3l:%-2v',
