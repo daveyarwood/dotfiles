@@ -8,6 +8,8 @@ highlight Comment cterm=italic
 let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
+" let ayucolor="dark"
+" colorscheme ayu
 
 if !has('nvim')
   " nvim sets encoding to utf-8 by default

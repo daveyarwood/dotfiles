@@ -5,6 +5,7 @@ call plug#begin('~/.vim/bundle')
 
 " aesthetic
 Plug 'amix/vim-zenroom2'
+Plug 'ayu-theme/ayu-vim'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
