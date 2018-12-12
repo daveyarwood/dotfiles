@@ -305,6 +305,8 @@ nmap <localleader>jn  <Plug>(iced_jump_to_next_sign)
 nmap <localleader>jN  <Plug>(iced_jump_to_prev_sign)
 nmap <localleader>gl  <Plug>(iced_goto_let)
 nmap <localleader>*   <Plug>(iced_iced)
+nmap <localleader>fr  <Plug>(iced_find_var_references)
+nmap <localleader>fR  <Plug>(iced_find_var_references!)
 nmap <localleader>/   :<C-u>IcedGrep<Space>
 " nmap <C-]>       <Plug>(iced_def_jump)
 " nmap <C-t>       <Plug>(iced_def_back)
