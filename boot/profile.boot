@@ -13,7 +13,7 @@
 
 ;; (swap! boot.repl/*default-dependencies*
 ;;        concat '[[refactor-nrepl "2.4.0"]
-;;                 [cider/cider-nrepl "0.18.0"]])
+;;                 [cider/cider-nrepl "0.19.0-SNAPSHOT"]])
 
 ;; (swap! boot.repl/*default-middleware*
 ;;        concat '[refactor-nrepl.middleware/wrap-refactor
