@@ -41,3 +41,12 @@ function zerkurl
        -H Content-Type:application/json \
        $argv
 end
+
+function zch
+  if test (count $argv) -ne 1 >/dev/null
+    echo "Usage: zch STORY-NUMBER"
+    return 1
+  end
+
+  xdg-open https://app.clubhouse.io/adzerk/story/$argv[1]
+end
