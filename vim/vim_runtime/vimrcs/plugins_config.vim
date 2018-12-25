@@ -271,6 +271,7 @@ nmap <localleader>ee  <Plug>(iced_eval)<Plug>(sexp_outer_list)``
 nmap <localleader>et  <Plug>(iced_eval_outer_top_list)
 " nmap <localleader>er  <Plug>(iced_eval_repl)<Plug>(sexp_outer_top_list)``
 nmap <localleader>er  :<C-u>IcedEval *e<CR>
+nmap <localleader>E   :<C-u>IcedEval<space>
 nmap <localleader>en  <Plug>(iced_eval_ns)
 nmap <localleader>ep  <Plug>(iced_print_last)
 nmap <localleader>eb  <Plug>(iced_require)
