@@ -1,5 +1,4 @@
 set -gx GOPATH $HOME/.go
 
-mkdir -p $GOPATH/bin
+add-dirs-to-path $GOPATH/bin /usr/local/go/bin
 
-set -gx PATH $GOPATH/bin $PATH
