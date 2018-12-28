@@ -6,7 +6,7 @@ source $OMF_PATH/init.fish
 set fish_runtime $HOME/.config/fish
 
 # Default PATH
-set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
+set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /usr/games
 
 # Adds a directory to PATH, but only if the directory exists.
 function add-dir-to-path
