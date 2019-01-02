@@ -1,19 +1,14 @@
 #!/bin/bash
 
-# For some bizarre reason, GNUstep's `say` command seems to always have an exit
-# code of 1. This can have unexpected results when using `set -e`, for example.
-# I would never expect this command to fail, and even if it did, I wouldn't want
-# it potentially throwing a wrench in my Bash scripts.
+function gs-say() {
+  google_speech "$1" $SAY_OPTS
+}
 
-# So, this script (placed in a folder earlier in my $PATH) wraps `say`, calling
-# it and then exiting 0.
+if [ -t 0 ]; then
+  gs-say "$*"
+else
+  while read line; do
+    gs-say "$line"
+  done
+fi
 
-# NB: This will break `say` if the $PATH is different on a different system,
-# e.g. this might break `say` on my Macbook. If I ever need/want to fix this, I
-# can do so by ensuring that that system's version of `say` is in a folder
-# earlier in the $PATH than this script.
-say_cmd=/usr/bin/say
-
-$say_cmd "$@"
-
-exit 0
