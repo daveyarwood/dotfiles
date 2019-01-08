@@ -1,4 +1,5 @@
 settings.blacklist = {
+    "https://docs.google.com": 1,
     "https://www.meetup.com": 1
 }
 
