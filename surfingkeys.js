@@ -1,7 +1,8 @@
 settings.blacklist = {
     "https://airtable.com": 1,
     "https://docs.google.com": 1,
-    "https://www.meetup.com": 1
+    "https://www.meetup.com": 1,
+    "https://www.reddit.com": 1
 }
 
 // an example to create a new mapping `ctrl-y`
