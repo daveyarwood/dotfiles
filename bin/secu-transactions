@@ -79,7 +79,9 @@ browser.text_field(id: 'userPasswordHome').set SECU_PASSWORD
 sign_in_button = browser.input(type: 'submit', title: 'Login submit')
 sign_in_button.click
 
-account_row = account_row(browser)
+account_row = account_row(browser) ||
+  raise("No account found with name matching #{ACCOUNT_NAME_PATTERN}.")
+
 view_transactions_link(account_row).click
 
 transactions = transactions(browser)
