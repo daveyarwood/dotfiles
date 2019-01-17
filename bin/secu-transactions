@@ -1,0 +1,92 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'watir'
+require 'colorize'
+
+def get_env(env_var)
+  ENV[env_var] || raise("#{env_var} environment variable not set.")
+end
+
+SECU_USERNAME = get_env 'SECU_USERNAME'
+SECU_PASSWORD = get_env 'SECU_PASSWORD'
+
+SECU_URL = 'https://www.ncsecu.org'
+
+if ARGV.count.zero?
+  puts "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_PATTERN"
+  exit 1
+end
+
+ACCOUNT_NAME_PATTERN = Regexp.new(ARGV[0], 'i')
+
+def account_row(browser)
+  accounts_table = browser.table(id: 'CheckingSavingsMoneyMarket')
+  accounts_table.wait_until(&:present?)
+
+  accounts_table.tbody.trs.detect do |tr|
+    tr.tds.any? { |td| td.text =~ ACCOUNT_NAME_PATTERN }
+  end
+end
+
+def view_transactions_link(row)
+  row.tds.each do |td|
+    td.links.each do |link|
+      return link if link.href =~ %r{accounts/history}
+    end
+  end
+
+  raise "couldn't find view transactions link"
+end
+
+def transactions(browser)
+  transactions_table = browser.table(id: 'gridCheckingHistory')
+  transactions_table.wait_until(&:present?)
+
+  transactions_table.tbody.trs.map do |row|
+    row.tds.map(&:text)
+  end
+end
+
+def sanitize_cell(text)
+  lines = text.delete("\t").split("\n")
+
+  if lines.count == 1
+    lines.first.strip
+  else
+    lines.select { |txt| txt =~ /.*[A-Za-z].*/ }.last.strip
+  end
+end
+
+def sanitize(transactions)
+  transactions.slice(1..-2).map do |transaction|
+    cells = transaction.slice(2..-2).map { |text| sanitize_cell(text) }
+
+    # Make text green if the transaction is a credit
+    cells.last.empty? ? cells : cells.map(&:green)
+  end
+end
+
+exit 0 unless $PROGRAM_NAME == __FILE__
+
+browser = Watir::Browser.new :chrome
+browser.goto SECU_URL
+
+browser.text_field(id: 'userIDHome').set SECU_USERNAME
+browser.text_field(id: 'userPasswordHome').set SECU_PASSWORD
+
+sign_in_button = browser.input(type: 'submit', title: 'Login submit')
+sign_in_button.click
+
+account_row = account_row(browser)
+view_transactions_link(account_row).click
+
+transactions = transactions(browser)
+
+browser.quit
+
+sanitize(transactions).each do |row|
+  puts row.join("\t")
+end
+
