@@ -153,7 +153,7 @@ let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fireplace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>r :Require!<CR>
+nnoremap <leader>r :Require!<CR>
 " nnoremap <leader>t :RunTests<CR>
 
 " vim-fireplace provides a formatexpr that relies on Cider connection. I don't
@@ -168,8 +168,8 @@ let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
 " https://github.com/tpope/vim-fireplace/issues/298#issuecomment-306863402
 "
 " autocmd FileType clojure nnoremap <buffer> gq gw
-" autocmd FileType clojure vnoremap <buffer> gq gw
-" autocmd FileType clojure nnoremap <buffer> gqq gww
+autocmd FileType clojure vnoremap <buffer> gq gw
+autocmd FileType clojure nnoremap <buffer> gqq gww
 "
 " UPDATE 2018-04-23: gq is significantly faster than = or gw at formatting large
 " clj/cljs files. So, it's valuable to have gq as an option when I'm connected
@@ -265,54 +265,54 @@ nnoremap <silent> <leader>z :Goyo<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => iced
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <localleader>'   <Plug>(iced_connect)
-nmap <localleader>ei  <Plug>(iced_eval)<Plug>(sexp_inner_element)``
-nmap <localleader>ee  <Plug>(iced_eval)<Plug>(sexp_outer_list)``
-nmap <localleader>et  <Plug>(iced_eval_outer_top_list)
-" nmap <localleader>er  <Plug>(iced_eval_repl)<Plug>(sexp_outer_top_list)``
-nmap <localleader>er  :<C-u>IcedEval *e<CR>
-nmap <localleader>E   :<C-u>IcedEval<space>
-nmap <localleader>en  <Plug>(iced_eval_ns)
-nmap <localleader>ep  <Plug>(iced_print_last)
-nmap <localleader>eb  <Plug>(iced_require)
-nmap <localleader>eB  <Plug>(iced_require_all)
-nmap <localleader>eu  <Plug>(iced_undef)
-nmap <localleader>eM  <Plug>(iced_macroexpand_outer_list)
-nmap <localleader>em  <Plug>(iced_macroexpand_1_outer_list)
-nmap <localleader>tt  <Plug>(iced_test_under_cursor)
-nmap <localleader>tl  <Plug>(iced_test_rerun_last)
-nmap <localleader>ts  <Plug>(iced_test_spec_check)
-nmap <localleader>to  <Plug>(iced_test_buffer_open)
-nmap <localleader>tn  <Plug>(iced_test_ns)
-nmap <localleader>tp  <Plug>(iced_test_all)
-nmap <localleader>tr  <Plug>(iced_test_redo)
-nmap <localleader>ss  <Plug>(iced_stdout_buffer_open)
-nmap <localleader>sl  <Plug>(iced_stdout_buffer_clear)
-nmap <localleader>sq  <Plug>(iced_stdout_buffer_close)
-nmap <localleader>rcn <Plug>(iced_clean_ns)
-nmap <localleader>ram <Plug>(iced_add_missing)
-nmap <localleader>ran <Plug>(iced_add_ns)
-nmap <localleader>rtf <Plug>(iced_thread_first)
-nmap <localleader>rtl <Plug>(iced_thread_last)
-nmap <localleader>ref <Plug>(iced_extract_function)
-nmap <localleader>rml <Plug>(iced_move_to_let)
-nmap <localleader>hs  <Plug>(iced_source_show)
-nmap <localleader>hg  <Plug>(iced_grimoire_open)
-nmap <localleader>hh  <Plug>(iced_command_palette)
-nmap <localleader>br  <Plug>(iced_related_namespace)
-nmap <localleader>bs  <Plug>(iced_browse_spec)
-nmap <localleader>bt  <Plug>(iced_browse_test_under_cursor)
-nmap <localleader>jn  <Plug>(iced_jump_to_next_sign)
-nmap <localleader>jN  <Plug>(iced_jump_to_prev_sign)
-nmap <localleader>gl  <Plug>(iced_goto_let)
-nmap <localleader>*   <Plug>(iced_iced)
-nmap <localleader>fr  <Plug>(iced_find_var_references)
-nmap <localleader>fR  <Plug>(iced_find_var_references!)
-nmap <localleader>/   :<C-u>IcedGrep<Space>
-" nmap <C-]>       <Plug>(iced_def_jump)
-" nmap <C-t>       <Plug>(iced_def_back)
-nmap K           <Plug>(iced_document_open)
-nmap ==          <Plug>(iced_format)
+" nmap <localleader>'   <Plug>(iced_connect)
+" nmap <localleader>ei  <Plug>(iced_eval)<Plug>(sexp_inner_element)``
+" nmap <localleader>ee  <Plug>(iced_eval)<Plug>(sexp_outer_list)``
+" nmap <localleader>et  <Plug>(iced_eval_outer_top_list)
+" " nmap <localleader>er  <Plug>(iced_eval_repl)<Plug>(sexp_outer_top_list)``
+" nmap <localleader>er  :<C-u>IcedEval *e<CR>
+" nmap <localleader>E   :<C-u>IcedEval<space>
+" nmap <localleader>en  <Plug>(iced_eval_ns)
+" nmap <localleader>ep  <Plug>(iced_print_last)
+" nmap <localleader>eb  <Plug>(iced_require)
+" nmap <localleader>eB  <Plug>(iced_require_all)
+" nmap <localleader>eu  <Plug>(iced_undef)
+" nmap <localleader>eM  <Plug>(iced_macroexpand_outer_list)
+" nmap <localleader>em  <Plug>(iced_macroexpand_1_outer_list)
+" nmap <localleader>tt  <Plug>(iced_test_under_cursor)
+" nmap <localleader>tl  <Plug>(iced_test_rerun_last)
+" nmap <localleader>ts  <Plug>(iced_test_spec_check)
+" nmap <localleader>to  <Plug>(iced_test_buffer_open)
+" nmap <localleader>tn  <Plug>(iced_test_ns)
+" nmap <localleader>tp  <Plug>(iced_test_all)
+" nmap <localleader>tr  <Plug>(iced_test_redo)
+" nmap <localleader>ss  <Plug>(iced_stdout_buffer_open)
+" nmap <localleader>sl  <Plug>(iced_stdout_buffer_clear)
+" nmap <localleader>sq  <Plug>(iced_stdout_buffer_close)
+" nmap <localleader>rcn <Plug>(iced_clean_ns)
+" nmap <localleader>ram <Plug>(iced_add_missing)
+" nmap <localleader>ran <Plug>(iced_add_ns)
+" nmap <localleader>rtf <Plug>(iced_thread_first)
+" nmap <localleader>rtl <Plug>(iced_thread_last)
+" nmap <localleader>ref <Plug>(iced_extract_function)
+" nmap <localleader>rml <Plug>(iced_move_to_let)
+" nmap <localleader>hs  <Plug>(iced_source_show)
+" nmap <localleader>hg  <Plug>(iced_grimoire_open)
+" nmap <localleader>hh  <Plug>(iced_command_palette)
+" nmap <localleader>br  <Plug>(iced_related_namespace)
+" nmap <localleader>bs  <Plug>(iced_browse_spec)
+" nmap <localleader>bt  <Plug>(iced_browse_test_under_cursor)
+" nmap <localleader>jn  <Plug>(iced_jump_to_next_sign)
+" nmap <localleader>jN  <Plug>(iced_jump_to_prev_sign)
+" nmap <localleader>gl  <Plug>(iced_goto_let)
+" nmap <localleader>*   <Plug>(iced_iced)
+" nmap <localleader>fr  <Plug>(iced_find_var_references)
+" nmap <localleader>fR  <Plug>(iced_find_var_references!)
+" nmap <localleader>/   :<C-u>IcedGrep<Space>
+" " nmap <C-]>       <Plug>(iced_def_jump)
+" " nmap <C-t>       <Plug>(iced_def_back)
+" nmap K           <Plug>(iced_document_open)
+" nmap ==          <Plug>(iced_format)
 
 " press q to close iced buffers
 augroup iced_buffers
@@ -350,8 +350,7 @@ let g:lightline = {
   \     'left':[ [ 'mode', 'paste' ],
   \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
   \     ],
-  \     'right': [['iced'],
-  \               ['lineinfo'],
+  \     'right': [['lineinfo'],
   \               ['percent'],
   \               ['fileformat', 'fileencoding', 'filetype']]
   \   },
@@ -360,7 +359,6 @@ let g:lightline = {
 	\   },
   \   'component_function': {
   \     'gitbranch': 'fugitive#head',
-  \     'iced': 'iced#status',
   \   }
   \ }
 let g:lightline.separator = {
