@@ -205,10 +205,10 @@ nnoremap <leader>tt :Tags<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => gina
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>g<space> :Gina 
+nnoremap <leader>g<space> :Gina<space>
 nnoremap <leader>gc :Gina commit<CR>
 nnoremap <leader>gd :Gina diff<CR>
-nnoremap <leader>gg :Gina grep 
+nnoremap <leader>gg :Gina grep<space>
 nnoremap <leader>gi :Gina init<CR>
 nnoremap <leader>gl :Gina log --graph --pretty=format:"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --all --date=short<CR><CR>
 nnoremap <leader>gp :Gina push<CR>
