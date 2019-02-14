@@ -4,11 +4,11 @@ function gs-say() {
   google_speech "$1" $SAY_OPTS
 }
 
-if [ -t 0 ]; then
-  gs-say "$*"
-else
+if [ $# -eq 0 ]; then
   while read line; do
     gs-say "$line"
   done
+else
+  gs-say "$*"
 fi
 
