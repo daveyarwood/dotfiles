@@ -22,6 +22,9 @@ map("L", "D");
 // F is like f, but opens the link in a new, unfocused tab
 map("F", "gf");
 
+// mf lets you more conveniently open multiple links in new, unfocused tabs
+map("mf", "cf");
+
 // disable emoji completion
 iunmap(":");
 
