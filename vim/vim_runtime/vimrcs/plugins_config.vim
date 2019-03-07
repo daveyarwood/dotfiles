@@ -538,6 +538,7 @@ autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:magit_show_help = 0
 let g:magit_toggle_help_mapping = '?'
+let g:magit_discard_untracked_do_delete=1
 nmap <leader>G :Magit<CR>
 
 
