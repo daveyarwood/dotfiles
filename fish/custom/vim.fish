@@ -5,7 +5,18 @@ set -gx EDITOR nvim
 # do tab completion on filenames when using an alias.
 # See: https://github.com/fish-shell/fish-shell/issues/2277
 function vim --wraps nvim
-  nvim $argv
+  # HACK: there was a regression between the Linux kernel and fzf that makes
+  # vim-fzf not work properly for me; I get the error message "Failed to read
+  # /dev/tty" when I run `:FZF`.
+  #
+  # See: https://github.com/junegunn/fzf/issues/1486
+  #
+  # The issue is fixed for me when I have SHELL set to bash, and it doesn't seem
+  # to affect the rest of my vim experience; in fact, I've had `set shell=bash`
+  # in my vimrc for ages, so I think that's the behavior I want.
+  #
+  # So, working around this by always opening vim with SHELL set to bash.
+  env SHELL=bash nvim $argv
 end
 
 # oldvim starts literal vim
