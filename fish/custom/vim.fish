@@ -22,9 +22,6 @@ balias vims "vim /tmp/scratch"
 balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
 
-# alias vc = vimcat (cats what a file looks like in vim)
-balias vc vimcat
-
 balias vf "vim (fzf)"
 
 balias vcal 'vim +Cal /dev/null'
