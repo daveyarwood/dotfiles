@@ -1,3 +1,8 @@
+# I have no idea what is setting JAVA_HOME (it's nothing in my dotfiles...), but
+# at any rate, `jenv doctor` says that it could interfere with scripts using the
+# Java version set by jenv, if the scripts use JAVA_HOME.
+set -ex JAVA_HOME
+
 set -gx PATH $HOME/.jenv/bin $PATH
 command jenv rehash 2>/dev/null
 set -gx PATH $HOME/.jenv/shims $PATH
