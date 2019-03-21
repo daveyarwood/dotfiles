@@ -206,6 +206,10 @@ nnoremap <leader>tt :Tags<CR>
 " => gina
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>g<space> :Gina<space>
+" this one actually comes from fugitive because I like its output better than
+" :Gina blame. Putting it here so that I don't have to look in two places for
+" all my git-related keybindings.
+nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gc :Gina commit<CR>
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gg :Gina grep<space>
