@@ -1,5 +1,5 @@
 (set-env!
-  :dependencies '[[boot/new "0.5.2"]
+  :dependencies '[[boot/new "0.5.3"]
                   [cpmcdaniel/boot-with-pom "1.0"]])
 
 (task-options!
