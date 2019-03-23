@@ -8,6 +8,7 @@
 " => acid.nvim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:acid_auto_require=1
+nnoremap <leader>r :AcidRequire<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -153,7 +154,7 @@ let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fireplace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>r :Require!<CR>
+" nnoremap <leader>r :Require!<CR>
 " nnoremap <leader>t :RunTests<CR>
 
 " vim-fireplace provides a formatexpr that relies on Cider connection. I don't
