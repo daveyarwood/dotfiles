@@ -15,6 +15,7 @@
     ~/.config/fish/custom: fish/custom/
     ~/.config/omf: fish/omf/
     ~/.config/nvim: vim/nvim/
+    ~/.config/sxhkd/sxhkdrc: sxhkdrc
     ~/.ctags: ctags
     ~/.dunstrc: dunstrc
     ~/.gitignore_global: gitignore_global

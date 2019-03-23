@@ -1,0 +1,10 @@
+~button1
+    echo -n | xsel -n -i
+~button2
+    echo -n | xsel -n -i
+~control + c
+    echo -n | xsel -n -i
+~control + shift + c
+    echo -n | xsel -n -i
+~control + x
+    echo -n | xsel -n -i
