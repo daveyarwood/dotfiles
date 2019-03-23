@@ -11,6 +11,12 @@ mapkey('<Ctrl-y>', 'Show me the money', function() {
     Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
 });
 
+// disable "x" closing the tab. The "x" key in the Dvorak layout is hazardously
+// close to the mouse cursor nipple on my Thinkpad, making it all too easy for
+// my finger to slip and close the tab I'm on. I always use Ctrl-w anyway out of
+// habit.
+unmap("x");
+
 // J and K move left/right through tabs
 map("J", "E");
 map("K", "R");
