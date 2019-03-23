@@ -11,11 +11,15 @@
          '[cpmcdaniel.boot-with-pom :refer :all]
          '[boot.new                 :refer (new)])
 
-;; (swap! boot.repl/*default-dependencies*
-;;        concat '[[refactor-nrepl "2.4.0"]
-;;                 [cider/cider-nrepl "0.19.0-SNAPSHOT"]])
-
-;; (swap! boot.repl/*default-middleware*
-;;        concat '[refactor-nrepl.middleware/wrap-refactor
-;;                 cider.nrepl/cider-middleware])
+(deftask cider
+  "Include CIDER middleware, to support editor REPL tooling."
+  []
+  (with-pass-thru _
+    (require 'boot.repl)
+    (swap! @(resolve 'boot.repl/*default-dependencies*)
+           concat '[[cider/cider-nrepl "0.19.0-SNAPSHOT"]
+                    [refactor-nrepl "2.4.0"]])
+    (swap! @(resolve 'boot.repl/*default-middleware*)
+           concat '[cider.nrepl/cider-middleware
+                    refactor-nrepl.middleware/wrap-refactor])))
 
