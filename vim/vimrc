@@ -57,7 +57,6 @@ Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-sexp'
 Plug 'luochen1990/rainbow'
 Plug 'radenling/vim-dispatch-neovim'
-Plug 'snoe/clj-refactor.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
