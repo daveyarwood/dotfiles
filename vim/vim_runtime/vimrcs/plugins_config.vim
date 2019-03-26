@@ -215,6 +215,7 @@ nnoremap <leader>g<space> :Gina<space>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gc :Gina commit<CR>
 nnoremap <leader>gd :Gina diff<CR>
+nnoremap <leader>gD :Gina diff -w<CR>
 nnoremap <leader>gg :Gina grep<space>
 nnoremap <leader>gi :Gina init<CR>
 nnoremap <leader>gl :Gina log --graph --pretty=format:"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --all --date=short<CR><CR>
