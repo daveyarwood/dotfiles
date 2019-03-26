@@ -7,7 +7,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => acid.nvim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:acid_auto_require=1
+let g:acid_auto_require = 1
+let g:acid_alt_paths = ['src/backend']
+
 nnoremap <leader>r :AcidRequire<CR>
 
 
