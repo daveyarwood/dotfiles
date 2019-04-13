@@ -19,11 +19,6 @@ function vim --wraps nvim
   env SHELL=bash nvim $argv
 end
 
-# oldvim starts literal vim
-function oldvim --wraps vim
-  /usr/bin/vim $argv
-end
-
 # edit vimrc
 balias vimrc "vim $HOME/.vimrc"
 
