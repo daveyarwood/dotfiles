@@ -82,7 +82,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 autocmd BufReadPost quickfix nnoremap <buffer> q :q!<CR>
 
 " open location list
-nnoremap <leader>l :lopen<CR>
+" nnoremap <leader>l :lopen<CR>
 
 " magically format/minify json in the current buffer
 nnoremap <leader>j :%!jq '.'<CR>
