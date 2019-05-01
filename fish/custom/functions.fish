@@ -63,6 +63,14 @@ function shrug3; copy_shrug "┐('～`;)┌"; end
 function shrug4; copy_shrug '┐(￣ヘ￣;)┌'; end
 function shrug5; copy_shrug '╮(￣ω￣;)╭ '; end
 
+# table flip emojis sometimes useful
+
+function tableflip
+  set flip '(╯°□°)╯︵ ┻━┻'
+  printf "$flip" | pbcopy
+  echo "table flip copied to clipboard $flip"
+end
+
 # strip ANSI color codes
 function stripcolor
 	sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" $argv;
