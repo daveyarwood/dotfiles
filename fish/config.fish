@@ -22,7 +22,7 @@ function add-dirs-to-path
   end
 end
 
-add-dirs-to-path /opt/X11/bin $HOME/.local/bin
+add-dirs-to-path /opt/X11/bin $HOME/.local/bin /snap/bin
 
 # hardcoded paths to directories on my Thinkpad
 # TODO: come up with some way to have different paths on different hosts
