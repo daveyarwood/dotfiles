@@ -118,6 +118,8 @@ let g:clojure_maxlines = 0
 """"""""""""""""""""""""""""""
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
+nmap <leader>F :CtrlSFToggle<CR>
+nmap <leader>td :CtrlSF -R TODO<bar>FIXME<CR>
 let g:ctrlsf_auto_focus = {"at": "start"}
 
 
