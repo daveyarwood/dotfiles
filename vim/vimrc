@@ -25,9 +25,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kassio/neoterm'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'roxma/nvim-yarp'
 Plug 'schickling/vim-bufonly'
