@@ -17,6 +17,7 @@ nnoremap <leader>r :AcidRequire<CR>
 " => ALE (asynchronous lint engine)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_completion_enabled = 1
+let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
