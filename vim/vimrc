@@ -23,8 +23,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kassio/neoterm'
+Plug 'liuchengxu/vista.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'roxma/nvim-yarp'
