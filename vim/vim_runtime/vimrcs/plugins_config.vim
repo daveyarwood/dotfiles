@@ -16,8 +16,9 @@ nnoremap <leader>r :AcidRequire<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ALE (asynchronous lint engine)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
 let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
+let g:ale_fixers = {'go': ['gofmt', 'goimports']}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -379,14 +380,14 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-au FileType go nnoremap <buffer> <leader>r  :GoRun<CR>
-au FileType go nnoremap <buffer> <leader>b  :GoBuild<CR>
-au FileType go nnoremap <buffer> <leader>t  :GoTest<CR>
-au FileType go nnoremap <buffer> <leader>c  :GoCoverage<CR>
-au FileType go nnoremap <buffer> <leader>gd :GoDoc<CR>
-au FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
-au FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
-au FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
+" au FileType go nnoremap <buffer> <leader>r  :GoRun<CR>
+" au FileType go nnoremap <buffer> <leader>b  :GoBuild<CR>
+" au FileType go nnoremap <buffer> <leader>t  :GoTest<CR>
+" au FileType go nnoremap <buffer> <leader>c  :GoCoverage<CR>
+" au FileType go nnoremap <buffer> <leader>gd :GoDoc<CR>
+" au FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
+" au FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
+" au FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
