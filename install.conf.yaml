@@ -24,6 +24,7 @@
     ~/.inputrc: inputrc
     ~/.irbrc: irbrc
     ~/.lein/profiles.clj: lein/profiles.clj
+    ~/.lsp/config.edn: lsp/config.edn
     ~/.nvimrc: vim/nvimrc
     ~/.parallel/will-cite: parallel/will-cite
     ~/.spacemacs: spacemacs
