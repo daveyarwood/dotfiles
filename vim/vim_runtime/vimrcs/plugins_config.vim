@@ -17,7 +17,7 @@ nnoremap <leader>r :AcidRequire<CR>
 " => ALE (asynchronous lint engine)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_fix_on_save = 1
-let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
+" let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
 let g:ale_fixers = {'go': ['gofmt', 'goimports']}
 
 
