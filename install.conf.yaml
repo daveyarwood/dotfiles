@@ -10,7 +10,6 @@
     ~/.bc.cfg: bc.cfg
     ~/.bin: bin
     ~/.config/boot/profile.boot: boot/profile.boot
-    ~/.config/car/config.edn: car/config.edn
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/custom: fish/custom/
     ~/.config/omf: fish/omf/
