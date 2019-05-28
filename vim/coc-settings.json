@@ -1,0 +1,23 @@
+{
+  "suggest.snippetIndicator": "🍦",
+  "languageserver": {
+    "clojure-lsp": {
+      "command": "clojure-lsp",
+      "args": [],
+      "filetypes": [
+        "clojure"
+      ],
+      "rootPatterns": [
+        "project.clj",
+        "build.boot",
+        "deps.edn"
+      ],
+      "additionalSchemes": [
+        "jar",
+        "zipfile"
+      ],
+      "trace.server": "verbose",
+      "initializationOptions": {}
+    }
+  }
+}
