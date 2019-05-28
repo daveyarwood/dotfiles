@@ -93,6 +93,24 @@ let g:clojure_maxlines = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => coc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" HACK to workaround coc not providing a :CocToggle command
+function! ToggleCoc()
+  if len(coc#status()) == 0
+    execute 'CocEnable'
+  else
+    execute 'CocDisable'
+  endif
+endfunction
+
+nnoremap <silent> <leader>cc :call ToggleCoc()<CR>
+nnoremap <leader>ci :CocInfo<CR>
+
+" press q to close e.g. the :CocInfo buffer
+augroup coc_buffers
+  autocmd!
+  autocmd BufEnter output:///info nnoremap <buffer> q :bd<CR>
+augroup END
+
 " don't give |ins-completion-menu| messages
 set shortmess+=c
 set signcolumn=yes
