@@ -2,8 +2,8 @@
   "diagnostic.virtualText": true,
   "languageserver": {
     "clojure-lsp": {
-      "command": "clojure-lsp",
-      "args": [],
+      "command": "bash",
+      "args": ["-c", "/home/dave/bin/clojure-lsp"],
       "filetypes": [
         "clojure"
       ],
