@@ -1,9 +1,9 @@
 {
-  "suggest.snippetIndicator": "🍦",
+  "diagnostic.virtualText": true,
   "languageserver": {
     "clojure-lsp": {
-      "command": "bash",
-      "args": ["-c", "/home/dave/bin/clojure-lsp"],
+      "command": "clojure-lsp",
+      "args": [],
       "filetypes": [
         "clojure"
       ],
