@@ -38,5 +38,4 @@
     ~/.vim_runtime/my_iabbrevs.vim: vim/vim_runtime/my_iabbrevs.vim
     ~/.vim_runtime/my_mappings.vim: vim/vim_runtime/my_mappings.vim
     ~/.vim_runtime/vimrcs: vim/vim_runtime/vimrcs
-    ~/.vim/coc-settings.json: vim/coc-settings.json
 
