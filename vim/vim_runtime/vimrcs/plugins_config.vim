@@ -654,7 +654,7 @@ let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>T :TagbarToggle<CR>
+" nnoremap <leader>T :TagbarToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -780,6 +780,20 @@ nnoremap <buffer> <leader>vF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'path_html': '~/Sync/vimwiki/html'}]
 
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vista
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+let g:vista_sidebar_width = 40
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+nnoremap <leader>T :Vista!!<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
