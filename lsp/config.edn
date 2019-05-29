@@ -1,7 +1,11 @@
 {"macro-defs"
- {adzerk.libclj.util/with-let [:bindings :bound-elements]
-  hoplon.core/defelem         [:declaration :params :bound-elements]
-  javelin.core/defc           [:declaration :element]
-  javelin.core/defc=          [:declaration :element]
-  javelin.core/formulet       [:bindings :bound-elements]
-  ui.form/with-form           [:bindings :bound-elements]}}
+ {adzerk.libclj.util/with-let  [:bindings :bound-elements]
+  hoplon.core/defelem          [:declaration
+                                {:element :element, :pred :string}
+                                :params
+                                :bound-elements]
+  javelin.core/defc            [:declaration :element]
+  javelin.core/defc=           [:declaration :element]
+  javelin.core/formulet        [:bindings :bound-elements]
+  ui.form/with-form            [:bindings :bound-elements]
+  ui.macros/with-attr-bindings [:element :params :bound-elements]}}
