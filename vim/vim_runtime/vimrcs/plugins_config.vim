@@ -10,7 +10,7 @@
 let g:acid_auto_require = 1
 let g:acid_alt_paths = ['src/backend']
 
-nnoremap <leader>r :AcidRequire<CR>
+" nnoremap <leader>r :AcidRequire<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -231,6 +231,22 @@ autocmd BufReadCmd,FileReadCmd,SourceCmd jar:file://* call s:LoadClojureContent(
   setl nomodified
   setl readonly
 endfunction
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => conjure
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:conjure_log_direction = "horizontal"
+let g:conjure_log_size_large = 100
+
+augroup additional_conjure_bindings
+  autocmd!
+  autocmd FileType clojure
+        \ nnoremap <buffer> <localleader>ca
+        \ :ConjureAdd {:tag :dev, :port 5555}<left>
+  " press q to close the log buffer
+  autocmd BufEnter /tmp/conjure.cljc nnoremap <buffer> q :ConjureCloseLog<CR>
+augroup END
 
 
 """"""""""""""""""""""""""""""
