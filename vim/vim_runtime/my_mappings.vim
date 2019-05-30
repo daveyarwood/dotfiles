@@ -9,7 +9,7 @@ nnoremap <leader>Q :qa!<CR>
 
 " i'm constantly accidentally typing :Q instead of :q when I want to quit
 " let's just make :Q quit too
-command Q q
+command! Q q
 
 nnoremap <leader>s :source ~/.vim_runtime/my_configs.vim<CR>
 nnoremap <leader>p :e! ~/.vimrc<CR>
