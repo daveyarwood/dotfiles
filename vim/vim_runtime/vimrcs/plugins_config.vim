@@ -47,6 +47,39 @@ let g:ale_fixers = {'go': ['gofmt', 'goimports']}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => asciidoctor
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:asciidoctor_fenced_languages = ['python', 'clojure']
+
+" Function to create buffer local mappings
+fun! AsciidoctorMappings()
+  nnoremap <buffer> <localleader>oo :AsciidoctorOpenRAW<CR>
+  nnoremap <buffer> <localleader>op :AsciidoctorOpenPDF<CR>
+  nnoremap <buffer> <localleader>oh :AsciidoctorOpenHTML<CR>
+  nnoremap <buffer> <localleader>ox :AsciidoctorOpenDOCX<CR>
+  nnoremap <buffer> <localleader>ch :Asciidoctor2HTML<CR>
+  nnoremap <buffer> <localleader>cp :Asciidoctor2PDF<CR>
+  nnoremap <buffer> <localleader>cx :Asciidoctor2DOCX<CR>
+
+  nnoremap <buffer> <localleader>H
+        \ :silent! Asciidoctor2HTML<CR>
+        \ :silent! AsciidoctorOpenHTML<CR>
+  nnoremap <buffer> <localleader>P
+        \ :silent! Asciidoctor2PDF<CR>
+        \ :silent! AsciidoctorOpenPDF<CR>
+  nnoremap <buffer> <localleader>D
+        \ :silent! Asciidoctor2DOCX<CR>
+        \ :silent! AsciidoctorOpenDOCX<CR>
+endfun
+
+" Call AsciidoctorMappings for all `*.adoc` and `*.asciidoc` files
+augroup asciidoctor
+  au!
+  au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
+augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => auto-pairs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " au Filetype clojure let g:AutoPairsFlyMode = 1
