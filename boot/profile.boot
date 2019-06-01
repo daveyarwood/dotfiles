@@ -9,11 +9,7 @@
 
 (require '[boot.new                 :refer (new)]
          'boot.repl
-         '[boot.util                :as    util]
-         '[clojure.core.server      :as    server]
          '[cpmcdaniel.boot-with-pom :refer :all])
-
-(import '[java.net ConnectException Socket])
 
 (deftask cider
   "Include CIDER middleware, to support editor REPL tooling."
@@ -27,28 +23,11 @@
            concat '[cider.nrepl/cider-middleware
                     refactor-nrepl.middleware/wrap-refactor])))
 
-(defn port-listening?
-  [host port]
-  (try
-    (.close (Socket. host port))
-    true
-    (catch ConnectException _ false)))
-
-(deftask prepl
+(deftask prepl-server
   "Start a prepl server."
   [p port PORT int "The port on which to start the prepl server."]
   (comp
-    (with-pass-thru _
-      (let [host "localhost"
-            port (or port 5555)]
-        (when (port-listening? host port)
-          (util/fail
-            "Unable to start prepl on port %d; that port is in use."
-            port)
-          (System/exit 1))
-        (util/info "Starting prepl on port %d...\n" port)
-        (server/start-server {:accept  `server/io-prepl
-                              :address host
-                              :port    port
-                              :name    "Dave's amazing prepl"})))
+    (socket-server
+      :accept 'clojure.core.server/io-prepl
+      :port   (or port 5555))
     (wait)))
