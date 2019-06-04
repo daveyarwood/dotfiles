@@ -853,6 +853,8 @@ nnoremap <buffer> <leader>vF
 " => vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'path_html': '~/Sync/vimwiki/html'}]
+" Disable insert mode <CR> and <Tab> mappings that interfere with autocomplete.
+let g:vimwiki_table_mappings = 0
 
 
 
