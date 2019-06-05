@@ -214,6 +214,10 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse set Master 2%
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse set Master 2%- && ~/bin/volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)"
 bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle && if amixer get Master | grep -Fq '[off]'; then ~/bin/volnoti-show -m; else ~/bin/volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1); fi"
 
+# Zoom does this really annoying thing where it sets the volume to 75% every
+# time somebody joins or leaves the call. This sets the volume back to 100%.
+bindsym $mod+z exec /home/dave/.bin/set-binary-volume zoom 100%
+
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
