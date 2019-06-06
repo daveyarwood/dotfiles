@@ -231,3 +231,5 @@ bindsym XF86AudioPrev exec playerctl previous
 # lock screen
 bindsym $mod+BackSpace exec sh ~/.bin/lock-screen
 
+# Assign windows of certain applications to open in certain workspaces.
+assign [class="Slack"] 1
