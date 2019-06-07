@@ -73,6 +73,10 @@ au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup iolang
   au!
+  " I have the 'extras/SyntaxHighlighters/Vim' directory of the IoLanguage/io
+  " installed as a plugin, but it's just the syntax definition and that's it.
+  " This line is necessary in order to actually recognize *.io files as Io
+  " source files.
   au BufNew,BufRead *.io setfiletype io
 augroup END
 
