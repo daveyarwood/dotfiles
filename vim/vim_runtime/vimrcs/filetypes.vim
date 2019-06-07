@@ -77,7 +77,7 @@ augroup iolang
   " installed as a plugin, but it's just the syntax definition and that's it.
   " This line is necessary in order to actually recognize *.io files as Io
   " source files.
-  au BufNew,BufRead *.io setfiletype io
+  au BufNew,BufRead *.io setlocal filetype=io
 augroup END
 
 
