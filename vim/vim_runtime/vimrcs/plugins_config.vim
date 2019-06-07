@@ -875,6 +875,15 @@ nnoremap <leader>T :Vista!!<CR>
 " Don't blink the cursor after jumping to definition.
 let g:vista_top_level_blink = [0, 0]
 
+" Jump to the definition the cursor is over for easy previewing.
+let g:vista_echo_cursor_strategy = 'scroll'
+
+" Close the Vista window once I choose something.
+let g:vista_close_on_jump = 1
+
+" Instead of the nested structure used by default, list all tags by kind, e.g.
+" all methods, then all namespaces, etc. This display looks cleaner to me.
+let g:vista#renderer#ctags = 'kind'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vlime
