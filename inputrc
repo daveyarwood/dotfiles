@@ -3,3 +3,10 @@ set input-meta on
 set output-meta on
 set convert-meta off
 set editing-mode vi
+
+# Any key mappings below this line will be active only in command mode.
+set keymap vi-command
+
+# Any key mappings below this line will be active only in insert mode.
+set keymap vi-insert
+"\C-l": clear-screen
