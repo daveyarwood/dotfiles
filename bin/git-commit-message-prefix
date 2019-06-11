@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+if system("git submodule status 2>/dev/null | grep -q teammgmt")
+  branch = `git rev-parse --abbrev-ref HEAD`.chomp
+
+  if match = branch.match(/^.*ch(\d+).*$/)
+    story_number = match.captures[0]
+  elsif match = branch.match(/^release-(\d+)$/)
+    story_number = match.captures[0]
+  else
+    # If the branch is one not associated with a particular story (e.g. dev,
+    # master) then I need to replace this ???? with a story number after the
+    # fact.
+    story_number = "????"
+  end
+end
+
+print "[ch#{story_number}] " unless story_number.nil?

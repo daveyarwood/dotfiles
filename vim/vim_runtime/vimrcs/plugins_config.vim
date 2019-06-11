@@ -409,7 +409,7 @@ nnoremap <leader>g<space> :Gina<space>
 " :Gina blame. Putting it here so that I don't have to look in two places for
 " all my git-related keybindings.
 nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gc :Gina commit<CR>
+nnoremap <leader>gc :Gina commit<CR>:let @a=system("git-commit-message-prefix")<CR>i<C-r>a
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gD :Gina diff -w<CR>
 nnoremap <leader>gg :Gina grep<space>
