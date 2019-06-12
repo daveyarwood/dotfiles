@@ -52,3 +52,69 @@ function zch
 
   xdg-open https://app.clubhouse.io/adzerk/story/$argv[1]
 end
+
+# example usage:
+#
+#   Get story:
+#     zchcurl /v2/stories/12345
+#
+#   Create story:
+#     zchcurl /v2/stories -d '{... JSON here ...}'
+function zchcurl
+  if test -z $CLUBHOUSE_API_TOKEN
+    echo "ERROR: CLUBHOUSE_API_TOKEN not set."
+    return 1
+  end
+
+  if test -z $CLUBHOUSE_MEMBER_ID
+    echo "ERROR: CLUBHOUSE_MEMBER_ID not set."
+    return 1
+  end
+
+  set -l endpoint $argv[1]
+  set -e argv[1] # $argv is now any remaining arguments
+
+  curl -L "https://api.clubhouse.io/api$endpoint?token=$CLUBHOUSE_API_TOKEN" \
+       -H Content-Type:application/json \
+       # exit non-0 unless response is a 200
+       # --fail \
+       $argv
+end
+
+function zchown
+  for story_id in $argv
+    echo "Fetching story $story_id..."
+    set -l story (zchcurl /v2/stories/$story_id -s 2>&1); or return $status
+
+    echo "Adding $CLUBHOUSE_MEMBER_ID as owner..."
+    zchcurl /v2/stories/$story_id \
+      -X PUT \
+      -d (jo owner_ids=(echo $story \
+			| jq -c ".owner_ids
+				   | . += [\"$CLUBHOUSE_MEMBER_ID\"]
+				   | unique")) \
+      # Just output the headers to STDERR so I can see if the update was
+      # successful.
+      -sD /dev/stderr >/dev/null
+      or return $status
+  end
+end
+
+function zchdisown
+  for story_id in $argv
+    echo "Fetching story $story_id..."
+    set -l story (zchcurl /v2/stories/$story_id -s 2>&1); or return $status
+
+    echo "Removing $CLUBHOUSE_MEMBER_ID as owner/follower..."
+    zchcurl /v2/stories/$story_id \
+      -X PUT \
+      -d (jo owner_ids=(echo $story \
+			| jq -c ".owner_ids | . -= [\"$CLUBHOUSE_MEMBER_ID\"]")  \
+	     follower_ids=(echo $story \
+			   | jq -c ".follower_ids | . -= [\"$CLUBHOUSE_MEMBER_ID\"]")) \
+      # Just output the headers to STDERR so I can see if the update was
+      # successful.
+      -sD /dev/stderr >/dev/null
+      or return $status
+  end
+end
