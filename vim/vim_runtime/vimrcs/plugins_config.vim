@@ -271,12 +271,10 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:conjure_log_direction = "horizontal"
 let g:conjure_log_size_large = 100
+let g:conjure_quick_doc_normal_mode = 0
 
 augroup additional_conjure_bindings
   autocmd!
-  autocmd FileType clojure
-        \ nnoremap <buffer> <localleader>ca
-        \ :ConjureAdd {:tag :dev, :port 5555}<left>
   " press q to close the log buffer
   autocmd BufEnter /tmp/conjure.cljc nnoremap <buffer> q :ConjureCloseLog<CR>
 augroup END

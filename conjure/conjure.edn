@@ -1,0 +1,12 @@
+{:conns
+ ;; There is currently a bug in Conjure where I think it's using the CWD of the
+ ;; Conjure JVM instead of the project, so it fails to find .socket-port.
+ ;;
+ ;; I think it might be fixed in the `develop` branch at this point, so should
+ ;; be fixed in a release of Conjure soon.
+ ;; {:boot {:port #slurp-edn ".socket-port"}}}
+ ;;
+ ;; Until the issue above is fixed, I'll just always use port 5555. One
+ ;; limitation is that I can only have the REPL server running for one server at
+ ;; a time, but that's typically what I do anyway.
+ {:dev {:port 5555}}}
