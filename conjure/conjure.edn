@@ -7,6 +7,6 @@
  ;; {:boot {:port #slurp-edn ".socket-port"}}}
  ;;
  ;; Until the issue above is fixed, I'll just always use port 5555. One
- ;; limitation is that I can only have the REPL server running for one server at
- ;; a time, but that's typically what I do anyway.
+ ;; limitation is that I can only have the REPL server running for one project
+ ;; at a time, but that's typically what I do anyway.
  {:dev {:port 5555}}}
