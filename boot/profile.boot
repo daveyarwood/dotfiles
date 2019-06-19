@@ -29,5 +29,5 @@
   (comp
     (socket-server
       :accept 'clojure.core.server/io-prepl
-      :port   (or port 5555))
+      :port   port)
     (wait)))

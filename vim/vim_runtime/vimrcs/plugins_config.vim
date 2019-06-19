@@ -275,6 +275,11 @@ let g:conjure_quick_doc_normal_mode = 0
 
 augroup additional_conjure_bindings
   autocmd!
+
+  " this is easier to type than <localleader>cL
+  autocmd FileType clojure
+        \ nnoremap <buffer> <localleader>cc :ConjureToggleLog<CR>
+
   " press q to close the log buffer
   autocmd BufEnter /tmp/conjure.cljc nnoremap <buffer> q :ConjureCloseLog<CR>
 augroup END
