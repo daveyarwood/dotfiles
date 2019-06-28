@@ -24,7 +24,11 @@ function adzerk-vpn
     set openvpn_dir /etc/openvpn
   end
 
-	sudo openvpn --config $openvpn_dir/dave.conf $argv;
+  sudo openvpn --config $openvpn_dir/dave.conf $argv;
+
+  # There's an issue where OpenVPN doesn't restore my previous DNS settings
+  # after exiting. I wrote this script as a workaround.
+  use-1.1.1.1-dns-server
 end
 
 # Start a new mono-docker container.

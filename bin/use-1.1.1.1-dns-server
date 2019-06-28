@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# The correct way to do this is to configure resolvconf by editing e.g.
+# /etc/resolvconf/resolv.conf.d/head. Editing resolv.conf directly is not a
+# permanent solution because resolvconf will overwrite your changes the next
+# time it runs.
+#
+# However, I use OpenVPN, and for some reason, it doesn't revert the changes it
+# makes to /etc/resolv.conf when it exits. I dug into this a bit and I couldn't
+# quite figure out why this is. It seems like it _should_ revert the changes,
+# but it doesn't.
+#
+# This script sets resolv.conf to use nameserver 1.1.1.1, my preferred DNS when
+# I'm not on the VPN.
+
+# Make sure I'm not on the VPN; If I am, don't do anything.
+if ps aux | grep openvpn | grep -qv grep; then
+  echo "OpenVPN is running. Aborting."
+  exit 1
+fi
+
+echo "Adjusting resolv.conf to use 1.1.1.1 DNS server..."
+
+# /etc/resolv.conf is a symlink to /run/resolvconf/resolv.conf.
+#
+# Something about editing /etc/resolv.conf like we do below causes the symlink
+# to be undone. (╯°□°)╯︵ ┻━┻
+resolvconf="/run/resolvconf/resolv.conf"
+resolvconf_symlink="/etc/resolv.conf"
+
+addition=$(cat <<-EOF
+
+# Added by \`use-1.1.1.1-dns-server\` script
+nameserver 1.1.1.1
+EOF
+)
+
+sudo sed -i '/^nameserver/s/^/# /' "$resolvconf"
+echo -e "$addition" | sudo tee -a "$resolvconf" >/dev/null
+
+# This is what I get for editing resolv.conf manually.
+echo "Recreating resolv.conf symlink..."
+sudo rm "$resolvconf_symlink"
+sudo ln -s "$resolvconf" "$resolvconf_symlink"
+
+echo "Done."
