@@ -753,6 +753,7 @@ nnoremap ga :UnicodeName<CR>
 autocmd FileType cs,kotlin setlocal commentstring=//\ %s
 autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
 autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
+autocmd FileType resolv setlocal commentstring=#\ %s
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
