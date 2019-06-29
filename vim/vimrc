@@ -71,6 +71,7 @@ Plug 'dpwright/vim-tup'
 Plug 'elixir-lang/vim-elixir'
 Plug 'habamax/vim-asciidoctor'
 Plug 'idris-hackers/idris-vim'
+Plug 'iloginow/vim-stylus'
 Plug 'IoLanguage/io', { 'rtp': 'extras/SyntaxHighlighters/Vim' }
 Plug 'jceb/vim-orgmode'
 Plug 'jdonaldson/vaxe'
