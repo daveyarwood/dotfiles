@@ -69,9 +69,9 @@ Plug 'digitaltoad/vim-pug'
 Plug 'dleonard0/pony-vim-syntax'
 Plug 'dpwright/vim-tup'
 Plug 'elixir-lang/vim-elixir'
-Plug 'IoLanguage/io', { 'rtp': 'extras/SyntaxHighlighters/Vim' }
 Plug 'habamax/vim-asciidoctor'
 Plug 'idris-hackers/idris-vim'
+Plug 'IoLanguage/io', { 'rtp': 'extras/SyntaxHighlighters/Vim' }
 Plug 'jceb/vim-orgmode'
 Plug 'jdonaldson/vaxe'
 Plug 'jtratner/vim-flavored-markdown'
