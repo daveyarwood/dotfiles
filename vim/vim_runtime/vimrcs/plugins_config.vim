@@ -269,6 +269,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:conjure_log_auto_open = ["ret-multiline", "out", "err", "tap", "doc", "load-file", "test"]
 let g:conjure_log_direction = "horizontal"
 let g:conjure_log_size_large = 100
 let g:conjure_quick_doc_normal_mode = 0
