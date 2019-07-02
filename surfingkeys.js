@@ -47,9 +47,8 @@ settings.blacklist = {
 
 Hints.characters = "aoeuhtnsid',.pgcrlyf;qjkbwvzx"; // dvorak-style
 
-// an example to create a new mapping `ctrl-y`
-mapkey('<Ctrl-y>', 'Show me the money', function() {
-    Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
+mapkey('ch', 'Open ClubHouse story', function() {
+    Front.openOmnibar({type: 'URLs', pref: "https://app.clubhouse.io/adzerk/story/"});
 });
 
 // disable "x" closing the tab. The "x" key in the Dvorak layout is hazardously
