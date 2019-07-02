@@ -1,39 +1,3 @@
-settings.blacklist = {
-    "https://airtable.com": 1,
-    "https://docs.google.com": 1,
-    "https://issues.sonatype.org": 1,
-    "https://www.meetup.com": 1,
-    "https://www.reddit.com": 1
-}
-
-// an example to create a new mapping `ctrl-y`
-mapkey('<Ctrl-y>', 'Show me the money', function() {
-    Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
-});
-
-// disable "x" closing the tab. The "x" key in the Dvorak layout is hazardously
-// close to the mouse cursor nipple on my Thinkpad, making it all too easy for
-// my finger to slip and close the tab I'm on. I always use Ctrl-w anyway out of
-// habit.
-unmap("x");
-
-// J and K move left/right through tabs
-map("J", "E");
-map("K", "R");
-
-// H and L move backward/forward through history of current tab
-map("H", "S");
-map("L", "D");
-
-// F is like f, but opens the link in a new, unfocused tab
-map("F", "gf");
-
-// mf lets you more conveniently open multiple links in new, unfocused tabs
-map("mf", "cf");
-
-// disable emoji completion
-iunmap(":");
-
 // set theme
 settings.theme = `
 .sk_theme {
@@ -73,4 +37,40 @@ settings.theme = `
     font-size: 20pt;
 }`;
 
+settings.blacklist = {
+    "https://airtable.com": 1,
+    "https://docs.google.com": 1,
+    "https://issues.sonatype.org": 1,
+    "https://www.meetup.com": 1,
+    "https://www.reddit.com": 1
+}
+
 Hints.characters = "aoeuhtnsid',.pgcrlyf;qjkbwvzx"; // dvorak-style
+
+// an example to create a new mapping `ctrl-y`
+mapkey('<Ctrl-y>', 'Show me the money', function() {
+    Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
+});
+
+// disable "x" closing the tab. The "x" key in the Dvorak layout is hazardously
+// close to the mouse cursor nipple on my Thinkpad, making it all too easy for
+// my finger to slip and close the tab I'm on. I always use Ctrl-w anyway out of
+// habit.
+unmap("x");
+
+// J and K move left/right through tabs
+map("J", "E");
+map("K", "R");
+
+// H and L move backward/forward through history of current tab
+map("H", "S");
+map("L", "D");
+
+// F is like f, but opens the link in a new, unfocused tab
+map("F", "gf");
+
+// mf lets you more conveniently open multiple links in new, unfocused tabs
+map("mf", "cf");
+
+// disable emoji completion
+iunmap(":");
