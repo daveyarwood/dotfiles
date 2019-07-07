@@ -14,6 +14,7 @@ balias gpr 'git pull-request'
 balias gpt 'git push --tags'
 balias gpuo 'git push -u origin'
 balias gpud 'git push -u daveyarwood'
+balias gb 'git branch'
 
 function gaa
 	git add --all $argv; git status;
