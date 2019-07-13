@@ -1,23 +1,6 @@
-;; The deps.edn file describes the information needed to build a classpath.
-;;
-;; When using the `clojure` or `clj` script, there are several deps.edn files
-;; that are combined:
-;; - install-level
-;; - user level (this file)
-;; - project level (current directory when invoked)
-;;
-;; For all attributes other than :paths, these config files are merged left to right.
-;; Only the last :paths is kept and others are dropped.
-
 {
-  ;; Paths
-  ;;   Directories in the current project to include in the classpath
-
   ;; :paths ["src"]
-
-  ;; External dependencies
-  :deps
-  {org.clojure/clojure {:mvn/version "1.10.1"}}
+  :deps  {org.clojure/clojure {:mvn/version "1.10.1"}}
 
   ;; Aliases
   ;;   resolve-deps aliases (-R) affect dependency resolution, options:
