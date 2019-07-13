@@ -19,5 +19,6 @@
       "trace.server": "verbose",
       "initializationOptions": {}
     }
-  }
+  },
+  "java.errors.incompleteClasspath.severity": "ignore"
 }
