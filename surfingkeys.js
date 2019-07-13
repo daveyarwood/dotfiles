@@ -42,7 +42,8 @@ settings.blacklist = {
   "https://docs.google.com": 1,
   "https://issues.sonatype.org": 1,
   "https://www.meetup.com": 1,
-  "https://www.reddit.com": 1
+  "https://www.reddit.com": 1,
+  "https://www.duolingo.com": 1
 }
 
 Hints.characters = "aoeuhtnsid',.pgcrlyf;qjkbwvzx"; // dvorak-style
