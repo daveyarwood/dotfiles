@@ -1,54 +1,54 @@
 // set theme
 settings.theme = `
 .sk_theme {
-    font-family: Input Sans Condensed, Charcoal, sans-serif;
-    font-size: 10pt;
-    background: #24272e;
-    color: #abb2bf;
+  font-family: Input Sans Condensed, Charcoal, sans-serif;
+  font-size: 10pt;
+  background: #24272e;
+  color: #abb2bf;
 }
 .sk_theme tbody {
-    color: #fff;
+  color: #fff;
 }
 .sk_theme input {
-    color: #d0d0d0;
+  color: #d0d0d0;
 }
 .sk_theme .url {
-    color: #61afef;
+  color: #61afef;
 }
 .sk_theme .annotation {
-    color: #56b6c2;
+  color: #56b6c2;
 }
 .sk_theme .omnibar_highlight {
-    color: #528bff;
+  color: #528bff;
 }
 .sk_theme .omnibar_timestamp {
-    color: #e5c07b;
+  color: #e5c07b;
 }
 .sk_theme .omnibar_visitcount {
-    color: #98c379;
+  color: #98c379;
 }
 .sk_theme #sk_omnibarSearchResult>ul>li:nth-child(odd) {
-    background: #303030;
+  background: #303030;
 }
 .sk_theme #sk_omnibarSearchResult>ul>li.focused {
-    background: #3e4452;
+  background: #3e4452;
 }
 #sk_status, #sk_find {
-    font-size: 20pt;
+  font-size: 20pt;
 }`;
 
 settings.blacklist = {
-    "https://airtable.com": 1,
-    "https://docs.google.com": 1,
-    "https://issues.sonatype.org": 1,
-    "https://www.meetup.com": 1,
-    "https://www.reddit.com": 1
+  "https://airtable.com": 1,
+  "https://docs.google.com": 1,
+  "https://issues.sonatype.org": 1,
+  "https://www.meetup.com": 1,
+  "https://www.reddit.com": 1
 }
 
 Hints.characters = "aoeuhtnsid',.pgcrlyf;qjkbwvzx"; // dvorak-style
 
 mapkey('ch', 'Open ClubHouse story', function() {
-    Front.openOmnibar({type: 'URLs', pref: "https://app.clubhouse.io/adzerk/story/"});
+  Front.openOmnibar({type: 'URLs', pref: "https://app.clubhouse.io/adzerk/story/"});
 });
 
 // disable "x" closing the tab. The "x" key in the Dvorak layout is hazardously
