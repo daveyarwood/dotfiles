@@ -1,29 +1,15 @@
-{
-  ;; :paths ["src"]
-  :deps  {org.clojure/clojure {:mvn/version "1.10.1"}}
+{:deps
+ {org.clojure/clojure {:mvn/version "1.10.1"}}
 
-  ;; Aliases
-  ;;   resolve-deps aliases (-R) affect dependency resolution, options:
-  ;;     :extra-deps - specifies extra deps to add to :deps
-  ;;     :override-deps - specifies a coordinate to use instead of that in :deps
-  ;;     :default-deps - specifies a coordinate to use for a lib if one isn't found
-  ;;   make-classpath aliases (-C) affect the classpath generation, options:
-  ;;     :extra-paths - vector of additional paths to add to the classpath
-  ;;     :classpath-overrides - map of lib to path that overrides the result of resolving deps
+ :aliases
+ {:dot
+  {:extra-paths ["/home/dave/.clojure/src"]}
 
-  ;; :aliases {
-  ;;   :deps {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.2.196"}}}
-  ;;   :test {:extra-paths ["test"]}
-  ;; }
+  :prepl-server
+  {:extra-paths ["/home/dave/.clojure/src"]
+   :main-opts   ["-m" "dave.prepl-server"]}
 
-  :aliases
-  {:rebel {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.2"}}
-           :main-opts  ["-m" "rebel-readline.main"]}}}
-
-  ;; Provider attributes
-
-  ;; :mvn/repos {
-  ;;   "central" {:url "https://repo1.maven.org/maven2/"}
-  ;;   "clojars" {:url "https://clojars.org/repo"}
-  ;; }
+  :rebel
+  {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.2"}}
+   :main-opts  ["-m" "rebel-readline.main"]}}}
 
