@@ -1,5 +1,8 @@
 {"macro-defs"
- {adzerk.env/def
+ {adzerk.api.v1-fixes/with-json-body
+  [:bindings :bound-elements]
+
+  adzerk.env/def
   [{:element [:declaration :element], :repeat true}]
 
   adzerk.libclj.util/with-let
