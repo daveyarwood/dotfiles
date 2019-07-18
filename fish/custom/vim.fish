@@ -23,7 +23,7 @@ end
 balias vimrc "vim $HOME/.vimrc"
 
 # bring up a scratch buffer
-balias vims "vim /tmp/scratch"
+balias vims "vim /tmp/scratch-(date '+%Y%m%d%H%M%S')"
 
 balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
