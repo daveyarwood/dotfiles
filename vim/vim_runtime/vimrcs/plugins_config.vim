@@ -269,7 +269,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:conjure_log_auto_open = ["ret-multiline", "out", "err", "tap", "doc", "test"]
+let g:conjure_log_auto_open = ["ret-multiline", "out", "err", "tap", "doc", "test", "status"]
 let g:conjure_log_direction = "horizontal"
 let g:conjure_log_size_large = 100
 let g:conjure_quick_doc_normal_mode = 0
@@ -279,7 +279,24 @@ augroup additional_conjure_bindings
 
   " this is easier to type than <localleader>cL
   autocmd FileType clojure
-        \ nnoremap <buffer> <localleader>cc :ConjureToggleLog<CR>
+        \ nnoremap <buffer>
+        \ <localleader>cc :ConjureToggleLog<CR>
+
+  " Conjure runs the equivalent of :ConjureUp automatically at the start of
+  " a Clojure editing session. This is a bit cumbersome because I don't like
+  " having the Conjure log pop up just to tell me whether or not it
+  " connected to a prepl connection; I expect this to just work in the
+  " background.
+  "
+  " I do want the Conjure log to pop open for `up` messages, in general,
+  " like when I run :ConjureUp manually.
+  "
+  " To make this work the way I want, I have Conjure configured NOT to
+  " auto-open on `up` messages, and I'm rebinding the :ConjureUp mapping
+  " here to both run :ConjureUp and open the log.
+  autocmd FileType clojure
+        \ nnoremap <buffer> <localleader>cU
+        \ :ConjureUp<CR>:ConjureOpen<CR>
 
   " press q to close the log buffer
   autocmd BufEnter /tmp/conjure.cljc nnoremap <buffer> q :ConjureCloseLog<CR>
