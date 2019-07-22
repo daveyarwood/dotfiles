@@ -270,6 +270,9 @@ endfunction
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:conjure_log_auto_open = ["ret-multiline", "out", "err", "tap", "doc", "test", "status"]
+" This option will soon replace g:conjure_log_auto_open. Once that change hits
+" master, I'll no longer need to set g:conjure_log_auto_open.
+let g:conjure_log_blacklist = ["up", "eval", "ret", "load-file"]
 let g:conjure_log_direction = "horizontal"
 let g:conjure_log_size_large = 100
 let g:conjure_quick_doc_normal_mode = 0
