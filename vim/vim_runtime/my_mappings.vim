@@ -11,10 +11,10 @@ nnoremap <leader>Q :qa!<CR>
 " let's just make :Q quit too
 command! Q q
 
-map <leader>e :e! ~/.vim_runtime<cr>
-nnoremap <leader>p :e! ~/.vim_runtime/vimrcs/plugins_config.vim<CR>
-nnoremap <leader>v :e! ~/.vimrc<CR>
-nnoremap <leader>s :source ~/.vimrc<CR>
+nnoremap <leader>ee :e! ~/.vim_runtime<cr>
+nnoremap <leader>ep :e! ~/.vim_runtime/vimrcs/plugins_config.vim<CR>
+nnoremap <leader>ev :e! ~/.vimrc<CR>
+nnoremap <leader>sv :source ~/.vimrc<CR>
 
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
