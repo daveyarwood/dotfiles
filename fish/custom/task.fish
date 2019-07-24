@@ -65,3 +65,7 @@ function tundo
   task undo
   todo
 end
+
+function tsync
+  task sync
+end
