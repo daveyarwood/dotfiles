@@ -14,12 +14,12 @@
 data.location=~/.task
 
 # inthe.am integration
-taskd.certificate=/home/dave/inthe.am/private.certificate.pem
-taskd.key=/home/dave/inthe.am/private.key.pem
-taskd.ca=/home/dave/inthe.am/ca.cert.pem
-taskd.server=taskwarrior.inthe.am:53589
-taskd.credentials=inthe_am/dave.yarwood/fdea5fbb-e178-49da-96a1-33c5e366ffe8
-taskd.trust=ignore hostname
+# taskd.certificate=/home/dave/inthe.am/private.certificate.pem
+# taskd.key=/home/dave/inthe.am/private.key.pem
+# taskd.ca=/home/dave/inthe.am/ca.cert.pem
+# taskd.server=taskwarrior.inthe.am:53589
+# taskd.credentials=inthe_am/dave.yarwood/fdea5fbb-e178-49da-96a1-33c5e366ffe8
+# taskd.trust=ignore hostname
 
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme
