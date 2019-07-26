@@ -12,6 +12,8 @@ nnoremap <leader>Q :qa!<CR>
 command! Q q
 
 nnoremap <leader>ee :e! ~/.vim_runtime<cr>
+nnoremap <leader>ef :e! ~/.vim_runtime/vimrcs/filetypes.vim<CR>
+nnoremap <leader>em :e! ~/.vim_runtime/my_mappings.vim<CR>
 nnoremap <leader>ep :e! ~/.vim_runtime/vimrcs/plugins_config.vim<CR>
 nnoremap <leader>ev :e! ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
