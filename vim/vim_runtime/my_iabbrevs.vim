@@ -6,6 +6,3 @@ iabbrev coplice ## License<cr><cr>Copyright © 2019 Dave Yarwood<cr><cr>Distribu
 " liquid code blocks
 iabbrev liqcode {% highlight text %}<cr><cr>{% endhighlight %}<cr>
 
-" that thing you type every 2 seconds when you're programming in go
-iabbrev errprop if err != nil {<cr>return err<esc>j
-iabbrev errprop2 if err != nil {<cr>return nil, err<esc>j

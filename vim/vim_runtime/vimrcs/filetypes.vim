@@ -169,3 +169,20 @@ augroup spark_mvc
   autocmd!
   autocmd BufNewFile,BufRead *.spark set filetype=html
 augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Go
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup golang
+  " that thing you type every 2 seconds when you're programming in go
+  " mnemonic: error propagate (ep)
+  autocmd FileType go
+        \ nnoremap <buffer> <localleader>ep
+        \ :exe 'normal!' "oif err != nil {\<lt>cr>return err\<lt>cr>}"<cr>
+
+  " 2-arity version of the above
+  autocmd FileType go
+        \ nnoremap <buffer> <localleader>eP
+        \ :exe 'normal!' "oif err != nil {\<lt>cr>return nil, err\<lt>cr>}"<cr>
+augroup END
