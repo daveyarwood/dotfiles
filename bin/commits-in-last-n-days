@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+def print_usage
+  puts "Usage: #{$PROGRAM_NAME} NUMBER_OF_DAYS DIR_CONTAINING_REPOS"
+end
+
+(print_usage; exit 1) if ARGV.count != 2
+
+begin
+  days = Integer(ARGV[0])
+rescue ArgumentError => e
+  puts e
+  print_usage
+  exit 1
+end
+
+repos_dir = ARGV[1]
+
+def folder_contents dir
+  Dir.entries(dir).reject {|f| ['.', '..'].include? f}
+                  .map {|f| "#{dir}/#{f}"}
+end
+
+now = Time.now.to_i
+
+def days_ago_string n
+  case n
+  when 0
+    "today"
+  when 1
+    "yesterday"
+  else
+    "#{n} days ago"
+  end
+end
+
+entries = []
+
+folder_contents(repos_dir).sort.each do |dir|
+  # Skip this if it's a file and not a directory.
+  next unless File.directory?(dir)
+
+  Dir.chdir(dir)
+
+  # Skip this directory if it's not a git repo.
+  next unless system("git log >/dev/null 2>/dev/null")
+
+  commits = []
+
+  timestamp_lines = `git log --format=%ct`.lines
+  commit_lines = `git log --oneline`.lines
+
+  timestamp_lines.each_with_index do |timestamp_line, i|
+    timestamp = Integer(timestamp_line)
+    seconds_ago = now - timestamp
+    days_ago = seconds_ago / 60 / 60 / 24
+    break if days_ago > days
+    commits << {timestamp: timestamp, days_ago: days_ago,
+                commit_line: commit_lines[i]}
+  end
+
+  next if commits.empty?
+
+  entry = "#{dir}:\n"
+  commits.each {|c| entry << "\t#{c[:commit_line]}"}
+  entries << entry
+end
+
+puts entries.join("\n")
