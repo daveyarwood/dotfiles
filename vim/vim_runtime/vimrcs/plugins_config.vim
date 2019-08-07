@@ -283,6 +283,12 @@ augroup additional_conjure_bindings
         \ nnoremap <buffer>
         \ <localleader>cc :ConjureToggleLog<CR>
 
+  " mnemonic: eval prompt
+  " (like how <localleader>ee is eval expression)
+  autocmd FileType clojure
+        \ nnoremap <buffer>
+        \ <localleader>ep :ConjureEval<space>
+
   " press q to close the log buffer
   autocmd BufEnter /tmp/conjure.cljc nnoremap <buffer> q :ConjureCloseLog<CR>
 augroup END
