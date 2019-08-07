@@ -186,3 +186,29 @@ augroup golang
         \ nnoremap <buffer> <localleader>eP
         \ :exe 'normal!' "oif err != nil {\<lt>cr>return nil, err\<lt>cr>}"<cr>
 augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Alda
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Replaces each part call in the score (e.g. `piano:`) with a random instrument.
+" This is useful for when I'm writing demo scores and I want to keep things
+" interesting instead of just using the same instruments over and over again.
+"
+" NB: This isn't perfect. It doesn't properly handle:
+" * Colons within comments or inline Clojure expressions.
+" * Instrument groups, e.g. clarinet/flute/oboe:
+" * Part aliases, e.g. piano "foo":, trumpet/trombone "bar":
+function! RandomizeAldaInstruments()
+  let instruments = trim(system("mktemp"), "\n")
+  exe "!alda instruments > " . instruments
+  exe '%s/[[:alnum:]-]\+:/\=trim(system("shuf -n1 '
+        \ . escape(instruments, "/")
+        \ . '"), "\n") . ":"/gc'
+endfunction
+
+augroup alda
+  autocmd FileType alda
+        \ nnoremap <buffer> <silent> <localleader>ri
+        \ :call RandomizeAldaInstruments()<cr>
+augroup END
