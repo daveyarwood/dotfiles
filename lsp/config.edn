@@ -31,6 +31,9 @@
   hoplon.core/for-tpl
   [:bindings :bound-elements]
 
+  integration.model/defstep
+  [:declaration :elements]
+
   javelin.core/cell-let
   [:bindings :bound-elements]
 
