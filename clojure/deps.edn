@@ -9,6 +9,10 @@
   {:extra-paths ["/home/dave/.clojure/src"]
    :main-opts   ["-m" "dave.prepl-server"]}
 
+  :cljs
+  {:extra-deps {org.clojure/clojurescript {:mvn/version "LATEST"}}
+   :main-opts  ["-m" "cljs.main"]}
+
   :rebel
   {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.2"}}
    :main-opts  ["-m" "rebel-readline.main"]}}}
