@@ -4,10 +4,10 @@ HEART='♥'
 
 if [[ `uname` == 'Linux' ]]; then
   battery_info=$(upower -i $(upower -e | grep BAT))
-  current_charge=$(echo $battery_info | grep -o 'percentage: \+[0-9]\+' | awk '{print $2}')
+  current_charge=$(echo $battery_info | grep -o 'energy: \+[0-9]\+' | awk '{print $2}')
+  total_charge=$(echo $battery_info | grep -o 'energy-full-design: \+[0-9]\+' | awk '{print $2}')
   charging=$(echo $battery_info | grep -c 'state: \+charging')
   fully_charged=$(echo $battery_info | grep -c 'state: \+fully-charged')
-  total_charge=$(echo $battery_info | grep -o 'capacity: \+[0-9]\+' | awk '{print $2}')
 else
   battery_info=`ioreg -rc AppleSmartBattery`
   current_charge=$(echo $battery_info | grep -o '"CurrentCapacity" = [0-9]\+' | awk '{print $3}')
