@@ -400,7 +400,7 @@ nnoremap <C-g> :GFiles<CR>
 
 " I think I need a new keybinding for this one because <C-m> is sort of the same
 " thing as Enter, so when I press Enter, :Maps<CR> is happening.
-" nnoremap <C-m> :Maps<CR>
+nnoremap <leader>m :Maps<CR>
 
 " <C-t> is already the stock Vim keybinding for 'go back to where you were after
 " following a tag', and it's so ingrained in my muscle memory, I can't remap it
