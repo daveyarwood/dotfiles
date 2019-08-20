@@ -431,6 +431,7 @@ nnoremap <leader>gi :Gina init<CR>
 nnoremap <leader>gl :Gina log --graph --pretty=format:"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --all --date=short<CR><CR>
 nnoremap <leader>gp :Gina push<CR>
 nnoremap <leader>gs :Gina status<CR>
+nnoremap <leader>gS :Gina show<CR>
 
 " press q to close gina buffers
 augroup gina_buffers
