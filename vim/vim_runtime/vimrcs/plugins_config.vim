@@ -421,6 +421,7 @@ nnoremap <leader>g<space> :Gina<space>
 " this one actually comes from fugitive because I like its output better than
 " :Gina blame. Putting it here so that I don't have to look in two places for
 " all my git-related keybindings.
+nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gc :Gina commit -v<CR>:let @a=system("git-commit-message-prefix")<CR>ggi<C-r>a
 nnoremap <leader>gd :Gina diff<CR>
@@ -430,7 +431,6 @@ nnoremap <leader>gi :Gina init<CR>
 nnoremap <leader>gl :Gina log --graph --pretty=format:"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --all --date=short<CR><CR>
 nnoremap <leader>gp :Gina push<CR>
 nnoremap <leader>gs :Gina status<CR>
-nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 
 " press q to close gina buffers
 augroup gina_buffers
