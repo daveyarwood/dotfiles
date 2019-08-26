@@ -261,6 +261,15 @@ endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => commentary
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType cs,kotlin setlocal commentstring=//\ %s
+autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
+autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
+autocmd FileType resolv,crontab setlocal commentstring=#\ %s
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:conjure_fold_multiline_results = 0
@@ -749,15 +758,6 @@ let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 " => unicode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap ga :UnicodeName<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-commentary
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType cs,kotlin setlocal commentstring=//\ %s
-autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
-autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
-autocmd FileType resolv,crontab setlocal commentstring=#\ %s
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
