@@ -694,6 +694,22 @@ ino <M-g> <esc>:call JumpToDef()<cr>i
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => open-browser
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" the gx mapping provided by netrw used to open the URL under the cursor in my
+" browser, then it mysteriously stopped working. The new behavior is that it
+" curls the URL into a tempfile and then open the file in my browser, and I
+" would see the HTML.
+"
+" I found a tip here (https://vi.stackexchange.com/a/14526) to use this plugin
+" instead. I tried it and it works as expected.
+
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => paredit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:paredit_leader = '\'
