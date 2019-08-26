@@ -107,7 +107,11 @@ end
 function zchdisown
   for story_id in $argv
     echo "Fetching story $story_id..."
-    set -l story (zchcurl /v2/stories/$story_id -s 2>&1); or return $status
+    set -l story (zchcurl /v2/stories/$story_id -s 2>&1)
+    if test $status -ne 0
+      echo $story
+      return $status
+    end
 
     echo "Removing $CLUBHOUSE_MEMBER_ID as owner/follower..."
     zchcurl /v2/stories/$story_id \
