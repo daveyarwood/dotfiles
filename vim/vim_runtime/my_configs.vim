@@ -4,19 +4,47 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 highlight Comment cterm=italic
 
-" color theme
-let g:gruvbox_italic=1
-set background=dark
-colorscheme gruvbox
-" let ayucolor="dark"
-" colorscheme ayu
+let g:colorscheme_mode = v:null
+
+" i use this theme most of the time
+function! s:DarkMode() abort
+  let g:colorscheme_mode = 'dark'
+  let g:gruvbox_italic=1
+  set background=dark
+  colorscheme gruvbox
+  " let ayucolor="dark"
+  " colorscheme ayu
+  let g:lightline.colorscheme = 'onehalfdark'
+  call lightline#disable()
+  call lightline#enable()
+endfunction
+command! DarkMode call s:DarkMode()
 
 " a decent looking light theme to use when giving demos, etc.
-" for a more consistent lightline look, set lightline colorscheme to 'solarized'
-" set background=light
-" 0 = low, 1 = medium, 2 = high visibility; i think medium looks best
-" let g:mayansmoke_cursor_line_visibility = 1
-" colorscheme mayansmoke
+function! s:LightMode() abort
+  let g:colorscheme_mode = 'light'
+  set background=light
+  " 0 = low, 1 = medium, 2 = high visibility; i think medium looks best
+  let g:mayansmoke_cursor_line_visibility = 1
+  colorscheme mayansmoke
+  let g:lightline.colorscheme = 'solarized'
+  call lightline#disable()
+  call lightline#enable()
+endfunction
+command! LightMode call s:LightMode()
+
+function! s:ToggleColorschemeMode() abort
+  if g:colorscheme_mode ==# 'dark'
+    call s:LightMode()
+  else
+    call s:DarkMode()
+  endif
+endfunction
+command! ToggleColorschemeMode call s:ToggleColorschemeMode()
+nnoremap <leader>M :ToggleColorschemeMode<CR>
+
+" Start in dark mode
+call s:DarkMode()
 
 if !has('nvim')
   " nvim sets encoding to utf-8 by default
