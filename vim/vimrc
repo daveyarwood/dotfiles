@@ -11,6 +11,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'vim-scripts/mayansmoke'
 
 " editor enhancements
 Plug 'airblade/vim-gitgutter'

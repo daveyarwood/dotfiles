@@ -6,10 +6,17 @@ highlight Comment cterm=italic
 
 " color theme
 let g:gruvbox_italic=1
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
 " let ayucolor="dark"
 " colorscheme ayu
+
+" a decent looking light theme to use when giving demos, etc.
+" for a more consistent lightline look, set lightline colorscheme to 'solarized'
+" set background=light
+" 0 = low, 1 = medium, 2 = high visibility; i think medium looks best
+" let g:mayansmoke_cursor_line_visibility = 1
+" colorscheme mayansmoke
 
 if !has('nvim')
   " nvim sets encoding to utf-8 by default
