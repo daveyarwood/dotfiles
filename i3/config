@@ -210,9 +210,9 @@ exec_always synclient RightButtonAreaLeft=0
 exec_always synclient RightButtonAreaTop=0
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse set Master 2%+ && ~/bin/volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)"
-bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse set Master 2%- && ~/bin/volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)"
-bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle && if amixer get Master | grep -Fq '[off]'; then ~/bin/volnoti-show -m; else ~/bin/volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1); fi"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse set Master 2%+ && ~/bin/volnoti-show $(amixer -c 2 get Master | grep -Po '[0-9]+(?=%)' | head -1)"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse set Master 2%- && ~/bin/volnoti-show $(amixer -c 2 get Master | grep -Po '[0-9]+(?=%)' | head -1)"
+bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle && if amixer -c 2 get Master | grep -Fq '[off]'; then ~/bin/volnoti-show -m; else ~/bin/volnoti-show $(amixer -c 2 get Master | grep -Po '[0-9]+(?=%)' | head -1); fi"
 
 # Zoom does this really annoying thing where it sets the volume to 75% every
 # time somebody joins or leaves the call. This sets the volume back to 100%.
