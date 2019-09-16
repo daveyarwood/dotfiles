@@ -782,7 +782,7 @@ nnoremap ga :UnicodeName<CR>
 let g:magit_show_help = 0
 let g:magit_toggle_help_mapping = '?'
 let g:magit_discard_untracked_do_delete=1
-let g:magit_show_magit_mapping='G'
+let g:magit_show_magit_mapping='<leader>G'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
