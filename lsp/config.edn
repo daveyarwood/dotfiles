@@ -28,6 +28,9 @@
    :params
    :bound-elements]
 
+  hoplon.core/elem
+  [:params :bound-elements]
+
   hoplon.core/for-tpl
   [:bindings :bound-elements]
 
