@@ -1,5 +1,6 @@
 {
   "diagnostic.virtualText": true,
+  "java.errors.incompleteClasspath.severity": "ignore",
   "languageserver": {
     "clojure-lsp": {
       "command": "bash",
@@ -19,6 +20,5 @@
       "trace.server": "verbose",
       "initializationOptions": {}
     }
-  },
-  "java.errors.incompleteClasspath.severity": "ignore"
+  }
 }
