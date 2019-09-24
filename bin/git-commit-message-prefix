@@ -1,6 +1,18 @@
 #!/usr/bin/env ruby
 
-if system("git submodule status 2>/dev/null | grep -q teammgmt")
+def is_repo?(repo_name)
+  `basename $(git rev-parse --show-toplevel)`.chomp == repo_name
+end
+
+def has_submodule?(repo_name)
+  system("git submodule status 2>/dev/null | grep -q #{repo_name}")
+end
+
+def adzerk_repo?
+  ["teammgmt", "libclj"].any? {|repo| is_repo?(repo) || has_submodule?(repo)}
+end
+
+if adzerk_repo?
   branch = `git rev-parse --abbrev-ref HEAD`.chomp
 
   if match = branch.match(/^.*ch(\d+).*$/)
