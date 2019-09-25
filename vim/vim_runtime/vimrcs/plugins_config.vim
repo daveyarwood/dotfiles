@@ -427,10 +427,10 @@ nnoremap <leader>tt :Tags<CR>
 " => gina
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>g<space> :Gina<space>
+nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 " this one actually comes from fugitive because I like its output better than
 " :Gina blame. Putting it here so that I don't have to look in two places for
 " all my git-related keybindings.
-nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gc :Gina commit -v<CR>:let @a=system("git-commit-message-prefix")<CR>ggi<C-r>a
 nnoremap <leader>gd :Gina diff<CR>
