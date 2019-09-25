@@ -610,6 +610,15 @@ let g:lightline.tabline = {
   \ }
 
 
+"""""""""""""""""""""""""""""""
+" => Merlin (OCAML)
+"""""""""""""""""""""""""""""""
+if executable('opam')
+  let g:opamshare = substitute(system('opam config var share 2>/dev/null'),'\n$','','''')
+  execute "set rtp+=" . g:opamshare . "/merlin/vim"
+endif
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ncm2 (fka nvim-completion-manager)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -941,13 +950,4 @@ if has("win16") || has("win32")
     " Don't do anything
 else
     let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
-endif
-
-
-"""""""""""""""""""""""""""""""
-" => Merlin (OCAML)
-"""""""""""""""""""""""""""""""
-if executable('opam')
-  let g:opamshare = substitute(system('opam config var share 2>/dev/null'),'\n$','','''')
-  execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
