@@ -90,7 +90,10 @@ au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
 
-nnoremap <leader><Space> :StripWhitespace<CR>
+" I originally added this mapping to easily strip whitespace, then eventually I
+" found myself wanting to extend it to do things like update gitgutter signs,
+" things that only happen when you do :e. So I've added :e to this mapping.
+nnoremap <leader><Space> :StripWhitespace<CR>:e<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
