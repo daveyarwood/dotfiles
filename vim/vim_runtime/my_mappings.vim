@@ -11,6 +11,9 @@ nnoremap <leader>Q :qa!<CR>
 " let's just make :Q quit too
 command! Q q
 
+" Disable highlight and refresh view
+map <silent> <leader><cr> :noh<cr>:e<cr>
+
 nnoremap <leader>ec :e! ~/.vim_runtime/my_configs.vim<CR>
 nnoremap <leader>ee :e! ~/.vim_runtime<cr>
 nnoremap <leader>ef :e! ~/.vim_runtime/vimrcs/filetypes.vim<CR>

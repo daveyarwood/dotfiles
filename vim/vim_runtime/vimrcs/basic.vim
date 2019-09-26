@@ -221,7 +221,7 @@ map k gk
 " map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+" map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
 " (2018-07-26 update: commenting these out as they conflict with
