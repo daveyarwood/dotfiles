@@ -96,11 +96,19 @@ function! ReloadWithoutScrolling()
   call winrestview(l:currentview)
 endfunction
 
+function! StripWhitespaceAndReloadBuffer()
+  StripWhitespace
+  try
+    call ReloadWithoutScrolling()
+  catch
+  endtry
+endfunction
+
 " I originally added this mapping to easily strip whitespace, then eventually I
 " found myself wanting to extend it to do things like update gitgutter signs,
 " things that only happen when you do :e. So I've added :e to this mapping.
-nnoremap <silent> <leader><Space>
-      \ :StripWhitespace<CR>:call ReloadWithoutScrolling()<CR>
+nnoremap <silent> <leader><Space> :call StripWhitespaceAndReloadBuffer()<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => calendar
