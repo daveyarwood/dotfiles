@@ -89,10 +89,10 @@ function randomoji
 end
 
 # for some reason, gnu-parallel is significantly slower when $SHELL is not bash.
-# Temporarily setting SHELL to bash makes it a lot faster.
+# Using bash for its subshells makes it a lot faster.
 # source: https://github.com/fish-shell/fish-shell/issues/1084#issuecomment-27746587
 function parallel
-  set -lx SHELL bash
+  set -lx PARALLEL_SHELL bash
   command parallel $argv
 end
 
