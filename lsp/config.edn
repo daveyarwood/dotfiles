@@ -55,6 +55,9 @@
   javelin.core/with-let
   [:bindings :bound-elements]
 
+  ui.form/definput
+  [:declaration :params :bound-elements]
+
   ui.form/with-form
   [:bindings :bound-elements]
 
