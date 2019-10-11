@@ -16,6 +16,12 @@
   clojure.test.check.generators/let
   [:bindings :bound-elements]
 
+  geir-backend.query/defview
+  [:declaration
+   {:element :element, :pred :string}
+   :params
+   :bound-elements]
+
   geir-backend.validation/defpre-
   [:declaration :params :bound-elements]
 
