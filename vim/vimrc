@@ -29,7 +29,6 @@ Plug 'liuchengxu/vista.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'roxma/nvim-yarp'
 Plug 'schickling/vim-bufonly'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
