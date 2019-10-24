@@ -111,6 +111,22 @@ nnoremap <silent> <leader><Space> :call StripWhitespaceAndReloadBuffer()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => buffergator
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" horizontal bottom (full screen width)
+let g:buffergator_viewport_split_policy = "B"
+let g:buffergator_split_size = 10
+let g:buffergator_suppress_keymaps = 1
+nnoremap <space><space> :BuffergatorOpen<CR>
+
+" press ESC to close the buffergator buffer
+augroup buffergator_buffer
+  autocmd!
+  autocmd BufEnter \[\[buffergator-buffers\]\] nnoremap <buffer> <ESC> :bd<CR>
+augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => calendar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:calendar_google_calendar = 1
@@ -357,8 +373,8 @@ if executable("ag")
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
 
-" VirtualBox doesn't send Ctrl-Space to my Linux VM for some reason;
-nnoremap <space><space> :CtrlSpace<CR>
+" <ctrl><space> doesn't seem to be sent to Vim, for some reason.
+" nnoremap <space><space> :CtrlSpace<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
