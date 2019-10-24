@@ -623,12 +623,12 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => jack-in
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>L :Lein<CR>
-nnoremap <leader>B :Boot<CR>
-nnoremap <leader>C :Clj<CR>
+" nnoremap <leader>L :Lein<CR>
+" nnoremap <leader>B :Boot<CR>
+" nnoremap <leader>C :Clj<CR>
 
 " Not really part of jack-in, but it's as if it were
-nnoremap <leader>I :Start! iced repl<CR>
+" nnoremap <leader>I :Start! iced repl<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
