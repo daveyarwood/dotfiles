@@ -441,9 +441,16 @@ autocmd FileType clojure nnoremap <buffer> gqq gww
 nnoremap <C-f> :FZF<CR>
 nnoremap <C-g> :GFiles<CR>
 
-" I think I need a new keybinding for this one because <C-m> is sort of the same
-" thing as Enter, so when I press Enter, :Maps<CR> is happening.
+" I think I can't use <C-m> for this one because <C-m> is sort of the same thing
+" as Enter, so when I press Enter, :Maps<CR> is happening.
 nnoremap <leader>m :Maps<CR>
+
+" I can't use <C-b> for this one because <C-b> is my tmux prefix key.
+"
+" Using <leader>bb instead of <leader>b because I have other buffer-related
+" mappings that start with <leader>b, e.g. <leader>bd to delete the current
+" buffer.
+nnoremap <leader>bl :Buffers<CR>
 
 " <C-t> is already the stock Vim keybinding for 'go back to where you were after
 " following a tag', and it's so ingrained in my muscle memory, I can't remap it
