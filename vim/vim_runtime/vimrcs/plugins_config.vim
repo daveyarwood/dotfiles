@@ -364,6 +364,7 @@ vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
 nmap <leader>td :CtrlSF -R TODO<bar>FIXME<CR>
 let g:ctrlsf_auto_focus = {"at": "start"}
+let g:ctrlsf_winsize = '100%'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
