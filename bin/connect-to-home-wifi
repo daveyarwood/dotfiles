@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [[ -z "$HOME_WIFI_NETWORK" ]]; then
+  echo "HOME_WIFI_NETWORK not set."
+  exit 1
+fi
+
+if [[ -z "$HOME_WIFI_PASSWORD" ]]; then
+  echo "HOME_WIFI_PASSWORD not set."
+  exit 1
+fi
+
+echo "Waiting for $HOME_WIFI_NETWORK to become available..."
+
+while true; do
+  if nmcli dev wifi | grep -q "$HOME_WIFI_NETWORK"; then
+    break
+  fi
+
+  sleep 100
+done
+
+echo "Connecting to $HOME_WIFI_NETWORK..."
+
+nmcli dev wifi connect "$HOME_WIFI_NETWORK" password "$HOME_WIFI_PASSWORD"
