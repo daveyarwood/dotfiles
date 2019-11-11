@@ -294,6 +294,23 @@ endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => colorizer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" I was hoping that this would enable colorizer for every filetype, but I still
+" had to run :ColorHighlight (or :ColorToggle) manually even after adding this.
+let g:colorizer_auto_color = 1
+
+" Adding this did the trick. It's not ideal, because there are probably other
+" filetypes where I would want colorizer to do its thing, but I can always add
+" those as I find them.
+"
+" Clojure is included here because colorizer interprets ANSI escape codes, and I
+" use Conjure, which has a log buffer whose filetype is Clojure. Conjure +
+" colorizer = awesome colored text output on stdout/stderr!
+let g:colorizer_auto_filetype='scss,css,clojure'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType cs,kotlin setlocal commentstring=//\ %s
@@ -752,6 +769,7 @@ nnoremap <silent> ,tC :call neoterm#close()<cr>
 nnoremap <silent> ,tc :call neoterm#clear()<cr>
 " interrupts the current job (send a <c-c>)
 nnoremap <silent> ,ti :call neoterm#kill()<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => nim
