@@ -363,6 +363,7 @@ nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
 nmap <leader>td :CtrlSF -R TODO<bar>FIXME<CR>
+nmap <leader>8 :CtrlSF -R '.{81,}'<CR>
 let g:ctrlsf_auto_focus = {"at": "start"}
 let g:ctrlsf_winsize = '100%'
 

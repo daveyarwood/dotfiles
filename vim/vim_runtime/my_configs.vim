@@ -6,6 +6,12 @@ highlight Comment cterm=italic
 
 let g:colorscheme_mode = v:null
 
+" source: https://stackoverflow.com/a/235970/2338327
+function! s:HighlightOverLength() abort
+  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+  match OverLength /\%81v.\+/
+endfunction
+
 " i use this theme most of the time
 function! s:DarkMode() abort
   let g:colorscheme_mode = 'dark'
@@ -17,6 +23,7 @@ function! s:DarkMode() abort
   let g:lightline.colorscheme = 'onehalfdark'
   call lightline#disable()
   call lightline#enable()
+  call s:HighlightOverLength()
 endfunction
 command! DarkMode call s:DarkMode()
 
@@ -30,6 +37,7 @@ function! s:LightMode() abort
   let g:lightline.colorscheme = 'solarized'
   call lightline#disable()
   call lightline#enable()
+  call s:HighlightOverLength()
 endfunction
 command! LightMode call s:LightMode()
 
