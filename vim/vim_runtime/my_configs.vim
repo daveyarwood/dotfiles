@@ -11,6 +11,8 @@ function! s:HighlightOverLength() abort
   highlight OverLength ctermbg=red ctermfg=white guibg=#592929
   match OverLength /\%81v.\+/
 endfunction
+command! HighlightOverLength call s:HighlightOverLength()
+nnoremap <leader>* :HighlightOverLength<CR>
 
 " i use this theme most of the time
 function! s:DarkMode() abort
