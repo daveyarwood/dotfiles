@@ -31,8 +31,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'schickling/vim-bufonly'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimfiler.vim'
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -41,7 +40,6 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/gitignore'
 Plug 'w0rp/ale'
 
