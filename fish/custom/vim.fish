@@ -28,6 +28,8 @@ balias vims "vim /tmp/scratch-(date '+%Y%m%d%H%M%S')"
 balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
 
+balias v. "vim ."
+
 balias vf "vim (fzf)"
 
 balias vcal 'vim +Cal /dev/null'
