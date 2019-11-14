@@ -13,6 +13,9 @@
    {:element :element, :pred :string}
    :function-params-and-bodies]
 
+  clojure.core/dotimes
+  [:bindings :bound-elements]
+
   clojure.test.check.generators/let
   [:bindings :bound-elements]
 
