@@ -309,6 +309,20 @@ let g:colorizer_auto_color = 1
 " colorizer = awesome colored text output on stdout/stderr!
 let g:colorizer_auto_filetype='scss,css,clojure'
 
+" Hackery to work around colorizer's auto-colorizer behavior being flaky.
+"
+" It's still not 100% working the way I want it to... the Conjure log buffer
+" needs to be in focus in order for its content to be colorized. When I leave
+" and go into another split, the existing content is colorized, but new content
+" is not. (Actually, strangely, new content has ANSI codes stripped out, but it
+" isn't rendered in color, it's just the normal text color.)
+"
+" I've filed an issue: https://github.com/chrisbra/Colorizer/issues/77
+augroup colorize_conjure
+  autocmd!
+  autocmd BufNewFile,BufRead,BufEnter,BufLeave /tmp/conjure.cljc ColorHighlight
+augroup END
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
