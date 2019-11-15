@@ -108,9 +108,8 @@ set tabstop=2
 " 80 chars or die
 set textwidth=80
 
-" Linebreak on 500 characters
+" Automatically break lines at 80 characters.
 set lbr
-set tw=500
 
 set ai "Auto indent
 set si "Smart indent
