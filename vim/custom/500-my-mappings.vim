@@ -1,3 +1,10 @@
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
 " Bash like keys for the command line
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
@@ -16,6 +23,12 @@ nmap <C-s> :w!<cr>
 " Otherwise, it would be way too easy for me to press the old keybinding (which
 " does nothing) and wander away from a file without saving it!
 nmap <leader>w :echoe "Press <Ctrl-s> to save!"<CR>
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
   let l:saved_reg = @"
@@ -105,7 +118,7 @@ map <silent> <leader><cr> :noh<cr>
 
 nnoremap <leader>ec :Defx ~/.vim/custom/<cr>
 nnoremap <leader>em :e! ~/.vim/custom/500-my-mappings.vim<cr>
-nnoremap <leader>ep :e! ~/.vim/custom/000-plugins.vim<cr>
+nnoremap <leader>ep :e! ~/.vim/custom/100-plugins.vim<cr>
 nnoremap <leader>eP :e! ~/.vim/custom/400-plugins-config.vim<cr>
 nnoremap <leader>ev :e! ~/.vimrc<CR>
 nnoremap <leader>ss :source ~/.vimrc<CR>
