@@ -104,9 +104,9 @@ command! Q q
 map <silent> <leader><cr> :noh<cr>
 
 nnoremap <leader>ec :Defx ~/.vim/custom/<cr>
-nnoremap <leader>em :e! ~/.vim/custom/50-my-mappings.vim<cr>
-nnoremap <leader>ep :e! ~/.vim/custom/00-plugins.vim<cr>
-nnoremap <leader>eP :e! ~/.vim/custom/40-plugins-config.vim<cr>
+nnoremap <leader>em :e! ~/.vim/custom/500-my-mappings.vim<cr>
+nnoremap <leader>ep :e! ~/.vim/custom/000-plugins.vim<cr>
+nnoremap <leader>eP :e! ~/.vim/custom/400-plugins-config.vim<cr>
 nnoremap <leader>ev :e! ~/.vimrc<CR>
 nnoremap <leader>ss :source ~/.vimrc<CR>
 
