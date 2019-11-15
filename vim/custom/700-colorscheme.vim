@@ -1,3 +1,10 @@
+" terminal color / italics finagling
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
+highlight Comment cterm=italic
+
 let g:colorscheme_mode = v:null
 
 " source: https://stackoverflow.com/a/235970/2338327
