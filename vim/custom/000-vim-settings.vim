@@ -68,12 +68,9 @@ set mat=2
 
 " No annoying sound on errors
 set noerrorbells
-set novisualbell
+set visualbell
 set t_vb=
 set tm=500
-
-" Add a bit extra margin to the left
-set foldcolumn=1
 
 " Enable syntax highlighting
 syntax enable
@@ -104,9 +101,12 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
+
+" 80 chars or die
+set textwidth=80
 
 " Linebreak on 500 characters
 set lbr
@@ -145,6 +145,45 @@ endfunction
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
+if !has('nvim')
+  " nvim sets encoding to utf-8 by default
+  set encoding=utf-8
+endif
+
+set number
+set foldcolumn=0
+set cmdheight=1
+set showcmd
+set updatetime=250
+
+augroup i_dont_like_folding
+  autocmd!
+  autocmd BufWinEnter * silent! :%foldopen!
+augroup END
+
 " remap leader key to ,
 let mapleader = ","
 let g:mapleader = ","
+
+" highlights line numbers (vim-airline-colornum)
+set cursorline
+
+" turn off tabline
+set showtabline=0
+
+" Go to last file(s) if invoked without arguments.
+autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
+    \ call mkdir($HOME . "/.vim") |
+    \ endif |
+    \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+
+autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+    \ execute "source " . $HOME . "/.vim/Session.vim"
+
+" Turn persistent undo on (means that you can undo even when you close a
+" buffer/VIM)
+if has('persistent_undo')
+  set undodir=~/.vim_runtime/temp_dirs/undodir
+  set undofile
+endif
+
