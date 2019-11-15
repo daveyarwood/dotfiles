@@ -38,8 +38,4 @@
     ~/.tmux-osx.conf: tmux/tmux-osx.conf
     ~/.tmux-linux.conf: tmux/tmux-linux.conf
     ~/.vimrc: vim/vimrc
-    ~/.vim_runtime/my_configs.vim: vim/vim_runtime/my_configs.vim
-    ~/.vim_runtime/my_iabbrevs.vim: vim/vim_runtime/my_iabbrevs.vim
-    ~/.vim_runtime/my_mappings.vim: vim/vim_runtime/my_mappings.vim
-    ~/.vim_runtime/vimrcs: vim/vim_runtime/vimrcs
-
+    ~/.vim/custom: vim/custom

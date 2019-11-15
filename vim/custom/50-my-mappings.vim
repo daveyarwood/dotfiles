@@ -1,5 +1,94 @@
-" remap leader key to ,
-let mapleader = ","
+" Bash like keys for the command line
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
+" Fast saving
+nmap <C-s> :w!<cr>
+
+" I used to use <leader>w for the above. It's going to take me a while retrain
+" my fingers, so in the meantime, I'll alert myself whenever I accidentally use
+" the old keybinding.
+"
+" Otherwise, it would be way too easy for me to press the old keybinding (which
+" does nothing) and wander away from a file without saving it!
+nmap <leader>w :echoe "Press <Ctrl-s> to save!"<CR>
+
+function! VisualSelection(direction, extra_filter) range
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+  if a:direction == 'b'
+    execute "normal ?" . l:pattern . "^M"
+  elseif a:direction == 'gv'
+    call CmdLine("Ack \"" . l:pattern . "\" " )
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  elseif a:direction == 'f'
+    execute "normal /" . l:pattern . "^M"
+  endif
+
+  let @/ = l:pattern
+  let @" = l:saved_reg
+endfunction
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Useful mappings for managing tabs
+" map <leader>tn :tabnew<cr>
+" map <leader>to :tabonly<cr>
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
+" map <leader>t<leader> :tabnext
+
+" Let 'tl' toggle between this and the last accessed tab
+" let g:lasttab = 1
+" nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+" au TabLeave * let g:lasttab = tabpagenr()
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+" map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+" map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
 
 " disable shortcut to go into Ex mode, which I never use
 nnoremap Q <nop>
@@ -14,13 +103,12 @@ command! Q q
 " Disable highlight
 map <silent> <leader><cr> :noh<cr>
 
-nnoremap <leader>ec :e! ~/.vim_runtime/my_configs.vim<CR>
-nnoremap <leader>ee :e! ~/.vim_runtime<cr>
-nnoremap <leader>ef :e! ~/.vim_runtime/vimrcs/filetypes.vim<CR>
-nnoremap <leader>em :e! ~/.vim_runtime/my_mappings.vim<CR>
-nnoremap <leader>ep :e! ~/.vim_runtime/vimrcs/plugins_config.vim<CR>
+nnoremap <leader>ec :Defx ~/.vim/custom/<cr>
+nnoremap <leader>em :e! ~/.vim/custom/50-my-mappings.vim<cr>
+nnoremap <leader>ep :e! ~/.vim/custom/00-plugins.vim<cr>
+nnoremap <leader>eP :e! ~/.vim/custom/40-plugins-config.vim<cr>
 nnoremap <leader>ev :e! ~/.vimrc<CR>
-nnoremap <leader>sv :source ~/.vimrc<CR>
+nnoremap <leader>ss :source ~/.vimrc<CR>
 
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
