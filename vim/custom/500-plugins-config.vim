@@ -924,6 +924,9 @@ let g:rainbow_conf = {'separately': {'html': 0}} " disable for html
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:sexp_enable_insert_mode_mappings = 0
 
+" jump to the end of a sexp and be in insert mode
+nnoremap <Bslash>a f)i
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => startify

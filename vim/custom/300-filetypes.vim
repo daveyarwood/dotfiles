@@ -27,6 +27,17 @@ function! JavaScriptFold()
 endfunction
 
 
+""""""""""""""""""""""""""""""
+" => JSON
+"""""""""""""""""""""""""""""""
+" magically format/minify json in the current buffer
+nnoremap <leader>j :%!jq '.'<CR>
+nnoremap <leader>J :%!jq -c '.'<CR>
+" or just the current visual selection
+vnoremap <leader>j :!jq '.'<CR>
+vnoremap <leader>J :!jq -c '.'<CR>
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -98,6 +109,13 @@ function! s:at_help()
     nnoremap <buffer> q :q<CR>
   endif
 endfunction
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => quickfix
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Press q to close quickfix buffer.
+autocmd BufReadPost quickfix nnoremap <buffer> q :q!<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
