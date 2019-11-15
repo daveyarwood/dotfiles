@@ -16,9 +16,9 @@ cnoremap <C-N> <Down>
 " Fast saving
 nmap <C-s> :w!<cr>
 
-" I used to use <leader>w for the above. It's going to take me a while retrain
-" my fingers, so in the meantime, I'll alert myself whenever I accidentally use
-" the old keybinding.
+" I used to use <leader>w for the above. It's going to take me a while to
+" retrain my fingers, so in the meantime, I'll alert myself whenever I
+" accidentally use the old keybinding.
 "
 " Otherwise, it would be way too easy for me to press the old keybinding (which
 " does nothing) and wander away from a file without saving it!
