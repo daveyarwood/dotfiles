@@ -1,7 +1,3 @@
-" remap leader key to ,
-let mapleader = ","
-let g:mapleader = ","
-
 if !has('nvim')
   " nvim sets encoding to utf-8 by default
   set encoding=utf-8

@@ -144,3 +144,7 @@ endfunction
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+" remap leader key to ,
+let mapleader = ","
+let g:mapleader = ","
