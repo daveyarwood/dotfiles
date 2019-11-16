@@ -51,9 +51,12 @@ au FileType coffee call CoffeeScriptFold()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fish
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd Filetype fish compiler fish
-autocmd Filetype fish setlocal textwidth=80
-autocmd Filetype fish setlocal foldmethod=expr
+augroup fish_filetype_settings
+  autocmd!
+  autocmd Filetype fish compiler fish
+  autocmd Filetype fish setlocal textwidth=80
+  autocmd Filetype fish setlocal foldmethod=expr
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -111,11 +114,15 @@ function! s:at_help()
 endfunction
 
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => quickfix
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Press q to close quickfix buffer.
-autocmd BufReadPost quickfix nnoremap <buffer> q :q!<CR>
+augroup quickfix_settings
+  autocmd!
+  autocmd BufReadPost quickfix nnoremap <buffer> q :q!<CR>
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -159,7 +166,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup prolog
   autocmd!
-  au BufNewFile,BufRead *.plt set syntax=prolog
+  autocmd BufNewFile,BufRead *.plt set syntax=prolog
 augroup END
 
 
@@ -176,6 +183,7 @@ augroup END
 " => Go
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup golang
+  autocmd!
   " that thing you type every 2 seconds when you're programming in go
   " mnemonic: error propagate (ep)
   autocmd FileType go
@@ -209,6 +217,7 @@ function! RandomizeAldaInstruments()
 endfunction
 
 augroup alda
+  autocmd!
   autocmd FileType alda
         \ nnoremap <buffer> <silent> <localleader>ri
         \ :call RandomizeAldaInstruments()<cr>

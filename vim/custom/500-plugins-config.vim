@@ -212,7 +212,10 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 let g:coc_enable_locationlist = 0
-autocmd User CocLocationsChange CocList --normal location
+augroup coc_locationlist
+  autocmd!
+  autocmd User CocLocationsChange CocList --normal location
+augroup END
 
 " Using CocList
 " Show all diagnostics
@@ -250,7 +253,10 @@ function! Expand(exp) abort
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup coc_highlight_symbol_under_cursor
+  autocmd!
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
 vmap <leader>cf <Plug>(coc-format-selected)
 nmap <leader>cf <Plug>(coc-format-selected)
 
@@ -283,8 +289,12 @@ nnoremap <silent> cref :call CocRequest('clojure-lsp', 'workspace/executeCommand
 " Fix autofix problem of current line
 " nmap <leader>qf  <Plug>(coc-fix-current)
 
-autocmd BufReadCmd,FileReadCmd,SourceCmd jar:file://* call s:LoadClojureContent(expand("<amatch>"))
- function! s:LoadClojureContent(uri)
+augroup coc_load_clojure_content
+  autocmd BufReadCmd,FileReadCmd,SourceCmd jar:file://*
+        \ call s:LoadClojureContent(expand("<amatch>"))
+augroup END
+
+function! s:LoadClojureContent(uri)
   setfiletype clojure
   let content = CocRequest('clojure-lsp', 'clojure/dependencyContents', {'uri': a:uri})
   call setline(1, split(content, "\n"))
@@ -327,11 +337,14 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType cs,kotlin setlocal commentstring=//\ %s
-autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
-autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
-autocmd FileType resolv,crontab setlocal commentstring=#\ %s
-autocmd FileType sql setlocal commentstring=--\ %s
+augroup commentary_config
+  autocmd!
+  autocmd FileType cs,kotlin setlocal commentstring=//\ %s
+  autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
+  autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
+  autocmd FileType resolv,crontab setlocal commentstring=#\ %s
+  autocmd FileType sql setlocal commentstring=--\ %s
+augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -525,29 +538,6 @@ let g:dispatch_no_maps = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nnoremap <leader>r :Require!<CR>
 " nnoremap <leader>t :RunTests<CR>
-
-" vim-fireplace provides a formatexpr that relies on Cider connection. I don't
-" like this because sometimes I want to edit Clojure code without being
-" connected to Cider or a REPL, and I want to be able to type gq and have my
-" code by formatted to 80 columns. I don't really care about the cljfmt features
-" provided by vim-fireplace's formatexpr, so let's just turn that off and retain
-" the default gq behavior.
-"
-" Reference:
-" https://clojurians-log.clojureverse.org/vim-fireplace/2017-06-07.html
-" https://github.com/tpope/vim-fireplace/issues/298#issuecomment-306863402
-"
-" autocmd FileType clojure nnoremap <buffer> gq gw
-autocmd FileType clojure vnoremap <buffer> gq gw
-autocmd FileType clojure nnoremap <buffer> gqq gww
-"
-" UPDATE 2018-04-23: gq is significantly faster than = or gw at formatting large
-" clj/cljs files. So, it's valuable to have gq as an option when I'm connected
-" to a REPL.
-"
-" I'm so used to using =, I'm just going to make that use gq.
-" autocmd FileType clojure nnoremap <buffer> = gq
-" autocmd FileType clojure nnoremap <buffer> == gqq
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

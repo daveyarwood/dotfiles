@@ -123,10 +123,14 @@ catch
 endtry
 
 " Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+augroup return_to_last_edit_position
+  autocmd!
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+augroup END
+
 " Remember info about open buffers on close
 set viminfo^=%
 
@@ -135,10 +139,10 @@ set laststatus=2
 
 " Returns true if paste mode is enabled
 function! HasPaste()
-    if &paste
-      return 'PASTE MODE  '
-    en
-    return ''
+  if &paste
+    return 'PASTE MODE  '
+  en
+  return ''
 endfunction
 
 " Format the status line
@@ -170,14 +174,18 @@ set cursorline
 " turn off tabline
 set showtabline=0
 
-" Go to last file(s) if invoked without arguments.
-autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
-    \ call mkdir($HOME . "/.vim") |
-    \ endif |
-    \ execute "mksession! " . $HOME . "/.vim/Session.vim"
-
-autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
-    \ execute "source " . $HOME . "/.vim/Session.vim"
+" Go to last file(s) if Vim is started without arguments.
+augroup reopen_last_file
+  autocmd!
+  autocmd VimLeave * nested
+        \ if (!isdirectory($HOME . "/.vim")) |
+        \ call mkdir($HOME . "/.vim") |
+        \ endif |
+        \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+  autocmd VimEnter * nested
+        \ if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+        \ execute "source " . $HOME . "/.vim/Session.vim"
+augroup END
 
 " Turn persistent undo on (means that you can undo even when you close a
 " buffer/VIM)
