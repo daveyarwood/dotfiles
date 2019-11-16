@@ -427,8 +427,7 @@ endif
 " => defx
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " defx somewhat annoyingly doesn't provide any default mappings. I copy-pasted
-" this example config from :help defx.
-autocmd FileType defx call s:defx_my_settings()
+" this example config from :help defx and modified it.
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
@@ -500,6 +499,21 @@ function! s:defx_my_settings() abort
 	      \ })
 endfunction
 
+function! s:open_defx_if_directory()
+  let l:full_path = expand(expand('%:p'))
+  if isdirectory(l:full_path)
+    Defx `expand('%:p')`
+  endif
+endfunction
+
+augroup defx_config
+  autocmd!
+  autocmd FileType defx call s:defx_my_settings()
+
+  " It seems like BufReadPost should work for this, but for some reason, I can't
+  " get it to fire. BufEnter seems to be more reliable.
+  autocmd BufEnter * call s:open_defx_if_directory()
+augroup END
 
 nnoremap <silent> -
       \ :Defx `expand('%:p:h')`
