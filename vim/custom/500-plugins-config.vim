@@ -500,7 +500,15 @@ function! s:defx_my_settings() abort
 endfunction
 
 function! s:open_defx_if_directory()
-  let l:full_path = expand(expand('%:p'))
+  " This throws an error if the buffer name contains unusual characters like
+  " [[buffergator]]. Desired behavior in those scenarios is to consider the
+  " buffer not to be a directory.
+  try
+    let l:full_path = expand(expand('%:p'))
+  catch
+    return
+  endtry
+
   if isdirectory(l:full_path)
     Defx `expand('%:p')`
   endif
