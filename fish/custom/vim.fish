@@ -29,6 +29,8 @@ balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
 
 balias v. "vim ."
+balias vi. "vim ."
+balias vim. "vim ."
 
 balias vf "vim (fzf)"
 
