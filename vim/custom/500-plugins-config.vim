@@ -523,6 +523,11 @@ augroup defx_config
   autocmd BufEnter * call s:open_defx_if_directory()
 augroup END
 
+" netrw apparently has a similar callback, because sometimes netrw opens instead
+" of defx! According to https://stackoverflow.com/a/21687112/2338327, this
+" disables netrw.
+let loaded_netrwPlugin = 1
+
 nnoremap <silent> -
       \ :Defx `expand('%:p:h')`
       \ -search=`expand('%:p')`<CR>
