@@ -15,6 +15,7 @@ cnoremap <C-N> <Down>
 
 " Fast saving
 nmap <C-s> :w!<cr>
+nmap <C-x> :x!<cr>
 
 " I used to use <leader>w for the above. It's going to take me a while to
 " retrain my fingers, so in the meantime, I'll alert myself whenever I
