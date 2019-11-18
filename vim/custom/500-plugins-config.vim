@@ -339,7 +339,7 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup commentary_config
   autocmd!
-  autocmd FileType cs,kotlin setlocal commentstring=//\ %s
+  autocmd FileType cs,kotlin,adoc setlocal commentstring=//\ %s
   autocmd FileType lisp,clojure,racket setlocal commentstring=;;\ %s
   autocmd FileType sml,ocaml setlocal commentstring=(*\ %s\ *)
   autocmd FileType resolv,crontab setlocal commentstring=#\ %s
