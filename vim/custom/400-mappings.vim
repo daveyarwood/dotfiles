@@ -20,7 +20,7 @@ nmap <C-x> :x!<cr>
 nmap <silent> <C-X> :x!<cr>
       \ :Gina push<cr>
       \ :Gina status<cr>
-      \ echom "Committing and pushing..."
+      \ :echom "Committing and pushing..."<cr>
 
 " I used to use <leader>w for the above. It's going to take me a while to
 " retrain my fingers, so in the meantime, I'll alert myself whenever I
