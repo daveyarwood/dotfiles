@@ -623,6 +623,8 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => gina
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gina#action#index#discard_directories = 1
+
 nnoremap <leader>g<space> :Gina<space>
 nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 " this one actually comes from fugitive because I like its output better than
