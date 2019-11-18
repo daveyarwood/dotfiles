@@ -52,6 +52,11 @@ end
 
 balias tsn tsnooze
 
+function tfree
+  task $argv[1] modify +freetime
+  todo
+end
+
 function tstart
   task $argv start
   todo
