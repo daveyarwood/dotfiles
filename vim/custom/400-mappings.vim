@@ -17,13 +17,20 @@ cnoremap <C-N> <Down>
 nmap <C-s> :w!<cr>
 nmap <C-x> :x!<cr>
 
+" FIXME: <C-X> is actually the same key code as <C-x>! Apparently the terminal
+" sends the same key code, so there is no way to differentiate. I'm just
+" commenting this out for now.
+"
+" TODO: Either get rid of this (maybe I don't want it after all) or come up with
+" a different keybinding.
+"
 " For when I'm feeling extra-confident: save commit and immediately git push
-nmap <silent> <C-X> :call SaveCommitAndPush()<cr>
-function! SaveCommitAndPush()
-  x!
-  Gina push
-  Gina status
-endfunction
+" nmap <silent> <C-X> :call SaveCommitAndPush()<cr>
+" function! SaveCommitAndPush()
+"   x!
+"   Gina push
+"   Gina status
+" endfunction
 
 " I used to use <leader>w for the above. It's going to take me a while to
 " retrain my fingers, so in the meantime, I'll alert myself whenever I
