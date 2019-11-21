@@ -25,7 +25,7 @@
 
 (deftask prepl-server
   "Start a prepl server."
-  [p port PORT int "The port on which to start the prepl server (default: 5555)."]
+  [p port PORT int "The port on which to start the prepl server (optional)."]
   (comp
     (socket-server
       :accept 'clojure.core.server/io-prepl
