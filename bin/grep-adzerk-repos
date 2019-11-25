@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [[ -z "$CODEDIR" ]]; then
+  echo "CODEDIR not set."
+  exit 1
+fi
+
+for repo in $(ls "$CODEDIR"); do
+  repo_dir="$CODEDIR/$repo"
+  cd "$repo_dir"
+  if git remote -v 2>/dev/null | grep -q adzerk; then
+    grep_output=$(git grep "$@" | grep -v "larry/mapped-stories.json")
+    if [[ -n "$grep_output" ]]; then
+      echo "--------------------------------------------------"
+      echo "$repo_dir"
+      echo "--------------------------------------------------"
+      echo
+      echo -e "$grep_output"
+      echo
+    fi
+  fi
+done
