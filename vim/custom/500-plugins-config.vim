@@ -403,13 +403,19 @@ augroup END
 """"""""""""""""""""""""""""""
 " => ctrlsf
 """"""""""""""""""""""""""""""
+let g:ctrlsf_auto_focus = {"at": "start"}
+let g:ctrlsf_winsize = '100%'
+" Ignore ctags files. I have this in my global gitignore, which rg respects
+" when you run rg at the command-line, but for some reason, it isn't respected
+" when using rg via ctrlsf. Weird.
+"
+" As a workaround, this rg option has the same desired effect.
+let g:ctrlsf_extra_backend_args = {'rg': '--glob !tags'}
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
 nmap <leader>td :CtrlSF -R TODO<bar>FIXME<CR>
 nmap <leader>8 :CtrlSF -R '.{81,}'<CR>
-let g:ctrlsf_auto_focus = {"at": "start"}
-let g:ctrlsf_winsize = '100%'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
