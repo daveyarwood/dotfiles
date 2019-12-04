@@ -19,6 +19,11 @@ function vim --wraps nvim
   env SHELL=bash nvim $argv
 end
 
+balias v "vim"
+balias v. "vim ."
+balias vi. "vim ."
+balias vim. "vim ."
+
 # edit vimrc
 balias vimrc "vim $HOME/.vimrc"
 
@@ -27,10 +32,6 @@ balias vims "vim /tmp/scratch-(date '+%Y%m%d%H%M%S')"
 
 balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
-
-balias v. "vim ."
-balias vi. "vim ."
-balias vim. "vim ."
 
 balias vf "vim (fzf)"
 
