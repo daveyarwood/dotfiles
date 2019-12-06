@@ -27,8 +27,8 @@ balias vim. "vim ."
 # edit vimrc
 balias vimrc "vim $HOME/.vimrc"
 
-# bring up a scratch buffer
-balias vims "vim /tmp/scratch-(date '+%Y%m%d%H%M%S')"
+# Edit a scratch asciidoc file.
+balias vims "vim /tmp/scratch-(date '+%Y%m%d%H%M%S').adoc"
 
 balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
