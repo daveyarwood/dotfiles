@@ -1,3 +1,5 @@
+balias t task
+
 function todo
   clear
   task ready; or true
