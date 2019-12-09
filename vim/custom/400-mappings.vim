@@ -16,6 +16,8 @@ cnoremap <C-N> <Down>
 " Fast saving
 nmap <C-s> :w!<cr>
 nmap <C-x> :x!<cr>
+imap <C-s> <Esc><C-s>
+imap <C-x> <Esc><C-x>
 
 " FIXME: <C-X> is actually the same key code as <C-x>! Apparently the terminal
 " sends the same key code, so there is no way to differentiate. I'm just
