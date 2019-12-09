@@ -163,6 +163,7 @@ function! ToggleCoc()
 endfunction
 
 nnoremap <silent> <leader>cc :call ToggleCoc()<CR>
+nnoremap <leader>cd :CocList diagnostics<CR>
 nnoremap <leader>ci :CocInfo<CR>
 
 " press q to close e.g. the :CocInfo buffer
