@@ -1,11 +1,9 @@
 call plug#begin('~/.vim/bundle')
 
 " aesthetic
-Plug 'amix/vim-zenroom2'
 Plug 'ayu-theme/ayu-vim'
 Plug 'chrisbra/Colorizer'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'vim-scripts/mayansmoke'
