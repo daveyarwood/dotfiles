@@ -39,6 +39,7 @@ Plug 'w0rp/ale'
 
 " clojure things
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'luochen1990/rainbow'
 Plug 'Olical/conjure', { 'do': 'bin/compile', 'for': 'clojure', 'on': 'ConjureUp' }
