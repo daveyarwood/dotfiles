@@ -93,7 +93,6 @@ set ffs=unix,dos,mac
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowritebackup
-set nowb
 set noswapfile
 
 " Use spaces instead of tabs
