@@ -3,17 +3,22 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-highlight Comment cterm=italic
+" These commands are run whenever the colorscheme is changed. They serve as
+" hooks to further customize colors on top of the current colorschem.
+"
+" Hooks:
+" 1. Italicize comments.
+" 2. Highlight characters in column 81+ with a red background.
+"    (source: https://stackoverflow.com/a/235970/2338327)
+augroup ColorSchemeMods
+  autocmd!
+  autocmd ColorScheme *
+        \ highlight Comment cterm=italic
+        \ | highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+        \ | match OverLength /\%81v.\+/
+augroup END
 
 let g:colorscheme_mode = v:null
-
-" source: https://stackoverflow.com/a/235970/2338327
-function! s:HighlightOverLength() abort
-  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-  match OverLength /\%81v.\+/
-endfunction
-command! HighlightOverLength call s:HighlightOverLength()
-nnoremap <leader>* :HighlightOverLength<CR>
 
 " i use this theme most of the time
 function! s:DarkMode() abort
@@ -26,7 +31,6 @@ function! s:DarkMode() abort
   let g:lightline.colorscheme = 'onehalfdark'
   call lightline#disable()
   call lightline#enable()
-  call s:HighlightOverLength()
 endfunction
 command! DarkMode call s:DarkMode()
 
@@ -40,7 +44,6 @@ function! s:LightMode() abort
   let g:lightline.colorscheme = 'solarized'
   call lightline#disable()
   call lightline#enable()
-  call s:HighlightOverLength()
 endfunction
 command! LightMode call s:LightMode()
 
