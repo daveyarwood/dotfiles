@@ -10,7 +10,6 @@ balias gl "git log --graph --pretty=format:\"%C(yellow)%h %ad%Cred%d %Creset%s%C
 balias gd 'git diff'
 balias gp 'git push'
 balias gpf 'git push --force-with-lease'
-balias gpr 'git pull-request'
 balias gpt 'git push --tags'
 balias gpuo 'git push -u origin'
 balias gpud 'git push -u daveyarwood'
