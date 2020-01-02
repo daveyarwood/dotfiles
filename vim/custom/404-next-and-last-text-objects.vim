@@ -35,7 +35,7 @@ xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
 onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
 xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
 
-function! s:NextTextObject(motion, dir)
+function! s:NextTextObject(motion, dir) abort
   let c = nr2char(getchar())
 
   if c ==# "b"

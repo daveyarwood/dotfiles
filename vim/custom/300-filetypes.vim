@@ -15,15 +15,15 @@ au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
 
-function! JavaScriptFold()
-    setl foldmethod=syntax
-    setl foldlevelstart=1
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+function! JavaScriptFold() abort
+  setl foldmethod=syntax
+  setl foldlevelstart=1
+  syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
-    function! FoldText()
-        return substitute(getline(v:foldstart), '{.*', '{...}', '')
-    endfunction
-    setl foldtext=FoldText()
+  function! FoldText() abort
+    return substitute(getline(v:foldstart), '{.*', '{...}', '')
+  endfunction
+  setl foldtext=FoldText()
 endfunction
 
 
@@ -41,7 +41,7 @@ vnoremap <leader>J :!jq -c '.'<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CoffeeScriptFold()
+function! CoffeeScriptFold() abort
     setl foldmethod=indent
     setl foldlevelstart=1
 endfunction
@@ -106,7 +106,7 @@ augroup help_text
   autocmd BufEnter *.txt call s:at_help()
 augroup END
 
-function! s:at_help()
+function! s:at_help() abort
   if &buftype == 'help'
     " enable 'q' = quit
     nnoremap <buffer> q :q<CR>
@@ -144,7 +144,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Strip off a symbol's namespace
-function! SanitizeTag(word)
+function! SanitizeTag(word) abort
   return (split(a:word, '/')[-1])
 endfunction
 
@@ -208,7 +208,7 @@ augroup END
 " * Colons within comments or inline Clojure expressions.
 " * Instrument groups, e.g. clarinet/flute/oboe:
 " * Part aliases, e.g. piano "foo":, trumpet/trombone "bar":
-function! RandomizeAldaInstruments()
+function! RandomizeAldaInstruments() abort
   let instruments = trim(system("mktemp"), "\n")
   exe "!alda instruments > " . instruments
   exe '%s/[[:alnum:]-]\+:/\=trim(system("shuf -n1 '

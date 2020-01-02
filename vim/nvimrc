@@ -22,7 +22,7 @@ tnoremap <silent> <esc> <C-\><C-n>:silent! call QuitFZFBuffer()<CR>
 "
 " Commenting it out for now, so I just have to use ^C to exit the FZF buffer. It
 " sure would be nice to be able to use Escape to exit it, instead. Oh well.
-function! QuitFZFBuffer()
+function! QuitFZFBuffer() abort
   " if bufname("%") =~ "fzf"
   "   normal i<C-c>
   "   bwipeout!

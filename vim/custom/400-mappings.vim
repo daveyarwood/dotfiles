@@ -28,7 +28,7 @@ imap <C-x> <Esc><C-x>
 "
 " For when I'm feeling extra-confident: save commit and immediately git push
 " nmap <silent> <C-X> :call SaveCommitAndPush()<cr>
-" function! SaveCommitAndPush()
+" function! SaveCommitAndPush() abort
 "   x!
 "   Gina push
 "   Gina status

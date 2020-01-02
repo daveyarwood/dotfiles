@@ -1,6 +1,6 @@
 " Don't close window when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt() abort
    let l:currentBufNum = bufnr("%")
    let l:alternateBufNum = bufnr("#")
 

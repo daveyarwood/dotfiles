@@ -141,7 +141,7 @@ set viminfo^=%
 set laststatus=2
 
 " Returns true if paste mode is enabled
-function! HasPaste()
+function! HasPaste() abort
   if &paste
     return 'PASTE MODE  '
   en

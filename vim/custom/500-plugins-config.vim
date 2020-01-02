@@ -90,13 +90,13 @@ au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
 
-function! ReloadWithoutScrolling()
+function! ReloadWithoutScrolling() abort
   let l:currentview = winsaveview()
   edit
   call winrestview(l:currentview)
 endfunction
 
-function! StripWhitespaceAndReloadBuffer()
+function! StripWhitespaceAndReloadBuffer() abort
   StripWhitespace
   try
     call ReloadWithoutScrolling()
@@ -154,7 +154,7 @@ let g:clojure_maxlines = 0
 " => coc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HACK to workaround coc not providing a :CocToggle command
-function! ToggleCoc()
+function! ToggleCoc() abort
   if len(coc#status()) == 0
     execute 'CocEnable'
   else
@@ -240,7 +240,7 @@ nmap <silent> [k :CocPrev<cr>
 nmap <silent> ]k :CocNext<cr>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
+function! s:show_documentation() abort
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
@@ -295,7 +295,7 @@ augroup coc_load_clojure_content
         \ call s:LoadClojureContent(expand("<amatch>"))
 augroup END
 
-function! s:LoadClojureContent(uri)
+function! s:LoadClojureContent(uri) abort
   setfiletype clojure
   let content = CocRequest('clojure-lsp', 'clojure/dependencyContents', {'uri': a:uri})
   call setline(1, split(content, "\n"))
@@ -506,7 +506,7 @@ function! s:defx_my_settings() abort
 	      \ })
 endfunction
 
-function! s:open_defx_if_directory()
+function! s:open_defx_if_directory() abort
   " This throws an error if the buffer name contains unusual characters like
   " [[buffergator]]. Desired behavior in those scenarios is to consider the
   " buffer not to be a directory.
@@ -605,7 +605,7 @@ nnoremap <leader>tt :Tags<CR>
 " source: https://www.reddit.com/r/neovim/comments/djmehv/im_probably_really_late_to_the_party_but_fzf_in_a/f463fxr/
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-function! FloatingFZF()
+function! FloatingFZF() abort
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
 
@@ -1056,7 +1056,7 @@ nnoremap <leader>vc :call VimuxSendKeys("C-l")<CR>
 nnoremap <leader>vC :VimuxCloseRunner<CR>
 
 " An operator for sending text to Vimux.
-function! VimuxOperator(type, ...)
+function! VimuxOperator(type, ...) abort
   let previous = @n
 
   " yank target/selected text into "n
@@ -1089,7 +1089,7 @@ nmap <leader>vss V<leader>vs
 vnoremap <leader>vs :<c-u>call VimuxOperator(visualmode())<cr>
 vnoremap <leader>vS :<c-u>call VimuxOperator(visualmode(), 0)<cr>
 
-function! VimuxSendBuffer(...)
+function! VimuxSendBuffer(...) abort
   let pos = winsaveview()
   let arg = exists('a:1') ? ", 0" : ""
   execute "normal! ggvG$:\<c-u>call VimuxOperator(visualmode()".arg.")\<cr>"

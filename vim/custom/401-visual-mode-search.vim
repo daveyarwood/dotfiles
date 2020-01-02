@@ -1,13 +1,13 @@
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 
-function! CmdLine(str)
+function! CmdLine(str) abort
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
+function! VisualSelection(direction, extra_filter) range abort
   let l:saved_reg = @"
   execute "normal! vgvy"
 
