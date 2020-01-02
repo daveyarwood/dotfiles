@@ -1,3 +1,7 @@
+" I use fish shell, but some vim plugins, including vim-fzf don't seem to work
+" properly unless shell=bash.
+set shell=bash
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -111,8 +115,7 @@ set textwidth=80
 " Automatically break lines at 80 characters.
 set lbr
 
-set ai "Auto indent
-set si "Smart indent
+set autoindent
 set wrap "Wrap lines
 
 " Specify the behavior when switching between buffers
