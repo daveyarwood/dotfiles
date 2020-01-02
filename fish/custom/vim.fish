@@ -34,6 +34,7 @@ balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
 
 balias vf "vim (fzf)"
+balias vr "vim (git ls-files | shuf -n1)"
 
 balias vcal 'vim +Cal /dev/null'
 
