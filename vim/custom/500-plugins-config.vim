@@ -68,21 +68,23 @@ endfun
 
 " Call AsciidoctorMappings for all `*.adoc` and `*.asciidoc` files
 augroup asciidoctor
-  au!
-  au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
+  autocmd!
+  autocmd BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
 augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => auto-pairs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" au Filetype clojure let g:AutoPairsFlyMode = 1
+augroup autopairs_config
+  " autocmd Filetype clojure let g:AutoPairsFlyMode = 1
 
-" don't pair single quotes or backticks when editing lisp code
-" au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+  " don't pair single quotes or backticks when editing lisp code
+  " autocmd Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 
-" disable auto-pairs for lisp -- it interferes with parinfer
-au Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {}
+  " disable auto-pairs for lisp -- it interferes with parinfer
+  autocmd Filetype lisp,scheme,clojure,lfe let b:AutoPairs = {}
+augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -676,14 +678,14 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-" au FileType go nnoremap <buffer> <leader>r  :GoRun<CR>
-" au FileType go nnoremap <buffer> <leader>b  :GoBuild<CR>
-" au FileType go nnoremap <buffer> <leader>t  :GoTest<CR>
-" au FileType go nnoremap <buffer> <leader>c  :GoCoverage<CR>
-" au FileType go nnoremap <buffer> <leader>gd :GoDoc<CR>
-" au FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
-" au FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
-" au FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
+" autocmd FileType go nnoremap <buffer> <leader>r  :GoRun<CR>
+" autocmd FileType go nnoremap <buffer> <leader>b  :GoBuild<CR>
+" autocmd FileType go nnoremap <buffer> <leader>t  :GoTest<CR>
+" autocmd FileType go nnoremap <buffer> <leader>c  :GoCoverage<CR>
+" autocmd FileType go nnoremap <buffer> <leader>gd :GoDoc<CR>
+" autocmd FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
+" autocmd FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
+" autocmd FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -848,8 +850,8 @@ endif
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " from :help Ncm2PopupOpen
-" au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
-" au User Ncm2PopupClose set completeopt=menuone
+" autocmd User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
+" autocmd User Ncm2PopupClose set completeopt=menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => neomake

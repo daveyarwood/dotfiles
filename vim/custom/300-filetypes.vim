@@ -2,19 +2,18 @@
 " => Python
 """"""""""""""""""""""""""""""
 let python_highlight_all = 1
-au FileType python syn keyword pythonDecorator True None False self
 
-au BufNewFile,BufRead *.jinja set syntax=htmljinja
-au BufNewFile,BufRead *.mako set ft=mako
+augroup python_filetype_settings
+  autocmd!
+  autocmd FileType python syn keyword pythonDecorator True None False self
+  autocmd BufNewFile,BufRead *.jinja set syntax=htmljinja
+  autocmd BufNewFile,BufRead *.mako set ft=mako
+augroup END
 
 
 """"""""""""""""""""""""""""""
 " => JavaScript
 """""""""""""""""""""""""""""""
-au FileType javascript call JavaScriptFold()
-au FileType javascript setl fen
-au FileType javascript setl nocindent
-
 function! JavaScriptFold() abort
   setl foldmethod=syntax
   setl foldlevelstart=1
@@ -25,6 +24,13 @@ function! JavaScriptFold() abort
   endfunction
   setl foldtext=FoldText()
 endfunction
+
+augroup javascript_filetype_settings
+  autocmd!
+  autocmd FileType javascript call JavaScriptFold()
+  autocmd FileType javascript setl fen
+  autocmd FileType javascript setl nocindent
+augroup END
 
 
 """"""""""""""""""""""""""""""
@@ -42,10 +48,14 @@ vnoremap <leader>J :!jq -c '.'<CR>
 " => CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CoffeeScriptFold() abort
-    setl foldmethod=indent
-    setl foldlevelstart=1
+  setl foldmethod=indent
+  setl foldlevelstart=1
 endfunction
-au FileType coffee call CoffeeScriptFold()
+
+augroup coffeescript_filetype_settings
+  autocmd!
+  autocmd FileType coffee call CoffeeScriptFold()
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -62,19 +72,22 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => git
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au FileType gitcommit call setpos('.', [0, 1, 1, 0])
+augroup git_buffer_settings
+  autocmd!
+  autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => io
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup iolang
-  au!
+  autocmd!
   " I have the 'extras/SyntaxHighlighters/Vim' directory of the IoLanguage/io
   " installed as a plugin, but it's just the syntax definition and that's it.
   " This line is necessary in order to actually recognize *.io files as Io
   " source files.
-  au BufNewFile,BufRead *.io setlocal filetype=io
+  autocmd BufNewFile,BufRead *.io setlocal filetype=io
 augroup END
 
 
@@ -82,8 +95,8 @@ augroup END
 " => lisp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup lisp
-  au!
-  au BufNewFile,BufRead *.asd setlocal filetype=lisp
+  autocmd!
+  autocmd BufNewFile,BufRead *.asd setlocal filetype=lisp
 augroup END
 
 
@@ -91,10 +104,10 @@ augroup END
 " => markdown
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup markdown
-  au!
-  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+  autocmd!
+  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
   "for some reason, I have to set the filetype to ghmarkdown, and then set it to markdown, in order to get all of the syntax highlighting. cool!
-  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
+  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
 augroup END
 
 
