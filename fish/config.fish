@@ -34,6 +34,7 @@ source $fish_runtime/custom/git.fish
 
 # misc configs (adding dirs to $PATH, etc.)
 source $fish_runtime/custom/rbenv.fish
+source $fish_runtime/custom/pyenv.fish
 source $fish_runtime/custom/jenv.fish
 source $fish_runtime/custom/postgres.fish
 # source $fish_runtime/custom/docker.fish
@@ -101,4 +102,3 @@ set -gx little_fish '⋊>'
 
 # decrypt and run encrypted .fish files (sensitive credentials, etc.)
 source $fish_runtime/custom/gpg.fish
-

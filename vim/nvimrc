@@ -29,6 +29,6 @@ function! QuitFZFBuffer() abort
   " endif
 endfunction
 
-" required for python/python3 remote plugins
+" " required for python remote plugins
 let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/home/dave/.pyenv/versions/general/bin/python3'
