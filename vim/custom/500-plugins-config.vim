@@ -1116,7 +1116,6 @@ let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'path_html': '~/Sync/vimwiki/ht
 let g:vimwiki_table_mappings = 0
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vista
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1143,6 +1142,7 @@ let g:vista_close_on_jump = 1
 " Instead of the nested structure used by default, list all tags by kind, e.g.
 " all methods, then all namespaces, etc. This display looks cleaner to me.
 let g:vista#renderer#ctags = 'kind'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vlime
