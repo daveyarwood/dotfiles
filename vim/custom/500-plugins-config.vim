@@ -1032,6 +1032,22 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
 set grepprg=/bin/grep\ -nH
 
 
+""""""""""""""""""""""""""""""
+" => vim-tmux-navigator
+""""""""""""""""""""""""""""""
+" I keep wanting to navigate between vim panes while I'm in insert mode without
+" switching back to normal mode first. These mappings let me do that.
+"
+" The only one that doesn't really work is <C-h>, which can't seem to shed its
+" standard behavior of acting like Backspace. It's weird that I can't seem to
+" override that, but oh well. I usually keep my vim on the left anyway, so it's
+" rare that I'll need it.
+imap <C-h> <Esc><C-h>
+imap <C-j> <Esc><C-j>
+imap <C-k> <Esc><C-k>
+imap <C-l> <Esc><C-l>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimux
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
