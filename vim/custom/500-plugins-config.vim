@@ -1110,7 +1110,7 @@ vnoremap <leader>vS :<c-u>call VimuxOperator(visualmode(), 0)<cr>
 function! VimuxSendBuffer(...) abort
   let pos = winsaveview()
   let arg = exists('a:1') ? ", 0" : ""
-  execute "normal! ggvG$:\<c-u>call VimuxOperator(visualmode()".arg.")\<cr>"
+  execute "normal! gg0vG$:\<c-u>call VimuxOperator(visualmode()".arg.")\<cr>"
   call winrestview(pos)
 endfunction
 
