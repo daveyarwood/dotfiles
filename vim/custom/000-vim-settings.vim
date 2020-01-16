@@ -166,6 +166,15 @@ set cursorline
 " turn off tabline
 set showtabline=0
 
+" This makes it so that when you press certain keybindings that jump you to a
+" new line, like gg, G, <C-d> and <C-u>, your cursor lands on column 1 instead
+" of staying in the same column.
+"
+" This option is on by default in Vim, but Neovim annoyingly changed the default
+" to off in December 2019. I was used to the default behavior, so I'm turning it
+" on explicitly.
+set startofline
+
 " Go to last file(s) if Vim is started without arguments.
 augroup reopen_last_file
   autocmd!
