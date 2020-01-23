@@ -1042,9 +1042,13 @@ set grepprg=/bin/grep\ -nH
 " standard behavior of acting like Backspace. It's weird that I can't seem to
 " override that, but oh well. I usually keep my vim on the left anyway, so it's
 " rare that I'll need it.
+"
+" Update: I don't actually want to remap <C-k> because that's the stock mapping
+" for digraphs and I don't want to retrain my fingers to learn a new mapping for
+" that.
 imap <C-h> <Esc><C-h>
 imap <C-j> <Esc><C-j>
-imap <C-k> <Esc><C-k>
+" imap <C-k> <Esc><C-k>
 imap <C-l> <Esc><C-l>
 
 
