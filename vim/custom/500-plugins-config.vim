@@ -948,6 +948,103 @@ let g:rainbow_conf = {'separately': {'html': 0}} " disable for html
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => sandwich
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+
+" Add recipes for vim-surround-style buns with an extra space.
+let g:sandwich#recipes +=
+      \ [
+      \   {
+      \     'buns':         ['{ ', ' }'],
+      \     'nesting':      1,
+      \     'match_syntax': 1,
+      \     'kind':         ['add', 'replace'],
+      \     'action':       ['add'],
+      \     'input':        ['{']
+      \   },
+      \
+      \   {
+      \     'buns':         ['[ ', ' ]'],
+      \     'nesting':      1,
+      \     'match_syntax': 1,
+      \     'kind':         ['add', 'replace'],
+      \     'action':       ['add'],
+      \     'input':        ['[']
+      \   },
+      \
+      \   {
+      \     'buns':         ['( ', ' )'],
+      \     'nesting':      1,
+      \     'match_syntax': 1,
+      \     'kind':         ['add', 'replace'],
+      \     'action':       ['add'],
+      \     'input':        ['(']
+      \   },
+      \
+      \   {
+      \     'buns':         ['{\s*', '\s*}'],
+      \     'nesting':      1,
+      \     'regex':        1,
+      \     'match_syntax': 1,
+      \     'kind':         ['delete', 'replace', 'textobj'],
+      \     'action':       ['delete'],
+      \     'input':        ['{']
+      \   },
+      \
+      \   {
+      \     'buns':         ['\[\s*', '\s*\]'],
+      \     'nesting':      1,
+      \     'regex':        1,
+      \     'match_syntax': 1,
+      \     'kind':         ['delete', 'replace', 'textobj'],
+      \     'action':       ['delete'],
+      \     'input':        ['[']
+      \   },
+      \
+      \   {
+      \     'buns':         ['(\s*', '\s*)'],
+      \     'nesting':      1,
+      \     'regex':        1,
+      \     'match_syntax': 1,
+      \     'kind':         ['delete', 'replace', 'textobj'],
+      \     'action':       ['delete'],
+      \     'input':        ['(']
+      \   },
+      \ ]
+
+" Make it so that when I visually select a line and add parens, brackets or
+" curly braces, it indents the line that I'm wrapping.
+"
+" source: https://github.com/machakann/vim-sandwich/tree/a0cde9cfb20d9aff10a09b7fc776231f7856abef#linewise-and-blockwise-operations
+let s:command = "'[+1,']-1normal! >>"
+let g:sandwich#recipes +=
+      \ [
+      \   {
+      \     'buns':       ['{', '}'],
+      \     'motionwise': ['line'],
+      \     'kind':       ['add'],
+      \     'linewise':   1,
+      \     'command':    [s:command]
+      \   },
+      \
+      \   {
+      \     'buns':       ['[', ']'],
+      \     'motionwise': ['line'],
+      \     'kind':       ['add'],
+      \     'linewise':   1,
+      \     'command':    [s:command]
+      \   },
+      \   {
+      \     'buns':       ['(', ')'],
+      \     'motionwise': ['line'],
+      \     'kind':       ['add'],
+      \     'linewise':   1,
+      \     'command':    [s:command]
+      \   },
+      \ ]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => sexp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:sexp_enable_insert_mode_mappings = 0
