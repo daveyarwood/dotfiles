@@ -90,7 +90,6 @@ Plug 'zah/nim.vim'
 
 " misc
 Plug 'chrisbra/unicode.vim'
-Plug 'itchyny/calendar.vim'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/gina.vim'
