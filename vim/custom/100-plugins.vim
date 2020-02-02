@@ -34,6 +34,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
+Plug 'unblevable/quick-scope'
 Plug 'vim-scripts/gitignore'
 Plug 'w0rp/ale'
 
