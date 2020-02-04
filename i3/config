@@ -240,4 +240,7 @@ for_window [class="Peek"] floating enable
 # For a live performance where I need to control a TTS narrator and project a
 # web app at the same time. Each time I put a message on this fifo, the narrator
 # proceeds to the next script.
-bindsym $mod+semicolon exec --no-startup-id "[ -p ~/code/by-chance/narration.fifo ] && echo BANG > ~/code/by-chance/narration.fifo"
+bindsym $mod+semicolon \
+  exec --no-startup-id \
+  "[ -p ~/code/by-chance/narration.fifo ] \
+    && echo BANG > ~/code/by-chance/narration.fifo"
