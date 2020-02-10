@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-deps='{:deps {lambdaisland/deep-diff {:mvn/version "LATEST"}}}'
-
 clj_program=$(mktemp)
 
 cat <<EOF > "$clj_program"
-(require '[lambdaisland.deep-diff :as ddiff])
+(require '[clojure.data   :as    data]
+         '[clojure.pprint :refer (pprint)])
 
 (let [[file-1 file-2] *command-line-args*]
   (->> [file-1 file-2]
        (pmap #(read-string (str "[\n" (slurp %) "\n]")))
-       (apply ddiff/diff)
-       ddiff/pretty-print))
+       (apply data/diff)
+       butlast
+       pprint))
 
 (System/exit 0)
 EOF
 
-clojure -Sdeps "$deps" "$clj_program" "$@"
+clojure "$clj_program" "$@"
