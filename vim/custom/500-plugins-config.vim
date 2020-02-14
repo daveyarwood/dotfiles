@@ -640,7 +640,7 @@ nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 " :Gina blame. Putting it here so that I don't have to look in two places for
 " all my git-related keybindings.
 nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gc :Gina commit -v<CR>:let @a=system("git-commit-message-prefix")<CR>ggi<C-r>a
+nnoremap <leader>gc :Gina commit -v<CR>
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gD :Gina diff -w<CR>
 nnoremap <leader>gg :Gina grep<space>
