@@ -76,7 +76,10 @@ source $fish_runtime/custom/fish_logo.fish
 source $fish_runtime/custom/fish_swimming.fish
 
 function fish_greeting;
-  which task >/dev/null; and task ready 2>/dev/null
+  if which task >/dev/null
+    which snooze-tasks >/dev/null; and snooze-tasks
+    task ready 2>/dev/null
+  end
 end
 
 # erase the default fish_mode_prompt; I have one built into my theme
