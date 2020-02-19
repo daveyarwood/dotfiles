@@ -5,7 +5,10 @@ function todo
   task ready; or true
 end
 
-balias td todo
+function td
+  which snooze-tasks >/dev/null; and snooze-tasks
+  todo
+end
 
 function tadd
   task add $argv
