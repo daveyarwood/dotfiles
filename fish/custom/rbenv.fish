@@ -6,4 +6,4 @@ end
 
 add-dir-to-path $RBENV_ROOT/bin
 
-source (rbenv init - | psub)
+rbenv init - | source
