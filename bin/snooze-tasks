@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+require 'date'
+require 'json'
+require 'yaml'
+
+tasks_json=`task +READY export`
+
+begin
+  tasks = JSON.parse(tasks_json)
+rescue JSON::ParserError
+  STDERR.puts "Failed to parse the output of `task +READY export`"
+  exit 1
+end
+
+task_lead_times_file = File.join(Dir.home, "task-lead-times.yaml")
+
+begin
+  lead_times = YAML.load(File.read(task_lead_times_file))
+rescue
+  STDERR.puts "Failed to parse task lead times from #{task_lead_times_file}"
+  exit 1
+end
+
+lead_times.transform_values! do |v|
+  case v["unit"]
+  when "days"
+    v["quantity"] * 24 * 60 * 60
+  when "hours"
+    v["quantity"] * 60 * 60
+  end
+end
+
+tasks.each do |task|
+  uuid = task["uuid"]
+  lead_time = lead_times[task["description"]]
+
+  if task["recur"] && lead_time
+    due = DateTime.parse(task["due"]).to_time
+
+    if (due - lead_time) > Time.now
+      wait_until = "due-#{lead_time}sec"
+      system("echo n | task #{uuid} modify wait:#{wait_until}")
+    end
+  end
+end
