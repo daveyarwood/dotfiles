@@ -309,33 +309,34 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => colorizer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I was hoping that this would enable colorizer for every filetype, but I still
-" had to run :ColorHighlight (or :ColorToggle) manually even after adding this.
-let g:colorizer_auto_color = 1
+" I was hoping that this would enable colorizer consistently for these
+" filetypes, but I still had to run :ColorHighlight (or :ColorToggle) manually
+" even after adding this.
+" let g:colorizer_auto_color = 1
+" let g:colorizer_auto_filetype='scss,css,clojure'
 
-" Adding this did the trick. It's not ideal, because there are probably other
-" filetypes where I would want colorizer to do its thing, but I can always add
-" those as I find them.
+" Colorizer's automatic colorizing behavior is flaky. I've filed this issue to
+" address that: https://github.com/chrisbra/Colorizer/issues/77
 "
-" Clojure is included here because colorizer interprets ANSI escape codes, and I
-" use Conjure, which has a log buffer whose filetype is Clojure. Conjure +
-" colorizer = awesome colored text output on stdout/stderr!
-let g:colorizer_auto_filetype='scss,css,clojure'
-
-" Hackery to work around colorizer's auto-colorizer behavior being flaky.
+" The hackery below is an attempt to work around the flakiness.
+"
+" /tmp/conjure.cljc is included here because colorizer interprets ANSI escape
+" codes, and I use Conjure for Clojure development, and its log buffer is
+" /tmp/conjure.cljc. Conjure + colorizer = awesome colored text output on
+" stdout/stderr!
 "
 " It's still not 100% working the way I want it to... the Conjure log buffer
 " needs to be in focus in order for its content to be colorized. When I leave
 " and go into another split, the existing content is colorized, but new content
 " is not. (Actually, strangely, new content has ANSI codes stripped out, but it
 " isn't rendered in color, it's just the normal text color.)
-"
-" I've filed an issue: https://github.com/chrisbra/Colorizer/issues/77
-augroup colorize_conjure
+augroup auto_colorize
   autocmd!
-  autocmd BufNewFile,BufRead,BufEnter,BufLeave /tmp/conjure.cljc ColorHighlight
+  autocmd
+        \ BufNewFile,BufRead,BufEnter,BufLeave,WinEnter,WinLeave,WinNew
+        \ /tmp/conjure.cljc,*.css,*.scss
+        \ ColorHighlight
 augroup END
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
