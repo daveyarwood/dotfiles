@@ -1,5 +1,8 @@
 {"macro-defs"
- {adzerk.api.v1-fixes/with-json-body
+ {adzerk.api.geir/defapicall
+  [:declaration :params :bound-elements]
+
+  adzerk.api.v1-fixes/with-json-body
   [:bindings :bound-elements]
 
   adzerk.env/def
