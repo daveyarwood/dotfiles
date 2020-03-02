@@ -26,9 +26,11 @@ function! s:DarkMode() abort
   let g:gruvbox_italic=1
   set background=dark
   colorscheme gruvbox
+  let g:lightline.colorscheme = 'onehalfdark'
+
   " let ayucolor="dark"
   " colorscheme ayu
-  let g:lightline.colorscheme = 'onehalfdark'
+
   call lightline#disable()
   call lightline#enable()
 endfunction
@@ -38,10 +40,19 @@ command! DarkMode call s:DarkMode()
 function! s:LightMode() abort
   let g:colorscheme_mode = 'light'
   set background=light
+
   " 0 = low, 1 = medium, 2 = high visibility; i think medium looks best
-  let g:mayansmoke_cursor_line_visibility = 1
-  colorscheme mayansmoke
-  let g:lightline.colorscheme = 'solarized'
+  " let g:mayansmoke_cursor_line_visibility = 1
+  " colorscheme mayansmoke
+  " let g:lightline.colorscheme = 'solarized'
+
+  " use a slightly darker background, like GitHub inline code blocks
+  " let g:github_colors_soft = 1
+  " more blocky diff markers in signcolumn (e.g. GitGutter)
+  let g:github_colors_block_diffmark = 1
+  colorscheme github
+  let g:lightline.colorscheme = 'github'
+
   call lightline#disable()
   call lightline#enable()
 endfunction
