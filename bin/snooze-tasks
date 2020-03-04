@@ -24,10 +24,12 @@ end
 
 lead_times.transform_values! do |v|
   case v["unit"]
-  when "days"
-    v["quantity"] * 24 * 60 * 60
   when "hours"
     v["quantity"] * 60 * 60
+  when "days"
+    v["quantity"] * 24 * 60 * 60
+  when "weeks"
+    v["quantity"] * 7 * 24 * 60 * 60
   end
 end
 
