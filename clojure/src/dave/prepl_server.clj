@@ -3,6 +3,10 @@
             [clojure.java.io     :as io])
   (:import [java.net ConnectException Socket]))
 
+(defn- log
+  [& args]
+  (println (apply format args)))
+
 (defn port-listening?
   [host port]
   (try
@@ -10,27 +14,26 @@
     true
     (catch ConnectException _ false)))
 
-(defn- log
-  [& args]
-  (println (apply format args)))
+(defn assert-port-available!
+  [host port]
+  (when (port-listening? host port)
+    (log "Unable to start prepl server on port %d; that port is in use." port)
+    (System/exit 1)))
 
 (defn start-prepl-server!
   [port]
-  (let [host "localhost"]
-    (when (port-listening? host port)
-      (log "Unable to start prepl server on port %d; that port is in use." port)
-      (System/exit 1))
-    (let [socket         (server/start-server
-                           {:accept `server/io-prepl
-                            :address host
-                            :port    port
-                            :name    "Dave's amazing prepl server"})
-          effective-port (.getLocalPort socket)]
-      (doto (io/file ".socket-port")
-        .deleteOnExit
-        (spit effective-port))
-      (log "Started prepl server on port %d." effective-port))
-
+  (let [host           "localhost"
+        _              (assert-port-available! host port)
+        socket         (server/start-server
+                         {:accept `server/io-prepl
+                          :address host
+                          :port    port
+                          :name    "Dave's amazing prepl server"})
+        effective-port (.getLocalPort socket)]
+    (doto (io/file ".socket-port")
+      .deleteOnExit
+      (spit effective-port))
+    (log "Started prepl server on port %d." effective-port)
     ;; Wait until process is interrupted.
     @(promise)))
 
