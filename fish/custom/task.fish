@@ -51,7 +51,10 @@ function tmod
 end
 
 function tsnooze
-  task $argv[1] modify wait:$argv[2]
+  # Feeding "n" into this command because if I'm snoozing a recurring task,
+  # taskwarrior will ask me if I want to make the same modification (setting the
+  # wait) on all future instances of the task, and I never want to do that.
+  yes n | task $argv[1] modify wait:$argv[2]
   todo
 end
 
