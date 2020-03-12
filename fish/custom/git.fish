@@ -30,10 +30,7 @@ function gpl
     git merge
   end
 
-  git submodule init 2>/dev/null
-  if test $status -eq 0
-    git submodule update
-  end
+  git submodule update --init --recursive
 end
 
 # This is kind of like `git submodule update --remote`, except that it tells me
@@ -57,6 +54,8 @@ function gsu
       echo "$submodule is on master branch. Updating..."
       git checkout master
       git pull
+      # Handle nested submodules
+      git submodule update --init --recursive
       cd -
     else
       echo "ERROR: $submodule submodule is on non-master branch: $branches"
