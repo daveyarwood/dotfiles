@@ -27,8 +27,16 @@ balias vim. "vim ."
 # edit vimrc
 balias vimrc "vim $HOME/.vimrc"
 
-# Edit a scratch asciidoc file.
-balias vims "vim /tmp/scratch-(date '+%Y%m%d%H%M%S').adoc"
+# Edit a scratch file with the given extension (default: adoc)
+function vims
+  set -l ext "adoc"
+
+  if test (count $argv) -gt 0
+    set ext $argv[1]
+  end
+
+  vim /tmp/scratch-(date '+%Y%m%d%H%M%S').$ext
+end
 
 balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 balias vw vimwiki
