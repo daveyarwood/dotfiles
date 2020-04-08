@@ -1,4 +1,4 @@
-/tags
-/tags.lock
-/tags.temp
+tags
+tags.lock
+tags.temp
 .lsp/sqlite*.db
