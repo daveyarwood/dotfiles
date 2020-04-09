@@ -1,4 +1,5 @@
 set -gx ADZERK_BUILD_CHROOT precise
+set -gx ADZERK_USE_DOCKER no
 set -gx DOCKER_USER_MODE no
 
 set -gx ADZERK_REPO_PATH $CODEDIR/adzerk
