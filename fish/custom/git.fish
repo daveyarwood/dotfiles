@@ -6,7 +6,7 @@ balias gs 'git status'
 balias gc 'git commit -v'
 balias gco 'git checkout'
 function ga; git add $argv; git status; end
-balias gl "git log --graph --pretty=format:\"%C(bold blue)%h%C(reset) %C(bold green)%ad%Creset %s%C(bold white) — %an%C(bold yellow)%d%C(reset)\" --decorate --all --date=short"
+balias gl "git log --graph --pretty=format:\"%C(bold blue)%h%C(reset) %C(bold green)%ad%C(bold yellow)%d%Creset %s%C(bold white) — %an%C(reset)\" --decorate --all --date=short"
 balias gd 'git diff'
 balias gp 'git push'
 balias gpf 'git push --force-with-lease'
