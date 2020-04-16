@@ -49,9 +49,6 @@ balias vpu 'vim +PlugUpdate /dev/null'
 
 # mnemonic: vim grep
 function vg
-  # This isn't perfect because a double quote in the search term terminates the
-  # string early. That should be pretty rare, though, and if I get it wrong,
-  # I can just do :CtrlSF '"whatever"' inside Vim, where I have more control.
-  vim '+CtrlSF "'$argv[1]'"' /dev/null
+  vim "+CtrlSF $argv" /dev/null
 end
 
