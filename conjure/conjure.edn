@@ -1,2 +1,0 @@
-{:conns
- {:cwd {:port #slurp-edn ".socket-port"}}}

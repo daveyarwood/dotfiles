@@ -12,7 +12,6 @@
     ~/.clojure: clojure
     ~/.config/boot/boot.properties: boot/boot.properties
     ~/.config/boot/profile.boot: boot/profile.boot
-    ~/.config/conjure/conjure.edn: conjure/conjure.edn
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/custom: fish/custom/
     ~/.config/omf: fish/omf/

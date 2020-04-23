@@ -320,10 +320,8 @@ endfunction
 "
 " The hackery below is an attempt to work around the flakiness.
 "
-" /tmp/conjure.cljc is included here because colorizer interprets ANSI escape
-" codes, and I use Conjure for Clojure development, and its log buffer is
-" /tmp/conjure.cljc. Conjure + colorizer = awesome colored text output on
-" stdout/stderr!
+" Conjure log buffers are included here because colorizer interprets ANSI escape
+" codes, and Conjure + colorizer = awesome colored text output on stdout/stderr!
 "
 " It's still not 100% working the way I want it to... the Conjure log buffer
 " needs to be in focus in order for its content to be colorized. When I leave
@@ -334,7 +332,7 @@ augroup auto_colorize
   autocmd!
   autocmd
         \ BufNewFile,BufRead,BufEnter,BufLeave,WinEnter,WinLeave,WinNew
-        \ /tmp/conjure.cljc,*.css,*.scss
+        \ conjure-log-*.cljc,*.css,*.scss
         \ ColorHighlight
 augroup END
 
@@ -354,19 +352,33 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:conjure_fold_multiline_results = 0
-let g:conjure_log_blacklist = ["up", "eval", "ret", "load-file"]
-let g:conjure_log_direction = "horizontal"
-let g:conjure_log_size_large = 100
-let g:conjure_quick_doc_normal_mode = 0
+function! ToggleConjureLog() abort
+  if expand('%:t') =~ ".*conjure-log-.*"
+    execute 'Bclose'
+  else
+    " Ideally I could call some function provided by Conjure directly to do
+    " this, but I wasn't able to figure out how to do that. This mapping will
+    " need to be adjusted if I ever configure Conjure to use a different mapping
+    " to open the log in a tab, or if Conjure ever changes the default mapping.
+    " I think those two things are both pretty unlikely to happen, so meh.
+    "
+    " Another thing worth noting: normal apparently doesn't work with <leader>
+    " and <localleader>, so you have to do some hackery like what's going on
+    " here (https://vi.stackexchange.com/a/7780/25687) or just give up and type
+    " your actual (local)leader key in the mapping. I'm doing the second one.
+    normal \lt
+  endif
+endfunction
 
 augroup additional_conjure_bindings
   autocmd!
 
-  " this is easier to type than <localleader>cL
   autocmd FileType clojure
         \ nnoremap <buffer>
-        \ <localleader>cc :ConjureToggleLog<CR>
+        \ <localleader>cc :call ToggleConjureLog()<CR>
+  autocmd FileType clojure
+        \ nnoremap <buffer>
+        \ <localleader>cl :call ToggleConjureLog()<CR>
 
   " mnemonic: eval prompt
   " (like how <localleader>ee is eval expression)
@@ -375,7 +387,7 @@ augroup additional_conjure_bindings
         \ <localleader>ep :ConjureEval<space>
 
   " press q to close the log buffer
-  autocmd BufEnter /tmp/conjure.cljc nnoremap <buffer> q :ConjureCloseLog<CR>
+  autocmd BufEnter conjure-log-*.cljc nnoremap <buffer> q :Bclose<CR>
 augroup END
 
 

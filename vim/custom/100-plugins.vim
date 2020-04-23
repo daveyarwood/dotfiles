@@ -44,7 +44,7 @@ Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'luochen1990/rainbow'
-Plug 'Olical/conjure', { 'do': 'bin/compile', 'for': 'clojure', 'on': 'ConjureUp' }
+Plug 'Olical/conjure', { 'branch': 'develop' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
 " other languages/filetypes
