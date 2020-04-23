@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# This script takes JSON Lines input (i.e. a JSON object on each line) on STDIN
+# and prints to STDOUT a TSV with the provided header row.
+#
+# Each column in the header row is treated as a key to be extracted from each
+# JSON object.
+#
+# The header row is provided as a series of arguments to this script, e.g.:
+#
+# $ cat some-file.jsonl | jsonl-to-tsv foo bar "a key with spaces in it" baz
+# foo<tab>bar<tab>a key with spaces in it<tab>baz
+# ...
+
+if ! which jq >/dev/null; then
+  echo "This script requires jq to be on the PATH."
+  exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+  echo "At least one column required."
+  exit 1
+fi
+
+header_row=""
+jq_select_columns="["
+
+for column in "$@"; do
+  header_row="$header_row$column\t"
+  jq_select_columns="$jq_select_columns.[\"$column\"],"
+done
+
+# Remove the final \t
+header_row="$(echo -e "$header_row" | sed 's/.$//')"
+# Remove the final , and add a final ]
+jq_select_columns="$(echo -e "$jq_select_columns" | sed 's/.$//')]"
+
+jq_output="$(jq -r "$jq_select_columns | @tsv" -)"
+
+echo "$header_row" | cat - <(echo -e "$jq_output")
