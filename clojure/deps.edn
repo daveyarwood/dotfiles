@@ -5,6 +5,10 @@
  {:dot
   {:extra-paths ["/home/dave/.clojure/src"]}
 
+  :nrepl-server
+  {:extra-deps {nrepl/nrepl {:mvn/version "0.7.0"}}
+   :main-opts  ["-m" "nrepl.cmdline"]}
+
   :prepl-server
   {:extra-paths ["/home/dave/.clojure/src"]
    :main-opts   ["-m" "dave.prepl-server"]}
