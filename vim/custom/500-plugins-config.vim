@@ -531,8 +531,10 @@ function! s:open_defx_if_directory() abort
     return
   endtry
 
+  " If the path is a directory, delete the (useless) buffer and open defx for
+  " that directory instead.
   if isdirectory(l:full_path)
-    Defx `expand('%:p')`
+    execute "Defx `expand('%:p')` | bd " . expand('%:r')
   endif
 endfunction
 
