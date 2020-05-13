@@ -19,21 +19,18 @@ function! <SID>BufcloseCloseIt() abort
    endif
 endfunction
 
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
-
 nnoremap H :bp<CR>
 nnoremap L :bn<CR>
 nnoremap <leader>, :b#<CR>
 nnoremap Q :bp <BAR> bd #<CR>
 
+" Close the current buffer
+nnoremap <leader>bd :Bclose<cr>
+
 " closes all buffers except for the current one
 " (doesn't close any buffers with unsaved changes)
-nnoremap <leader>d :BufOnly<CR>
+nnoremap <leader>bo :BufOnly<CR>
 " creates an empty buffer and closes everything else
 " (doesn't close any buffers with unsaved changes)
-nnoremap <leader>D :enew<CR>:BufOnly<CR>
+nnoremap <leader>bD :enew<CR>:BufOnly<CR>
 

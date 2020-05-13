@@ -1308,6 +1308,38 @@ augroup end
 
 
 """"""""""""""""""""""""""""""
+" => which-key
+""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey '\'<CR>
+nnoremap <silent> <Space>       :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader>      :<c-u>WhichKeyVisual ','<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual '\'<CR>
+vnoremap <silent> <Space>       :<c-u>WhichKeyVisual '<Space>'<CR>
+
+" TODO: Add description dictionaries so that it's easier to see what each key
+" mapping does. The default display is the command that's run, but that
+" isn't very readable.
+"
+" See: https://github.com/liuchengxu/vim-which-key#configuration
+"
+" WIP:
+call which_key#register(',', "g:which_key_map_leader")
+call which_key#register('\', "g:which_key_map_localleader")
+call which_key#register('<Space>', "g:which_key_map_space")
+let g:which_key_map_leader = {}
+let g:which_key_map_localleader = {}
+let g:which_key_map_space = {}
+
+let g:which_key_map_leader.b = {
+      \ 'name': '+buffers',
+      \ 'd': 'delete this buffer',
+      \ 'D': 'delete all buffers',
+      \ 'l': 'list buffers',
+      \ 'o': 'delete all other buffers'
+      \ }
+
+""""""""""""""""""""""""""""""
 " => YankRing
 """"""""""""""""""""""""""""""
 if has("win16") || has("win32")

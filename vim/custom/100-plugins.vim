@@ -22,6 +22,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kassio/neoterm'
 Plug 'kshenoy/vim-signature'
+Plug 'liuchengxu/vim-which-key'
 Plug 'liuchengxu/vista.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'machakann/vim-sandwich'

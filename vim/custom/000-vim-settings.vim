@@ -195,3 +195,5 @@ if has('persistent_undo')
   set undofile
 endif
 
+" The default timeoutlen is 1000 ms.
+set timeoutlen=500
