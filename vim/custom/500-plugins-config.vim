@@ -332,7 +332,7 @@ augroup auto_colorize
   autocmd!
   autocmd
         \ BufNewFile,BufRead,BufEnter,BufLeave,WinEnter,WinLeave,WinNew
-        \ conjure-log-*.cljc,*.css,*.scss
+        \ conjure-log-*,*.css,*.scss
         \ ColorHighlight
 augroup END
 
@@ -373,21 +373,21 @@ endfunction
 augroup additional_conjure_bindings
   autocmd!
 
-  autocmd FileType clojure
+  autocmd FileType clojure,fennel
         \ nnoremap <buffer>
         \ <localleader>cc :call ToggleConjureLog()<CR>
-  autocmd FileType clojure
+  autocmd FileType clojure,fennel
         \ nnoremap <buffer>
         \ <localleader>cl :call ToggleConjureLog()<CR>
 
   " mnemonic: eval prompt
   " (like how <localleader>ee is eval expression)
-  autocmd FileType clojure
+  autocmd FileType clojure,fennel
         \ nnoremap <buffer>
         \ <localleader>ep :ConjureEval<space>
 
   " press q to close the log buffer
-  autocmd BufEnter conjure-log-*.cljc nnoremap <buffer> q :Bclose<CR>
+  autocmd BufEnter conjure-log-* nnoremap <buffer> q :Bclose<CR>
 augroup END
 
 
