@@ -309,32 +309,16 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => colorizer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I was hoping that this would enable colorizer consistently for these
-" filetypes, but I still had to run :ColorHighlight (or :ColorToggle) manually
-" even after adding this.
-" let g:colorizer_auto_color = 1
-" let g:colorizer_auto_filetype='scss,css,clojure'
+let g:colorizer_auto_color = 1
+" Clojure is included because Conjure's log buffer is a Clojure buffer, and
+" sometimes I want to use a Clojure REPL to print things that include ANSI
+" escape codes for pretty colors.
+let g:colorizer_auto_filetype='scss,css,clojure'
 
-" Colorizer's automatic colorizing behavior is flaky. I've filed this issue to
-" address that: https://github.com/chrisbra/Colorizer/issues/77
-"
-" The hackery below is an attempt to work around the flakiness.
-"
-" Conjure log buffers are included here because colorizer interprets ANSI escape
-" codes, and Conjure + colorizer = awesome colored text output on stdout/stderr!
-"
-" It's still not 100% working the way I want it to... the Conjure log buffer
-" needs to be in focus in order for its content to be colorized. When I leave
-" and go into another split, the existing content is colorized, but new content
-" is not. (Actually, strangely, new content has ANSI codes stripped out, but it
-" isn't rendered in color, it's just the normal text color.)
-augroup auto_colorize
-  autocmd!
-  autocmd
-        \ BufNewFile,BufRead,BufEnter,BufLeave,WinEnter,WinLeave,WinNew
-        \ conjure-log-*,*.css,*.scss
-        \ ColorHighlight
-augroup END
+" Disable Colorizer's strange default behavior where it de-colorizes whenever
+" you leave the buffer.
+let g:colorizer_disable_bufleave = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
