@@ -37,11 +37,11 @@ augroup END
 " => JSON
 """""""""""""""""""""""""""""""
 " magically format/minify json in the current buffer
-nnoremap <leader>j :%!jq '.'<CR>
-nnoremap <leader>J :%!jq -c '.'<CR>
+nnoremap <leader>jf :%!jq '.'<CR>
+nnoremap <leader>jm :%!jq -c '.'<CR>
 " or just the current visual selection
-vnoremap <leader>j :!jq '.'<CR>
-vnoremap <leader>J :!jq -c '.'<CR>
+vnoremap <leader>jf :!jq '.'<CR>
+vnoremap <leader>jm :!jq -c '.'<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

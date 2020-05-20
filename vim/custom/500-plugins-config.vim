@@ -1323,6 +1323,14 @@ let g:which_key_map_leader.b = {
       \ 'o': 'delete all other buffers'
       \ }
 
+let g:which_key_map_leader.c = {
+      \ 'name': '+coc',
+      \ 'c': 'toggle coc',
+      \ 'd': 'coc diagnostics',
+      \ 'f': 'coc: format selected',
+      \ 'i': 'coc info'
+      \ }
+
 let g:which_key_map_leader.e = {
       \ 'name': '+edit',
       \ 'c': 'config directory',
@@ -1330,6 +1338,54 @@ let g:which_key_map_leader.e = {
       \ 'p': 'edit plugins',
       \ 'P': 'edit plugins config',
       \ 'v': 'edit vimrc',
+      \ }
+
+" NB: This doesn't work:
+"     \ '<Space>': 'enter git command',
+"
+" It seems like a special case that the author of vim-which-key didn't foresee.
+"
+" For now, I'm happy with leaving it out of the map and letting it display as:
+"
+"     SPC → Gina<space>
+let g:which_key_map_leader.g = {
+      \ 'name': '+git',
+      \ 'A': 'git add --all',
+      \ 'b': 'git blame',
+      \ 'c': 'git commit',
+      \ 'd': 'git diff',
+      \ 'D': 'git diff (ignore whitespace)',
+      \ 'g': 'git grep',
+      \ 'i': 'git init',
+      \ 'l': 'git log',
+      \ 'p': 'git push',
+      \ 's': 'git status',
+      \ 'S': 'git show',
+      \ 'v': 'browse git commits',
+      \ }
+
+" vim-HiLinkTrace provides this mapping whether you like it or not. It sort of
+" goes against the hierarchical organization of mappings suggested by which-key.
+" I'm tempted to remove vim-HiLinkTrace because I almost never use it, but on
+" the other hand, I don't currently have a use for 'h' as a mapping prefix key,
+" so I'm OK with this.
+let g:which_key_map_leader.h = {
+      \ 'name': '+hilinks',
+      \ 'l': {
+      \   'name': '+hilinks',
+      \   't': 'trace highlighting',
+      \   },
+      \ }
+
+let g:which_key_map_leader.j = {
+      \ 'name': '+json',
+      \ 'f': 'format JSON',
+      \ 'm': 'minify JSON',
+      \ }
+
+let g:which_key_map_leader.s = {
+      \ 'name': '+source',
+      \ 'v': 'source vimrc',
       \ }
 
 """"""""""""""""""""""""""""""
