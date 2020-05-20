@@ -34,14 +34,6 @@ imap <C-x> <Esc><C-x>
 "   Gina status
 " endfunction
 
-" I used to use <leader>w for the above. It's going to take me a while to
-" retrain my fingers, so in the meantime, I'll alert myself whenever I
-" accidentally use the old keybinding.
-"
-" Otherwise, it would be way too easy for me to press the old keybinding (which
-" does nothing) and wander away from a file without saving it!
-nmap <leader>w :echoe "Press <Ctrl-s> to save!"<CR>
-
 " disable shortcut to go into Ex mode, which I never use
 nnoremap Q <nop>
 
