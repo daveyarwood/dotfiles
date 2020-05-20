@@ -1339,6 +1339,15 @@ let g:which_key_map_leader.b = {
       \ 'o': 'delete all other buffers'
       \ }
 
+let g:which_key_map_leader.e = {
+      \ 'name': '+edit',
+      \ 'c': 'config directory',
+      \ 'm': 'edit mappings',
+      \ 'p': 'edit plugins',
+      \ 'P': 'edit plugins config',
+      \ 'v': 'edit vimrc',
+      \ }
+
 """"""""""""""""""""""""""""""
 " => YankRing
 """"""""""""""""""""""""""""""
