@@ -92,24 +92,21 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
 
-function! ReloadWithoutScrolling() abort
-  let l:currentview = winsaveview()
-  edit
-  call winrestview(l:currentview)
-endfunction
+" function! ReloadWithoutScrolling() abort
+"   let l:currentview = winsaveview()
+"   edit
+"   call winrestview(l:currentview)
+" endfunction
 
-function! StripWhitespaceAndReloadBuffer() abort
+function! StripWhitespace() abort
   StripWhitespace
-  try
-    call ReloadWithoutScrolling()
-  catch
-  endtry
+  " try
+  "   call ReloadWithoutScrolling()
+  " catch
+  " endtry
 endfunction
 
-" I originally added this mapping to easily strip whitespace, then eventually I
-" found myself wanting to extend it to do things like update gitgutter signs,
-" things that only happen when you do :e. So I've added :e to this mapping.
-nnoremap <silent> <leader><Space> :call StripWhitespaceAndReloadBuffer()<CR>
+nnoremap <silent> <leader><Space> :call StripWhitespace()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -667,6 +664,15 @@ augroup END
 " => gitgutter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:gitgutter_map_keys = 0
+
+" Update gitgutter on BufEnter instead of on FocusGained. Another approach would
+" be to get vim/tmux focus events working, however I've observed issues with
+" gitgutter not updating even while I'm staying inside Vim, e.g. after making a
+" commit via `:Gina commit`, so reacting to BufEnter seems like a better way to
+" get this working the way I want it to work.
+"
+" ref: https://github.com/airblade/vim-gitgutter#when-signs-dont-update-after-focusing-vim
+let g:gitgutter_terminal_reports_focus=0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
