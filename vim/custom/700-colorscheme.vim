@@ -3,19 +3,24 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
+" Highlight characters in column 81+ with a red background.
+" (source: https://stackoverflow.com/a/235970/2338327)
+function! s:HighlightCharactersOver80() abort
+  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+        \ | match OverLength /\%81v.\+/
+endfunction
+
 " These commands are run whenever the colorscheme is changed. They serve as
 " hooks to further customize colors on top of the current colorschem.
 "
 " Hooks:
 " 1. Italicize comments.
 " 2. Highlight characters in column 81+ with a red background.
-"    (source: https://stackoverflow.com/a/235970/2338327)
 augroup ColorSchemeMods
   autocmd!
   autocmd ColorScheme *
         \ highlight Comment cterm=italic
-        \ | highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-        \ | match OverLength /\%81v.\+/
+        \ | call s:HighlightCharactersOver80()
 augroup END
 
 let g:colorscheme_mode = v:null
@@ -71,3 +76,11 @@ nnoremap <leader>M :ToggleColorschemeMode<CR>
 " Start in dark mode
 call s:DarkMode()
 
+" For some reason, the highlighting of characters past column 80 doesn't seem to
+" work when DarkMode is initially called above. The body of the DarkMode
+" function includes `colorscheme gruvbox`, which I would think should trigger
+" the ColorScheme autocmd at the top of this file, right?
+"
+" Rather than chase ghosts, let's just make sure the desired highlighting
+" happens here.
+call s:HighlightCharactersOver80()
