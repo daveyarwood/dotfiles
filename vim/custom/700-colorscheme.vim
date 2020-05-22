@@ -75,12 +75,3 @@ nnoremap <leader>M :ToggleColorschemeMode<CR>
 
 " Start in dark mode
 call s:DarkMode()
-
-" For some reason, the highlighting of characters past column 80 doesn't seem to
-" work when DarkMode is initially called above. The body of the DarkMode
-" function includes `colorscheme gruvbox`, which I would think should trigger
-" the ColorScheme autocmd at the top of this file, right?
-"
-" Rather than chase ghosts, let's just make sure the desired highlighting
-" happens here.
-call s:HighlightCharactersOver80()
