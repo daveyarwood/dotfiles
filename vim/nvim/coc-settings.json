@@ -5,7 +5,10 @@
   "languageserver": {
     "clojure-lsp": {
       "command": "bash",
-      "args": ["-c", "/home/dave/bin/clojure-lsp"],
+      "args": [
+        "-c",
+        "/home/dave/bin/clojure-lsp"
+      ],
       "filetypes": [
         "clojure"
       ],
@@ -23,8 +26,12 @@
     },
     "elmLS": {
       "command": "elm-language-server",
-      "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"],
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
       "initializationOptions": {
         "elmAnalyseTrigger": "change"
       }
