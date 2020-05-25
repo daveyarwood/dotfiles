@@ -1,6 +1,9 @@
 {
   "coc.source.conjure.priority": 999999,
   "diagnostic.virtualText": true,
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck"
+  },
   "java.errors.incompleteClasspath.severity": "ignore",
   "languageserver": {
     "clojure-lsp": {
