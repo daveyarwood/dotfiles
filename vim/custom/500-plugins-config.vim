@@ -1247,8 +1247,41 @@ nnoremap <buffer> <leader>vF
 " => vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'path_html': '~/Sync/vimwiki/html'}]
-" Disable insert mode <CR> and <Tab> mappings that interfere with autocomplete.
-let g:vimwiki_table_mappings = 0
+
+function! CreateSkeletonDiaryEntry() abort
+  if line('$') == 1 && getline(1) == ''
+    read !cat ~/Sync/vimwiki/diary/template.wiki
+    " The previous command pastes starting on the line _below_ the cursor (i.e.
+    " line 2), so we have to delete the empty line at the top (line 1).
+    execute "normal! ggdd"
+    " Insert today's date
+    execute "%s/DATE-GOES-HERE/" . strftime('%Y-%m-%d') . "/"
+  endif
+endfunction
+
+augroup CustomVimwikiMappings
+  autocmd!
+  " Use my own mappings for increment/decrement header level, ( and ) instead of
+  " - and =. This is because I have my own - mapping that I use to open the
+  "   current directory in defx.
+  autocmd FileType vimwiki nmap ( <Plug>VimwikiRemoveHeaderLevel
+  autocmd FileType vimwiki nmap ) <Plug>VimwikiAddHeaderLevel
+
+  " This adds some functionality that vimwiki is missing: if there is no diary
+  " entry for today yet, it creates a skeleton from a template.
+  autocmd BufEnter *vimwiki/diary/*.wiki call CreateSkeletonDiaryEntry()
+augroup end
+
+" I don't use the diary.wiki diary index page. I prefer to use defx to browse
+" the directory of diary entries. So, I'm remapping the keybinding that would
+" otherwise open the diary index page. vimwiki is nice enough not to overwrite
+" this when it loads.
+nnoremap <leader>wi :e ~/Sync/vimwiki/diary/<CR>
+
+" ,w,w feels a bit awkward. I like ,wt (mnemonic: "wiki today") better.  Vimwiki
+" has its own ,wt mapping, but I never use it (it opens the wiki index page in a
+" tab, and I don't really use tabs).
+nmap <leader>wt <Plug>VimwikiMakeDiaryNote
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
