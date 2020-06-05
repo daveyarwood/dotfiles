@@ -9,17 +9,16 @@ current_sink_num=''
 sink_num_check=''
 binary_check=''
 
-pactl list sink-inputs |while read line; do \
-    sink_num_check=$(echo "$line" |sed -rn 's/^Sink Input #(.*)/\1/p')
-    if [ "$sink_num_check" != "" ]; then
-        current_sink_num="$sink_num_check"
-    else
-        binary_check=$(echo "$line" \
-            |sed -rn 's/application.process.binary = "([^"]*)"/\1/p')
-        if [ "$binary_check" = "$binary" ]; then
-            echo "$current_sink_num" "$binary_check"
-
-            pactl set-sink-input-volume "$current_sink_num" "$volume"
-        fi
+pactl list sink-inputs | while read line; do \
+  sink_num_check=$(echo "$line" |sed -rn 's/^Sink Input #(.*)/\1/p')
+  if [ "$sink_num_check" != "" ]; then
+    current_sink_num="$sink_num_check"
+  else
+    binary_check=$(echo "$line" \
+                   | sed -rn 's/application.process.binary = "([^"]*)"/\1/p')
+    if [ "$binary_check" = "$binary" ]; then
+      echo "$current_sink_num" "$binary_check"
+      pactl set-sink-input-volume "$current_sink_num" "$volume"
     fi
+  fi
 done
