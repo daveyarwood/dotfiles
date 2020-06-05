@@ -1255,7 +1255,7 @@ function! CreateSkeletonDiaryEntry() abort
     " line 2), so we have to delete the empty line at the top (line 1).
     execute "normal! ggdd"
     " Insert today's date
-    execute "%s/DATE-GOES-HERE/" . strftime('%Y-%m-%d') . "/"
+    execute "%s/DATE-GOES-HERE/" . strftime('%Y-%m-%d (%A)') . "/"
   endif
 endfunction
 
