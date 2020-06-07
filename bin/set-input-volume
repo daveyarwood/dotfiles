@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Adapted from https://unix.stackexchange.com/a/209047/246486
+
+volume="$1"
+
+description="Built-in Audio Analog Stereo"
+
+current_source_num=''
+source_num_check=''
+description_check=''
+
+pactl list sources | while read line; do \
+  source_num_check=$(echo "$line" |sed -rn 's/^Source #(.*)/\1/p')
+  if [ "$source_num_check" != "" ]; then
+    current_source_num="$source_num_check"
+  else
+    description_check=$(echo "$line" \
+                   | sed -rn 's/Description: (.*)/\1/p')
+    if [ "$description_check" = "$description" ]; then
+      echo "$current_source_num" "$description_check"
+      pactl set-source-volume "$current_source_num" "$volume"
+    fi
+  fi
+done
