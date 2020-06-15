@@ -333,6 +333,14 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" log.strip-ansi-escape-sequences-line-limit: 0 disables the default ANSI escape
+" code stripping so that I can use a separate plugin to interpret them and
+" display the colors.
+let g:conjure_config = {
+      \ "log.hud.passive-close-delay": 1000,
+      \ "log.strip-ansi-escape-sequences-line-limit": 0,
+      \ }
+
 function! ToggleConjureLog() abort
   if expand('%:t') =~ ".*conjure-log-.*"
     execute 'Bclose'
@@ -369,6 +377,10 @@ augroup additional_conjure_bindings
 
   " press q to close the log buffer
   autocmd BufEnter conjure-log-* nnoremap <buffer> q :Bclose<CR>
+
+  " Automatically enable AnsiEsc (interpret ANSI escape codes) for the Conjure
+  " log buffer.
+  autocmd BufEnter conjure-log-* AnsiEsc
 augroup END
 
 
