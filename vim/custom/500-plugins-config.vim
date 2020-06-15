@@ -333,12 +333,23 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: I'd like to have a good setup where ANSI escape codes are interpreted in
+" the Conjure log buffer. Currently, neither Colorizer nor Olical's fork of
+" AnsiEsc are doing this as well as I'd like. I think Olical/AnsiEsc is more
+" likely to get there with time (Colorizer seems to be under-maintained), but
+" for now, Colorizer is marginally better, so I'm sticking with Colorizer for
+" now. I'm leaving AnsiEsc config intact below, ready to be un-commented when I
+" inevitably switch back over to Olical/AnsiEsc.
+
 " log.strip-ansi-escape-sequences-line-limit: 0 disables the default ANSI escape
 " code stripping so that I can use a separate plugin to interpret them and
 " display the colors.
+" let g:conjure_config = {
+"       \ "log.strip-ansi-escape-sequences-line-limit": 0,
+"       \ }
+
 let g:conjure_config = {
       \ "log.hud.passive-close-delay": 1000,
-      \ "log.strip-ansi-escape-sequences-line-limit": 0,
       \ }
 
 function! ToggleConjureLog() abort
@@ -380,7 +391,7 @@ augroup additional_conjure_bindings
 
   " Automatically enable AnsiEsc (interpret ANSI escape codes) for the Conjure
   " log buffer.
-  autocmd BufEnter conjure-log-* AnsiEsc
+  " autocmd BufEnter conjure-log-* AnsiEsc
 augroup END
 
 
