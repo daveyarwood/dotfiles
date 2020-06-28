@@ -341,16 +341,11 @@ augroup END
 " now. I'm leaving AnsiEsc config intact below, ready to be un-commented when I
 " inevitably switch back over to Olical/AnsiEsc.
 
-" log.strip-ansi-escape-sequences-line-limit: 0 disables the default ANSI escape
-" code stripping so that I can use a separate plugin to interpret them and
-" display the colors.
-" let g:conjure_config = {
-"       \ "log.strip-ansi-escape-sequences-line-limit": 0,
-"       \ }
+" Disable the default ANSI escape code stripping so that I can use a separate
+" plugin to interpret them and display the colors.
+" let g:conjure#log#strip_ansi_escape_sequences_line_limit = 0
 
-let g:conjure_config = {
-      \ "log.hud.passive-close-delay": 1000,
-      \ }
+let g:conjure#log#hud#passive_close_delay = 1000
 
 function! ToggleConjureLog() abort
   if expand('%:t') =~ ".*conjure-log-.*"
