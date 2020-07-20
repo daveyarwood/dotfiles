@@ -76,5 +76,8 @@
   ui.macros/with-attr-bindings
   [:element :params :bound-elements]
 
+  ui.paging/defp
+  [:declaration :elements]
+
   ui.util.experimental/with-dims
   [:param :bindings :bound-elements]}}
