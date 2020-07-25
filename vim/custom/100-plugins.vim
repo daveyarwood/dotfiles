@@ -74,7 +74,6 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'lfe/vim-lfe'
-Plug 'l04m33/vlime', {'rtp': 'vim/'}
 Plug 'mattn/emmet-vim'
 Plug 'matze/vim-lilypond'
 Plug 'mustache/vim-mustache-handlebars'
@@ -88,6 +87,7 @@ Plug 'stephencelis/vim-mml'
 Plug 'tfnico/vim-gradle'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'udalov/kotlin-vim'
+Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'wlangstroth/vim-racket'
 Plug 'zah/nim.vim'
 
