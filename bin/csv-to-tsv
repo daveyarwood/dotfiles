@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# Takes CSV lines on STDIN and prints TSV lines to STDOUT.
+
+require 'csv'
+
+CSV.parse(STDIN.read, headers: false) do |row|
+  puts row.map {|str| str.gsub("\t", "")}
+          .join "\t"
+end
