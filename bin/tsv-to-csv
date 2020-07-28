@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+# Takes TSV lines on STDIN and prints CSV lines to STDOUT.
+
+require 'csv'
+
+# Requires https://github.com/mimimi/ruby-tsv to be installed
+# (`gem install tsv`)
+require 'tsv'
+
+# This is kinda hacky, but I couldn't think of a better way to do it and
+# preserve streaming.
+i_printed_the_header_already = false
+
+TSV.parse($stdin).each do |row|
+  unless i_printed_the_header_already
+    puts CSV.generate_line(row.header)
+    i_printed_the_header_already = true
+  end
+
+  puts CSV.generate_line(row)
+end
