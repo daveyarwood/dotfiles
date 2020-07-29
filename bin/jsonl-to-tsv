@@ -35,6 +35,9 @@ header_row="$(echo -e "$header_row" | sed 's/.$//')"
 # Remove the final , and add a final ]
 jq_select_columns="$(echo -e "$jq_select_columns" | sed 's/.$//')]"
 
-jq_output="$(jq -r "$jq_select_columns | @tsv" -)"
+jq_output="$(jq -r \
+               "$jq_select_columns
+                | map(. | tostring | gsub(\"[\t\n]\"; \"\"))
+                | @tsv" -)"
 
 echo "$header_row" | cat - <(echo -e "$jq_output")
