@@ -602,6 +602,7 @@ let g:elm_format_autosave = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-f> :FZF<CR>
 nnoremap <C-g> :GFiles<CR>
+nnoremap // :BLines!<CR>
 
 " I think I can't use <C-m> for this one because <C-m> is sort of the same thing
 " as Enter, so when I press Enter, :Maps<CR> is happening.
