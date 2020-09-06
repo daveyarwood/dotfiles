@@ -602,10 +602,14 @@ let g:elm_format_autosave = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-f> :FZF<CR>
 nnoremap <C-g> :GFiles<CR>
+nnoremap <C-g> :GFiles<CR>
 
 " I think I can't use <C-m> for this one because <C-m> is sort of the same thing
 " as Enter, so when I press Enter, :Maps<CR> is happening.
 nnoremap <leader>m :Maps<CR>
+
+" I can't use <C-h> because I use that to navigate between vim/tmux panes.
+nnoremap <leader>h :Helptags<CR>
 
 " I can't use <C-b> for this one because <C-b> is my tmux prefix key.
 "
