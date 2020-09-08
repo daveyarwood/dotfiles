@@ -4,8 +4,9 @@
 " so I just source my vimrc
 source ~/.vimrc
 
-" OPEN A FISH TERMINAL IN VIM, ZOMG
-" nnoremap <leader>F :terminal fish<CR>i
+" When I open a terminal buffer, I want it to feel like I'm in the terminal. I
+" don't want to still be in normal mode.
+autocmd TermOpen * startinsert
 
 " When Escape is pressed while in Terminal mode:
 " * If it's the FZF buffer, close it.
