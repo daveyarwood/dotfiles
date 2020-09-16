@@ -2,3 +2,7 @@ tags
 tags.lock
 tags.temp
 .lsp/sqlite*.db
+# clj-kondo seems to make identical cache and .cache folders for some reason???
+# could be related to clojure-lsp's integration with clj-kondo
+.clj-kondo/cache/
+.clj-kondo/.cache/

@@ -1,4 +1,13 @@
-{"macro-defs"
+{:clj-kondo
+ ;; I've done a lot of work in my clojure-lsp :macro-defs to teach my linting
+ ;; setup about various macros and eliminate these types of warnings.
+ ;; clojure-lsp also does a lot of the things that clj-kondo does, so I'm
+ ;; choosing to disable certain warnings from clj-kondo that I'm only seeing
+ ;; because clj-kondo doesn't understand the macros the way that clojure-lsp
+ ;; does.
+ {:linters {:unresolved-symbol {:level :off}}}
+
+ :macro-defs
  {adzerk.api.geir/defapicall
   [:declaration :params :bound-elements]
 
