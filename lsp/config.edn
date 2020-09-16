@@ -20,6 +20,13 @@
   adzerk.libclj.util/with-let
   [:bindings :bound-elements]
 
+  adzerk.util/defdatafn
+  [:declaration
+   :params
+   {:element :element, :pred :string}
+   :params
+   :bound-elements]
+
   castra.core/defrpc
   [:declaration
    {:element :element, :pred :string}
