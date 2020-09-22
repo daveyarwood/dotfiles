@@ -6,3 +6,8 @@ tags.temp
 # could be related to clojure-lsp's integration with clj-kondo
 **/.clj-kondo/cache/
 **/.clj-kondo/.cache/
+# These lines shouldn't be necessary, but fzf is supposed to be excluding them
+# and is failing to do so. It seems like maybe fzf isn't parsing my gitignore
+# correctly?
+.clj-kondo/cache/
+.clj-kondo/.cache/
