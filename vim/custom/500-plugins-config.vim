@@ -739,6 +739,29 @@ nnoremap <leader>gv :GV<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => hexokinase
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Hexokinase_highlighters = ['backgroundfull']
+
+let g:Hexokinase_optInPatterns = [
+      \ 'full_hex',
+      \ 'triple_hex',
+      \ 'rgb',
+      \ 'rgba',
+      \ 'hsl',
+      \ 'hsla',
+      \ 'colour_names'
+      \ ]
+
+let g:Hexokinase_refreshEvents = [
+      \ 'BufWrite',
+      \ 'BufRead',
+      \ 'InsertLeave',
+      \ 'TextChanged',
+      \ ]
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => iced
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nmap <localleader>'   <Plug>(iced_connect)

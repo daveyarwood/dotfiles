@@ -2,10 +2,10 @@ call plug#begin('~/.vim/bundle')
 
 " aesthetic
 Plug 'ayu-theme/ayu-vim'
-Plug 'chrisbra/Colorizer'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'vim-scripts/mayansmoke'
 
