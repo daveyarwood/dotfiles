@@ -756,6 +756,7 @@ let g:Hexokinase_optInPatterns = [
 let g:Hexokinase_refreshEvents = [
       \ 'BufWrite',
       \ 'BufRead',
+      \ 'CursorHoldI',
       \ 'InsertLeave',
       \ 'TextChanged',
       \ ]
