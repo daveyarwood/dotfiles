@@ -51,6 +51,7 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " other languages/filetypes
 Plug 'adimit/prolog.vim'
 Plug 'aklt/plantuml-syntax'
+Plug 'bakpakin/fennel.vim'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'dart-lang/dart-vim-plugin'
