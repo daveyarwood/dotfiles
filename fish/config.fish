@@ -68,6 +68,7 @@ source $fish_runtime/custom/task.fish
 source $fish_runtime/custom/io.fish
 source $fish_runtime/custom/node.fish
 source $fish_runtime/custom/gpg.fish
+source $fish_runtime/custom/i3.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish

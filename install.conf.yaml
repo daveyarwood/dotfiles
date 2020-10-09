@@ -21,7 +21,7 @@
     ~/.dunstrc: dunstrc
     ~/.gitignore_global: gitignore_global
     ~/.hushlogin: hushlogin
-    ~/.i3/config: i3/config
+    ~/.i3/config.base: i3/config.base
     ~/.i3/i3status.conf: i3/i3status.conf
     ~/.inputrc: inputrc
     ~/.irbrc: irbrc

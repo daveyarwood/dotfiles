@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# The problem I'm trying to solve here is that I want to dynamically assign
+# Slack to a particular workspace, depending on whether or not my laptop is
+# plugged into my external monitor.
+#
+# It doesn't look like it's possible to do this dynamically in my i3 config
+# because they deliberately don't have any kind of "if" condition. It also
+# doesn't look like it's possible to use i3-msg to assign Slack to a particular
+# workspace after the i3 config has already been loaded.
+#
+# As a workaround, this script runs at the start of every terminal session and
+# generates my ~/.i3/config file. This way, I can have whatever dynamic logic I
+# want in here and manage my i3 config file in terms of a base config file
+# (~/.i3/config.base) and this script that has an opportunity to modify it
+# however I want.
+
+i3_dir="$HOME/.i3"
+i3_config_base="$i3_dir/config.base"
+i3_config="$i3_dir/config"
+
+mkdir -p "$i3_dir" # just to be safe
+
+cp "$i3_config_base" "$i3_config"
+
+# Assign Slack windows to open in a particular workspace, depending on whether
+# or not my laptop is plugged into my external monitor.
+if grep -q 'HDMI-1 connected primary [0-9]' <(xrandr); then
+  slack_workspace=1
+else
+  slack_workspace=8
+fi
+
+echo "assign [class=\"Slack\"] $slack_workspace" >> "$i3_config"
+
