@@ -67,6 +67,7 @@ source $fish_runtime/custom/lenv.fish
 source $fish_runtime/custom/task.fish
 source $fish_runtime/custom/io.fish
 source $fish_runtime/custom/node.fish
+source $fish_runtime/custom/gpg.fish
 
 # useful shell functions
 source $fish_runtime/custom/functions.fish
@@ -97,11 +98,3 @@ function fish_user_key_bindings
   end
 end
 
-# for x in (seq 20)
-#     msg @random:random $big_fish
-# end
-set -gx big_fish "><(((('>"
-set -gx little_fish '⋊>'
-
-# decrypt and run encrypted .fish files (sensitive credentials, etc.)
-source $fish_runtime/custom/gpg.fish
