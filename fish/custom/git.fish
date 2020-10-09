@@ -1,4 +1,4 @@
-generate_gitconfig
+generate-gitconfig
 
 balias git hub
 balias g git
