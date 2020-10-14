@@ -1219,6 +1219,7 @@ imap <C-l> <Esc><C-l>
 " Prompt for a command to be run in a 20% lower tmux split, without losing
 " focus on vim :)
 nnoremap <leader>vp :VimuxPromptCommand<CR>
+nnoremap <leader>v<space> :VimuxPromptCommand<CR>
 
 " Opens a shell in the split.
 nnoremap <leader>vo :call VimuxOpenRunner()<CR>
