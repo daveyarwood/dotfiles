@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Move all of the windows (across all of the current workspaces) into workspace
+# 1, then switch to workspace 1 so that there is only the one workspace.
+"$(dirname "$0")/move-all-windows-to-workspace" 1
+i3-msg workspace 1
+
+# Connect to the monitor using xrandr and refresh i3.
+~/.screenlayout/lg-monitor-right.sh
+
+# Wait for the dust to settle.
+sleep 1
+
+# At this point, there are two workspaces:
+#
+#   1: on my laptop
+#   2: on the monitor
+#
+# I want the one on my monitor to be workspace 9, so this command does that.
+i3-msg rename workspace 2 to 9

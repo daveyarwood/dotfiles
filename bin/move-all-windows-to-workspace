@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Uses i3-msg to move every window, in every workspace, to the provided
+# workspace.
+#
+# Does not preserve layout.
+#
+# It is assumed that you have no more than 20 windows in each workspace.
+
+target_workspace="$1"
+
+if [[ -z "$target_workspace" ]]; then
+  echo "Usage: $0 TARGET_WORKSPACE"
+  exit 1
+fi
+
+# For each workspace...
+for n in $(i3-msg -t get_workspaces | jq -S '.[].num'); do
+  # Switch to the workspace.
+  i3-msg workspace "$n"
+
+  # Move up to 20 windows into the target workspace.
+  for _ in $(seq 20); do
+    i3-msg -t command "move container to workspace $target_workspace"
+  done
+done
