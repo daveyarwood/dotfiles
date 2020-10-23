@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function party {
   if ! command -v figlet >/dev/null; then
