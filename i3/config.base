@@ -244,6 +244,9 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# Print screen using scrot
+bindsym Print exec scrot
+
 # lock screen
 bindsym $mod+BackSpace exec sh ~/.bin/lock-screen
 
