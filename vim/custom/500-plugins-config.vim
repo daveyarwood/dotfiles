@@ -347,6 +347,12 @@ augroup END
 
 let g:conjure#log#hud#passive_close_delay = 1000
 
+if !exists("g:conjure#filetype_client")
+  let g:conjure#filetype_client = {}
+endif
+
+let g:conjure#filetype_client["sicp"] = "conjure.client.racket.stdio"
+
 function! ToggleConjureLog() abort
   if expand('%:t') =~ ".*conjure-log-.*"
     execute 'Bclose'
