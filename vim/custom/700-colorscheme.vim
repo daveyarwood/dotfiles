@@ -25,6 +25,15 @@ augroup END
 
 let g:colorscheme_mode = v:null
 
+function! s:RefreshLightline() abort
+  if !exists("*lightline#disable")
+    return
+  endif
+
+  call lightline#disable()
+  call lightline#enable()
+endfunction
+
 " i use this theme most of the time
 function! s:DarkMode() abort
   let g:colorscheme_mode = 'dark'
@@ -36,8 +45,7 @@ function! s:DarkMode() abort
   " let ayucolor="dark"
   " colorscheme ayu
 
-  call lightline#disable()
-  call lightline#enable()
+  call s:RefreshLightline()
 endfunction
 command! DarkMode call s:DarkMode()
 
@@ -58,8 +66,7 @@ function! s:LightMode() abort
   colorscheme github
   let g:lightline.colorscheme = 'github'
 
-  call lightline#disable()
-  call lightline#enable()
+  call s:RefreshLightline()
 endfunction
 command! LightMode call s:LightMode()
 
