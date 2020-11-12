@@ -12,13 +12,13 @@
     ~/.clojure: clojure
     ~/.config/boot/boot.properties: boot/boot.properties
     ~/.config/boot/profile.boot: boot/profile.boot
+    ~/.config/dunst/dunstrc: dunstrc
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/custom: fish/custom/
     ~/.config/omf: fish/omf/
     ~/.config/nvim: vim/nvim/
     ~/.config/sxhkd/sxhkdrc: sxhkdrc
     ~/.ctags.d: ctags
-    ~/.dunstrc: dunstrc
     ~/.gitignore_global: gitignore_global
     ~/.hushlogin: hushlogin
     ~/.i3/config.base: i3/config.base
