@@ -201,6 +201,7 @@ exec --no-startup-id volnoti
 exec_always sh ~/.fehbg # set wallpaper
 exec_always xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec_always xset s off # disable screen blanking
+exec_always xset -dpms # disable display power management signaling
 
 # Toggle keyboard layout between Dvorak and QWERTY. (default: Dvorak)
 # NB: This script also disables CapsLock and remaps it to Escape, since this is
