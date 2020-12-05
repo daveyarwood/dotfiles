@@ -18,3 +18,13 @@ sleep 1
 #
 # I want the one on my monitor to be workspace 9, so this command does that.
 i3-msg rename workspace 2 to 9
+
+# Now, move all of the windows to workspace 9 because that's where I want all of
+# my windows, except for Slack.
+"$(dirname "$0")/move-all-windows-to-workspace" 9
+
+# Move Slack back to workspace 1.
+i3-msg '[class="Slack"]' -t command 'move container to workspace 1'
+
+# Focus workspace 9.
+i3-msg workspace 9
