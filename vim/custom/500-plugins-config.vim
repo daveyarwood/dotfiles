@@ -347,11 +347,7 @@ augroup END
 
 let g:conjure#log#hud#passive_close_delay = 1000
 
-if !exists("g:conjure#filetype_client")
-  let g:conjure#filetype_client = {}
-endif
-
-let g:conjure#filetype_client["sicp"] = "conjure.client.racket.stdio"
+let g:conjure#filetype#sicp = "conjure.client.racket.stdio"
 
 function! ToggleConjureLog() abort
   if expand('%:t') =~ ".*conjure-log-.*"
@@ -374,16 +370,16 @@ endfunction
 augroup additional_conjure_bindings
   autocmd!
 
-  autocmd FileType clojure,fennel
+  autocmd FileType clojure,fennel,janet,racket
         \ nnoremap <buffer>
         \ <localleader>cc :call ToggleConjureLog()<CR>
-  autocmd FileType clojure,fennel
+  autocmd FileType clojure,fennel,janet,racket
         \ nnoremap <buffer>
         \ <localleader>cl :call ToggleConjureLog()<CR>
 
   " mnemonic: eval prompt
   " (like how <localleader>ee is eval expression)
-  autocmd FileType clojure,fennel
+  autocmd FileType clojure,fennel,janet,racket
         \ nnoremap <buffer>
         \ <localleader>ep :ConjureEval<space>
 
