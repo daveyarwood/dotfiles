@@ -44,6 +44,15 @@ balias vw vimwiki
 balias vf "vim (fzf)"
 balias vr "vim (git ls-files | shuf -n1)"
 
+function vr
+  if test (count $argv) -eq 0
+    vim (git ls-files | shuf -n1)
+  else
+    set -l filter $argv[1]
+    vim (git ls-files | grep $filter | shuf -n1)
+  end
+end
+
 balias vpi 'vim +PlugInstall /dev/null'
 balias vpu 'vim +PlugUpdate /dev/null'
 
