@@ -39,7 +39,6 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'unblevable/quick-scope'
 Plug 'vim-scripts/gitignore'
-Plug 'w0rp/ale'
 
 " clojure things
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
@@ -88,6 +87,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'stephencelis/vim-mml'
 Plug 'tfnico/vim-gradle'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'tweekmonster/gofmt.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'wlangstroth/vim-racket'

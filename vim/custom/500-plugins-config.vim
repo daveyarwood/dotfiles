@@ -12,7 +12,9 @@ let g:acid_alt_paths = ['src/backend']
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'clojure': [], 'sh': []}
-let g:ale_fixers = {'go': ['gofmt', 'goimports']}
+" I've read that goimports is basically just like gofmt, plus it organizes your
+" imports and removes ones you aren't using. So, I prefer goimports over gofmt.
+let g:ale_fixers = {'go': ['goimports']}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -722,6 +724,14 @@ let g:go_highlight_build_constraints = 1
 " autocmd FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
 " autocmd FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
 " autocmd FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => gofmt
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" I've read that goimports is basically just like gofmt, plus it organizes your
+" imports and removes ones you aren't using. So, I prefer goimports over gofmt.
+let g:gofmt_exe = 'goimports'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
