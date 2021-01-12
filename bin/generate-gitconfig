@@ -11,20 +11,32 @@ cat <<EOF > $HOME/.gitconfig
 # Edit that file, not this one!
 
 [user]
-	name = Dave Yarwood
-	email = dave.yarwood@gmail.com
+  name = Dave Yarwood
+  email = dave.yarwood@gmail.com
+
 [credential]
   helper = $CREDENTIAL_HELPER
+
 [push]
-	default = simple
+  default = simple
+
 [pull]
   rebase = true
+
 [rerere]
-	enabled = true
+  enabled = true
+
 [core]
-	autocrlf = input
-	editor = nvim
-	excludesfile = $HOME/.gitignore_global
+  autocrlf = input
+  editor = nvim
+  excludesfile = $HOME/.gitignore_global
+  pager = delta
+
+[delta]
+  side-by-side = true
+
+[interactive]
+  diffFilter = delta --color-only
 EOF
 
 # I share my code folder to astrocat, my Linux VM. But when I do that, it
