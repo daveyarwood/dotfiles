@@ -32,9 +32,6 @@ cat <<EOF > $HOME/.gitconfig
   excludesfile = $HOME/.gitignore_global
   pager = delta
 
-[delta]
-  side-by-side = true
-
 [interactive]
   diffFilter = delta --color-only
 EOF
