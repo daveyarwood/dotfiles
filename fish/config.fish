@@ -79,8 +79,12 @@ source $fish_runtime/custom/fish_swimming.fish
 
 function fish_greeting;
   if which task >/dev/null
-    which snooze-tasks >/dev/null; and snooze-tasks
-    task ready 2>/dev/null
+    if which task-projects >/dev/null
+      task-projects
+    else
+      which snooze-tasks >/dev/null; and snooze-tasks
+      task ready 2>/dev/null
+    end
   end
 end
 

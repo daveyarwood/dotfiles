@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+require 'colorize'
+require 'date'
+require 'dotiw'
+require 'json'
+
+include DOTIW::Methods
+
+tasks_json=`task +READY export`
+
+begin
+  tasks = JSON.parse(tasks_json)
+rescue JSON::ParserError
+  STDERR.puts "Failed to parse the output of `task +READY export`"
+  exit 1
+end
+
+projects = {}
+
+tasks.each do |task|
+  projects[task["project"]] ||= []
+  projects[task["project"]] << task
+end
+
+def project_urgency tasks
+  tasks.max_by {|task| task["urgency"]}["urgency"]
+end
+
+def project_due tasks
+  placeholder = "29991231T000000Z"
+  due = tasks.min_by {|task| task["due"] || placeholder}["due"] || placeholder
+  due_datetime = DateTime.parse(due).to_time
+  overdue = (due_datetime - Time.now) < 0
+
+  dotiw = distance_of_time_in_words(
+    Time.now,
+    due_datetime,
+    highest_measure_only: true
+  )
+
+  one_day_in_seconds = 60 * 60 * 24
+  if (due_datetime - Time.now) > one_day_in_seconds
+    ""
+  elsif overdue
+    "due #{dotiw} ago".on_red
+  else
+    "due in #{dotiw}".light_black
+  end
+end
+
+projects_sorted_by_urgency = projects.sort_by do |_, tasks|
+  project_urgency tasks
+end.reverse
+
+projects_sorted_by_urgency.each do |project, tasks|
+  project_name = project.light_blue
+  task_count = "#{tasks.size} tasks".white
+  due = project_due(tasks)
+  # urgency = "urgency: #{project_urgency(tasks).round}".light_black
+  puts "#{project_name}\t#{task_count}\t#{due}"
+end

@@ -5,9 +5,19 @@ function todo
   task ready; or true
 end
 
+# mnemonic: todo
 function td
   which snooze-tasks >/dev/null; and snooze-tasks
   todo
+end
+
+# mnemonic: tasks
+balias tt td
+
+# mnemonic: projects
+function tp
+  which snooze-tasks >/dev/null; and snooze-tasks
+  which task-projects >/dev/null; and task-projects
 end
 
 function tadd
