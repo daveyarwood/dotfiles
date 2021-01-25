@@ -20,6 +20,12 @@ function tp
   which task-projects >/dev/null; and task-projects
 end
 
+# mnemonic: projects and tasks
+function tpt
+  which snooze-tasks >/dev/null; and snooze-tasks
+  which task-projects >/dev/null; and task-projects --include-tasks
+end
+
 function tadd
   task add $argv
   todo
