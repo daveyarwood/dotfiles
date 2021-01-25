@@ -12,9 +12,6 @@ function td
   todo
 end
 
-# mnemonic: tasks
-balias tt td
-
 # mnemonic: projects
 function tp
   set -gx TASKWARRIOR_REFRESH_COMMAND tp
@@ -23,9 +20,9 @@ function tp
   which task-projects >/dev/null; and task-projects
 end
 
-# mnemonic: projects and tasks
-function tpt
-  set -gx TASKWARRIOR_REFRESH_COMMAND tpt
+# mnemonic: tasks (by project)
+function tt
+  set -gx TASKWARRIOR_REFRESH_COMMAND tt
   clear
   which snooze-tasks >/dev/null; and snooze-tasks
   which task-projects >/dev/null; and task-projects --include-tasks
