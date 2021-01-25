@@ -1,6 +1,7 @@
 balias t task
 
 function todo
+  set -gx TASKWARRIOR_REFRESH_COMMAND td
   clear
   task ready; or true
 end
@@ -16,81 +17,89 @@ balias tt td
 
 # mnemonic: projects
 function tp
+  set -gx TASKWARRIOR_REFRESH_COMMAND tp
+  clear
   which snooze-tasks >/dev/null; and snooze-tasks
   which task-projects >/dev/null; and task-projects
 end
 
 # mnemonic: projects and tasks
 function tpt
+  set -gx TASKWARRIOR_REFRESH_COMMAND tpt
+  clear
   which snooze-tasks >/dev/null; and snooze-tasks
   which task-projects >/dev/null; and task-projects --include-tasks
 end
 
+function task_refresh
+  eval $TASKWARRIOR_REFRESH_COMMAND
+end
+
 function tadd
   task add $argv
-  todo
+  task_refresh
 end
 
 function tann
   task $argv[1] annotate $argv[2..-1]
-  todo
+  task_refresh
 end
 
 function tdel
   task $argv delete
-  todo
+  task_refresh
 end
 
 function tdep
   task $argv[1] modify depends:$argv[2]
-  todo
+  task_refresh
 end
 
 function tdone
   task $argv done
-  todo
+  task_refresh
 end
 
 function tdue
   task $argv[1] modify due:$argv[2]
-  todo
+  task_refresh
 end
 
 function tedit
   task $argv edit
-  todo
+  task_refresh
 end
 
 function tmod
   task $argv[1] modify $argv[2..-1]
-  todo
+  task_refresh
 end
 
 function tsnooze
   task $argv[1] modify wait:$argv[2]
-  todo
+  task_refresh
 end
 
 balias tsn tsnooze
 
 function tfree
   task $argv[1] modify +freetime
-  todo
+  task_refresh
 end
 
 function tstart
   task $argv start
-  todo
+  task_refresh
 end
 
 function tstop
   task $argv stop
-  todo
+  task_refresh
 end
 
 function tundo
   task undo
-  todo
+  task_refresh
 end
 
 function tsync
