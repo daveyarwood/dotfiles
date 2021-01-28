@@ -127,3 +127,9 @@ function zchdisown
       or return $status
   end
 end
+
+function zdb
+  set -l zone $argv[1]
+
+  eval $CODEDIR/teammgmt/bin/sql-env --zone $zone zclsql $argv[2..-1]
+end
