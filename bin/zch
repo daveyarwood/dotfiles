@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: zch STORY-NUMBER"
+  exit 1
+fi
+
+xdg-open "https://app.clubhouse.io/adzerk/story/$1"
