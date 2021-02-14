@@ -668,7 +668,7 @@ nnoremap <leader>gA :Gina add --all<CR>:Gina status<CR>
 " this one actually comes from fugitive because I like its output better than
 " :Gina blame. Putting it here so that I don't have to look in two places for
 " all my git-related keybindings.
-nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gb :Git blame<CR>
 nnoremap <leader>gc :Gina commit -v<CR>gg0i
 nnoremap <leader>gd :Gina diff<CR>
 nnoremap <leader>gD :Gina diff -w<CR>
