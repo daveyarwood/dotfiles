@@ -78,6 +78,19 @@ source $fish_runtime/custom/fish_logo.fish
 source $fish_runtime/custom/fish_swimming.fish
 
 function fish_greeting;
+  if test (curl -s \
+             -o /dev/null \
+             -w "%{http_code}" \
+             https://api.alda.io/releases/latest) = "200"
+    set_color --dim white
+    echo "Alda API is up."
+    set_color normal
+  else
+    set_color --bold red
+    echo "Alda API is down!"
+    set_color normal
+  end
+
   if which task >/dev/null
     if which task-projects >/dev/null
       task-projects
