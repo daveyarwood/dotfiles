@@ -84,7 +84,7 @@ install_hub() {
     sudo apt install golang
     cd /tmp
     git clone https://github.com/github/hub.git && cd hub
-    script/build -o $HOME/bin/hub
+    script/build -o "$HOME/bin/hub"
   fi
 }
 
