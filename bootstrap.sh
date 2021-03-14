@@ -48,13 +48,12 @@ install_fish_shell() {
   if [[ $platform == osx ]]; then
     brew install fish
   elif [[ $os == ubuntu ]]; then
-    sudo apt-add-repository ppa:fish-shell/release-2
-    sudo apt update
     sudo apt install fish
   fi
 
   echo Making fish the default shell...
-  chsh -s $(which fish)
+  which fish | sudo tee -a /etc/shells
+  chsh -s "$(which fish)"
 }
 
 install_oh_my_fish() {
