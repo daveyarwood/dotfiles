@@ -108,4 +108,8 @@ install_dotfiles
 install_neovim
 install_vim-plug
 
+# TODO: Install a terminal emulator? Unclear which one I really want. Right now
+# I'm using Roxterm, instructions here:
+# https://launchpad.net/~h-realh/+archive/ubuntu/roxterm
+
 echo "Done!"
