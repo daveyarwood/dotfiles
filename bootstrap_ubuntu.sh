@@ -37,13 +37,6 @@ echo
 which fish | sudo tee -a /etc/shells
 chsh -s "$(which fish)"
 
-# TODO: Look into what (if anything) I need OMF for and either don't use a fish
-# shell package manager at all, or switch to a newer/maintained one.
-echo
-echo "Installing oh-my-fish..."
-echo
-curl -L http://get.oh-my.fish | fish
-
 ################################################################################
 # Install jenv
 ################################################################################
@@ -52,19 +45,6 @@ echo
 echo "Installing jenv..."
 echo
 git clone https://github.com/gcuisinier/jenv.git ~/.jenv
-
-################################################################################
-# Install hub
-################################################################################
-
-echo
-echo "Installing hub..."
-echo
-
-sudo apt install golang
-cd /tmp
-git clone https://github.com/github/hub.git && cd hub
-script/build -o "$HOME/bin/hub"
 
 ################################################################################
 # Install Neovim
