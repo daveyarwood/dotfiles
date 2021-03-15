@@ -44,7 +44,7 @@ chsh -s "$(which fish)"
 echo
 echo "Installing jenv..."
 echo
-git clone https://github.com/gcuisinier/jenv.git ~/.jenv
+git clone https://github.com/jenv/jenv.git ~/.jenv
 
 ################################################################################
 # Install Neovim
