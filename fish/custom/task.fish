@@ -1,4 +1,4 @@
-balias t task
+alias t task
 
 function todo
   set -gx TASKWARRIOR_REFRESH_COMMAND td
@@ -77,7 +77,7 @@ function tsnooze
   task_refresh
 end
 
-balias tsn tsnooze
+alias tsn tsnooze
 
 function tfree
   task $argv[1] modify +freetime

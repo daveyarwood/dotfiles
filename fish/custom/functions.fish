@@ -47,8 +47,8 @@ function light-table
 	open -a /Applications/LightTable/LightTable.app $argv;
 end
 
-balias lt light-table
-balias pt papertrail
+alias lt light-table
+alias pt papertrail
 
 # shrug emojis are vitally important to my workflow
 function copy_shrug

@@ -19,13 +19,13 @@ function vim --wraps nvim
   env SHELL=bash nvim $argv
 end
 
-balias v "vim"
-balias v. "vim ."
-balias vi. "vim ."
-balias vim. "vim ."
+alias v "vim"
+alias v. "vim ."
+alias vi. "vim ."
+alias vim. "vim ."
 
 # edit vimrc
-balias vimrc "vim $HOME/.vimrc"
+alias vimrc "vim $HOME/.vimrc"
 
 # Edit a scratch file with the given extension (default: adoc)
 function vims
@@ -38,11 +38,11 @@ function vims
   vim /tmp/scratch-(date '+%Y%m%d%H%M%S').$ext
 end
 
-balias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
-balias vw vimwiki
+alias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
+alias vw vimwiki
 
-balias vf "vim (fzf)"
-balias vr "vim (git ls-files | shuf -n1)"
+alias vf "vim (fzf)"
+alias vr "vim (git ls-files | shuf -n1)"
 
 function vr
   if test (count $argv) -eq 0
@@ -53,8 +53,8 @@ function vr
   end
 end
 
-balias vpi 'vim +PlugInstall /dev/null'
-balias vpu 'vim +PlugUpdate /dev/null'
+alias vpi 'vim +PlugInstall /dev/null'
+alias vpu 'vim +PlugUpdate /dev/null'
 
 # mnemonic: vim grep
 function vg

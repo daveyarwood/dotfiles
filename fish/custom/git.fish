@@ -1,19 +1,19 @@
 generate-gitconfig
 
-balias git hub
-balias g git
-balias gs 'git status'
-balias gc 'git commit -v'
-balias gco 'git checkout'
+alias git hub
+alias g git
+alias gs 'git status'
+alias gc 'git commit -v'
+alias gco 'git checkout'
 function ga; git add $argv; git status; end
-balias gl "git log --graph --pretty=format:\"%C(bold blue)%h%C(reset) %C(bold green)%ad%C(bold yellow)%d%Creset %s%C(bold white) — %an%C(reset)\" --decorate --all --date=short"
-balias gd 'git diff'
-balias gp 'git push'
-balias gpf 'git push --force-with-lease'
-balias gpt 'git push --tags'
-balias gpuo 'git push -u origin'
-balias gpud 'git push -u daveyarwood'
-balias gb 'git branch'
+alias gl "git log --graph --pretty=format:\"%C(bold blue)%h%C(reset) %C(bold green)%ad%C(bold yellow)%d%Creset %s%C(bold white) — %an%C(reset)\" --decorate --all --date=short"
+alias gd 'git diff'
+alias gp 'git push'
+alias gpf 'git push --force-with-lease'
+alias gpt 'git push --tags'
+alias gpuo 'git push -u origin'
+alias gpud 'git push -u daveyarwood'
+alias gb 'git branch'
 
 function gaa
 	git add --all $argv; git status;

@@ -4,6 +4,6 @@ set -gx ZERKENV_REGION us-east-1
 . (zerkenv -i fish | psub)
 
 # Convenient short alias
-balias ze zerkenv
-balias zl zerkload
+alias ze zerkenv
+alias zl zerkload
 

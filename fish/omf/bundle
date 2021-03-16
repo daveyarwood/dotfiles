@@ -1,8 +1,0 @@
-package bang-bang
-package https://github.com/oh-my-fish/plugin-balias.git
-package https://github.com/oh-my-fish/plugin-functional
-package https://github.com/oh-my-fish/plugin-msg
-package jump
-package osx
-package tab
-theme tomita

@@ -1,8 +1,3 @@
-# Path to Oh My Fish install.
-set -gx OMF_PATH $HOME/.local/share/omf
-
-source $OMF_PATH/init.fish
-
 set fish_runtime $HOME/.config/fish
 
 # Default PATH
@@ -77,32 +72,7 @@ source $fish_runtime/custom/functions.fish
 source $fish_runtime/custom/fish_logo.fish
 source $fish_runtime/custom/fish_swimming.fish
 
-function fish_greeting;
-  if test (curl -s \
-             -o /dev/null \
-             -w "%{http_code}" \
-             https://api.alda.io/releases/latest) = "200"
-    set_color --dim white
-    echo "Alda API is up."
-    set_color normal
-  else
-    set_color --bold red
-    echo "Alda API is down!"
-    set_color normal
-  end
-
-  if which task >/dev/null
-    if which task-projects >/dev/null
-      task-projects
-    else
-      which snooze-tasks >/dev/null; and snooze-tasks
-      task ready 2>/dev/null
-    end
-  end
-end
-
-# erase the default fish_mode_prompt; I have one built into my theme
-function fish_mode_prompt; end
+source $fish_runtime/custom/theme.fish
 
 # vi mode remaps Ctrl-F to go forward a word, and also apparently remaps Ctrl-A
 # and Ctrl-E for some purpose.

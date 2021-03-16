@@ -8,7 +8,7 @@ set -gx ADZERK_SCRIPTS_PATH $ADZERK_CLI_TOOLS_REPO_PATH/scripts
 
 set -gx SAY_OPTS "-e tempo 1.25 -l en-au"
 
-balias adzerk $ADZERK_CLI_TOOLS_REPO_PATH/adzerk
+alias adzerk $ADZERK_CLI_TOOLS_REPO_PATH/adzerk
 
 function adzerk-ops-mode
   set -l cli_tools_script_paths alan jarrod jason micha scripts
@@ -33,10 +33,10 @@ function adzerk-vpn
 end
 
 # Start a new mono-docker container.
-balias monovm $ADZERK_REPO_PATH/docker/run.sh
+alias monovm $ADZERK_REPO_PATH/docker/run.sh
 
 # Run a command (or start a shell) in a running mono-docker container.
-balias in-monovm $ADZERK_REPO_PATH/docker/attach.sh
+alias in-monovm $ADZERK_REPO_PATH/docker/attach.sh
 
 function zerkurl
   if test -z $ADZERK_API_KEY
