@@ -59,7 +59,7 @@ if ARGV[0] == "--include-tasks"
 end
 
 projects_sorted_by_urgency.each do |project, tasks|
-  project_name = project.blue.bold
+  project_name = (project || "(no project)").blue.bold
   task_count = "#{tasks.size} tasks".white
   due = project_due(tasks)
   # urgency = "urgency: #{project_urgency(tasks).round}".light_black
