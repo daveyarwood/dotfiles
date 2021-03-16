@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 # PSA: This is basically unmaintained since 2017, when I switched back to Linux.
 #
 # It's unlikely that I'll ever boostrap another Mac for software development,
@@ -25,11 +27,6 @@ install_fish_shell() {
   # This part is probably Linux specific.
   # which fish | sudo tee -a /etc/shells
   chsh -s "$(which fish)"
-}
-
-install_oh_my_fish() {
-  echo Installing oh-my-fish...
-  curl -L http://get.oh-my.fish | fish
 }
 
 install_jenv() {
@@ -89,7 +86,6 @@ install_ack
 install_ag
 install_tmux
 install_fish_shell
-install_oh_my_fish
 install_jenv
 install_rbenv
 install_hub
