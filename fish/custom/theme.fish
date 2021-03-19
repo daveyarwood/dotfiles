@@ -1,4 +1,4 @@
-function fish_greeting;
+function alda-api-status
   if test (curl -s \
              -o /dev/null \
              -w "%{http_code}" \
@@ -10,6 +10,12 @@ function fish_greeting;
     set_color --bold red
     echo "Alda API is down!"
     set_color normal
+  end
+end
+
+function fish_greeting;
+  if not nmcli dev | grep wifi | grep -q disconnected
+    alda-api-status
   end
 
   if which task >/dev/null
