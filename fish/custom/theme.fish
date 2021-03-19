@@ -14,7 +14,7 @@ function alda-api-status
 end
 
 function fish_greeting;
-  if not nmcli dev | grep wifi | grep -q disconnected
+  if nmcli dev | grep wifi | grep -q ' connected'
     alda-api-status
   end
 
