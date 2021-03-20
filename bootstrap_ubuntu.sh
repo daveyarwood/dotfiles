@@ -18,7 +18,8 @@ sudo apt install -y \
   curl \
   git-all \
   xsel xclip \
-  rbenv \
+  python3-dev python3-pip \
+  rbenv ruby-dev \
   ack-grep silversearcher-ag \
   tmux
 
@@ -47,6 +48,17 @@ echo
 git clone https://github.com/jenv/jenv.git ~/.jenv
 
 ################################################################################
+# Install Node.js
+################################################################################
+
+echo
+echo "Installing Node.js..."
+echo
+curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt install -y nodejs
+npm config set prefix ~/npm
+
+################################################################################
 # Install Neovim
 ################################################################################
 
@@ -57,8 +69,6 @@ echo
 sudo apt install -y software-properties-common
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
-sudo apt install neovim
-sudo apt install python3-dev python3-pip
 sudo apt install -y neovim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi
@@ -68,6 +78,8 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
 python3 -m pip install --user --upgrade pynvim
+gem install --user neovim
+npm install -g neovim
 
 ################################################################################
 # Install vim-plug
