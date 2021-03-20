@@ -27,8 +27,6 @@ if not __ssh_agent_is_started
   __ssh_agent_start
 end
 
-# apparently this has to be run once per session now
-ssh-add -A > /dev/null ^&1
 # make sure SSH agent knows about my keys (this should work anyway, but tmux
 # can throw a wrench in things, so this will make sure it always works)
 ssh-add ~/.ssh/*.pem >/dev/null 2>&1
