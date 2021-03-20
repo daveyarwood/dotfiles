@@ -64,7 +64,14 @@ git clone https://github.com/jenv/jenv.git ~/.jenv
 echo
 echo "Installing pyenv..."
 echo
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+
+git clone \
+  https://github.com/pyenv/pyenv.git \
+  ~/.pyenv
+
+git clone \
+  https://github.com/pyenv/pyenv-virtualenv.git \
+  ~/.pyenv/plugins/pyenv-virtualenv
 
 ################################################################################
 # Install Node.js
