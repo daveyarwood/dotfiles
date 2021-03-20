@@ -5,7 +5,6 @@
 - clean: ['~']
 
 - link:
-    $BEETSDIR/config.yaml: beets/config.yaml
     ~/.amethyst: amethyst
     ~/.bc.cfg: bc.cfg
     ~/.bin: bin
