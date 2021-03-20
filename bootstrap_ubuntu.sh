@@ -14,7 +14,7 @@ sudo apt upgrade
 echo
 echo "Installing various apt packages..."
 echo
-sudo apt install \
+sudo apt install -y \
   curl \
   git-all \
   xsel xclip \
@@ -29,7 +29,7 @@ sudo apt install \
 echo
 echo "Installing fish shell..."
 echo
-sudo apt install fish
+sudo apt install -y fish
 
 echo
 echo "Making fish the default shell..."
@@ -54,11 +54,12 @@ echo
 echo "Installing Neovim..."
 echo
 
-sudo apt install software-properties-common
+sudo apt install -y software-properties-common
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 sudo apt install neovim
 sudo apt install python3-dev python3-pip
+sudo apt install -y neovim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
