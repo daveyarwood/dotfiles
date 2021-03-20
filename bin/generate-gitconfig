@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
+libsecret="/usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret"
+
 if [[ "$(uname)" == Darwin ]]; then
-  CREDENTIAL_HELPER="osxkeychain"
+  credential_helper="osxkeychain"
+elif [[ -f "$libsecret" ]]; then
+  credential_helper="$libsecret"
 elif [[ -n "$(which gnome-keyring-daemon)" ]]; then
-  CREDENTIAL_HELPER="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
+  credentials_helper="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
+else
+  echo "ERROR: Unclear which credential helper to use!"
+  exit 1
 fi
 
 cat <<EOF > $HOME/.gitconfig
@@ -15,7 +22,7 @@ cat <<EOF > $HOME/.gitconfig
   email = dave.yarwood@gmail.com
 
 [credential]
-  helper = $CREDENTIAL_HELPER
+  helper = $credential_helper
 
 [push]
   default = simple

@@ -21,7 +21,17 @@ sudo apt install -y \
   python3-dev python3-pip \
   rbenv ruby-dev \
   ack-grep silversearcher-ag \
-  tmux
+  tmux \
+  libsecret-1-0 libsecret-1-dev
+
+################################################################################
+# Install libsecret
+################################################################################
+
+# Reference: https://www.softwaredeveloper.blog/git-credential-storage-libsecret
+
+cd /usr/share/doc/git/contrib/credential/libsecret
+sudo make
 
 ################################################################################
 # Install fish shell
