@@ -82,18 +82,6 @@ gem install --user neovim
 npm install -g neovim
 
 ################################################################################
-# Install vim-plug
-################################################################################
-
-echo
-echo "Installing vim-plug..."
-echo
-
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +PlugInstall +qall
-
-################################################################################
 # Install dotfiles
 ################################################################################
 
@@ -114,6 +102,22 @@ fi
 git clone https://github.com/daveyarwood/dotfiles.git "$HOME/.dotfiles"
 cd "$HOME/.dotfiles"
 ./install
+
+################################################################################
+# Install vim-plug
+################################################################################
+
+echo
+echo "Installing vim-plug..."
+echo
+
+sh -c 'curl
+         -fLo
+         "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
+         --create-dirs
+         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+vim +PlugInstall +qall
 
 ################################################################################
 
