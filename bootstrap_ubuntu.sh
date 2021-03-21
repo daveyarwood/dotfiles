@@ -26,7 +26,8 @@ sudo apt install -y \
   i3 light rofi feh \
   libsecret-1-0 libsecret-1-dev \
   tlp tlp-rdw acpi-call-dkms \
-  taskwarrior
+  taskwarrior \
+  kitty
 
 ################################################################################
 # Install libsecret
@@ -193,12 +194,13 @@ sudo usermod -a -G video $USER
 echo "NOTE: You'll need to restart in order for brightness keys to work."
 
 ################################################################################
-
-# TODO: Install a terminal emulator? Unclear which one I really want. Right now
-# I'm using Roxterm, instructions here:
-# https://launchpad.net/~h-realh/+archive/ubuntu/roxterm
-
+# Set kitty as default terminal
 ################################################################################
+
+echo
+echo "Choose default terminal (e.g. kitty):"
+echo
+sudo update-alternatives --config x-terminal-emulator
 
 echo
 echo "Done!"
