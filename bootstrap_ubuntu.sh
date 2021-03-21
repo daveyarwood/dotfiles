@@ -18,11 +18,15 @@ sudo apt install -y \
   curl \
   git-all \
   xsel xclip \
+  htop \
   python3-dev python3-pip \
   rbenv ruby-dev \
   ack-grep silversearcher-ag \
   tmux \
-  libsecret-1-0 libsecret-1-dev
+  i3 light rofi feh \
+  libsecret-1-0 libsecret-1-dev \
+  tlp tlp-rdw acpi-call-dkms \
+  taskwarrior
 
 ################################################################################
 # Install libsecret
@@ -152,6 +156,9 @@ git clone https://github.com/daveyarwood/dotfiles.git "$HOME/.dotfiles"
 cd "$HOME/.dotfiles"
 ./install
 
+# Install various Ruby gems required by scripts I use in my shell config, etc.
+gem install --user colorize dotiw
+
 ################################################################################
 # Install vim-plug
 ################################################################################
@@ -169,8 +176,23 @@ sh -c 'curl
 vim +PlugInstall +qall
 
 ################################################################################
+# Install i3
+################################################################################
 
-# TODO: Install i3
+echo
+echo "Setting i3 as the default window manager..."
+echo
+
+sudo update-alternatives --install /usr/bin/x-session-manager x-session-manager /usr/bin/i3 60
+sudo update-alternatives --config x-session-manager
+
+# Necessary in order for the `light` program (which manages brightness; I have
+# key bindings set up so that my brightness up/down keys invoke `light`) to be
+# run without sudo.
+sudo usermod -a -G video $USER
+echo "NOTE: You'll need to restart in order for brightness keys to work."
+
+################################################################################
 
 # TODO: Install a terminal emulator? Unclear which one I really want. Right now
 # I'm using Roxterm, instructions here:

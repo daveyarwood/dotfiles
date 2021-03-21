@@ -86,3 +86,6 @@ function fish_user_key_bindings
   end
 end
 
+# Enable vi mode. (I think this is actually persistent? But any rate, I at least
+# need to run it once when bootstrapping a new machine with my dotfiles.)
+fish_vi_key_bindings
