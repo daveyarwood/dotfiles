@@ -1,4 +1,7 @@
 function alda-api-status
+  set_color --dim white
+  echo "Checking Alda API status..."
+
   if test (curl -s \
              -o /dev/null \
              -w "%{http_code}" \
