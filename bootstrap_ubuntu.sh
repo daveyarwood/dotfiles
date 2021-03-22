@@ -110,6 +110,7 @@ download_url="https://golang.org/dl/$go_tarball"
 pushd /tmp > /dev/null
 curl -Lo "$go_tarball" "$download_url"
 sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$go_tarball"
+rm "$go_tarball"
 popd > /dev/null
 
 ################################################################################
@@ -192,6 +193,29 @@ sudo update-alternatives --config x-session-manager
 # run without sudo.
 sudo usermod -a -G video $USER
 echo "NOTE: You'll need to restart in order for brightness keys to work."
+
+################################################################################
+# Install fonts
+################################################################################
+
+echo
+echo "Installing fonts..."
+echo
+
+mkdir -p ~/.fonts
+
+pushd /tmp > /dev/null
+
+curl \
+  -Lo hack.zip \
+  https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
+
+unzip hack.zip
+rm hack.zip
+
+mv ttf/*.ttf ~/.fonts/
+
+popd > /dev/null
 
 ################################################################################
 # Set kitty as default terminal
