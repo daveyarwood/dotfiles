@@ -52,7 +52,7 @@ source $fish_runtime/custom/mono.fish
 source $fish_runtime/custom/rust.fish
 source $fish_runtime/custom/ssh.fish
 source $fish_runtime/custom/ruby.fish
-source $fish_runtime/custom/adzerk.fish
+source $fish_runtime/custom/kevel.fish
 source $fish_runtime/custom/fzf.fish
 source $fish_runtime/custom/sql.fish
 source $fish_runtime/custom/dart.fish
