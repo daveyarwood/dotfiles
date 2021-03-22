@@ -1,9 +1,38 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if synclient -l | egrep 'TouchpadOff\s+=\s+1' > /dev/null; then
-  synclient TouchpadOff=0
-  notify-send "Touchpad enabled."
-else
-  synclient TouchpadOff=1
-  notify-send "Touchpad disabled."
+set -eo pipefail
+
+input_number="$(xinput list \
+                | grep -i touchpad \
+                | sed -n 's/.*id=\([0-9]\+\).*/\1/p')"
+
+if [[ -z "$input_number" ]]; then
+  echo "ERROR: Unable to determine touchpad input number."
+  exit 1
 fi
+
+target="$1"
+
+if [[ -z "$target" ]]; then
+  if xinput --list-props "$input_number" \
+    | grep -iP 'device enabled.*:\s+1' >/dev/null; then
+    target="off"
+  else
+    target="on"
+  fi
+fi
+
+case "$target" in
+  on)
+    xinput --enable "$input_number"
+    notify-send "Touchpad enabled."
+    ;;
+  off)
+    xinput --disable "$input_number"
+    notify-send "Touchpad disabled."
+    ;;
+  *)
+    notify-send "womp womp: $target"
+    echo "Usage: $0 [on|off]"
+    exit 1
+esac

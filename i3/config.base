@@ -206,17 +206,21 @@ exec_always xset -dpms # disable display power management signaling
 # Toggle keyboard layout between Dvorak and QWERTY. (default: Dvorak)
 # NB: This script also disables CapsLock and remaps it to Escape, since this is
 # something that needs to be done whenever you change the keyboard layout.
-exec_always sh ~/.bin/toggle_keyboard_layout dvorak
-bindsym $mod+Print exec sh ~/.bin/toggle_keyboard_layout
+exec_always ~/.bin/toggle_keyboard_layout dvorak
+bindsym $mod+Print exec ~/.bin/toggle_keyboard_layout
 
 # Toggle touchpad on/off. (default: off)
-exec_always synclient TouchpadOff=1
-bindsym $mod+Shift+t exec sh ~/.bin/toggle_touchpad
+exec_always ~/.bin/toggle_touchpad off
+bindsym $mod+Shift+t exec ~/.bin/toggle_touchpad
 
 # Disable the behavior where clicking the right-hand side of the touchpad is
 # interpreted as a right-click.
-exec_always synclient RightButtonAreaLeft=0
-exec_always synclient RightButtonAreaTop=0
+#
+# 2021-03-21: Commenting this out because synclient isn't installed on my new
+# machine.
+#
+# exec_always synclient RightButtonAreaLeft=0
+# exec_always synclient RightButtonAreaTop=0
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse set Master 2%+ && ~/bin/volnoti-show $(amixer -c 0 get Master | grep -Po '[0-9]+(?=%)' | head -1)"
