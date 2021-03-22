@@ -17,6 +17,7 @@ echo
 sudo apt install -y \
   curl \
   git-all \
+  arandr \
   xsel xclip \
   htop \
   python3-dev python3-pip \
