@@ -114,6 +114,20 @@ rm "$go_tarball"
 popd > /dev/null
 
 ################################################################################
+# Ruby-related setup
+################################################################################
+
+echo
+echo "Setting up rbenv..."
+echo
+
+mkdir -p ~/.rbenv/plugins
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+# Install various Ruby gems required by scripts I use in my shell config, etc.
+gem install --user colorize dotiw bundler
+
+################################################################################
 # Install Neovim
 ################################################################################
 
@@ -157,9 +171,6 @@ fi
 git clone https://github.com/daveyarwood/dotfiles.git "$HOME/.dotfiles"
 cd "$HOME/.dotfiles"
 ./install
-
-# Install various Ruby gems required by scripts I use in my shell config, etc.
-gem install --user colorize dotiw
 
 ################################################################################
 # Install vim-plug
