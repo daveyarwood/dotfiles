@@ -8,6 +8,21 @@ function press-enter-to-continue() {
   read
 }
 
+echo "Updating/upgrading existing apt packages..."
+echo
+sudo apt update
+sudo apt upgrade -y
+
+# Reference:
+# https://app.tettra.co/teams/adzerk/pages/new-engineer-access-to-tooling#header-7vnpc-a-working-environment
+echo
+echo "Installing various apt packages..."
+echo
+sudo apt install -y \
+  curl \
+  git-all \
+  libsecret-1-0 libsecret-1-dev
+
 # This part is difficult to automate. It involves clicking a button on the Slack
 # website to download a .deb file (the download URL isn't clear from the
 # markup), then running a command like (actual filename will vary):
