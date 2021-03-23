@@ -55,4 +55,6 @@ press-enter-to-continue
 # it's an audit requirement that we all have a firewall enabled.
 #
 # Just in case, we enable ufw here. If it's already enabled, this is a no-op.
+echo "Enabling firewall..."
+echo
 sudo systemctl enable ufw
