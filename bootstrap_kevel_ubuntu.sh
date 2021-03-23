@@ -12,6 +12,7 @@ echo "Updating/upgrading existing apt packages..."
 echo
 sudo apt update
 sudo apt upgrade -y
+echo
 
 # Reference:
 # https://app.tettra.co/teams/adzerk/pages/new-engineer-access-to-tooling#header-7vnpc-a-working-environment
@@ -21,7 +22,6 @@ sudo apt upgrade -y
 # however, the newest version currently available in the Ubuntu 20.04 default
 # PPA is OpenJDK 14. I think this is sufficiently new; the Tettra doc linked
 # above says to install JDK 11+.
-echo
 echo "Installing various apt packages..."
 echo
 sudo apt install -y \
@@ -29,13 +29,14 @@ sudo apt install -y \
   git-all \
   openjdk-14-jre \
   libsecret-1-0 libsecret-1-dev
-
 echo
+
 echo "Installing Node.js..."
 echo
 curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt install -y nodejs
 npm config set prefix ~/npm
+echo
 
 # This part is difficult to automate. It involves clicking a button on the Slack
 # website to download a .deb file (the download URL isn't clear from the
@@ -65,3 +66,4 @@ press-enter-to-continue
 echo "Enabling firewall..."
 echo
 sudo systemctl enable ufw
+echo
