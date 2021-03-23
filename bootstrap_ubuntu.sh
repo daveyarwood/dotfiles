@@ -94,6 +94,10 @@ npm config set prefix ~/npm
 # Install Go
 ################################################################################
 
+echo
+echo "Installing Go..."
+echo
+
 # Reference: https://golang.org/doc/install
 
 # 2021-03-20: At the time of writing, I want to use at least Go 1.15.3 because
@@ -113,6 +117,10 @@ curl -Lo "$go_tarball" "$download_url"
 sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$go_tarball"
 rm "$go_tarball"
 popd > /dev/null
+
+# I have Vim set up to run `goimports` (which is kind of like `gofmt`) every
+# time I save a Go file. `goimports` needs to be available on the PATH.
+go get golang.org/x/tools/cmd/goimports
 
 ################################################################################
 # Ruby-related setup
