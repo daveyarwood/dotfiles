@@ -252,6 +252,31 @@ sudo apt update
 sudo apt install gh
 
 ################################################################################
+# Install delta (fancy git diff viewer)
+################################################################################
+
+echo
+echo "Installing delta (fancy git diff viewer)..."
+echo
+
+mkdir -p ~/bin
+
+pushd /tmp >/dev/null
+
+vn="0.6.0"
+version="delta-0.6.0-x86_64-unknown-linux-gnu"
+
+curl -L \
+  "https://github.com/dandavison/delta/releases/download/$vn/$version.tar.gz" \
+  | tar xzvf - -C .
+
+chmod +x "$version/delta"
+
+mv "$version/delta" ~/bin/
+
+popd >/dev/null
+
+################################################################################
 
 echo
 "$(dirname "$0")/bootstrap_kevel_ubuntu.sh"
