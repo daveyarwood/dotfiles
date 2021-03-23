@@ -197,7 +197,6 @@ exec_always --no-startup-id "killall dunst; dunst"
 exec_always --no-startup-id "killall sxhkd; sxhkd"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id volnoti
 exec_always sh ~/.fehbg # set wallpaper
 exec_always xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec_always xset s off # disable screen blanking
@@ -222,10 +221,13 @@ bindsym $mod+Shift+t exec ~/.bin/toggle_touchpad
 # exec_always synclient RightButtonAreaLeft=0
 # exec_always synclient RightButtonAreaTop=0
 
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse set Master 2%+ && ~/bin/volnoti-show $(amixer -c 0 get Master | grep -Po '[0-9]+(?=%)' | head -1)"
-bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse set Master 2%- && ~/bin/volnoti-show $(amixer -c 0 get Master | grep -Po '[0-9]+(?=%)' | head -1)"
-bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle && if amixer -c 0 get Master | grep -Fq '[off]'; then ~/bin/volnoti-show -m; else ~/bin/volnoti-show $(amixer -c 0 get Master | grep -Po '[0-9]+(?=%)' | head -1); fi"
+# Amount to increase/decrease volume as a percentage
+set $volumestep 5
+
+# Using pulseaudio-utils (append "-s $sinkname" without quotes to override default sink)
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 up $volumestep
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 down $volumestep
+bindsym XF86AudioMute        exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 mute
 
 # 2019-06: Zoom does this really annoying thing where it sets the volume to 75%
 # every time somebody joins or leaves the call. This sets the volume back to

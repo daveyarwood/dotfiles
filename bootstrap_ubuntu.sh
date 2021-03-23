@@ -228,6 +228,16 @@ sudo usermod -a -G video $USER
 echo "NOTE: You'll need to restart in order for brightness keys to work."
 
 ################################################################################
+# Install i3-volume (volume control w/ on-screen display notifications)
+################################################################################
+
+echo
+echo "Installing i3-volume..."
+echo
+
+git clone https://github.com/hastinbe/i3-volume.git ~/i3-volume
+
+################################################################################
 # Install fonts
 ################################################################################
 
