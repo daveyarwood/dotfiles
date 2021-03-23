@@ -25,6 +25,7 @@ sudo apt install -y \
   git-all \
   arandr \
   pavucontrol \
+  scrot \
   xsel xclip \
   entr \
   htop \
