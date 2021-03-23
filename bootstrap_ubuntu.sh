@@ -9,7 +9,7 @@ set -eo pipefail
 echo "Updating/upgrading existing apt packages..."
 echo
 sudo apt update
-sudo apt upgrade
+sudo apt upgrade -y
 
 echo
 echo "Installing various apt packages..."
