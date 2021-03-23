@@ -269,20 +269,16 @@ echo
 
 mkdir -p ~/bin
 
-pushd /tmp >/dev/null
-
 vn="0.6.0"
 version="delta-0.6.0-x86_64-unknown-linux-gnu"
 
 curl -L \
   "https://github.com/dandavison/delta/releases/download/$vn/$version.tar.gz" \
-  | tar xzvf - -C .
+  | tar xzvf - -C /tmp
 
-chmod +x "$version/delta"
+chmod +x "/tmp/$version/delta"
 
-mv "$version/delta" ~/bin/
-
-popd >/dev/null
+mv "/tmp/$version/delta" ~/bin/
 
 ################################################################################
 
