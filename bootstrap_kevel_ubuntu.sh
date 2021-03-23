@@ -38,6 +38,10 @@ sudo apt install -y \
 echo "*** Install Slack, if you haven't already! ***"
 press-enter-to-continue
 
+# This part is also difficult to automate, for similar reasons.
+echo "*** Install Zoom, if you haven't already! ***"
+press-enter-to-continue
+
 if ! [[ -f "$HOME/.ssh/kevel.pem" ]]; then
   echo "*** Obtain ~/.ssh/kevel.pem and ~/.ssh/config ***"
   press-enter-to-continue
