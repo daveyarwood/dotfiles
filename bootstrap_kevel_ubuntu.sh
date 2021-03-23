@@ -30,6 +30,13 @@ sudo apt install -y \
   openjdk-14-jre \
   libsecret-1-0 libsecret-1-dev
 
+echo
+echo "Installing Node.js..."
+echo
+curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt install -y nodejs
+npm config set prefix ~/npm
+
 # This part is difficult to automate. It involves clicking a button on the Slack
 # website to download a .deb file (the download URL isn't clear from the
 # markup), then running a command like (actual filename will vary):
