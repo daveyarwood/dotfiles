@@ -19,7 +19,9 @@ sudo apt install -y \
   git-all \
   arandr \
   xsel xclip \
+  entr \
   htop \
+  universal-ctags \
   python3-dev python3-pip \
   rbenv ruby-dev \
   ack-grep silversearcher-ag \
