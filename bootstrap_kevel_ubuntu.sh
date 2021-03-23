@@ -4,7 +4,7 @@ set -eo pipefail
 
 function press-enter-to-continue() {
   echo
-  echo "-- Press ENTER to continue --"
+  echo "  -- Press ENTER to continue --"
   read
 }
 
