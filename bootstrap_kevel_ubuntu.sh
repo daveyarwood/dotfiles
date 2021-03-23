@@ -18,3 +18,9 @@ fi
 echo "*** Install Datadog agent, using the one-liner here: ***"
 echo "    https://app.datadoghq.com/account/settings#agent/ubuntu"
 echo
+
+# ufw (universal firewall) should be enabled by default, which is great, because
+# it's an audit requirement that we all have a firewall enabled.
+#
+# Just in case, we enable ufw here. If it's already enabled, this is a no-op.
+sudo systemctl enable ufw
