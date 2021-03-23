@@ -45,8 +45,9 @@ sudo apt install -y \
 
 # Reference: https://www.softwaredeveloper.blog/git-credential-storage-libsecret
 
-cd /usr/share/doc/git/contrib/credential/libsecret
+pushd /usr/share/doc/git/contrib/credential/libsecret > /dev/null
 sudo make
+popd > /dev/null
 
 ################################################################################
 # Install fish shell
@@ -187,8 +188,9 @@ if [[ -z $MUSICDIR ]]; then
 fi
 
 git clone https://github.com/daveyarwood/dotfiles.git "$HOME/.dotfiles"
-cd "$HOME/.dotfiles"
+pushd "$HOME/.dotfiles" > /dev/null
 ./install
+popd > /dev/null
 
 ################################################################################
 # Install vim-plug
