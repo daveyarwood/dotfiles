@@ -67,3 +67,16 @@ echo "Enabling firewall..."
 echo
 sudo systemctl enable ufw
 echo
+
+# Automating encrypting your home directory / hard drive if it isn't already
+# would be challenging, if not impossible, to do as part of this script. And the
+# person running the script may have opinions about how best to do that, anyway.
+#
+# So, instead, we'll just check to see if it's already encrypted (in a
+# rudimentary way), and if it isn't, we'll give the person running the script a
+# heads up.
+if ! grep -qi private <(mount); then
+  echo "*** It looks like your hard drive might not be encrypted. ***"
+  echo "    Make sure you do that, as it's an audit requirement!"
+  press-enter-to-continue
+fi
