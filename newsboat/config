@@ -39,7 +39,7 @@ bind-key k up article
 
 # -- bookmarks -----------------------------------------------------------------
 
-bookmark-cmd ~/.newsbeuter/bookmark.sh
+bookmark-cmd ~/.newsboat/bookmark.sh
 bookmark-interactive no
 bookmark-autopilot yes
 
