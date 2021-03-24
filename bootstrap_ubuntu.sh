@@ -43,6 +43,20 @@ sudo apt install -y \
   kitty
 
 ################################################################################
+# Install Google Chrome
+################################################################################
+
+echo
+echo "Installing Google Chrome..."
+echo
+
+curl \
+  -Lo /tmp/google-chrome.deb \
+  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sudo dpkg -i /tmp/google-chrome.deb
+
+################################################################################
 # Install libsecret
 ################################################################################
 
