@@ -56,6 +56,13 @@ curl \
 
 sudo dpkg -i /tmp/google-chrome.deb
 
+# Google Chrome greedily sets itself as the default browser without asking.
+# (Worse: it asks if I want to set it as the default browser, but it ignores my
+# answer and does it anyway.) So, I have to explicitly set it back to something
+# else (e.g. firefox) here if we don't want Google Chrome as the default
+# browser.
+sudo update-alternatives --config x-www-browser
+
 ################################################################################
 # Install libsecret
 ################################################################################
