@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function log() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') $@" > /dev/stderr
+}
+
+if ! nmcli dev | grep wifi | grep -q ' connected'; then
+  log "Unable to check Alda API status. Wifi not connected."
+  exit 1
+fi
+
+results_dir="/tmp/alda-api-status-results"
+mkdir -p "$results_dir"
+
+status_code="$(curl -s \
+                 -o /dev/null \
+                 -w "%{http_code}" \
+                 https://api.alda.io/releases/latest)"
+
+if [[ -z "$status_code" ]]; then
+  log "Something went wrong! Status code missing."
+  exit 1
+fi
+
+echo "$status_code" > "$results_dir/$(date '+%Y%m%d%H%M%S')"
+
+log "Successfully recorded Alda API response."

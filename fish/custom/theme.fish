@@ -1,11 +1,31 @@
-function alda-api-status
-  set_color --dim white
-  echo "Checking Alda API status..."
+# Returns the status code (e.g. 200) of the last recorded Alda API status.
+#
+# If there are no recorded Alda API statuses in the last 5 minutes, returns
+# nothing.
+function last-alda-api-status
+  set -l status_file (find \
+                        /tmp/alda-api-status-results/ \
+                        -type f \
+                        -mmin -5 \
+                        | sort | tail -n1)
 
-  if test (curl -s \
-             -o /dev/null \
-             -w "%{http_code}" \
-             https://api.alda.io/releases/latest) = "200"
+  # Usually, I would write if [[ -n "$status_file" ]], but for some reason, when
+  # there are 0 results, $status_file ends up being a 1-character empty string
+  # of some kind. Maybe a quirk of fish?
+  if test (echo $status_file | wc -c) -gt 1
+    cat $status_file
+  end
+end
+
+function fish_greeting;
+  set -l status_code (last-alda-api-status)
+
+  if test -z $status_code
+    # No status recorded in the last 5 minutes, so do nothing. I could go ahead
+    # and check the status explicitly here, but I don't want to delay the
+    # terminal starting up. I'm sure I'll notice if I don't see anything printed
+    # here for a while.
+  else if test $status_code = 200
     set_color --dim white
     echo "Alda API is up."
     set_color normal
@@ -13,12 +33,6 @@ function alda-api-status
     set_color --bold red
     echo "Alda API is down!"
     set_color normal
-  end
-end
-
-function fish_greeting;
-  if nmcli dev | grep wifi | grep -q ' connected'
-    alda-api-status
   end
 
   if which task >/dev/null
