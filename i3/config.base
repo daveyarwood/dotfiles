@@ -56,7 +56,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+b exec sensible-browser
 
 # start a file manager
-bindsym $mod+Shift+f exec nautilus
+bindsym $mod+Shift+f exec nemo
 
 # kill focused window
 bindsym $mod+x kill

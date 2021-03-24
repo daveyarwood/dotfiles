@@ -25,6 +25,7 @@ sudo apt install -y \
   git-all \
   arandr \
   pavucontrol \
+  nemo \
   scrot \
   xsel xclip \
   entr \
