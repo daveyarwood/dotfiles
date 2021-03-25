@@ -28,6 +28,7 @@ sudo apt install -y \
   nemo \
   scrot \
   xsel xclip \
+  xcb libxcb-keysyms1-dev libxcb-util0-dev \
   entr \
   htop \
   universal-ctags \
@@ -73,6 +74,23 @@ sudo update-alternatives --config x-www-browser
 pushd /usr/share/doc/git/contrib/credential/libsecret > /dev/null
 sudo make
 popd > /dev/null
+
+################################################################################
+# Install sxhkd
+################################################################################
+
+# Reference: https://github.com/baskerville/sxhkd/pull/135/files
+#
+# (Maybe someday the maintainer will merge my PR...)
+
+git clone https://github.com/baskerville/sxhkd.git /tmp/sxhkd
+
+pushd /tmp/sxhkd > /dev/null
+make
+sudo make install
+popd > /dev/null
+
+# NOTE: My i3 config starts sxhkd when i3 (re)starts.
 
 ################################################################################
 # Install fish shell
