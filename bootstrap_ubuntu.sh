@@ -42,7 +42,8 @@ sudo apt install -y \
   libclang-dev \
   tlp tlp-rdw acpi-call-dkms \
   taskwarrior \
-  kitty
+  kitty \
+  audacity
 
 ################################################################################
 # Install Google Chrome
