@@ -264,6 +264,29 @@ sudo update-alternatives --config x-session-manager
 sudo usermod -a -G video $USER
 echo "NOTE: You'll need to restart in order for brightness keys to work."
 
+# Set it up so that when I close my laptop lid, it locks i3.
+#
+# Locking i3 is done via `i3lock`, which is called with specific arguments by
+# way of my script ~/.bin/lock-screen, which should exist at this point because
+# I installed my dotfiles above.
+sudo tee "/etc/systemd/system/suspend@.service" >/dev/null <<EOF
+[Unit]
+Description=User suspend actions
+Before=sleep.target
+
+[Service]
+User=%I
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/home/$USER/.bin/lock-screen
+ExecStartPost=/usr/bin/sleep 1
+
+[Install]
+WantedBy=sleep.target
+EOF
+
+sudo systemctl enable suspend@$USER.service
+
 ################################################################################
 # Install i3-volume (volume control w/ on-screen display notifications)
 ################################################################################
