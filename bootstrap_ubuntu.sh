@@ -125,6 +125,10 @@ curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt install -y nodejs
 npm config set prefix ~/npm
 
+
+# Install various Node packages that I need globally.
+npm install -g chromedriver
+
 ################################################################################
 # Install Go
 ################################################################################
@@ -179,7 +183,7 @@ mkdir -p ~/.rbenv/plugins
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 # Install various Ruby gems required by scripts I use in my shell config, etc.
-gem install --user colorize dotiw bundler
+gem install --user colorize dotiw bundler watir
 
 ################################################################################
 # Install Neovim
