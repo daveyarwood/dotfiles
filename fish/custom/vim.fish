@@ -41,6 +41,8 @@ end
 alias vimwiki "vim $HOME/Sync/vimwiki/index.wiki"
 alias vw vimwiki
 
+alias vwt "vim +VimwikiMakeDiaryNote /dev/null"
+
 alias vf "vim (fzf)"
 alias vr "vim (git ls-files | shuf -n1)"
 
