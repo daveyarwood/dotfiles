@@ -225,7 +225,7 @@ bindsym $mod+Shift+t exec ~/.bin/toggle_touchpad
 set $volumestep 5
 
 # Using pulseaudio-utils (append "-s $sinkname" without quotes to override default sink)
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 up $volumestep
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 -x 100 up $volumestep
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 down $volumestep
 bindsym XF86AudioMute        exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 mute
 
