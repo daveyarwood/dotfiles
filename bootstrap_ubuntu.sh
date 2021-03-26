@@ -30,6 +30,7 @@ sudo apt install -y \
   xsel xclip \
   xcb libxcb-keysyms1-dev libxcb-util0-dev \
   entr \
+  jq \
   htop \
   universal-ctags \
   python3-dev python3-pip \
