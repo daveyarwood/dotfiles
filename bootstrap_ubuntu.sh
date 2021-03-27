@@ -29,6 +29,8 @@ sudo apt install -y \
   scrot \
   xsel xclip \
   xcb libxcb-keysyms1-dev libxcb-util0-dev \
+  imagemagick \
+  compton \
   entr \
   jq \
   htop \
