@@ -44,7 +44,8 @@ sudo apt install -y \
   tlp tlp-rdw acpi-call-dkms \
   taskwarrior \
   kitty \
-  audacity
+  audacity \
+  inkscape
 
 ################################################################################
 # Install Google Chrome
