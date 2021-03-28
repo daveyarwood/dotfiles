@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+if [[ -z "$GITHUB_TOKEN" ]]; then
+  export GITHUB_TOKEN="$(gpg -d "$HOME/.github-token.asc")"
+  if [[ -z "$GITHUB_TOKEN" ]]; then
+    echo "ERROR: GITHUB_TOKEN not set"
+    exit 1
+  fi
+fi
+
 wallpaper_dir="$HOME/backgrounds/i3lock"
 mkdir -p "$wallpaper_dir"
 current_wallpaper_dir="$HOME"
