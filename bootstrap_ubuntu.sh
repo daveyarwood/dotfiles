@@ -43,6 +43,7 @@ sudo apt install -y \
   i3 light rofi feh \
   libsecret-1-0 libsecret-1-dev \
   libclang-dev \
+  libmagic-dev \
   tlp tlp-rdw acpi-call-dkms \
   taskwarrior \
   kitty \
