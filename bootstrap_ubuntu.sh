@@ -51,6 +51,30 @@ sudo apt install -y \
   inkscape
 
 ################################################################################
+# Set up /tmp behavior the way I want it
+################################################################################
+
+tmpfiles_config="/etc/tmpfiles.d/tmp.conf"
+
+if [[ -f "$tmpfiles_config" ]]; then
+  echo
+  echo "*** $tmpfiles_config already exists. Hopefully this is OK? ***"
+  echo
+  cat "$tmpfiles_config"
+else
+  echo
+  echo "Setting up /tmp behavior the way I want it..."
+  echo
+
+  sudo tee "$tmpfiles_config" >/dev/null <<EOF
+# See: man tmpfiles.d
+
+# Delete everything in /tmp older than 7 days.
+d /tmp/ - - - 7d
+EOF
+fi
+
+################################################################################
 # Install Google Chrome
 ################################################################################
 
