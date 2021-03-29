@@ -92,3 +92,29 @@ if ! grep -qi private <(mount); then
   echo "    Make sure you do that, as it's an audit requirement!"
   press-enter-to-continue
 fi
+
+echo "Installing AWS X-Ray daemon..."
+echo
+pushd /tmp > /dev/null
+xray_deb="aws-xray-daemon-3.x.deb"
+curl \
+  -o "$xray_deb" \
+  "https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/$xray_deb"
+sudo dpkg -i "$xray_deb"
+cat <<EOF
+*** Out of the box, installing the X-Ray .deb file enabled a systemd service
+    that keeps the X-Ray daemon running at all times. However, for this to
+    work, the daemon would need to have access to your AWS credentials. Putting
+    your credentials in ~/.aws/credentials would work, but then you'd have your
+    AWS credentials on your hard drive in plain text.
+
+    A safer route is to set the AWS_ environment variables in a shell (e.g.
+    decrypting and sourcing an encrypted Bash script that sets them) and run
+    \`xray\` in the foreground.
+
+    Stopping and disabling the X-Ray systemd service now. ***
+EOF
+sudo systemctl stop xray
+sudo systemctl disable xray
+popd > /dev/null
+echo
