@@ -234,6 +234,25 @@ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 gem install --user colorize dotiw bundler watir
 
 ################################################################################
+# Install Clojure CLI
+################################################################################
+
+echo
+echo "Installing Clojure CLI..."
+echo
+
+pushd /tmp > /dev/null
+
+clj_installer="linux-install-1.10.3.814.sh"
+
+curl -O "https://download.clojure.org/install/$clj_installer"
+chmod +x "$clj_installer"
+sudo "./$clj_installer"
+rm "$clj_installer"
+
+popd > /dev/null
+
+################################################################################
 # Install Neovim
 ################################################################################
 

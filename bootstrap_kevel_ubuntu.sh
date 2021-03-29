@@ -39,6 +39,17 @@ sudo apt install -y nodejs
 npm config set prefix ~/npm
 echo
 
+echo "Installing Clojure CLI..."
+echo
+pushd /tmp > /dev/null
+clj_installer="linux-install-1.10.3.814.sh"
+curl -O "https://download.clojure.org/install/$clj_installer"
+chmod +x "$clj_installer"
+sudo "./$clj_installer"
+rm "$clj_installer"
+popd > /dev/null
+echo
+
 # This part is difficult to automate. It involves clicking a button on the Slack
 # website to download a .deb file (the download URL isn't clear from the
 # markup), then running a command like (actual filename will vary):
