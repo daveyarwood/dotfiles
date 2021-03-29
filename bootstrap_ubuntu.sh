@@ -175,7 +175,7 @@ npm config set prefix ~/npm
 
 
 # Install various Node packages that I need globally.
-npm install -g chromedriver
+npm install -g chromedriver vmd
 
 ################################################################################
 # Install Go
