@@ -29,7 +29,8 @@ sudo apt install -y \
   git-all \
   jq \
   openjdk-14-jre \
-  libsecret-1-0 libsecret-1-dev
+  libsecret-1-0 libsecret-1-dev \
+  redis-tools
 echo
 
 echo "Installing Node.js..."
