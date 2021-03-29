@@ -396,22 +396,15 @@ git clone \
   https://github.com:dexpota/kitty-themes.git \
   ~/.config/kitty/kitty-themes
 
-# NOTE: I also changed
-#
-# color2             #128033
-#
-# to
-#
-# color2             #12d033
-#
-# to brighten up the green a bit.
-#
-# I'm being a bit lazy here and just leaving a note that I did this. I could
-# probably script this change by using sed or something, but who knows? Maybe
-# the next time I run this script, I'll have a different taste in terminal
-# themes.
 pushd ~/.config/kitty > /dev/null
 ln -s ./kitty-themes/themes/Highway.conf ~/.config/kitty/theme.conf
+# Customize the theme to my liking:
+# * Brighten color2 from #128033 => #12d033
+# * Change selection fg/bg colors so that selections are actually readable:
+# ** selection_foreground #212224 (fine as is)
+# ** selection_background #384563 => #ffffed
+sed -i 's/\(color2 \+\).\+/\1#12d033/g' ~/.config/kitty/theme.conf
+sed -i 's/\(selection_background \+\).\+/\1#ffffed/g' ~/.config/kitty/theme.conf
 popd > /dev/null
 
 ################################################################################
