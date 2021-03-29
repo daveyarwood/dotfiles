@@ -369,6 +369,33 @@ mv ttf/*.ttf ~/.fonts/
 popd > /dev/null
 
 ################################################################################
+# Install kitty color themes
+################################################################################
+
+git clone \
+  --depth 1 \
+  https://github.com:dexpota/kitty-themes.git \
+  ~/.config/kitty/kitty-themes
+
+# NOTE: I also changed
+#
+# color2             #128033
+#
+# to
+#
+# color2             #12d033
+#
+# to brighten up the green a bit.
+#
+# I'm being a bit lazy here and just leaving a note that I did this. I could
+# probably script this change by using sed or something, but who knows? Maybe
+# the next time I run this script, I'll have a different taste in terminal
+# themes.
+pushd ~/.config/kitty > /dev/null
+ln -s ./kitty-themes/themes/Highway.conf ~/.config/kitty/theme.conf
+popd > /dev/null
+
+################################################################################
 # Set kitty as default terminal
 ################################################################################
 
