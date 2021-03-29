@@ -50,6 +50,11 @@ rm "$clj_installer"
 popd > /dev/null
 echo
 
+# Source: https://github.com/boot-clj/boot#install
+echo "Installing Boot..."
+sudo bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
+echo
+
 # This part is difficult to automate. It involves clicking a button on the Slack
 # website to download a .deb file (the download URL isn't clear from the
 # markup), then running a command like (actual filename will vary):

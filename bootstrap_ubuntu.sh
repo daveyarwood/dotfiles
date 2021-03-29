@@ -253,6 +253,17 @@ rm "$clj_installer"
 popd > /dev/null
 
 ################################################################################
+# Install Boot
+################################################################################
+
+echo
+echo "Installing Boot..."
+echo
+
+# Source: https://github.com/boot-clj/boot#install
+sudo bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
+
+################################################################################
 # Install Neovim
 ################################################################################
 
