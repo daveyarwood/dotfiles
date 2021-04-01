@@ -462,6 +462,18 @@ chmod +x "/tmp/$version/delta"
 mv "/tmp/$version/delta" ~/bin/
 
 ################################################################################
+# Install peek (animated GIF screen recorder)
+################################################################################
+
+echo
+echo "Installing peek (animated GIF screen recorder)..."
+echo
+
+sudo add-apt-repository ppa:peek-developers/stable
+sudo apt update
+sudo apt install -y peek
+
+################################################################################
 
 echo
 "$(dirname "$0")/bootstrap_kevel_ubuntu.sh"
