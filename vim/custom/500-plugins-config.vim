@@ -349,6 +349,8 @@ augroup END
 
 let g:conjure#log#hud#passive_close_delay = 1000
 
+let g:conjure#highlight#enabled = v:true
+
 let g:conjure#filetype#sicp = "conjure.client.racket.stdio"
 
 function! ToggleConjureLog() abort
