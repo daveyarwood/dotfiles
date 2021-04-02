@@ -116,6 +116,11 @@ function fish_prompt
   set_color normal # undoes the --dim
 
   set_color --bold $mode_color
+
+  if set -q AWS_ACCESS_KEY_ID
+    printf " 🔓"
+  end
+
   printf ' → '
 
   set_color normal

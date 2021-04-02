@@ -124,3 +124,24 @@ function zdb
 
   eval $CODEDIR/teammgmt/bin/sql-env --zone $zone zclsql $argv[2..-1]
 end
+
+alias zecret $CODEDIR/teammgmt/bin/zecret
+
+function save-zecret
+  if test (count $argv) -ne 2
+    echo "Usage: save-zecret NAME VALUE"
+    return 1
+  end
+
+  set -l name $argv[1]
+  set -l value $argv[2]
+
+  set -l secrets_dir "$HOME/.adzerk/secrets"
+  mkdir -p "$secrets_dir"
+
+  set -l unencrypted_secret "$secrets_dir/$name"
+  echo "$value" > "$unencrypted_secret"
+  # creates $unencrypted_secret.asc
+  gpg -ea --default-recipient-self "$unencrypted_secret"
+  rm "$unencrypted_secret"
+end
