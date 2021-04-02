@@ -475,6 +475,26 @@ sudo apt update
 sudo apt install -y peek
 
 ################################################################################
+# Install Spotify
+################################################################################
+
+echo
+echo "Installing Spotify..."
+echo
+
+# Reference: https://www.spotify.com/us/download/linux/
+
+curl -sS \
+  https://download.spotify.com/debian/pubkey_0D811D58.gpg \
+  | sudo apt-key add -
+
+echo "deb http://repository.spotify.com stable non-free" \
+  | sudo tee /etc/apt/sources.list.d/spotify.list
+
+sudo apt update
+sudo apt install -y spotify-client
+
+################################################################################
 
 echo
 "$(dirname "$0")/bootstrap_kevel_ubuntu.sh"
