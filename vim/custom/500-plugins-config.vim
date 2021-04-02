@@ -1494,6 +1494,11 @@ let g:which_key_map_leader.s = {
       \ 'v': 'source vimrc',
       \ }
 
+let g:which_key_map_leader.B = {
+      \ 'name': '+bash',
+      \ 'i': 'initialize Bash script'
+      \ }
+
 """"""""""""""""""""""""""""""
 " => YankRing
 """"""""""""""""""""""""""""""

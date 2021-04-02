@@ -235,3 +235,22 @@ augroup alda
         \ nnoremap <buffer> <silent> <localleader>ri
         \ :call RandomizeAldaInstruments()<cr>
 augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Bash
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" I'm tired of doing this manually every time I start writing a Bash script!
+function! InitBashScript() abort
+  exe "normal! ggO#!/usr/bin/env bash\<cr>\<cr>set -eo pipefail\<cr>\<cr>"
+  exe "w"
+  " Provided by vim-eunoch
+  exe "Chmod +x"
+endfunction
+
+augroup bash_affordances
+  autocmd!
+  autocmd FileType sh
+        \ nnoremap <buffer> <silent> <leader>Bi
+        \ :call InitBashScript()<cr>
+augroup END
