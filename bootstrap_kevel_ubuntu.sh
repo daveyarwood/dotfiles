@@ -99,6 +99,19 @@ if ! grep -qi private <(mount); then
   press-enter-to-continue
 fi
 
+# Reference:
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
+echo "Installing AWS CLI..."
+echo
+pushd /tmp > /dev/null
+curl \
+  "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+  -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+popd > /dev/null
+echo
+
 echo "Installing AWS X-Ray daemon..."
 echo
 pushd /tmp > /dev/null
