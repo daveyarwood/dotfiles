@@ -33,6 +33,11 @@ sudo apt install -y \
   redis-tools
 echo
 
+# Reference: https://github.com/micha/json-table#install
+echo "Installing jt..."
+echo
+sudo bash -c "cd /usr/local && wget -O - https://github.com/micha/json-table/raw/master/jt.tar.gz | tar xzvf -"
+
 echo "Installing Node.js..."
 echo
 curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
