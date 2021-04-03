@@ -27,7 +27,7 @@ echo
 sudo apt install -y \
   curl \
   git-all \
-  jq \
+  jq jo \
   openjdk-14-jre \
   libsecret-1-0 libsecret-1-dev \
   redis-tools

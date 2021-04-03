@@ -32,7 +32,7 @@ sudo apt install -y \
   imagemagick \
   compton \
   entr \
-  jq \
+  jq jo \
   htop \
   universal-ctags \
   python3-dev python3-pip \
