@@ -12,7 +12,7 @@ for repo in $repos; do
   repodir="$basedir/$repo"
   if [[ -d "$repodir" ]]; then
     cd "$repodir"
-    dirtiness=$(git status --porcelain > /dev/null 2>&1)
+    dirtiness=$(git status --porcelain)
     if [[ $? -ne 0 ]]; then
       echo "$repodir: not a git repo"
     elif [[ -n "$dirtiness" ]]; then
