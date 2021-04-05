@@ -49,7 +49,8 @@ sudo apt install -y \
   taskwarrior \
   kitty \
   audacity \
-  inkscape
+  inkscape \
+  vlc
 
 ################################################################################
 # Set up /tmp behavior the way I want it
