@@ -495,6 +495,26 @@ sudo apt update
 sudo apt install -y spotify-client
 
 ################################################################################
+# Install Keybase
+################################################################################
+
+echo
+echo "Installing Keybase..."
+echo
+
+# Reference: https://keybase.io/docs/the_app/install_linux
+
+curl \
+  https://prerelease.keybase.io/keybase_amd64.deb \
+  -o /tmp/keybase.deb
+
+sudo apt install -y /tmp/keybase.deb
+
+run_keybase
+
+rm /tmp/keybase.deb
+
+################################################################################
 
 echo
 "$(dirname "$0")/bootstrap_kevel_ubuntu.sh"
