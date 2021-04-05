@@ -36,8 +36,8 @@ function fish_greeting;
   end
 
   if which task >/dev/null
-    if which task-projects >/dev/null
-      task-projects
+    if test -f /tmp/task-projects.out
+      cat /tmp/task-projects.out
     else
       which snooze-tasks >/dev/null; and snooze-tasks
       task ready 2>/dev/null
