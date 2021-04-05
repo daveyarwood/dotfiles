@@ -5,7 +5,7 @@ set -eo pipefail
 function press-enter-to-continue() {
   echo
   echo "  -- Press ENTER to continue --"
-  read
+  read -r
 }
 
 echo "Updating/upgrading existing apt packages..."
