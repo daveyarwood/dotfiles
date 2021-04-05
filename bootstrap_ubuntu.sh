@@ -50,7 +50,8 @@ sudo apt install -y \
   kitty \
   audacity \
   inkscape \
-  vlc
+  vlc \
+  sox libsox-fmt-mp3
 
 ################################################################################
 # Set up /tmp behavior the way I want it
@@ -514,6 +515,18 @@ sudo apt install -y /tmp/keybase.deb
 run_keybase
 
 rm /tmp/keybase.deb
+
+################################################################################
+# Install google_speech
+################################################################################
+
+echo
+echo "Installing google_speech..."
+echo
+
+# Reference: https://github.com/desbma/GoogleSpeech#installation
+
+pip3 install google_speech
 
 ################################################################################
 
