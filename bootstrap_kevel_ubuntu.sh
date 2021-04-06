@@ -25,6 +25,9 @@ echo
 echo "Installing various apt packages..."
 echo
 sudo apt install -y \
+  build-essential make \
+  sed \
+  rlwrap \
   curl \
   git-all \
   jq jo \
