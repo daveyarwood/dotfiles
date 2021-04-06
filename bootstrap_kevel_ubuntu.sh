@@ -146,3 +146,16 @@ sudo systemctl stop xray
 sudo systemctl disable xray
 popd > /dev/null
 echo
+
+echo "Smoke test: clone the libclj repo and build standard tooling"
+echo "*** Please let Dave know if any of this fails! ***"
+echo
+git clone https://github.com/adzerk/libclj /tmp/libclj
+pushd /tmp/libclj > /dev/null
+make tooling
+make javac
+# `make srepl` starts a REPL, but this script need to be interactive. Echo-ing a
+# newline into the process as input causes the process to exit for some reason;
+# I don't understand why, but it works for our purposes, so ¯\_(ツ)_/¯
+echo | make srepl
+popd > /dev/null
