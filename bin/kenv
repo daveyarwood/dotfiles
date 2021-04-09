@@ -15,6 +15,7 @@ export AWS_DEFAULT_REGION="$("$zecret" KEVEL_AWS_DEFAULT_REGION)"
 export AWS_PAGER=""
 
 export ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN)"
+export CLUBHOUSE_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN)"
 
 if [[ $# == 0 ]]
 then
