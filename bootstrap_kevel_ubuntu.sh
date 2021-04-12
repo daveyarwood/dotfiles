@@ -34,7 +34,8 @@ sudo apt install -y \
   openjdk-14-jre \
   libsecret-1-0 libsecret-1-dev \
   redis-tools \
-  postgresql-client
+  postgresql-client \
+  openvpn openvpn-systemd-resolved
 echo
 
 # Reference: https://github.com/micha/json-table#install
