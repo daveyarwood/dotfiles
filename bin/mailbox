@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-xdg-open "https://mail.google.com/mail/u/0"
-xdg-open "https://mail.google.com/mail/u/1"

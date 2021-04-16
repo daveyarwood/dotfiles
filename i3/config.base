@@ -55,6 +55,15 @@ bindsym $mod+Return exec i3-sensible-terminal
 # start a web browser
 bindsym $mod+b exec sensible-browser
 
+# Open my email inboxes in browser
+bindsym $mod+m exec \
+  "xdg-open 'https://mail.google.com/mail/u/0'; \
+   xdg-open 'https://mail.google.com/mail/u/1'"
+
+# Open my calendar in browser
+bindsym $mod+Shift+c exec \
+  "xdg-open 'https://calendar.google.com/calendar/u/1/r'"
+
 # start a file manager
 bindsym $mod+Shift+f exec nemo
 
