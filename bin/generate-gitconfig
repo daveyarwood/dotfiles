@@ -6,8 +6,8 @@ if [[ "$(uname)" == Darwin ]]; then
   credential_helper="osxkeychain"
 elif [[ -f "$libsecret" ]]; then
   credential_helper="$libsecret"
-  credentials_helper="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
 elif command -v gnome-keyring-daemon >/dev/null; then
+  credential_helper="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
 else
   echo "ERROR: Unclear which credential helper to use!"
   exit 1
