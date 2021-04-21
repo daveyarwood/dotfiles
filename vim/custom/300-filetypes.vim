@@ -187,16 +187,14 @@ function! ClojureTagLookup()
         endif
       endif
     endif
-    exe 'tselect' sym_words[1]
-    return
+    let word = sym_words[1]
+  endif
+
+  let first_tag = taglist("^".word."$")
+  if len(first_tag) == 1
+    exe 'tag' word
   else
-    let first_tag = taglist("^".word."$")
-    if len(first_tag) == 1
-      exe 'tag' word
-    else
-      exe 'tselect' word
-    endif
-    return
+    exe 'tselect' word
   endif
 endfunction
 
