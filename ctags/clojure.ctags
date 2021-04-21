@@ -1,4 +1,16 @@
---langdef=Clojure
+--exclude=.git
+--exclude=.svn
+--exclude=*.ctags
+--exclude=resources/*
+--exclude=*/resources/*
+--exclude=*/public/*
+--exclude=.repl/*
+--exclude=*/.repl/*
+--exclude=out/*
+--exclude=*/out/*
+--exclude=target/*
+--exclude=*/target/*
+--exclude=*min.js
 --langmap=Clojure:.clj.cljs.cljc.cljx.hl
 --regex-clojure=/\([ \t]*create-ns[ \t]+([-[:alnum:]<>*+!_:\/.?]+)/\1/n,namespace/
 --regex-clojure=/\([ \t]*def[ \t]+([-[:alnum:]<>*+!_:\/.?]+)/\1/d,definition/
