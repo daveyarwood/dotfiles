@@ -6,14 +6,14 @@ if [[ "$(uname)" == Darwin ]]; then
   credential_helper="osxkeychain"
 elif [[ -f "$libsecret" ]]; then
   credential_helper="$libsecret"
-elif [[ -n "$(which gnome-keyring-daemon)" ]]; then
   credentials_helper="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
+elif command -v gnome-keyring-daemon >/dev/null; then
 else
   echo "ERROR: Unclear which credential helper to use!"
   exit 1
 fi
 
-cat <<EOF > $HOME/.gitconfig
+cat <<EOF > "$HOME/.gitconfig"
 # This gitconfig was generated via ~/.bin/generate_gitconfig.
 # Edit that file, not this one!
 
