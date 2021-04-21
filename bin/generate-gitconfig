@@ -42,13 +42,3 @@ cat <<EOF > "$HOME/.gitconfig"
 [interactive]
   diffFilter = delta --color-only
 EOF
-
-# I share my code folder to astrocat, my Linux VM. But when I do that, it
-# causes the permissions of the files to change, which git tries to pick up
-# and check in unless I set core.filemode = false.
-if [[ "$(hostname)" == astrocat ]]; then
-  cat <<EOF >> $HOME/.gitconfig
-  filemode = false
-EOF
-fi
-
