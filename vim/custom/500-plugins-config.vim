@@ -1407,6 +1407,8 @@ vnoremap <silent> <leader>      :<c-u>WhichKeyVisual ','<CR>
 vnoremap <silent> <localleader> :<c-u>WhichKeyVisual '\'<CR>
 vnoremap <silent> <Space>       :<c-u>WhichKeyVisual '<Space>'<CR>
 
+let g:which_key_group_dicts = 'start'
+
 " TODO: Add description dictionaries so that it's easier to see what each key
 " mapping does. The default display is the command that's run, but that
 " isn't very readable.
