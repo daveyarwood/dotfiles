@@ -31,7 +31,7 @@ sudo apt install -y \
   curl \
   git-all \
   jq jo \
-  openjdk-14-jre \
+  openjdk-14-jdk \
   libsecret-1-0 libsecret-1-dev \
   redis-tools \
   postgresql-client \

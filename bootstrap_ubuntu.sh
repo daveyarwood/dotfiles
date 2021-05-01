@@ -37,7 +37,7 @@ sudo apt install -y \
   universal-ctags \
   python3-dev python3-pip \
   rbenv ruby-dev \
-  openjdk-14-jre \
+  openjdk-14-jdk \
   ack-grep silversearcher-ag \
   tmux \
   shellcheck \
