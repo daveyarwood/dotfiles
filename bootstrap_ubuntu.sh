@@ -27,6 +27,7 @@ sudo apt install -y \
   pavucontrol \
   nemo \
   scrot \
+  xdotool \
   xsel xclip \
   xcb libxcb-keysyms1-dev libxcb-util0-dev \
   imagemagick \
