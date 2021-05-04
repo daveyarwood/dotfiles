@@ -202,10 +202,10 @@ bar {
 
 # misc startup things
 exec eval `gnome-keyring-daemon --start`
-exec_always --no-startup-id "killall dunst; dunst"
-exec_always --no-startup-id "killall sxhkd; sxhkd"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec_always --no-startup-id "killall dunst; dunst"
+exec_always --no-startup-id "killall sxhkd; sxhkd"
 exec_always sh ~/.fehbg # set wallpaper
 exec_always xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec_always xset s off # disable screen blanking
