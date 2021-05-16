@@ -25,7 +25,7 @@ cp "$i3_config_base" "$i3_config"
 
 # Assign Slack windows to open in a particular workspace, depending on whether
 # or not my laptop is plugged into my external monitor.
-if grep -q 'HDMI-1 connected primary [0-9]' <(xrandr); then
+if grep -q 'HDMI-A-0 connected primary [0-9]' <(xrandr); then
   slack_workspace=1
 else
   slack_workspace=8
