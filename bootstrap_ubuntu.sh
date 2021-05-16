@@ -213,6 +213,10 @@ popd > /dev/null
 # time I save a Go file. `goimports` needs to be available on the PATH.
 go get golang.org/x/tools/cmd/goimports
 
+# Install gopls (language server)
+# Reference: https://github.com/golang/tools/blob/master/gopls/README.md#installation
+GO111MODULE=on go get golang.org/x/tools/gopls@latest
+
 ################################################################################
 # Install Rust
 ################################################################################
