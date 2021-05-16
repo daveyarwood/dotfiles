@@ -557,10 +557,19 @@ augroup END
 " disables netrw.
 let loaded_netrwPlugin = 1
 
+" It seems like the way that defx documents that you configure it makes it so
+" that it doesn't actually pick up on the changes until the second time you open
+" defx during a Vim session 🤔
+"
+" This is especially jarring because the default columns are different than the
+" ones in my config above.
+"
+" It would be nice if I didn't have to repeat this part of my config here, but
+" whatever, this gets the job done.
 nnoremap <silent> -
       \ :Defx `expand('%:p:h')`
+      \ -columns='mark:indent:icons:filename:type:size:time'
       \ -search=`expand('%:p')`<CR>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => deoplete
