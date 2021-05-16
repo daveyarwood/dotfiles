@@ -391,15 +391,16 @@ mkdir -p ~/.fonts
 
 pushd /tmp > /dev/null
 
+# Nerd Fonts: Hack
+# https://www.nerdfonts.com/font-downloads
+mkdir -p /tmp/hack-nerd-font
+pushd /tmp/hack-nerd-font > /dev/null
 curl \
-  -Lo hack.zip \
-  https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
-
-unzip hack.zip
-rm hack.zip
-
-mv ttf/*.ttf ~/.fonts/
-
+  -Lo font.zip \
+  https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+unzip font.zip
+rm font.zip
+mv ./* ~/.fonts/
 popd > /dev/null
 
 ################################################################################
