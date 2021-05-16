@@ -4,6 +4,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'ayu-theme/ayu-vim'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'itchyny/lightline.vim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'morhetz/gruvbox'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
@@ -22,6 +23,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kassio/neoterm'
+Plug 'kristijanhusak/defx-icons'
 Plug 'kshenoy/vim-signature'
 Plug 'liuchengxu/vim-which-key'
 Plug 'liuchengxu/vista.vim'

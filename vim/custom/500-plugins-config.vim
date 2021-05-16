@@ -481,7 +481,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('new_multiple_files')
   nnoremap <silent><buffer><expr> C
         \ defx#do_action('toggle_columns',
-        \                'mark:indent:icon:filename:type:size:time')
+        \                'mark:indent:icons:filename:type:size:time')
   nnoremap <silent><buffer><expr> S
         \ defx#do_action('toggle_sort', 'time')
   nnoremap <silent><buffer><expr> d
@@ -519,7 +519,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> cd
         \ defx#do_action('change_vim_cwd')
   call defx#custom#option('_', {
-        \ 'columns': 'mark:indent:icon:filename:type:size:time',
+        \ 'columns': 'mark:indent:icons:filename:type:size:time',
         \ })
 	call defx#custom#column('time', {
 	      \ 'format': '%Y-%m-%d %I:%M %p',
