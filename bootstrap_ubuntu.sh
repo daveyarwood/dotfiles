@@ -178,8 +178,9 @@ sudo apt install -y nodejs
 npm config set prefix ~/npm
 
 
-# Install various Node packages that I need globally.
-npm install -g chromedriver vmd
+# Install various Node and Yarn packages that I need globally.
+npm install -g chromedriver vmd yarn
+yarn global add diagnostic-languageserver
 
 ################################################################################
 # Install Go
