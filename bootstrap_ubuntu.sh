@@ -39,7 +39,7 @@ sudo apt install -y \
   python3-dev python3-pip \
   rbenv ruby-dev \
   openjdk-14-jdk \
-  ack-grep silversearcher-ag \
+  ack-grep silversearcher-ag ripgrep \
   tmux \
   shellcheck \
   i3 light rofi feh \
