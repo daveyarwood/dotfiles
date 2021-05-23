@@ -39,6 +39,7 @@ data.location=~/.task
 
 urgency.user.project.home.coefficient=5.0
 urgency.user.project.family.coefficient=5.0
+urgency.user.project.friends.coefficient=4.5
 urgency.user.project.adzerk.coefficient=4.0
 urgency.user.project.kevel.coefficient=4.0
 urgency.user.project.alda.coefficient=3.0
