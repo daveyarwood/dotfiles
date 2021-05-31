@@ -262,6 +262,21 @@ rm "$clj_installer"
 popd > /dev/null
 
 ################################################################################
+# Install Babashka
+################################################################################
+
+echo
+echo "Installing Babashka..."
+echo
+
+curl -sLo /tmp/install-bb \
+  https://raw.githubusercontent.com/babashka/babashka/master/install \
+
+chmod +x /tmp/install-bb
+/tmp/install-bb --dir "$HOME/bin"
+rm /tmp/install-bb
+
+################################################################################
 # Install Boot
 ################################################################################
 
