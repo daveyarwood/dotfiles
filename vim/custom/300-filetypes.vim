@@ -284,9 +284,4 @@ function! InitBashScript() abort
   exe "Chmod +x"
 endfunction
 
-augroup bash_affordances
-  autocmd!
-  autocmd FileType sh
-        \ nnoremap <buffer> <silent> <leader>Bi
-        \ :call InitBashScript()<cr>
-augroup END
+nnoremap <silent> <leader>Bi :call InitBashScript()<cr>
