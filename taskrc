@@ -42,6 +42,7 @@ urgency.user.project.family.coefficient=5.0
 urgency.user.project.friends.coefficient=4.5
 urgency.user.project.adzerk.coefficient=4.0
 urgency.user.project.kevel.coefficient=4.0
+urgency.user.project.jiujitsu.coefficient=3.2
 urgency.user.project.alda.coefficient=3.0
 urgency.user.project.blog.coefficient=2.0
 urgency.user.project.talks.coefficient=2.0
