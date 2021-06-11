@@ -170,3 +170,23 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328
 echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 sudo apt update
 sudo apt install -y mono-devel mono-xsp4 nuget
+echo
+
+echo "Installing JumpCloud... (required for SOC compliance)"
+curl \
+  --tlsv1.2 \
+  --silent \
+  --show-error \
+  --header 'x-connect-key: 9d06120a5088af426039b10f2ba191e737fd1872' \
+  https://kickstart.jumpcloud.com/Kickstart \
+  | sudo bash
+echo
+echo "*** Notify Norton Street (support@nortonstreet.biz) so that your user "
+echo "    can be bound to your Linux machine.***"
+press-enter-to-continue
+
+echo "*** Install ESET PROTECT (required for SOC compliance) ***"
+echo "(I wasn't able to automate this one because it involves downloading a"
+echo "tarball from a Google Drive folder. Make sure you do this, it's an audit"
+echo "requirement!)"
+press-enter-to-continue
