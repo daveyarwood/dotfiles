@@ -8,6 +8,16 @@ source ~/.vimrc
 " don't want to still be in normal mode.
 autocmd TermOpen * startinsert
 
+" This doesn't play nice with Conjure, which will sometimes open a terminal
+" buffer to start a REPL server and then switch back to the previous
+" buffer.
+"
+" As a workaround, I explicitly switch to normal mode when entering any
+" Clojure buffer.
+autocmd BufEnter *.clj,*.cljs,*.edn stopinsert
+" (This doesn't work, for some reason.)
+" autocmd FileType clojure stopinsert
+
 " When Escape is pressed while in Terminal mode:
 " * If it's the FZF buffer, close it.
 " * Otherwise, enter Normal mode.
