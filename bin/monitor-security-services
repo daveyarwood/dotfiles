@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+while true; do
+  if systemctl is-active --quiet jcagent.service; then
+    touch /tmp/jumpcloud-is-active
+  else
+    rm -f /tmp/jumpcloud-is-active
+  fi
+
+  if systemctl is-active --quiet eraagent.service; then
+    touch /tmp/eset-is-active
+  else
+    rm -f /tmp/eset-is-active
+  fi
+done
+
