@@ -14,5 +14,7 @@ while true; do
   else
     rm -f /tmp/eset-is-active
   fi
+
+  sleep 5
 done
 
