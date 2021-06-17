@@ -31,5 +31,5 @@ else
   slack_workspace=8
 fi
 
-echo "assign [class=\"Slack\"] $slack_workspace" >> "$i3_config"
+echo -e "\nassign [class=\"Slack\"] $slack_workspace" >> "$i3_config"
 
