@@ -52,7 +52,8 @@ sudo apt install -y \
   audacity \
   inkscape \
   vlc \
-  sox libsox-fmt-mp3
+  sox libsox-fmt-mp3 \
+  timidity
 
 ################################################################################
 # Set up /tmp behavior the way I want it
