@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [[ -z "$CODEDIR" ]]; then
+  echo "ERROR: CODEDIR not set."
+  exit 1
+fi
+
+build_name="alda-$(date '+%Y%m%d%H%M%S')"
+
+"$CODEDIR/alda/bin/download-circleci-artifacts" "/tmp/$build_name"
+
+(
+  cd "/tmp/$build_name"
+  zip -r "../$build_name" ./*
+)
+
+
+mv "/tmp/$build_name.zip" /keybase/public/daveyarwood/alda/builds/
