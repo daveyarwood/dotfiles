@@ -16,5 +16,7 @@ build_name="alda-$(date '+%Y%m%d%H%M%S')"
   zip -r "../$build_name" ./*
 )
 
-
 mv "/tmp/$build_name.zip" /keybase/public/daveyarwood/alda/builds/
+
+echo
+echo "Link: https://keybase.pub/daveyarwood/alda/builds/$build_name.zip?dl=1"
