@@ -238,6 +238,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 down $volumestep
 bindsym XF86AudioMute        exec --no-startup-id ~/i3-volume/volume -n -p -P -t i3status -u SIGUSR1 mute
 
+# My keyboard has a "Cal" button, so why not?
+bindsym XF86Calculator exec --no-startup-id gnome-calculator
+
 # 2019-06: Zoom does this really annoying thing where it sets the volume to 75%
 # every time somebody joins or leaves the call. This sets the volume back to
 # 100%.
