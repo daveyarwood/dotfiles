@@ -154,6 +154,10 @@ let g:clojure_maxlines = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => coc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable semantic highlighting because it's ugly and I'm happy with what I had
+" before.
+let g:coc_default_semantic_highlight_groups = 0
+
 " HACK to workaround coc not providing a :CocToggle command
 function! ToggleCoc() abort
   if len(coc#status()) == 0
