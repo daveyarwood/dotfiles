@@ -569,6 +569,10 @@ pip3 install google_speech
 # Install Ookla Speedtest CLI
 ################################################################################
 
+echo
+echo "Installing speedtest CLI..."
+echo
+
 # Reference: https://www.speedtest.net/apps/cli
 
 sudo apt-get install gnupg1 apt-transport-https dirmngr
