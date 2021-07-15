@@ -46,6 +46,7 @@ sudo apt install -y \
   libsecret-1-0 libsecret-1-dev \
   libclang-dev \
   libmagic-dev \
+  libgtk-3-dev \
   tlp tlp-rdw acpi-call-dkms \
   taskwarrior \
   kitty \
@@ -584,6 +585,25 @@ sudo apt-get update
 # Example how to remove using apt-get
 # sudo apt-get remove speedtest-cli
 sudo apt-get install speedtest
+
+################################################################################
+# Install dragon (simple way to drag-and-drop files from the command line)
+################################################################################
+
+echo
+echo "Installing dragon (drag-and-drop files from the command line)..."
+echo
+
+(
+  cd /tmp
+  git clone https://github.com/mwh/dragon
+  cd dragon
+  make
+  # Installs into ~/.local/bin by default, which works for me.
+  make install
+  cd /tmp
+  rm -rf dragon/
+)
 
 ################################################################################
 
