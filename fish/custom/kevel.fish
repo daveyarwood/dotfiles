@@ -6,7 +6,7 @@ set -gx ADZERK_REPO_PATH $CODEDIR/adzerk
 set -gx ADZERK_CLI_TOOLS_REPO_PATH $CODEDIR/cli-tools
 set -gx ADZERK_SCRIPTS_PATH $ADZERK_CLI_TOOLS_REPO_PATH/scripts
 
-set -gx SAY_OPTS "-e tempo 1.25 -l en-au"
+set -gx SAY_OPTS "-e tempo 1.25 -l en-uk"
 
 alias adzerk $ADZERK_CLI_TOOLS_REPO_PATH/adzerk
 
