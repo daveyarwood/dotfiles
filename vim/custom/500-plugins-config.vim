@@ -1514,6 +1514,12 @@ let g:which_key_map_leader.B = {
       \ 'i': 'initialize Bash script'
       \ }
 
+let g:which_key_map_leader.E = {
+      \ 'name': '+edn',
+      \ 'f': 'format EDN',
+      \ 'm': 'minify EDN',
+      \ }
+
 """"""""""""""""""""""""""""""
 " => YankRing
 """"""""""""""""""""""""""""""

@@ -44,6 +44,17 @@ vnoremap <leader>jf :!jq -S '.'<CR>
 vnoremap <leader>jm :!jq -c '.'<CR>
 
 
+""""""""""""""""""""""""""""""
+" => EDN
+"""""""""""""""""""""""""""""""
+" magically format/minify edn in the current buffer
+nnoremap <leader>Ef :%!jet --pretty<CR>
+nnoremap <leader>Em :%!jet --from edn<CR>
+" or just the current visual selection
+vnoremap <leader>Ef :!jet --pretty<CR>
+vnoremap <leader>Em :!jet --from edn<CR>
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
