@@ -1517,6 +1517,7 @@ let g:which_key_map_leader.B = {
 let g:which_key_map_leader.E = {
       \ 'name': '+edn',
       \ 'f': 'format EDN',
+      \ 'F': 'format EDN (split)',
       \ 'm': 'minify EDN',
       \ }
 
