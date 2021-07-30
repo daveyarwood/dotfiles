@@ -54,6 +54,28 @@ nnoremap <leader>Em :%!jet --from edn<CR>
 vnoremap <leader>Ef :!jet --pretty<CR>
 vnoremap <leader>Em :!jet --from edn<CR>
 
+" "If all else fails, macro it up 8-)" - @walterl
+"
+" Adapted from @walterl's macro:
+" :vmap <leader>E y:vnew<CR>P:set ft=clojure <Bar> %!jet --pretty<CR>zR
+"
+" Opens a new clojure buffer in a split containing the prettified EDN
+function! PrettyJetSplit() abort
+  vnew
+  normal! p
+  set ft=clojure
+  nnoremap <buffer> q :bdel!<CR>
+  %!jet --pretty
+  normal! zR
+endfunction
+
+vnoremap <silent> <leader>EF y:call PrettyJetSplit()<CR>
+
+" Shortcut: in normal mode, placing your cursor inside the top level of an EDN
+" map and using this mapping results in visually selecting the EDN map and doing
+" the PrettyJetSplit thing above.
+nnoremap <silent> <leader>EF va}y:call PrettyJetSplit()<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CoffeeScript
