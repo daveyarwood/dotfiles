@@ -54,7 +54,8 @@ sudo apt install -y \
   inkscape \
   vlc \
   sox libsox-fmt-mp3 \
-  timidity
+  timidity \
+  syncthing
 
 ################################################################################
 # Set up /tmp behavior the way I want it
