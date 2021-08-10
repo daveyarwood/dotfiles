@@ -35,7 +35,8 @@ sudo apt install -y \
   libsecret-1-0 libsecret-1-dev \
   redis-tools \
   postgresql-client \
-  openvpn openvpn-systemd-resolved
+  openvpn openvpn-systemd-resolved \
+  mitmproxy
 echo
 
 # Reference: https://github.com/micha/json-table#install
