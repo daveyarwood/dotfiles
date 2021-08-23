@@ -1,4 +1,5 @@
 {
+  "callHierarchy.splitCommand": "bel 10sp",
   "coc.source.conjure.priority": 999999,
   "codeLens.enable": true,
   "diagnostic-languageserver.filetypes": {

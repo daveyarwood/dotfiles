@@ -170,6 +170,8 @@ endfunction
 nnoremap <silent> <leader>cc :call ToggleCoc()<CR>
 nnoremap <leader>cd :CocList diagnostics<CR>
 nnoremap <leader>ci :CocInfo<CR>
+nnoremap <silent> <Leader>cI :call CocAction('showIncomingCalls')<CR>
+nnoremap <silent> <Leader>cO :call CocAction('showOutgoingCalls')<CR>
 
 " press q to close e.g. the :CocInfo buffer
 augroup coc_buffers
