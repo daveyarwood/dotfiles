@@ -36,6 +36,10 @@ function ssh-init
   # theory.
   #
   # ssh-add ~/.ssh/*.pem >/dev/null 2>&1
+  #
+  # If it's still needed, then I could try only running it if the key isn't
+  # already added, which I can check by grepping the output of `ssh-add -l` for
+  # the pem files that I care about.
 
   # if gnome-keyring-daemon exists, start it and use the result to set
   # SSH_AUTH_SOCK
