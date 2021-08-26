@@ -23,7 +23,12 @@ export CLUBHOUSE_API_TOKEN
 
 if [[ $# == 0 ]]
 then
-  "$SHELL" -i
+  if [[ "$SHELL" != *"fish" ]]; then
+    echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
+  fi
+  # NOTE: ssh-init is defined in ssh.fish
+  "$SHELL" -i -C ssh-init
 else
+  echo "WARN: Not initializing SSH!"
   "$@"
 fi
