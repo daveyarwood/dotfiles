@@ -437,7 +437,7 @@ let g:ctrlsf_winsize = '100%'
 " when using rg via ctrlsf. Weird.
 "
 " As a workaround, this rg option has the same desired effect.
-let g:ctrlsf_extra_backend_args = {'rg': '--glob !tags'}
+let g:ctrlsf_extra_backend_args = {'rg': '--hidden --glob !tags'}
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
