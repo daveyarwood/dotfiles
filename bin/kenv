@@ -8,7 +8,7 @@ zecret="$CODEDIR/teammgmt/bin/zecret"
 
 export AWS_PAGER=""
 
-account="dev"
+account="prod"
 role="PowerUserAccess"
 
 if [[ -n "$1" ]]; then
