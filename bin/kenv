@@ -4,16 +4,41 @@ set -eo pipefail
 
 zecret="$CODEDIR/teammgmt/bin/zecret"
 
-AWS_ACCESS_KEY_ID="$("$zecret" KEVEL_AWS_ACCESS_KEY_ID)"
-export AWS_ACCESS_KEY_ID
-
-AWS_SECRET_ACCESS_KEY="$("$zecret" KEVEL_AWS_SECRET_ACCESS_KEY)"
-export AWS_SECRET_ACCESS_KEY
-
-AWS_DEFAULT_REGION="$("$zecret" KEVEL_AWS_DEFAULT_REGION)"
-export AWS_DEFAULT_REGION
+################################################################################
 
 export AWS_PAGER=""
+
+account="dev"
+role="PowerUserAccess"
+
+if [[ -n "$1" ]]; then
+  account="$1"
+fi
+
+if [[ -n "$2" ]]; then
+  role="$2"
+fi
+
+if [[ $# -gt 2 ]]; then
+  echo "Usage: $0 ACCOUNT ROLE"
+  exit 1
+fi
+
+# Continue to support using my old creds until the new system is fully working.
+if [[ "$account" == "old" ]]; then
+  AWS_ACCESS_KEY_ID="$("$zecret" KEVEL_AWS_ACCESS_KEY_ID)"
+  export AWS_ACCESS_KEY_ID
+
+  AWS_SECRET_ACCESS_KEY="$("$zecret" KEVEL_AWS_SECRET_ACCESS_KEY)"
+  export AWS_SECRET_ACCESS_KEY
+
+  AWS_DEFAULT_REGION="$("$zecret" KEVEL_AWS_DEFAULT_REGION)"
+  export AWS_DEFAULT_REGION
+else
+  export AWS_PROFILE="kevel-$account-$role"
+fi
+
+################################################################################
 
 ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN)"
 export ADZERK_SLACK_TOKEN
@@ -21,14 +46,10 @@ export ADZERK_SLACK_TOKEN
 CLUBHOUSE_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN)"
 export CLUBHOUSE_API_TOKEN
 
-if [[ $# == 0 ]]
-then
-  if [[ "$SHELL" != *"fish" ]]; then
-    echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
-  fi
-  # NOTE: ssh-init is defined in ssh.fish
-  "$SHELL" -i -C ssh-init
-else
-  echo "WARN: Not initializing SSH!"
-  "$@"
+################################################################################
+
+if [[ "$SHELL" != *"fish" ]]; then
+  echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
 fi
+# NOTE: ssh-init is defined in ssh.fish
+"$SHELL" -i -C ssh-init
