@@ -70,7 +70,7 @@ function zchcurl
   set -l endpoint $argv[1]
   set -e argv[1] # $argv is now any remaining arguments
 
-  curl -L "https://api.clubhouse.io/api$endpoint?token=$CLUBHOUSE_API_TOKEN" \
+  curl -L "https://api.shortcut.com/api$endpoint?token=$CLUBHOUSE_API_TOKEN" \
        -H Content-Type:application/json \
        # exit non-0 unless response is a 200
        # --fail \

@@ -5,4 +5,4 @@ if [[ $# -ne 1 ]]; then
   exit 1
 fi
 
-xdg-open "https://app.clubhouse.io/adzerk/story/$1"
+xdg-open "https://app.shortcut.com/adzerk/story/$1"
