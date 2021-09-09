@@ -36,6 +36,11 @@ if [[ "$account" == "old" ]]; then
   export AWS_DEFAULT_REGION
 else
   export AWS_PROFILE="kevel-$account-$role"
+
+  # Automate popping a browser open to log in via SSO, only if I'm not already
+  # logged in.
+  aws sts get-caller-identity >/dev/null 2>/dev/null \
+    || aws sso login
 fi
 
 ################################################################################
