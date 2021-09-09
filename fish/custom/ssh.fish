@@ -28,23 +28,37 @@ function ssh-init
     __ssh_agent_start
   end
 
-  # make sure SSH agent knows about my keys (this should work anyway, but tmux
-  # can throw a wrench in things, so this will make sure it always works)
-  #
-  # UPDATE 2021-08-26: I think I don't need this anymore, because
-  # gnome-keyring-daemon is handling it now? Commenting out in order to test my
-  # theory.
-  #
-  # ssh-add ~/.ssh/*.pem >/dev/null 2>&1
-  #
-  # If it's still needed, then I could try only running it if the key isn't
-  # already added, which I can check by grepping the output of `ssh-add -l` for
-  # the pem files that I care about.
+  # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
+  # throw a wrench in things, so this will make sure it always works. Whenever
+  # we re-add the key, it prompts me for the passphrase.
+  if ! ssh-add -l | grep kevel.pem > /dev/null
+    ssh-add ~/.ssh/kevel.pem
+  end
 
-  # if gnome-keyring-daemon exists, start it and use the result to set
-  # SSH_AUTH_SOCK
-  which gnome-keyring-daemon >/dev/null
-  if test $status -eq 0
+  # If gnome-keyring-daemon exists and isn't already running, start it and use
+  # the result to set SSH_AUTH_SOCK.
+  #
+  # NOTE: We want to avoid always doing this, because sometimes SSH_AUTH_SOCK
+  # appears to already be set to the value we want, and then it gets clobbered
+  # to be /run/user/1000/keyring/ssh instead, and `ssh-add -l` output shows that
+  # my key isn't available.
+  if command -v gnome-keyring-daemon >/dev/null \
+    && not ps aux | grep -v grep | grep -q gnome-keyring-daemon
     eval (gnome-keyring-daemon --start | sed 's/SSH_AUTH_SOCK=/set SSH_AUTH_SOCK /')
   end
+
+  # 2021-09-09: Stashing some more stuff here that I can try if the above
+  # approach doesn't work out:
+  #
+  # ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}'
+  #
+  # When the agent is already running, this returns something like:
+  # /tmp/ssh-IDAat6lcNPuF/agent.3140
+  #
+  # So maybe I could try checking to see if that returns something, and if it
+  # does, then we avoid running the command to start gnome-keyring-daemon.
+  #
+  # For now, I am simply checking for the existence of gnome-keyring-daemon in
+  # the `ps aux` output and using that to determine whether gnome-keyring-daemon
+  # already appears to be running.
 end
