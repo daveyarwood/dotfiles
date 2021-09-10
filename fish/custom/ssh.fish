@@ -28,13 +28,6 @@ function ssh-init
     __ssh_agent_start
   end
 
-  # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
-  # throw a wrench in things, so this will make sure it always works. Whenever
-  # we re-add the key, it prompts me for the passphrase.
-  if ! ssh-add -l | grep kevel.pem > /dev/null
-    ssh-add ~/.ssh/kevel.pem
-  end
-
   # If gnome-keyring-daemon exists and isn't already running, start it and use
   # the result to set SSH_AUTH_SOCK.
   #
@@ -61,4 +54,15 @@ function ssh-init
   # For now, I am simply checking for the existence of gnome-keyring-daemon in
   # the `ps aux` output and using that to determine whether gnome-keyring-daemon
   # already appears to be running.
+
+  # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
+  # throw a wrench in things, so this will make sure it always works. Whenever
+  # I re-add a key, it prompts me for the passphrase.
+  if ! ssh-add -l | grep kevel.pem > /dev/null
+    ssh-add ~/.ssh/kevel.pem
+  end
+
+  if ! ssh-add -l | grep id_rsa > /dev/null
+    ssh-add ~/.ssh/id_rsa
+  end
 end
