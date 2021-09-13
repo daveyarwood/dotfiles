@@ -195,15 +195,14 @@ echo
 
 # Reference: https://golang.org/doc/install
 
-# 2021-03-20: At the time of writing, I want to use at least Go 1.15.3 because
+# 2021-09-13: At the time of writing, I want to use at least Go 1.16.8 because
 # that's what I've been using for developing Alda. In general, I like to update
 # to a newer version periodically whenever I have time to verify it won't break
-# something. While I'm in here writing out the manual steps, I figured I might
-# as well update to the latest version, which is 1.16.2.
+# something.
 #
 # TODO: Consider updating again whenever I run this bootstrap script again in
 # the future.
-go_version="1.16.2"
+go_version="1.16.8"
 go_tarball="go$go_version.linux-amd64.tar.gz"
 download_url="https://golang.org/dl/$go_tarball"
 
