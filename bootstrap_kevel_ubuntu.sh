@@ -192,7 +192,26 @@ echo "tarball from a Google Drive folder. Make sure you do this, it's an audit"
 echo "requirement!)"
 press-enter-to-continue
 
+# Reference:
+# https://docs.aws.amazon.com/vpn/latest/clientvpn-user/client-vpn-connect-linux.html
+echo "Installing AWS VPN client..."
+echo
+wget -q -O - \
+  https://d20adtppz83p9s.cloudfront.net/GTK/latest/debian-repo/awsvpnclient_public_key.asc \
+  | sudo apt-key add -
+echo "deb [arch=amd64] https://d20adtppz83p9s.cloudfront.net/GTK/latest/debian-repo ubuntu-20.04 main" \
+  | sudo tee /etc/apt/sources.list.d/aws-vpn-client.list
+  sudo apt update
+  sudo apt install -y awsvpnclient
+echo
+
 echo "*** Get set up to use the AWS VPN ***"
+echo
 echo "Follow the instructions here:"
 echo "https://app.tettra.co/teams/adzerk/pages/kevel-aws-vpn-users-guide"
+echo
+echo "We just installed the AWS VPN client."
+echo
+echo "Now you need to download the VPN configuration and make sure you can"
+echo "connect to the VPN."
 press-enter-to-continue
