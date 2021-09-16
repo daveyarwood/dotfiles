@@ -191,3 +191,8 @@ echo "(I wasn't able to automate this one because it involves downloading a"
 echo "tarball from a Google Drive folder. Make sure you do this, it's an audit"
 echo "requirement!)"
 press-enter-to-continue
+
+echo "*** Get set up to use the AWS VPN ***"
+echo "Follow the instructions here:"
+echo "https://app.tettra.co/teams/adzerk/pages/kevel-aws-vpn-users-guide"
+press-enter-to-continue
