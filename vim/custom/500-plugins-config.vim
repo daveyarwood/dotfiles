@@ -90,6 +90,15 @@ augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => baleia
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Reference: https://github.com/m00qek/baleia.nvim#with-conjure
+let s:baleia = luaeval("require('baleia').setup { line_starts_at = 3 }")
+let g:conjure#log#strip_ansi_escape_sequences_line_limit = 0
+autocmd BufWinEnter conjure-log-* call s:baleia.automatically(bufnr('%'))
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => better-whitespace
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'ctrlsf']
@@ -341,18 +350,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => conjure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NOTE: I'd like to have a good setup where ANSI escape codes are interpreted in
-" the Conjure log buffer. Currently, neither Colorizer nor Olical's fork of
-" AnsiEsc are doing this as well as I'd like. I think Olical/AnsiEsc is more
-" likely to get there with time (Colorizer seems to be under-maintained), but
-" for now, Colorizer is marginally better, so I'm sticking with Colorizer for
-" now. I'm leaving AnsiEsc config intact below, ready to be un-commented when I
-" inevitably switch back over to Olical/AnsiEsc.
-
-" Disable the default ANSI escape code stripping so that I can use a separate
-" plugin to interpret them and display the colors.
-" let g:conjure#log#strip_ansi_escape_sequences_line_limit = 0
-
 let g:conjure#log#hud#passive_close_delay = 1000
 
 let g:conjure#highlight#enabled = v:true
