@@ -5,6 +5,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'itchyny/lightline.vim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'm00qek/baleia.nvim'
 Plug 'morhetz/gruvbox'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
