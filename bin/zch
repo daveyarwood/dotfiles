@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-if [[ $# -ne 1 ]]; then
-  echo "Usage: zch STORY-NUMBER"
+if [[ $# -eq 0 ]]; then
+  echo "Usage: zch STORY-IDS"
   exit 1
 fi
 
-xdg-open "https://app.shortcut.com/adzerk/story/$1"
+for story_id in "$@"; do
+  xdg-open "https://app.shortcut.com/adzerk/story/$story_id"
+done
+
