@@ -254,7 +254,7 @@ echo
 
 pushd /tmp > /dev/null
 
-clj_installer="linux-install-1.10.3.929.sh"
+clj_installer="linux-install-1.10.3.981.sh"
 
 curl -O "https://download.clojure.org/install/$clj_installer"
 chmod +x "$clj_installer"
