@@ -273,7 +273,7 @@ bindsym $mod+BackSpace exec sh ~/.bin/lock-screen
 for_window [class="Peek"] floating enable
 
 # Designate that certain applications should start in certain workspaces.
-assign [class="AWS VPN Client"] 5
+assign [class="AWS VPN Client"] 7
 
 # For a live performance where I need to control a TTS narrator and project a
 # web app at the same time. Each time I put a message on this fifo, the narrator
