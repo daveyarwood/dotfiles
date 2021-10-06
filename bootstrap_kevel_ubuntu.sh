@@ -16,12 +16,6 @@ echo
 
 # Reference:
 # https://app.tettra.co/teams/adzerk/pages/new-engineer-access-to-tooling#header-7vnpc-a-working-environment
-#
-# 2021-03-23: At the time of writing, OpenJDK 16 is the newest version
-# available. I think it would be better to install the newest available version,
-# however, the newest version currently available in the Ubuntu 20.04 default
-# PPA is OpenJDK 14. I think this is sufficiently new; the Tettra doc linked
-# above says to install JDK 11+.
 echo "Installing various apt packages..."
 echo
 sudo apt install -y \
@@ -31,7 +25,7 @@ sudo apt install -y \
   curl \
   git-all \
   jq jo \
-  openjdk-14-jdk \
+  openjdk-17-jdk \
   libsecret-1-0 libsecret-1-dev \
   redis-tools \
   postgresql-client \

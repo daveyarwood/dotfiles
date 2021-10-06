@@ -11,12 +11,6 @@ echo
 sudo apt update
 sudo apt upgrade -y
 
-# 2021-03-23: At the time of writing, OpenJDK 16 is the newest version
-# available. I think it would be better to install the newest available version,
-# however, the newest version currently available in the Ubuntu 20.04 default
-# PPA is OpenJDK 14. I think this is sufficiently new (to wit, I was using JDK
-# 11 on my last machine), so I'm rolling with it out of convenience.
-
 echo
 echo "Installing various apt packages..."
 echo
@@ -38,7 +32,7 @@ sudo apt install -y \
   universal-ctags \
   python3-dev python3-pip \
   rbenv ruby-dev \
-  openjdk-14-jdk \
+  openjdk-17-jdk \
   ack-grep silversearcher-ag ripgrep \
   tmux \
   shellcheck \
