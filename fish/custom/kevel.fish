@@ -1,4 +1,7 @@
-set -gx ADZERK_BUILD_CHROOT precise
+# Something is still setting this for some reason. Maybe tmux is throwing
+# a wrench in things? Let's just un-set it here if it's set. ¯\_(ツ)_/¯
+set -e ADZERK_BUILD_CHROOT || true
+
 set -gx ADZERK_USE_DOCKER no
 set -gx DOCKER_USER_MODE no
 
