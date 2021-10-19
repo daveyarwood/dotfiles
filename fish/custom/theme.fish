@@ -117,7 +117,7 @@ function fish_prompt
 
   set_color --bold $mode_color
 
-  if set -q AWS_ACCESS_KEY_ID
+  if set -q AWS_ACCESS_KEY_ID || set -q AWS_PROFILE
     printf " 🔓"
   end
 
