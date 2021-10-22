@@ -204,6 +204,7 @@ bar {
 exec eval `gnome-keyring-daemon --start`
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id run_keybase
 exec_always --no-startup-id "killall dunst; dunst"
 exec_always --no-startup-id "killall sxhkd; sxhkd"
 exec_always sh ~/.fehbg # set wallpaper
