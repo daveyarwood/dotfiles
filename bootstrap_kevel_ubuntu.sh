@@ -33,6 +33,11 @@ sudo apt install -y \
   mitmproxy
 echo
 
+echo "Installing various pip packages..."
+echo
+pip install awslogs
+echo
+
 # Reference: https://github.com/micha/json-table#install
 echo "Installing jt..."
 echo
