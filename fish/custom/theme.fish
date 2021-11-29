@@ -50,10 +50,10 @@ function fish_mode_prompt; end
 
 # Returns the number of subshells deep we are.
 #
-# For some reason, in my shell, $SHLVL is 2 initially, so this function adjusts
+# For some reason, in my shell, $SHLVL is 3 initially, so this function adjusts
 # for that and treats my initial nesting level as 0.
 function nesting_level
-  math -- "$SHLVL - 2"
+  math -- "$SHLVL - 3"
 end
 
 function taskwarrior_task_count
