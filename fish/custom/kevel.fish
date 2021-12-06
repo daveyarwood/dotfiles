@@ -60,8 +60,8 @@ end
 #   Create story:
 #     zchcurl /v2/stories -d '{... JSON here ...}'
 function zchcurl
-  if test -z $CLUBHOUSE_API_TOKEN
-    echo "ERROR: CLUBHOUSE_API_TOKEN not set."
+  if test -z $SHORTCUT_API_TOKEN
+    echo "ERROR: SHORTCUT_API_TOKEN not set."
     return 1
   end
 
@@ -73,7 +73,7 @@ function zchcurl
   set -l endpoint $argv[1]
   set -e argv[1] # $argv is now any remaining arguments
 
-  curl -L "https://api.app.shortcut.com/api$endpoint?token=$CLUBHOUSE_API_TOKEN" \
+  curl -L "https://api.app.shortcut.com/api$endpoint?token=$SHORTCUT_API_TOKEN" \
        -H Content-Type:application/json \
        # exit non-0 unless response is a 200
        # --fail \

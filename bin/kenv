@@ -48,8 +48,8 @@ fi
 ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN)"
 export ADZERK_SLACK_TOKEN
 
-CLUBHOUSE_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN)"
-export CLUBHOUSE_API_TOKEN
+SHORTCUT_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN)"
+export SHORTCUT_API_TOKEN
 
 ################################################################################
 
