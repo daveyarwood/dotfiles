@@ -499,6 +499,31 @@ chmod +x "/tmp/$version/delta"
 mv "/tmp/$version/delta" ~/bin/
 
 ################################################################################
+# Install Signal
+################################################################################
+
+echo
+echo "Installing Signal..."
+echo
+
+(
+  cd /tmp
+
+  keyring="/usr/share/keyrings/signal-desktop-keyring.gpg"
+  repo_url="https://updates.signal.org/desktop/apt"
+
+  wget -O- https://updates.signal.org/desktop/apt/keys.asc \
+    | gpg --dearmor \
+    | sudo tee -a "$keyring" \
+    > /dev/null
+
+  echo "deb [arch=amd64 signed-by=$keyring] $repo_url xenial main" \
+    | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+
+  sudo apt update && sudo apt install -y signal-desktop
+)
+
+################################################################################
 # Install peek (animated GIF screen recorder)
 ################################################################################
 
