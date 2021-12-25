@@ -1368,6 +1368,11 @@ nnoremap <leader>wi :e ~/Sync/vimwiki/diary/<CR>
 " tab, and I don't really use tabs).
 nmap <leader>wt <Plug>VimwikiMakeDiaryNote
 
+" Now that I have a "wiki today" mapping, I also want "wiki yesterday" and "wiki
+" tomorrow" mappings.
+nmap <leader>wy <Plug>VimwikiMakeYesterdayDiaryNote
+nmap <leader>wT <Plug>VimwikiMakeTomorrowDiaryNote
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vista
