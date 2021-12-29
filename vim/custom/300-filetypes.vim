@@ -315,6 +315,7 @@ function! InitBashScript() abort
   exe "w"
   " Provided by vim-eunoch
   exe "Chmod +x"
+  exe "e"
 endfunction
 
 nnoremap <silent> <leader>Bi :call InitBashScript()<cr>
