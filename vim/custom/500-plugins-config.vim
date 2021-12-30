@@ -356,6 +356,12 @@ let g:conjure#highlight#enabled = v:true
 
 let g:conjure#filetype#sicp = "conjure.client.racket.stdio"
 
+" Disable the automatic Babashka REPL, as I never use it, and it causes problems
+" if I'm trying to start my own REPL, but I happen to open Vim before my REPL
+" server is up, and thus Conjure starts the Babashka REPL instead of connecting
+" to my REPL.
+let g:conjure#client#clojure#nrepl#connection#auto_repl#enabled = v:false
+
 function! ToggleConjureLog() abort
   if expand('%:t') =~ ".*conjure-log-.*"
     execute 'Bclose'
