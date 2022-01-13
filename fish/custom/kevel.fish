@@ -65,11 +65,6 @@ function zchcurl
     return 1
   end
 
-  if test -z $CLUBHOUSE_MEMBER_ID
-    echo "ERROR: CLUBHOUSE_MEMBER_ID not set."
-    return 1
-  end
-
   set -l endpoint $argv[1]
   set -e argv[1] # $argv is now any remaining arguments
 
@@ -81,16 +76,21 @@ function zchcurl
 end
 
 function zchown
+  if test -z $SHORTCUT_MEMBER_ID
+    echo "ERROR: SHORTCUT_MEMBER_ID not set."
+    return 1
+  end
+
   for story_id in $argv
     echo "Fetching story $story_id..."
     set -l story (zchcurl /v2/stories/$story_id -s 2>&1); or return $status
 
-    echo "Adding $CLUBHOUSE_MEMBER_ID as owner..."
+    echo "Adding $SHORTCUT_MEMBER_ID as owner..."
     zchcurl /v2/stories/$story_id \
       -X PUT \
       -d (jo owner_ids=(echo $story \
 			| jq -c ".owner_ids
-				   | . += [\"$CLUBHOUSE_MEMBER_ID\"]
+				   | . += [\"$SHORTCUT_MEMBER_ID\"]
 				   | unique")) \
       # Just output the headers to STDERR so I can see if the update was
       # successful.
@@ -100,6 +100,11 @@ function zchown
 end
 
 function zchdisown
+  if test -z $SHORTCUT_MEMBER_ID
+    echo "ERROR: SHORTCUT_MEMBER_ID not set."
+    return 1
+  end
+
   for story_id in $argv
     echo "Fetching story $story_id..."
     set -l story (zchcurl /v2/stories/$story_id -s 2>&1)
@@ -108,13 +113,13 @@ function zchdisown
       return $status
     end
 
-    echo "Removing $CLUBHOUSE_MEMBER_ID as owner/follower..."
+    echo "Removing $SHORTCUT_MEMBER_ID as owner/follower..."
     zchcurl /v2/stories/$story_id \
       -X PUT \
       -d (jo owner_ids=(echo $story \
-			| jq -c ".owner_ids | . -= [\"$CLUBHOUSE_MEMBER_ID\"]")  \
+			| jq -c ".owner_ids | . -= [\"$SHORTCUT_MEMBER_ID\"]")  \
 	     follower_ids=(echo $story \
-			   | jq -c ".follower_ids | . -= [\"$CLUBHOUSE_MEMBER_ID\"]")) \
+			   | jq -c ".follower_ids | . -= [\"$SHORTCUT_MEMBER_ID\"]")) \
       # Just output the headers to STDERR so I can see if the update was
       # successful.
       -sD /dev/stderr >/dev/null
