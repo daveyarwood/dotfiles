@@ -1109,6 +1109,7 @@ let g:which_key_map_leader.c = {
 let g:which_key_map_leader.e = {
       \ 'name': '+edit',
       \ 'c': 'config directory',
+      \ 'f': 'edit filetypes',
       \ 'm': 'edit mappings',
       \ 'p': 'edit plugins',
       \ 'P': 'edit plugins config',
