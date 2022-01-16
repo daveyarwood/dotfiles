@@ -16,6 +16,8 @@ echo "Installing various apt packages..."
 echo
 sudo apt install -y \
   curl \
+  wget \
+  gdebi-core \
   git-all \
   arandr \
   pavucontrol \
@@ -514,6 +516,24 @@ echo
     | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
 
   sudo apt update && sudo apt install -y signal-desktop
+)
+
+################################################################################
+# Install Discord
+################################################################################
+
+echo
+echo "Installing Discord..."
+echo
+
+(
+  cd /tmp
+
+  wget \
+    -O discord.deb \
+    "https://discordapp.com/api/download?platform=linux&format=deb"
+
+  sudo gdebi -n discord.deb
 )
 
 ################################################################################
