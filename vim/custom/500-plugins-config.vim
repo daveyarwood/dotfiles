@@ -1,48 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => acid.nvim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:acid_auto_require = 1
-let g:acid_alt_paths = ['src/backend']
-
-" nnoremap <leader>r :AcidRequire<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => ALE (asynchronous lint engine)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_fix_on_save = 1
-let g:ale_linters = {'clojure': [], 'sh': []}
-" I've read that goimports is basically just like gofmt, plus it organizes your
-" imports and removes ones you aren't using. So, I prefer goimports over gofmt.
-let g:ale_fixers = {'go': ['goimports']}
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => airline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:airline_theme = 'luna'                         " airline colorscheme
-" let g:airline_powerline_fonts = 1                    " Fancy symbols
-" let g:airline#extensions#tabline#enabled = 1         " Enable the list of buffers
-" let g:airline#extensions#tabline#fnamemod = ':t'     " Show just the filename
-" let g:airline#extensions#tabline#tab_nr_type = 1     " Show buffer #, not # of splits
-" let g:airline#extensions#tabline#show_tab_nr = 1     " Show buffer # in tabline
-" let g:airline#extensions#tabline#show_tab_type = 1   " Show the tab type
-" let g:airline#extensions#tabline#buffer_idx_mode = 1 " Show buffer index
-" let g:airline#extensions#hunks#enabled = 0 " don't show +N ~N -N for changed hunks
-" let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%3v'])
-
-" nmap <leader>1 <Plug>AirlineSelectTab1
-" nmap <leader>2 <Plug>AirlineSelectTab2
-" nmap <leader>3 <Plug>AirlineSelectTab3
-" nmap <leader>4 <Plug>AirlineSelectTab4
-" nmap <leader>5 <Plug>AirlineSelectTab5
-" nmap <leader>6 <Plug>AirlineSelectTab6
-" nmap <leader>7 <Plug>AirlineSelectTab7
-" nmap <leader>8 <Plug>AirlineSelectTab8
-" nmap <leader>9 <Plug>AirlineSelectTab9
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => asciidoctor
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:asciidoctor_fenced_languages = ['python', 'clojure']
@@ -134,19 +90,6 @@ augroup buffergator_buffer
   autocmd!
   autocmd BufEnter \[\[buffergator-buffers\]\] nnoremap <buffer> <ESC> :bd<CR>
 augroup END
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => calendar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:calendar_google_calendar = 1
-let g:calendar_clock_12hour = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => clj-refactor
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:clj_refactor_prefix_rewriting = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -321,20 +264,6 @@ endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => colorizer
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:colorizer_auto_color = 1
-" Clojure is included because Conjure's log buffer is a Clojure buffer, and
-" sometimes I want to use a Clojure REPL to print things that include ANSI
-" escape codes for pretty colors.
-let g:colorizer_auto_filetype='scss,css,clojure'
-
-" Disable Colorizer's strange default behavior where it de-colorizes whenever
-" you leave the buffer.
-let g:colorizer_disable_bufleave = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup commentary_config
@@ -406,31 +335,6 @@ augroup END
 
 
 """"""""""""""""""""""""""""""
-" => ctrlp
-""""""""""""""""""""""""""""""
-" let g:ctrlp_working_path_mode = 0
-
-" let g:ctrlp_map = '<c-f>'
-" " map <leader>j :CtrlP<cr>
-" " map <c-b> :CtrlPBuffer<cr>
-
-" let g:ctrlp_max_height = 20
-" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\|_site'
-
-" let g:ctrlp_use_caching = 0
-" if executable('ag')
-"     set grepprg=ag\ --nogroup\ --nocolor
-
-"     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" else
-"   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-"   let g:ctrlp_prompt_mappings = {
-"     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-"     \ }
-" endif
-
-
-""""""""""""""""""""""""""""""
 " => ctrlsf
 """"""""""""""""""""""""""""""
 let g:ctrlsf_auto_focus = {"at": "start"}
@@ -446,17 +350,6 @@ vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
 nmap <leader>td :CtrlSF -R TODO<bar>FIXME<CR>
 nmap <leader>8 :CtrlSF -R '.{81,}'<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => ctrlspace
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if executable("ag")
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-
-" <ctrl><space> doesn't seem to be sent to Vim, for some reason.
-" nnoremap <space><space> :CtrlSpace<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -580,45 +473,11 @@ nnoremap <silent> -
       \ -columns='mark:indent:icons:filename:type:size:time'
       \ -search=`expand('%:p')`<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => deoplete
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
-
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
-
-" Use TAB and SHIFT-TAB to cycle through completions
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<tab>"
-
-" Close the popup window when I accept a completion
-" autocmd CompleteDone * pclose!
-
-" Enable integration with the OCAML tool Merlin
-if !exists('g:deoplete#omni_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => dispatch
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:dispatch_no_maps = 1
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => elm-vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:elm_format_autosave = 0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => fireplace
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>r :Require!<CR>
-" nnoremap <leader>t :RunTests<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -722,31 +581,6 @@ let g:gitgutter_terminal_reports_focus=0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => gitv
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>gv :Gitv<CR>
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => go
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-" autocmd FileType go nnoremap <buffer> <leader>r  :GoRun<CR>
-" autocmd FileType go nnoremap <buffer> <leader>b  :GoBuild<CR>
-" autocmd FileType go nnoremap <buffer> <leader>t  :GoTest<CR>
-" autocmd FileType go nnoremap <buffer> <leader>c  :GoCoverage<CR>
-" autocmd FileType go nnoremap <buffer> <leader>gd :GoDoc<CR>
-" autocmd FileType go nnoremap <buffer> <leader>gb :GoDocBrowser<CR>
-" autocmd FileType go nnoremap <buffer> <leader>s  :GoImplements<CR>
-" autocmd FileType go nnoremap <buffer> <leader>i  :GoInfo<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => gofmt
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I've read that goimports is basically just like gofmt, plus it organizes your
@@ -755,19 +589,9 @@ let g:gofmt_exe = 'goimports'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => goyo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => gv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>gv :GV<CR>
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -792,92 +616,6 @@ let g:Hexokinase_refreshEvents = [
       \ 'InsertLeave',
       \ 'TextChanged',
       \ ]
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => highlightedyank
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:highlightedyank_highlight_duration = 250
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => iced
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nmap <localleader>'   <Plug>(iced_connect)
-" nmap <localleader>ei  <Plug>(iced_eval)<Plug>(sexp_inner_element)``
-" nmap <localleader>ee  <Plug>(iced_eval)<Plug>(sexp_outer_list)``
-" nmap <localleader>et  <Plug>(iced_eval_outer_top_list)
-" " nmap <localleader>er  <Plug>(iced_eval_repl)<Plug>(sexp_outer_top_list)``
-" nmap <localleader>er  :<C-u>IcedEval *e<CR>
-" nmap <localleader>E   :<C-u>IcedEval<space>
-" nmap <localleader>en  <Plug>(iced_eval_ns)
-" nmap <localleader>ep  <Plug>(iced_print_last)
-" nmap <localleader>eb  <Plug>(iced_require)
-" nmap <localleader>eB  <Plug>(iced_require_all)
-" nmap <localleader>eu  <Plug>(iced_undef)
-" nmap <localleader>eM  <Plug>(iced_macroexpand_outer_list)
-" nmap <localleader>em  <Plug>(iced_macroexpand_1_outer_list)
-" nmap <localleader>tt  <Plug>(iced_test_under_cursor)
-" nmap <localleader>tl  <Plug>(iced_test_rerun_last)
-" nmap <localleader>ts  <Plug>(iced_test_spec_check)
-" nmap <localleader>to  <Plug>(iced_test_buffer_open)
-" nmap <localleader>tn  <Plug>(iced_test_ns)
-" nmap <localleader>tp  <Plug>(iced_test_all)
-" nmap <localleader>tr  <Plug>(iced_test_redo)
-" nmap <localleader>ss  <Plug>(iced_stdout_buffer_open)
-" nmap <localleader>sl  <Plug>(iced_stdout_buffer_clear)
-" nmap <localleader>sq  <Plug>(iced_stdout_buffer_close)
-" nmap <localleader>rcn <Plug>(iced_clean_ns)
-" nmap <localleader>ram <Plug>(iced_add_missing)
-" nmap <localleader>ran <Plug>(iced_add_ns)
-" nmap <localleader>rtf <Plug>(iced_thread_first)
-" nmap <localleader>rtl <Plug>(iced_thread_last)
-" nmap <localleader>ref <Plug>(iced_extract_function)
-" nmap <localleader>rml <Plug>(iced_move_to_let)
-" nmap <localleader>hs  <Plug>(iced_source_show)
-" nmap <localleader>hg  <Plug>(iced_grimoire_open)
-" nmap <localleader>hh  <Plug>(iced_command_palette)
-" nmap <localleader>br  <Plug>(iced_related_namespace)
-" nmap <localleader>bs  <Plug>(iced_browse_spec)
-" nmap <localleader>bt  <Plug>(iced_browse_test_under_cursor)
-" nmap <localleader>jn  <Plug>(iced_jump_to_next_sign)
-" nmap <localleader>jN  <Plug>(iced_jump_to_prev_sign)
-" nmap <localleader>gl  <Plug>(iced_goto_let)
-" nmap <localleader>*   <Plug>(iced_iced)
-" nmap <localleader>fr  <Plug>(iced_find_var_references)
-" nmap <localleader>fR  <Plug>(iced_find_var_references!)
-" nmap <localleader>/   :<C-u>IcedGrep<Space>
-" " nmap <C-]>       <Plug>(iced_def_jump)
-" " nmap <C-t>       <Plug>(iced_def_back)
-" nmap K           <Plug>(iced_document_open)
-" nmap ==          <Plug>(iced_format)
-
-" press q to close iced buffers
-augroup iced_buffers
-  autocmd!
-  autocmd BufEnter iced_* nnoremap <buffer> q :bd!<CR>
-augroup END
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => jack-in
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>L :Lein<CR>
-" nnoremap <leader>B :Boot<CR>
-" nnoremap <leader>C :Clj<CR>
-
-" Not really part of jack-in, but it's as if it were
-" nnoremap <leader>I :Start! iced repl<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => LanguageClient
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'ocaml': ['ocaml-language-server', '--stdio'],
-    \ 'clojure': ['bash', '~/bin/clojure-lsp'],
-    \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -921,40 +659,6 @@ if executable('opam')
   let g:opamshare = substitute(system('opam config var share 2>/dev/null'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => ncm2 (fka nvim-completion-manager)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" enable ncm2 for all buffers
-" autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" IMPORTANTE: :help Ncm2PopupOpen for more information
-" set completeopt=noinsert,menuone,noselect
-
-" enter inserts newline when completion window is open
-" inoremap <expr> <CR> pumvisible() ? "\<c-y>\<cr>" : "\<CR>"
-
-" A variation on the above that plays nicely with vim-endwise.
-" source: https://github.com/roxma/nvim-completion-manager/issues/49#issuecomment-285923119
-" let g:endwise_no_mappings = 1
-" imap <C-X><CR>   <CR><Plug>AlwaysEnd
-" imap <expr> <CR> (pumvisible() ? "\<C-Y>\<CR>\<Plug>DiscretionaryEnd" : "\<CR>\<Plug>DiscretionaryEnd")
-
-" tab completion
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" from :help Ncm2PopupOpen
-" autocmd User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
-" autocmd User Ncm2PopupClose set completeopt=menuone
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => neomake
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Run neomake on insert and normal mode change and upon reading or writing a
-" buffer, with a 500ms delay.
-" call neomake#configure#automake('nrwi', 500)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1021,12 +725,6 @@ ino <M-g> <esc>:call JumpToDef()<cr>i
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => paredit
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:paredit_leader = '\'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1152,6 +850,7 @@ let g:sandwich#recipes +=
       \   },
       \ ]
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => sexp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1159,48 +858,6 @@ let g:sexp_enable_insert_mode_mappings = 0
 
 " jump to the end of a sexp and be in insert mode
 nnoremap <Bslash>a f)i
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => startify
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:startify_custom_header = [
-      \ '               ________________________________   ',
-      \ '              /    o   oooo ooo oooo   o o o  /\  ',
-      \ '             /    oo  ooo  oo  oooo   o o o  / /  ',
-      \ '            /    _________________________  / /   ',
-      \ '           / // / // /// // /// // /// / / / /    ',
-      \ '          /___ //////////////////////////_/ /     ',
-      \ '          \____\________________________\_\/      ',
-      \ '',
-      \ '',
-      \ ]
-
-let g:startify_custom_indices = ['a', 'o', 'u', 'd', 'n', 'p', 'g', 'c', 'r', 'y', 'f', 'x', 'm', 'w', 'z', 'A', 'O', 'E', 'U', 'H', 'T', 'N', 'S', 'I', 'D', 'P', 'G', 'C', 'R', 'L', 'Y', 'F', 'Q', 'J', 'K', 'B', 'W', 'V', 'Z', 'X']
-
-let g:startify_enable_special = 0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => syntastic
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_python_checkers=['pyflakes']
-
-" fixes lag related to having both vim-go and syntastic installed
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-" enable syntastic integration with the OCAML tool Merlin
-let g:syntastic_ocaml_checkers = ['merlin']
-
-" enable syntastic integration with swiftpm and swiftlint
-let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => tagbar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>T :TagbarToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1216,25 +873,6 @@ let g:magit_show_help = 0
 let g:magit_toggle_help_mapping = '?'
 let g:magit_discard_untracked_do_delete=1
 let g:magit_show_magit_mapping='<leader>G'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimfiler
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:vimfiler_as_default_explorer = 1
-" let g:vimfiler_time_format = "%b %d %Y %H:%M"
-
-" call vimfiler#custom#profile('default', 'context', {
-"       \   'safe': 0,
-"       \   'force_quit': 1
-"       \ })
-
-
-""""""""""""""""""""""""""""""
-" => vim grep
-""""""""""""""""""""""""""""""
-let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
-set grepprg=/bin/grep\ -nH
 
 
 """"""""""""""""""""""""""""""
@@ -1536,12 +1174,3 @@ let g:which_key_map_leader.E = {
       \ 'F': 'format EDN (split)',
       \ 'm': 'minify EDN',
       \ }
-
-""""""""""""""""""""""""""""""
-" => YankRing
-""""""""""""""""""""""""""""""
-if has("win16") || has("win32")
-    " Don't do anything
-else
-    let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
-endif
