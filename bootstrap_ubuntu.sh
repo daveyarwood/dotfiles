@@ -208,26 +208,6 @@ go get golang.org/x/tools/cmd/goimports
 GO111MODULE=on go get golang.org/x/tools/gopls@latest
 
 ################################################################################
-# Install Tinygo
-################################################################################
-
-echo
-echo "Installing Tinygo..."
-echo
-
-(
-  # Reference: https://tinygo.org/getting-started/install/linux/
-  version="0.21.0"
-  deb_file="tinygo_${version}_amd64.deb"
-  download_base_url="https://github.com/tinygo-org/tinygo/releases/download/"
-  download_url="$download_base_url/v$version/$deb_file"
-
-  cd /tmp
-  wget "$download_url"
-  sudo dpkg -i "$deb_file"
-)
-
-################################################################################
 # Install Rust
 ################################################################################
 
