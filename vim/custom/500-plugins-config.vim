@@ -77,22 +77,6 @@ nnoremap <silent> <leader><Space> :call StripWhitespace()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => buffergator
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" horizontal bottom (full screen width)
-let g:buffergator_viewport_split_policy = "B"
-let g:buffergator_split_size = 10
-let g:buffergator_suppress_keymaps = 1
-nnoremap <space><space> :BuffergatorOpen<CR>
-
-" press ESC to close the buffergator buffer
-augroup buffergator_buffer
-  autocmd!
-  autocmd BufEnter \[\[buffergator-buffers\]\] nnoremap <buffer> <ESC> :bd<CR>
-augroup END
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => clojure-static
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clojure_fuzzy_indent = 1

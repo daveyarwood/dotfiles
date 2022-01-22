@@ -19,7 +19,6 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'godlygeek/tabular'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
