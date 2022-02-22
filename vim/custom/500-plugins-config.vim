@@ -275,20 +275,29 @@ let g:conjure#filetype#sicp = "conjure.client.racket.stdio"
 " to my REPL.
 let g:conjure#client#clojure#nrepl#connection#auto_repl#enabled = v:false
 
+" NOTE 2022-02-22: Conjure does have a "toggle log" command, but it's documented
+" that it only works for horizontal/vertical splits, and I prefer to view the
+" log in the current window. I tried Conjure's "toggle log" command anyway, and
+" I confirmed that it doesn't work if the log is full-screen.
 function! ToggleConjureLog() abort
   if expand('%:t') =~ ".*conjure-log-.*"
-    execute 'Bclose'
-  else
-    " Ideally I could call some function provided by Conjure directly to do
-    " this, but I wasn't able to figure out how to do that. This mapping will
-    " need to be adjusted if I ever configure Conjure to use a different mapping
-    " to open the log in a tab, or if Conjure ever changes the default mapping.
-    " I think those two things are both pretty unlikely to happen, so meh.
+    " For some reason, Bclose doesn't play nice with Conjure. Conjure's built-in
+    " "close all log windows in current tab" mapping works as expected, though,
+    " so we'll use that to close the log.
     "
     " Another thing worth noting: normal apparently doesn't work with <leader>
     " and <localleader>, so you have to do some hackery like what's going on
     " here (https://vi.stackexchange.com/a/7780/25687) or just give up and type
     " your actual (local)leader key in the mapping. I'm doing the second one.
+    "
+    " TODO: Is there some way to call the function provided by Conjure directly
+    " instead of automating typing the mapping? That would be better because
+    " this approach will break if I ever decide to change my configured
+    " mappings (which is unlikely, though, so meh, this is fine).
+    normal \lq
+  else
+    " See note above re: why I'm using a literal backslash here instead of
+    " <localleader>, which would have been preferable.
     normal \lt
   endif
 endfunction
@@ -299,9 +308,6 @@ augroup additional_conjure_bindings
   autocmd FileType clojure,fennel,janet,racket
         \ nnoremap <buffer>
         \ <localleader>cc :call ToggleConjureLog()<CR>
-  autocmd FileType clojure,fennel,janet,racket
-        \ nnoremap <buffer>
-        \ <localleader>cl :call ToggleConjureLog()<CR>
 
   " mnemonic: eval prompt
   " (like how <localleader>ee is eval expression)
@@ -310,11 +316,10 @@ augroup additional_conjure_bindings
         \ <localleader>ep :ConjureEval<space>
 
   " press q to close the log buffer
-  autocmd BufEnter conjure-log-* nnoremap <buffer> q :Bclose<CR>
-
-  " Automatically enable AnsiEsc (interpret ANSI escape codes) for the Conjure
-  " log buffer.
-  " autocmd BufEnter conjure-log-* AnsiEsc
+  " This uses the "close all log windows in current tab" mapping provided by
+  " Conjure. I would use Bclose, but it doesn't play nicely with Conjure for
+  " some reason.
+  autocmd BufEnter conjure-log-* nmap <buffer> q <localleader>lq
 augroup END
 
 
