@@ -40,6 +40,18 @@
       "rootPatterns": [
         "elm.json"
       ]
+    },
+    "gopls": {
+      "command": "gopls",
+      "filetypes": [
+        "go"
+      ],
+      "initializationOptions": {
+        "staticcheck": true
+      },
+      "rootPatterns": [
+        "go.mod"
+      ]
     }
   },
   "suggest.removeDuplicateItems": true

@@ -209,6 +209,10 @@ go install golang.org/x/tools/cmd/goimports
 # Reference: https://github.com/golang/tools/blob/master/gopls/README.md#installation
 go install golang.org/x/tools/gopls@latest
 
+# Install staticcheck for extra intelligent linting
+# Reference: https://staticcheck.io/docs/getting-started/#installation
+go install honnef.co/go/tools/cmd/staticcheck@latest
+
 ################################################################################
 # Install Rust
 ################################################################################
