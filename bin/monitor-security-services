@@ -9,12 +9,6 @@ while true; do
     rm -f /tmp/jumpcloud-is-active
   fi
 
-  if systemctl is-active --quiet eraagent.service; then
-    touch /tmp/eset-is-active
-  else
-    rm -f /tmp/eset-is-active
-  fi
-
   sleep 5
 done
 

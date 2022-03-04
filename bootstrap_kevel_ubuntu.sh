@@ -185,12 +185,6 @@ echo "*** Notify Norton Street (support@nortonstreet.biz) so that your user "
 echo "    can be bound to your Linux machine.***"
 press-enter-to-continue
 
-echo "*** Install ESET PROTECT (required for SOC compliance) ***"
-echo "(I wasn't able to automate this one because it involves downloading a"
-echo "tarball from a Google Drive folder. Make sure you do this, it's an audit"
-echo "requirement!)"
-press-enter-to-continue
-
 # Reference:
 # https://docs.aws.amazon.com/vpn/latest/clientvpn-user/client-vpn-connect-linux.html
 echo "Installing AWS VPN client..."
