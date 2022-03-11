@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Move all of the windows (across all of the current workspaces) into workspace
+# 1, then switch to workspace 1 so that there is only the one workspace.
+"$(dirname "$0")/move-all-windows-to-workspace" 1
+i3-msg workspace 1
+
+# Connect to the TV using xrandr.
+~/.screenlayout/tv-above.sh
+
+# At this point, there are two workspaces:
+#
+#   1: on my laptop
+#   2: on the TV
+#
+# I want the one on my TV to be workspace 9, so this command does that.
+i3-msg rename workspace 2 to 9
+
+# Now, move all of the windows to workspace 9 because that's where I want all of
+# my windows, with the exceptions below.
+"$(dirname "$0")/move-all-windows-to-workspace" 9
+
+# Move certain applications to other workspaces.
+i3-msg '[class="Slack"]' -t command 'move container to workspace 1'
+i3-msg '[class="AWS VPN Client"]' -t command 'move container to workspace 7'
+
+# Focus workspace 9.
+i3-msg workspace 9
+
+# Now, we need to re-generate the i3 config so that if I kill and restart Slack,
+# it will start in workspace 1.
+generate-i3-config
+i3-msg restart
