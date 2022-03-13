@@ -11,7 +11,6 @@ function jenv
   set cmd $argv[1]
   set arg ""
   if test (count $argv) -gt 1
-    # Great... fish first array index is ... 1 !
     set arg $argv[2..-1]
   end
 

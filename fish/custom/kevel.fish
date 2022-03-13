@@ -13,34 +13,6 @@ set -gx SAY_OPTS "-e tempo 1.25 -l en-uk"
 
 alias adzerk $ADZERK_CLI_TOOLS_REPO_PATH/adzerk
 
-function adzerk-ops-mode
-  set -l cli_tools_script_paths alan jarrod jason micha scripts
-
-  for folder in $cli_tools_script_paths
-    set -gx PATH $ADZERK_CLI_TOOLS_REPO_PATH/$folder $PATH
-  end
-end
-
-function kevel-vpn
-  set openvpn_dir /etc/openvpn
-  sudo openvpn --config $openvpn_dir/dave.conf $argv;
-
-  # There's an issue where OpenVPN doesn't restore my previous DNS settings
-  # after exiting. I wrote this script as a workaround.
-  #
-  # UPDATE 2021-03-22: I'm not sure if I need this anymore now that I've got
-  # a new laptop that may or may not have the same issue. The DNS setup
-  # certainly is different now that I'm on Ubuntu 20.04. I'm leaving this out
-  # for the time being. TODO: Consider removing or un-commenting in the future.
-  # use-1.1.1.1-dns-server
-end
-
-# Start a new mono-docker container.
-alias monovm $ADZERK_REPO_PATH/docker/run.sh
-
-# Run a command (or start a shell) in a running mono-docker container.
-alias in-monovm $ADZERK_REPO_PATH/docker/attach.sh
-
 function zerkurl
   if test -z $ADZERK_API_KEY
     echo "ERROR: ADZERK_API_KEY not set."

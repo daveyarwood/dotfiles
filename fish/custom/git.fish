@@ -1,9 +1,5 @@
 generate-gitconfig
 
-if which hub > /dev/null
-  alias git hub
-end
-
 alias g git
 alias gs 'git status'
 alias gc 'git commit -v'

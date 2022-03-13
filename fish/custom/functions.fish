@@ -1,18 +1,3 @@
-# Loads the standard math library when using bc, which is used by the fish
-# shell built-in `math` function. This allows arbitrary-precision division (not
-# just integer division) if there is a `~/.bc.cfg` that specifies a scale, e.g.
-# `scale = 5`.
-#
-# update: turning this off for now, as there are some things in fish shell
-# which currently rely on `math` doing integer division, and apparently with
-# `bc` you can't have it both ways -- it will either do integer or
-# floating-point division.
-#
-# set -gx BC_ENV_ARGS $HOME/.bc.cfg
-# function bc
-# 	command bc -l $argv;
-# end
-
 # translate Bash `export x=42` syntax into fish `set -gx x 42` syntax, so I can
 # copy-paste Bash export snippets into my fish terminal
 function export
@@ -32,23 +17,6 @@ if not which pbpaste >/dev/null; and which xsel >/dev/null
     xsel --clipboard --output
   end
 end
-
-# (OS X) show/hide hidden files in Finder
-function hidefiles
-	defaults write com.apple.finder AppleShowAllFiles -bool false; and killall Finder;
-end
-
-function showfiles
-	defaults write com.apple.finder AppleShowAllFiles -bool true; and killall Finder;
-end
-
-# (OS X) open a file/folder in Light Table
-function light-table
-	open -a /Applications/LightTable/LightTable.app $argv;
-end
-
-alias lt light-table
-alias pt papertrail
 
 # shrug emojis are vitally important to my workflow
 function copy_shrug
@@ -80,19 +48,3 @@ end
 function stripwhitespace
   sed -i 's/[[:space:]]\+$//' $argv;
 end
-
-# copy N random GitHub-style emoji codes (e.g. :panda_face:) to clipboard
-function randomoji
-  set emoji (eval $CODEDIR/randomoji/randomoji $argv[1])
-  printf $emoji | pbcopy
-  echo "$emoji copied to clipboard"
-end
-
-# for some reason, gnu-parallel is significantly slower when $SHELL is not bash.
-# Using bash for its subshells makes it a lot faster.
-# source: https://github.com/fish-shell/fish-shell/issues/1084#issuecomment-27746587
-function parallel
-  set -lx PARALLEL_SHELL bash
-  command parallel $argv
-end
-
