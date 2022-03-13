@@ -1,2 +1,1 @@
-add-dir-to-path $CODEDIR/ponyc/build/release
-
+add-dirs-to-path $CODEDIR/ponyc/build/release

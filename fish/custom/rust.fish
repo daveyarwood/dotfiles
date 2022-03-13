@@ -1,2 +1,1 @@
-add-dir-to-path $HOME/.cargo/bin
-
+add-dirs-to-path $HOME/.cargo/bin

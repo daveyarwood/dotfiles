@@ -1,1 +1,1 @@
-add-dir-to-path $HOME/npm/bin
+add-dirs-to-path $HOME/npm/bin

@@ -1,2 +1,1 @@
-add-dir-to-path /usr/lib/dart/bin
-
+add-dirs-to-path /usr/lib/dart/bin

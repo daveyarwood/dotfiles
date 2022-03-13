@@ -3,17 +3,12 @@ set fish_runtime $HOME/.config/fish
 # Default PATH
 set -gx PATH $HOME/bin $HOME/.bin /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /usr/games
 
-# Adds a directory to PATH, but only if the directory exists.
-function add-dir-to-path
-  set dir $argv[1]
-  if test -d $dir
-    set -gx PATH $dir $PATH
-  end
-end
-
+# Adds directories to PATH, but only if the directories exist.
 function add-dirs-to-path
   for dir in $argv
-    add-dir-to-path $dir
+    if test -d $dir
+      set -gx PATH $dir $PATH
+    end
   end
 end
 

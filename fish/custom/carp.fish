@@ -1,2 +1,1 @@
-add-dir-to-path $CODEDIR/Carp/bin
-
+add-dirs-to-path $CODEDIR/Carp/bin

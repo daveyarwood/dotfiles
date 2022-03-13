@@ -4,6 +4,6 @@ else
   set -gx RBENV_ROOT $HOME/.rbenv
 end
 
-add-dir-to-path $RBENV_ROOT/bin
+add-dirs-to-path $RBENV_ROOT/bin
 
 rbenv init - | source

@@ -1,2 +1,1 @@
-add-dir-to-path /opt/mssql-tools/bin
-
+add-dirs-to-path /opt/mssql-tools/bin

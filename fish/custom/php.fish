@@ -1,2 +1,1 @@
-add-dir-to-path /usr/local/php5/bin
-
+add-dirs-to-path /usr/local/php5/bin

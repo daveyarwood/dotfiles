@@ -1,2 +1,1 @@
-add-dir-to-path /opt/rakudo-pkg/bin
-
+add-dirs-to-path /opt/rakudo-pkg/bin

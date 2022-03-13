@@ -1,2 +1,1 @@
-add-dir-to-path /Library/TeX/texbin
-
+add-dirs-to-path /Library/TeX/texbin
