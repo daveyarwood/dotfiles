@@ -1,1 +1,1 @@
-add-dirs-to-path $HOME/npm/bin
+add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin
