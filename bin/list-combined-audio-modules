@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+pactl list modules short | grep -E 'recording|combined' || true

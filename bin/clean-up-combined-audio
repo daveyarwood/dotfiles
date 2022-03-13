@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+for module_id in $(pactl list modules short \
+                     | grep -E 'recording|combined'\
+                     | cut -f1); do
+  pactl unload-module "$module_id"
+done

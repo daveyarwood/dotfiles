@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# This script uses the Pulseaudio API (via `pactl`) to set up my audio so that I
+# can present/record both my voice and the output of certain programs (e.g.
+# Alda). There is a tiny bit of latency between the two, but not to the point
+# where it would be problematic; it just isn't perfectly timed, but that's a
+# hard problem to solve.
+#
+# The end result is that the following Pulseaudio modules are loaded:
+#
+# module-null-sink        sink_name=recording sink_properties=device.description=recording
+# module-null-sink        sink_name=combined sink_properties=device.description=combined
+# module-loopback source=recording.monitor sink=combined latency_msec=50
+# module-loopback source=alsa_input.pci-0000_06_00.6.HiFi__hw_Generic_1__source sink=combined latency_msec=50
+# module-loopback source=recording.monitor sink=alsa_output.pci-0000_06_00.6.HiFi__hw_Generic_1__sink latency_msec=50
+# module-remap-source     source_name=combined-virtual master=combined.monitor
+#
+# In other words, it creates:
+#
+# - 2 sinks, `recording` and `combined`
+#
+# - Loopback modules to send audio from...
+#   - both the `recording` sink (application sound) and my headset mic, to the
+#     `combined` sink, and
+#   - the `recording` sink to my headphones
+#
+# - A virtual device remapped from the `combined` monitor, so that I can use it
+#   as an input device in other applications like Zoom that don't recognize
+#   monitors as inputs
+
+################################################################################
+
+list_current_modules() {
+  pactl list modules short | grep -E "null|combine|loopback|remap" || true
+}
+
+current_modules="$(list_current_modules)"
+
+if [[ -n "$current_modules" ]] ; then
+  echo "ERROR: Not starting from a clean state:"
+  echo
+  echo "$current_modules"
+  echo
+  echo "Run \`clean-up-combined-audio\` to unload these modules."
+  exit 1
+fi
+
+echo "Creating modules..."
+echo
+
+latency_ms=50
+headset_source="alsa_input.pci-0000_06_00.6.HiFi__hw_Generic_1__source"
+headset_sink="alsa_output.pci-0000_06_00.6.HiFi__hw_Generic_1__sink"
+
+echo -n "recording sink: "
+pactl load-module module-null-sink \
+  sink_name=recording \
+  sink_properties=device.description=recording
+
+echo -n "combined sink: "
+pactl load-module module-null-sink \
+  sink_name=combined \
+  sink_properties=device.description=combined
+
+echo -n "recording -> combined loopback: "
+pactl load-module module-loopback \
+  source=recording.monitor \
+  sink=combined latency_msec="$latency_ms"
+
+echo -n "headset mic -> combined loopback: "
+pactl load-module module-loopback \
+  "source=$headset_source" \
+  sink=combined latency_msec="$latency_ms"
+
+echo -n "recording -> headphones loopback: "
+pactl load-module module-loopback \
+  source=recording.monitor \
+  "sink=$headset_sink" \
+  latency_msec="$latency_ms"
+
+echo -n "combined -> virtual device remap: "
+pactl load-module module-remap-source source_name=combined-virtual master=combined.monitor
+
+echo
+echo "Success!"
+echo
+
+echo "Combined audio modules:"
+echo
+
+list_current_modules
