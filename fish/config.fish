@@ -17,7 +17,6 @@ add-dirs-to-path /opt/X11/bin $HOME/.local/bin /snap/bin
 # hardcoded paths to directories on my Thinkpad
 # TODO: come up with some way to have different paths on different hosts
 set -q CODEDIR; or set -gx CODEDIR $HOME/code
-set -q MUSICDIR; or set -gx MUSICDIR $HOME/Music/Dave\'s\ Music\ Library
 
 # git shortcuts (ga = git add, etc.)
 source $fish_runtime/custom/git.fish
@@ -36,7 +35,6 @@ source $fish_runtime/custom/lilypond.fish
 source $fish_runtime/custom/android.fish
 source $fish_runtime/custom/vim.fish
 source $fish_runtime/custom/go.fish
-source $fish_runtime/custom/beets.fish
 source $fish_runtime/custom/php.fish
 source $fish_runtime/custom/pony.fish
 source $fish_runtime/custom/carp.fish

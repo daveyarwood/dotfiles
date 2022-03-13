@@ -325,14 +325,10 @@ echo
 echo "Installing dotfiles..."
 echo
 
-# my dotfiles rely on $CODEDIR and $MUSICDIR being set already, which may not
-# be the case, so we need to set them here if they aren't set
+# my dotfiles rely on $CODEDIR being set already, which may not be the case, so
+# we need to set them here if they aren't set
 if [[ -z $CODEDIR ]]; then
   export CODEDIR=$HOME/Code
-fi
-
-if [[ -z $MUSICDIR ]]; then
-  export MUSICDIR=$HOME/Music
 fi
 
 git clone https://github.com/daveyarwood/dotfiles.git "$HOME/.dotfiles"
