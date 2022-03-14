@@ -67,12 +67,14 @@ pactl load-module module-null-sink \
 echo -n "recording -> combined loopback: "
 pactl load-module module-loopback \
   source=recording.monitor \
-  sink=combined latency_msec="$latency_ms"
+  sink=combined \
+  latency_msec="$latency_ms"
 
 echo -n "headset mic -> combined loopback: "
 pactl load-module module-loopback \
   "source=$headset_source" \
-  sink=combined latency_msec="$latency_ms"
+  sink=combined \
+  latency_msec="$latency_ms"
 
 echo -n "recording -> headphones loopback: "
 pactl load-module module-loopback \
@@ -81,7 +83,9 @@ pactl load-module module-loopback \
   latency_msec="$latency_ms"
 
 echo -n "combined -> virtual device remap: "
-pactl load-module module-remap-source source_name=combined-virtual master=combined.monitor
+pactl load-module module-remap-source \
+  source_name=combined-virtual \
+  master=combined.monitor
 
 echo
 echo "Success!"
