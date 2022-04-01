@@ -67,6 +67,9 @@ bindsym $mod+Shift+c exec \
 # start a file manager
 bindsym $mod+Shift+f exec nemo
 
+# Open sound settings
+bindsym $mod+Shift+s exec pavucontrol
+
 # kill focused window
 bindsym $mod+x kill
 
