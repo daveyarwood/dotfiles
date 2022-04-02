@@ -68,7 +68,7 @@ bindsym $mod+Shift+c exec \
 bindsym $mod+Shift+f exec nemo
 
 # Open sound settings
-bindsym $mod+Shift+s exec pavucontrol
+bindsym $mod+Shift+s exec ~/.bin/toggle-default-sink
 
 # kill focused window
 bindsym $mod+x kill

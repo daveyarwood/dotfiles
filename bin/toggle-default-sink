@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+sinks="$(pactl list sinks short | cut -f2)"
+
+current_sink="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')"
+
+switch_to_next=""
+while read -r sink; do
+  if [[ "$switch_to_next" == "yes" ]]; then
+    notify-send "Default sink: $sink"
+    pactl set-default-sink "$sink"
+    exit
+  fi
+
+  if [[ "$sink" == "$current_sink" ]]; then
+    switch_to_next="yes"
+  fi
+done <<< "$sinks"
+
+# If we get this far, it means the last sink in the list was selected. So, we'll
+# loop back around to the beginning of the list and select the first one.
+sink="$(head -n1 <<< "$sinks")"
+
+notify-send "Default sink: $sink"
+pactl set-default-sink "$sink"
