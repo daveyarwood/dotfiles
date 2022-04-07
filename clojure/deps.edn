@@ -1,5 +1,5 @@
 {:deps
- {org.clojure/clojure {:mvn/version "1.11.0"}}
+ {org.clojure/clojure {:mvn/version "1.11.1"}}
 
  :aliases
  {:dot
