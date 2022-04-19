@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# This prevents the loop from running once on literally "$CODEDIR/*" (without
+# glob expansion!) if $CODEDIR is empty. It's kind of crazy that you have to opt
+# into this reasonable behavior, but you do you, Bash. (╯°□°)╯︵ ┻━┻
+#
+# Reference:
+# https://github-wiki-see.page/m/koalaman/shellcheck/wiki/Sc2045
+shopt -s nullglob
+
+if [[ -z "$CODEDIR" ]]; then
+  echo "CODEDIR not set."
+  exit 1
+fi
+
+for repo_dir in "$CODEDIR"/*; do
+  cd "$repo_dir"
+
+  if [[ ! -d ".git" ]]; then continue; fi
+
+  stash="$(git stash list)"
+
+  if [[ -n "$stash" ]]; then
+    echo "--- $repo_dir ---"
+    echo "$stash"
+    echo
+  fi
+done
