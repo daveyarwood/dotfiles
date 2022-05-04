@@ -24,24 +24,12 @@ if [[ $# -gt 2 ]]; then
   exit 1
 fi
 
-# Continue to support using my old creds until the new system is fully working.
-if [[ "$account" == "old" ]]; then
-  AWS_ACCESS_KEY_ID="$("$zecret" KEVEL_AWS_ACCESS_KEY_ID)"
-  export AWS_ACCESS_KEY_ID
+export AWS_PROFILE="kevel-$account-$role"
 
-  AWS_SECRET_ACCESS_KEY="$("$zecret" KEVEL_AWS_SECRET_ACCESS_KEY)"
-  export AWS_SECRET_ACCESS_KEY
-
-  AWS_DEFAULT_REGION="$("$zecret" KEVEL_AWS_DEFAULT_REGION)"
-  export AWS_DEFAULT_REGION
-else
-  export AWS_PROFILE="kevel-$account-$role"
-
-  # Automate popping a browser open to log in via SSO, only if I'm not already
-  # logged in.
-  aws sts get-caller-identity >/dev/null 2>/dev/null \
-    || aws sso login
-fi
+# Automate popping a browser open to log in via SSO, only if I'm not already
+# logged in.
+aws sts get-caller-identity >/dev/null 2>/dev/null \
+  || aws sso login
 
 ################################################################################
 
