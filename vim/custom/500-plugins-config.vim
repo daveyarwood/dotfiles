@@ -84,7 +84,13 @@ let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '-tpl$']
 let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
 let g:clojure_special_indent_words = 'deftype,defrecord,reify,proxy,extend-type,extend-protocol,letfn'
 let g:clojure_align_multiline_strings = 1
-let g:clojure_maxlines = 0
+" In 2017, I added this setting for some reason. It overrides the default, which
+" is to only parse 300 lines for smart indentation, etc. 0 means unbounded. It
+" will parse the entire file. Which works fine for small files, but it reeeeally
+" slows things down for large files, e.g. over 2000 lines. I don't think there
+" is any reason that I really need to parse the entire file, and 300 lines seems
+" like a good default, so let's just use the default setting.
+" let g:clojure_maxlines = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
