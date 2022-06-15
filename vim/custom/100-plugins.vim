@@ -99,7 +99,6 @@ Plug 'zah/nim.vim'
 " misc
 Plug 'chrisbra/unicode.vim'
 Plug 'jreybert/vimagit'
-Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'mileszs/ack.vim'
 Plug 'szw/vim-dict'
