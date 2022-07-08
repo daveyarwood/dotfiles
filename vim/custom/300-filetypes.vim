@@ -43,6 +43,14 @@ nnoremap <leader>jm :%!jq -c '.'<CR>
 vnoremap <leader>jf :!jq -S '.'<CR>
 vnoremap <leader>jm :!jq -c '.'<CR>
 
+" Silence linter errors about comments not being valid in JSON for these
+" specific files. jsonc (i.e. JSON with comments) is a thing, and these files
+" include comments out of the box, so let's just say that these are jsonc files.
+augroup ft_jsonc_events
+  autocmd!
+  autocmd BufNewFile,BufRead coc-settings.json setlocal filetype=jsonc
+  autocmd BufNewFile,BufRead tsconfig.json setlocal filetype=jsonc
+augroup END
 
 """"""""""""""""""""""""""""""
 " => EDN
