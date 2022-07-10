@@ -32,7 +32,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'machakann/vim-sandwich'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'schickling/vim-bufonly'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tommcdo/vim-lion'
