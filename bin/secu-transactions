@@ -12,7 +12,7 @@ end
 SECU_USERNAME = get_env 'SECU_USERNAME'
 SECU_PASSWORD = get_env 'SECU_PASSWORD'
 
-SECU_URL = 'https://www.ncsecu.org'
+SECU_URL = 'https://onlineaccess.ncsecu.org/O/login.aspx'
 
 if ARGV.count.zero?
   puts "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_PATTERN"
@@ -73,10 +73,10 @@ exit 0 unless $PROGRAM_NAME == __FILE__
 browser = Watir::Browser.new :firefox
 browser.goto SECU_URL
 
-browser.text_field(id: 'userIDHome').set SECU_USERNAME
-browser.text_field(id: 'userPasswordHome').set SECU_PASSWORD
+browser.text_field(id: 'ucLogin_txtUserID').set SECU_USERNAME
+browser.text_field(id: 'ucLogin_txtPassword').set SECU_PASSWORD
 
-sign_in_button = browser.input(type: 'submit', title: 'Login submit')
+sign_in_button = browser.input(id: 'ucLogin_btnSubmit')
 sign_in_button.click
 
 account_row = account_row(browser) ||
