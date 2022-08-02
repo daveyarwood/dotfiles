@@ -126,32 +126,21 @@ augroup END
 set shortmess+=c
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" Insert <tab> when previous text is space, refresh completion if not.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position.
-" Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" A variation on the above that plays nicely with vim-endwise.
-" source: https://github.com/roxma/nvim-completion-manager/issues/49#issuecomment-285923119
-" (the link above is about ncm2, but the same concept applies to coc)
-let g:endwise_no_mappings = 1
-imap <C-X><CR>   <CR><Plug>AlwaysEnd
-imap <expr> <CR> (pumvisible() ? "\<C-Y>\<CR>\<Plug>DiscretionaryEnd" : "\<CR>\<Plug>DiscretionaryEnd")
+" Use <CR> to confirm completion
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
