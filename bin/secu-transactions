@@ -5,6 +5,13 @@ require 'bundler/setup'
 require 'watir'
 require 'colorize'
 
+exit 0 unless $PROGRAM_NAME == __FILE__
+
+def press_enter_to_continue
+  STDERR.puts "--- Press ENTER to continue ---"
+  STDIN.gets
+end
+
 def get_env(env_var)
   ENV[env_var] || raise("#{env_var} environment variable not set.")
 end
@@ -15,22 +22,29 @@ SECU_PASSWORD = get_env 'SECU_PASSWORD'
 SECU_URL = 'https://www.ncsecu.org'
 
 if ARGV.count.zero?
-  puts "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_PATTERN"
+  STDERR.puts \
+    "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_PATTERN [ACCOUNT_NAME_PATTERN...]"
   exit 1
 end
 
-ACCOUNT_NAME_PATTERN = Regexp.new(ARGV[0], 'i')
+ACCOUNT_NAME_PATTERNS = ARGV.map {|arg| Regexp.new(arg, 'i')}
 
-def account_row(browser)
+################################################################################
+
+def account_row(browser, account_name_pattern)
+  STDERR.puts "Looking for account row..."
+
   accounts_table = browser.table(id: 'CheckingSavingsMoneyMarket')
   accounts_table.wait_until(&:present?)
 
   accounts_table.tbody.trs.detect do |tr|
-    tr.tds.any? { |td| td.text =~ ACCOUNT_NAME_PATTERN }
+    tr.tds.any? { |td| td.text =~ account_name_pattern }
   end
 end
 
 def view_transactions_link(row)
+  STDERR.puts "Looking for \"View transactions\" link..."
+
   row.tds.each do |td|
     td.links.each do |link|
       return link if link.href =~ %r{accounts/history}
@@ -40,7 +54,11 @@ def view_transactions_link(row)
   raise "couldn't find view transactions link"
 end
 
+# FIXME: This is the noticeable bottleneck of the script.
+# TODO: Figure out why it's so slow and see if I can make it faster somehow.
 def transactions(browser)
+  STDERR.puts "Collecting transaction info..."
+
   transactions_table = browser.table(id: 'gridCheckingHistory')
   transactions_table.wait_until(&:present?)
 
@@ -68,27 +86,79 @@ def sanitize(transactions)
   end
 end
 
-exit 0 unless $PROGRAM_NAME == __FILE__
+################################################################################
 
-browser = Watir::Browser.new :firefox
+browser = Watir::Browser.new :chrome
 browser.goto SECU_URL
 
-browser.text_field(id: 'userIDHome').set SECU_USERNAME
-browser.text_field(id: 'userPasswordHome').set SECU_PASSWORD
+# HACK: This script used to successfully fill in the user name and password
+# fields and log in automatically. But then SECU did something that made that
+# stop working. It only works if I log in manually. I think they might have some
+# "protections" in place to recognize activity that looks like a script/bot
+# logging in and reject the request. Either that, or there is some bug in their
+# login UI that only manifests when a script is rapidly filling out and
+# submitting the form.
+#
+# I experimented with this for a really long time to try to figure out what part
+# exactly wasn't working and fix it, but I couldn't figure it out.
+#
+# So, as a stopgap, I'm just having the script copy my username and password to
+# the clipboard and prompting me to log in manually.
 
-sign_in_button = browser.input(type: 'submit', title: 'Login submit')
-sign_in_button.click
+# FIXME: This assumes that `xsel` is available on the PATH
+`echo -n "#{SECU_USERNAME}" | xsel --clipboard --input`
+STDERR.puts "Copied username to clipboard. Please paste it into the user name" +
+  " input."
+press_enter_to_continue
 
-account_row = account_row(browser) ||
-  raise("No account found with name matching #{ACCOUNT_NAME_PATTERN}.")
+`echo -n "#{SECU_PASSWORD}" | xsel --clipboard --input`
+STDERR.puts "Copied password to clipboard. Please paste it into the password " +
+  "input and finish logging in."
+press_enter_to_continue
 
-view_transactions_link(account_row).click
+# browser.text_field(id: 'userIDHome').set SECU_USERNAME
+# browser.text_field(id: 'userPasswordHome').set SECU_PASSWORD
 
-transactions = transactions(browser)
+# sign_in_button = browser.input(type: 'submit', title: 'Login submit')
+# sign_in_button.click
+
+# HACK: For some reason, the `puts` output was getting buffered and not printed
+# to the console until the very end (maybe Watir is doing something weird?). But
+# I want to print each account name pattern followed by the output for that
+# account.
+#
+# So, instead of printing the lines immediately, we collect them in this map and
+# then print everything at the end the way we want it.
+ACCOUNT_OUTPUT = {}
+
+ACCOUNT_NAME_PATTERNS.each do |account_name_pattern|
+  account_output_lines = []
+
+  STDERR.puts "\n####### #{account_name_pattern} #######\n"
+
+  browser.goto "https://onlineaccess.ncsecu.org/O/accounts/balances.aspx"
+
+  account_row = account_row(browser, account_name_pattern) ||
+    raise("No account found with name matching #{account_name_pattern}.")
+
+  view_transactions_link(account_row).click
+
+  transactions = transactions(browser)
+
+  sanitize(transactions).each do |row|
+    account_output_lines << row.join("\t")
+  end
+
+  ACCOUNT_OUTPUT[account_name_pattern] = account_output_lines
+end
 
 browser.quit
 
-sanitize(transactions).each do |row|
-  puts row.join("\t")
+ACCOUNT_OUTPUT.each do |account_name_pattern, account_output_lines|
+  STDERR.puts "\n============================================================"
+  STDERR.puts "===== #{account_name_pattern} ====="
+  STDERR.puts "============================================================\n"
+  account_output_lines.each {|line| puts line}
+  STDERR.puts
+  STDERR.puts
 end
-
