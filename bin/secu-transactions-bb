@@ -1,0 +1,26 @@
+#!/usr/bin/env bb
+
+(ns secu-transactions
+  (:require [babashka.pods :as pods]))
+
+(def ^:cgnst SECU-URL "https://onlineaccess.ncsecu.org")
+
+(def ^:const SECU-USERNAME (System/getenv "SECU_USERNAME"))
+(def ^:const SECU-PASSWORD (System/getenv "SECU_PASSWORD"))
+
+(assert SECU-USERNAME "SECU_USERNAME must be set.")
+(assert SECU-PASSWORD "SECU_PASSWORD must be set.")
+
+(pods/load-pod 'org.babashka/etaoin "0.1.0")
+
+(require '[pod.babashka.etaoin :as e])
+
+(def driver (e/firefox))
+
+(e/go driver SECU-URL)
+
+(e/fill driver {:id "ucLogin_txtUserID"} SECU-USERNAME)
+
+(e/fill driver {:id "ucLogin_txtPassword"} SECU-PASSWORD)
+
+(e/click driver {:id "ucLogin_btnSubmit"})
