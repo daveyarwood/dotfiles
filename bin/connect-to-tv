@@ -20,14 +20,15 @@ i3-msg rename workspace 2 to 9
 # my windows, with the exceptions below.
 "$(dirname "$0")/move-all-windows-to-workspace" 9
 
-# Move certain applications to other workspaces.
-i3-msg '[class="Slack"]' -t command 'move container to workspace 1'
-i3-msg '[class="AWS VPN Client"]' -t command 'move container to workspace 7'
-
 # Focus workspace 9.
 i3-msg workspace 9
 
+# Move certain applications to other workspaces.
+i3-msg '[class="AWS VPN Client"]' -t command 'move container to workspace 7'
+i3-msg '[class="Slack"]' -t command 'move container to workspace 8'
+i3-msg '[class="Spotify"]' -t command 'move container to workspace 10'
+
 # Now, we need to re-generate the i3 config so that if I kill and restart Slack,
-# it will start in workspace 1.
+# it will start in the correct workspace.
 generate-i3-config
 i3-msg restart

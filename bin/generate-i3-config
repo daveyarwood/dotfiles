@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# The problem I'm trying to solve here is that I want to dynamically assign
+# One problem I'm trying to solve here is that I want to dynamically assign
 # Slack to a particular workspace, depending on whether or not my laptop is
 # plugged into my external monitor.
 #
@@ -25,11 +25,31 @@ cp "$i3_config_base" "$i3_config"
 
 # Assign Slack windows to open in a particular workspace, depending on whether
 # or not my laptop is plugged into my external monitor.
-if grep -q 'HDMI-A-0 connected primary [0-9]' <(xrandr); then
-  slack_workspace=1
+if grep -q 'HDMI-A-0 connected' <(xrandr); then
+  # I used to do this for my external monitor in the office. Nowadays, I use my
+  # TV as a monitor, and I prefer to keep Slack on monitor 8. That makes this
+  # entire first section of this script unnecessary, but I'm keeping it around
+  # in case I ever want to support the external monitor use case again.
+  # slack_workspace=1
+  slack_workspace=8
 else
   slack_workspace=8
 fi
 
 echo -e "\nassign [class=\"Slack\"] $slack_workspace" >> "$i3_config"
 
+################################################################################
+
+# Another problem this script solves is dynamically deciding which monitor to
+# put the system tray on. Apparently it can't be all of them, you have to pick
+# one.
+#
+# Ref: https://i3wm.org/docs/userguide.html#_tray_output
+
+if grep -q 'HDMI-A-0 connected' <(xrandr); then
+  tray_workspace="HDMI-A-0"
+else
+  tray_workspace="primary"
+fi
+
+sed -i "s/  tray_output primary/  tray_output $tray_workspace/" "$i3_config"
