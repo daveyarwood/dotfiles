@@ -47,25 +47,8 @@ function ssh-init
   # a simple check to see if it's set to something invalid, and if it is, then
   # I pick the first file matching the expected pattern and use that instead.
   if ! ssh-add -l >/dev/null 2>/dev/null
-    set -l dir (find /tmp -type d -iname 'ssh-*' 2>/dev/null | head -n1)
-    set -l file (find $dir -iname 'agent*')
-    set SSH_AUTH_SOCK $file
+    set SSH_AUTH_SOCK (ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}' | head -n1)
   end
-
-  # 2021-09-09: Stashing some more stuff here that I can try if the above
-  # approach doesn't work out:
-  #
-  # ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}'
-  #
-  # When the agent is already running, this returns something like:
-  # /tmp/ssh-IDAat6lcNPuF/agent.3140
-  #
-  # So maybe I could try checking to see if that returns something, and if it
-  # does, then we avoid running the command to start gnome-keyring-daemon.
-  #
-  # For now, I am simply checking for the existence of gnome-keyring-daemon in
-  # the `ps aux` output and using that to determine whether gnome-keyring-daemon
-  # already appears to be running.
 
   # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
   # throw a wrench in things, so this will make sure it always works. Whenever
