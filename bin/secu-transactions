@@ -23,11 +23,11 @@ SECU_URL = 'https://www.ncsecu.org'
 
 if ARGV.count.zero?
   STDERR.puts \
-    "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_PATTERN [ACCOUNT_NAME_PATTERN...]"
+    "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_SUBSTRING [ACCOUNT_NAME_SUBSTRING...]"
   exit 1
 end
 
-ACCOUNT_NAME_PATTERNS = ARGV.map {|arg| Regexp.new(arg, 'i')}
+ACCOUNT_NAME_SUBSTRINGS = ARGV
 
 ################################################################################
 
@@ -131,15 +131,17 @@ press_enter_to_continue
 # then print everything at the end the way we want it.
 ACCOUNT_OUTPUT = {}
 
-ACCOUNT_NAME_PATTERNS.each do |account_name_pattern|
+ACCOUNT_NAME_SUBSTRINGS.each do |account_name_substring|
   account_output_lines = []
 
-  STDERR.puts "\n####### #{account_name_pattern} #######\n"
+  STDERR.puts "\n####### #{account_name_substring} #######\n"
 
   browser.goto "https://onlineaccess.ncsecu.org/O/accounts/balances.aspx"
 
+  account_name_pattern = Regexp.new(account_name_substring, 'i')
+
   account_row = account_row(browser, account_name_pattern) ||
-    raise("No account found with name matching #{account_name_pattern}.")
+    raise("No account found with name containing #{account_name_substring}.")
 
   view_transactions_link(account_row).click
 
@@ -149,14 +151,14 @@ ACCOUNT_NAME_PATTERNS.each do |account_name_pattern|
     account_output_lines << row.join("\t")
   end
 
-  ACCOUNT_OUTPUT[account_name_pattern] = account_output_lines
+  ACCOUNT_OUTPUT[account_name_substring] = account_output_lines
 end
 
 browser.quit
 
-ACCOUNT_OUTPUT.each do |account_name_pattern, account_output_lines|
+ACCOUNT_OUTPUT.each do |account_name_substring, account_output_lines|
   STDERR.puts "\n============================================================"
-  STDERR.puts "===== #{account_name_pattern} ====="
+  STDERR.puts "===== #{account_name_substring} ====="
   STDERR.puts "============================================================\n"
   account_output_lines.each {|line| puts line}
   STDERR.puts
