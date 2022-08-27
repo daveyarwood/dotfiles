@@ -245,18 +245,6 @@ bindsym XF86AudioMute        exec --no-startup-id ~/i3-volume/volume -n -p -P -t
 # My keyboard has a "Cal" button, so why not?
 bindsym XF86Calculator exec --no-startup-id gnome-calculator
 
-# 2019-06: Zoom does this really annoying thing where it sets the volume to 75%
-# every time somebody joins or leaves the call. This sets the volume back to
-# 100%.
-#
-# 2020-06: At some point in the last year, I figured out that I could go into
-# Zoom's settings and set some volume setting to 100, and that made the problem
-# stop happening. However, more recently, another problem started happening,
-# which is that Zoom will randomly set my input (mic) volume to 0. So now I've
-# made it so that $mod+z will both set Zoom's output volume to 100% and set my
-# input (mic) volume to 75% the way I like it.
-bindsym $mod+z exec "/home/dave/.bin/set-binary-volume zoom 100%; /home/dave/.bin/set-input-volume 75%"
-
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
@@ -285,11 +273,3 @@ assign [class="AWS VPN Client"] 7
 #   i3-msg '[class="Spotify"] move container to workspace 10'
 #
 # assign [class="Spotify"] 10
-
-# For a live performance where I need to control a TTS narrator and project a
-# web app at the same time. Each time I put a message on this fifo, the narrator
-# proceeds to the next script.
-bindsym $mod+semicolon \
-  exec --no-startup-id \
-  "[ -p ~/code/by-chance/narration.fifo ] \
-    && echo BANG > ~/code/by-chance/narration.fifo"
