@@ -20,7 +20,7 @@ set_layout() {
   xmodmap -e "keysym Caps_Lock = Escape"
 
   # Ensure that Caps Lock is TURNED OFF.
-  xset -q | grep "Caps Lock: *on" > /dev/null; and xdotool key Caps_Lock
+  xset -q | grep "Caps Lock: *on" > /dev/null && xdotool key Caps_Lock
 }
 
 toggle_layout() {
