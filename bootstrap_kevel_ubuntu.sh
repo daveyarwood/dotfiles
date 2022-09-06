@@ -30,7 +30,9 @@ sudo apt install -y \
   redis-tools \
   postgresql-client \
   openvpn openvpn-systemd-resolved \
-  mitmproxy
+  mitmproxy \
+  pip \
+  wget
 echo
 
 echo "Installing various pip packages..."
@@ -45,7 +47,7 @@ sudo bash -c "cd /usr/local && wget -O - https://github.com/micha/json-table/raw
 
 echo "Installing Node.js..."
 echo
-curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 npm config set prefix ~/npm
 echo
@@ -53,7 +55,7 @@ echo
 echo "Installing Clojure CLI..."
 echo
 pushd /tmp > /dev/null
-clj_installer="linux-install-1.11.1.1113.sh"
+clj_installer="linux-install-1.11.1.1155.sh"
 curl -O "https://download.clojure.org/install/$clj_installer"
 chmod +x "$clj_installer"
 sudo "./$clj_installer"
