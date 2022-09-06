@@ -30,7 +30,9 @@ sudo apt install -y \
   redis-tools \
   postgresql-client \
   openvpn openvpn-systemd-resolved \
-  mitmproxy
+  mitmproxy \
+  pip \
+  wget
 echo
 
 echo "Installing various pip packages..."
