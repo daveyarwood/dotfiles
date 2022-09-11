@@ -6,15 +6,9 @@
 i3-msg workspace 1
 
 # Connect to the TV using xrandr.
-~/.screenlayout/tv-above.sh
+~/.screenlayout/tv-only.sh
 
-# At this point, there are two workspaces:
-#
-#   1: on my laptop
-#   2: on the TV
-#
-# I want the one on my TV to be workspace 9, so this command does that.
-i3-msg rename workspace 2 to 9
+i3-msg rename workspace 1 to 9
 
 # Now, move all of the windows to workspace 9 because that's where I want all of
 # my windows, with the exceptions below.
