@@ -316,6 +316,8 @@ augroup additional_conjure_bindings
   " Conjure. I would use Bclose, but it doesn't play nicely with Conjure for
   " some reason.
   autocmd BufEnter conjure-log-* nmap <buffer> q <localleader>lq
+
+  autocmd BufEnter conjure-log-*.cljc set ft=clojure
 augroup END
 
 
