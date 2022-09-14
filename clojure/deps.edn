@@ -24,5 +24,7 @@
 
   :rebel
   {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.2"}}
-   :main-opts  ["-m" "rebel-readline.main"]}}}
+   :main-opts  ["-m" "rebel-readline.main"]}
 
+  :portal
+  {:extra-deps {djblue/portal {:mvn/version "0.30.0"}}}}}
