@@ -44,7 +44,10 @@ Plug 'unblevable/quick-scope'
 Plug 'vim-scripts/gitignore'
 
 " clojure things
-Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+Plug 'eraserhd/parinfer-rust', {'rtp': 'target/release', 'do': 'cargo build --release'}
+" Currently trying to figure out if this is doing anything
+" https://github.com/harrygallagher4/nvim-parinfer-rust/issues/6
+Plug 'harrygallagher4/nvim-parinfer-rust'
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'luochen1990/rainbow'

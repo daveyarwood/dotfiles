@@ -715,6 +715,13 @@ vmap gx <Plug>(openbrowser-smart-search)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => parinfer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/harrygallagher4/nvim-parinfer-rust#using-vim-plug
+autocmd VimEnter * lua require('parinfer').setup()
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open the vim-plug window full-screen
