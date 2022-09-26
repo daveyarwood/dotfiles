@@ -21,6 +21,9 @@ cat <<EOF > "$HOME/.gitconfig"
   name = Dave Yarwood
   email = dave.yarwood@gmail.com
 
+[commit]
+  gpgsign = true
+
 [credential]
   helper = $credential_helper
 
