@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+if ARGV.length != 1
+  STDERR.puts "Usage: #{$0} CPU_THRESHOLD"
+  exit 1
+end
+
+cpu_threshold = Integer(ARGV[0])
+
+# NOTE: I was originally using `top -b -n1 | tail -n+7` for this, but `top`
+# doesn't display the COMMAND column with the full command invocation. `ps aux`
+# output is better in this respect.
+top_output_lines = `ps aux --sort=-pcpu`.lines
+
+columns = top_output_lines[0].strip.split(/\s+/)
+
+rows = top_output_lines[1..].map do |line|
+  # The columns aren't exactly separated by one or more spaces. The very last
+  # column, COMMAND, can contain spaces, so everything from that column onward
+  # needs to be treated as a single column, regardless of spaces.
+  almost_row = line.strip.split(/\s+/)
+
+  row = almost_row[..columns.size - 2] +
+    [almost_row[columns.size - 1..].join(" ")]
+
+  columns.zip(row).to_h
+end
+
+# NOTE: The `top` output was already sorted by %CPU descending.
+
+rows.take_while {|row| Float(row["%CPU"]) > cpu_threshold}.each do |row|
+  puts "#{row["PID"]}\t#{row["USER"]}\t#{row["%CPU"]}\t#{row["COMMAND"]}"
+end
