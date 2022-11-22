@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: $0 CPU_THRESHOLD"
+  exit 1
+fi
+
+cpu_threshold="$1"
+
+chp_output="$(mktemp)"
+
+cat > "$chp_output" <<-EOF
+# IMPORTANT: Remove any processes from this list that you do NOT want to kill!
+# Any remaining processes will be killed after you close the editor.
+EOF
+
+"$(dirname "$0")/cpu-hungry-processes" "$cpu_threshold" >> "$chp_output"
+
+"$EDITOR" "$chp_output"
+
+# Remove all empty and commented-out lines.
+sed -i \
+  -e '/^$/d' \
+  -e '/^#.*$/d' \
+  "$chp_output"
+
+echo "Killing the following processes:"
+echo
+cat "$chp_output"
+echo
+
+kill -9 $(cut -f1 "$chp_output")
+
+echo "Done."
