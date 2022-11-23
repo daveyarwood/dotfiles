@@ -15,7 +15,7 @@
       ],
       "args": [
         "-c",
-        "/home/dave/bin/clojure-lsp"
+        "/usr/local/bin/clojure-lsp"
       ],
       "command": "bash",
       "filetypes": [
