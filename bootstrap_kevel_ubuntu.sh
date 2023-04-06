@@ -179,12 +179,12 @@ curl \
   --tlsv1.2 \
   --silent \
   --show-error \
-  --header 'x-connect-key: 9d06120a5088af426039b10f2ba191e737fd1872' \
+  --header 'x-connect-key: 8546ec80a5f3ca310870dcca7b2de7b7f71e0d66' \
   https://kickstart.jumpcloud.com/Kickstart \
   | sudo bash
 echo
-echo "*** Notify Norton Street (support@nortonstreet.biz) so that your user "
-echo "    can be bound to your Linux machine.***"
+echo "*** Notify Jonathan Carpenter so that your user can be bound to your"
+echo "    Linux machine.***"
 press-enter-to-continue
 
 # Reference:
