@@ -33,7 +33,8 @@ sudo apt install -y \
   mitmproxy \
   pip \
   wget \
-  gnupg ca-certificates
+  gnupg ca-certificates \
+  clamav clamav-daemon
 echo
 
 echo "Installing various pip packages..."
