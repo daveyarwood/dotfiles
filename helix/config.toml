@@ -1,0 +1,18 @@
+theme = "gruvbox"
+
+[editor]
+cursorline = true
+# rulers = [80]
+color-modes = true
+text-width = 80
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "block"
+
+[editor.lsp]
+display-messages = true
+
+[editor.whitespace.render]
+tab = "all"

@@ -14,6 +14,7 @@
     ~/.config/dunst/dunstrc: dunstrc
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/custom: fish/custom/
+    ~/.config/helix: helix/
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
     ~/.config/nvim: vim/nvim/
     ~/.config/sxhkd/sxhkdrc: sxhkdrc
