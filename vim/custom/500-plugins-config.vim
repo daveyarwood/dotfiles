@@ -94,156 +94,6 @@ let g:clojure_align_multiline_strings = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => coc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Disable semantic highlighting because it's ugly and I'm happy with what I had
-" before.
-let g:coc_default_semantic_highlight_groups = 0
-
-" HACK to workaround coc not providing a :CocToggle command
-function! ToggleCoc() abort
-  if len(coc#status()) == 0
-    execute 'CocEnable'
-  else
-    execute 'CocDisable'
-  endif
-endfunction
-
-nnoremap <silent> <leader>cc :call ToggleCoc()<CR>
-nnoremap <leader>cd :CocList diagnostics<CR>
-nnoremap <leader>cD :CocDisable<CR>
-nnoremap <leader>ci :CocInfo<CR>
-nnoremap <silent> <Leader>cI :call CocAction('showIncomingCalls')<CR>
-nnoremap <silent> <Leader>cO :call CocAction('showOutgoingCalls')<CR>
-
-" press q to close e.g. the :CocInfo buffer
-augroup coc_buffers
-  autocmd!
-  autocmd BufEnter output:///info nnoremap <buffer> q :bd<CR>
-augroup END
-
-" don't give |ins-completion-menu| messages
-set shortmess+=c
-set signcolumn=yes
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Insert <tab> when previous text is space, refresh completion if not.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Use <CR> to confirm completion
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
-				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-let g:coc_enable_locationlist = 0
-augroup coc_locationlist
-  autocmd!
-  autocmd User CocLocationsChange CocList --normal location
-augroup END
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-nmap <silent> [k :CocPrev<cr>
-nmap <silent> ]k :CocNext<cr>
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation() abort
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-function! Expand(exp) abort
-    let l:result = expand(a:exp)
-    return l:result ==# '' ? '' : "file://" . l:result
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-augroup coc_highlight_symbol_under_cursor
-  autocmd!
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup END
-vmap <leader>cf <Plug>(coc-format-selected)
-nmap <leader>cf <Plug>(coc-format-selected)
-
-nnoremap <silent> crcc :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'cycle-coll', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crth :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'thread-first', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crtt :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'thread-last', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crtf :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'thread-first-all', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crtl :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'thread-last-all', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> cruw :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'unwind-thread', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crua :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'unwind-all', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crml :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'move-to-let', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1, input('Binding name: ')]})<CR>
-nnoremap <silent> cril :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'introduce-let', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1, input('Binding name: ')]})<CR>
-nnoremap <silent> crel :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'expand-let', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> cram :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'add-missing-libspec', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> crcn :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'clean-ns', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1]})<CR>
-nnoremap <silent> cref :call CocRequest('clojure-lsp', 'workspace/executeCommand', {'command': 'extract-function', 'arguments': [Expand('%:p'), line('.') - 1, col('.') - 1, input('Function name: ')]})<CR>
-
-" NB: I don't know what codeActions are, and <leader>a conflicts with my
-" ZoomToggle binding, so I'm just commenting this out for now.
-"
-" If/when I learn what codeActions are and want to use them, I'll have to come
-" up with a different binding.
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-" vmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-augroup coc_load_clojure_content
-  autocmd BufReadCmd,FileReadCmd,SourceCmd jar:file://*
-        \ call s:LoadClojureContent(expand("<amatch>"))
-augroup END
-
-function! s:LoadClojureContent(uri) abort
-  setfiletype clojure
-  let content = CocRequest('clojure-lsp', 'clojure/dependencyContents', {'uri': a:uri})
-  call setline(1, split(content, "\n"))
-  setl nomodified
-  setl readonly
-endfunction
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup commentary_config
@@ -612,7 +462,7 @@ let g:lightline = {
   \   'colorscheme': 'onehalfdark',
   \   'active': {
   \     'left':[ [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ]
+  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
   \     ],
   \     'right': [['lineinfo'],
   \               ['percent'],
@@ -623,7 +473,6 @@ let g:lightline = {
 	\   },
   \   'component_function': {
   \     'gitbranch': 'FugitiveHead',
-  \     'cocstatus': 'coc#status',
   \   }
   \ }
 let g:lightline.separator = {

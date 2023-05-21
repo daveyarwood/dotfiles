@@ -4,14 +4,21 @@ call plug#begin('~/.vim/bundle')
 Plug 'ayu-theme/ayu-vim'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'itchyny/lightline.vim'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'm00qek/baleia.nvim'
 Plug 'morhetz/gruvbox'
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'vim-scripts/mayansmoke'
 
-" editor enhancements
+" lsp-related stuff
+Plug 'neovim/nvim-lspconfig'
+Plug 'ErichDonGubler/lsp_lines.nvim'
+Plug 'nvim-lua/plenary.nvim' " Dependency of telescope
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" other editor enhancements
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
@@ -27,7 +34,6 @@ Plug 'kshenoy/vim-signature'
 Plug 'liuchengxu/vista.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'machakann/vim-sandwich'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'schickling/vim-bufonly'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
