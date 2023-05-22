@@ -11,8 +11,6 @@ local lspconfig = require("lspconfig")
 
 lspconfig.clojure_lsp.setup{}
 
-lspconfig.solargraph.setup{}
-
 lspconfig.gopls.setup {
   cmd = {"gopls", "serve"},
   settings = {
@@ -24,3 +22,6 @@ lspconfig.gopls.setup {
     },
   },
 }
+
+lspconfig.solargraph.setup{}
+
