@@ -9,6 +9,8 @@ vim.diagnostic.config({
 
 local lspconfig = require("lspconfig")
 
+lspconfig.bashls.setup{}
+
 lspconfig.clojure_lsp.setup{}
 
 lspconfig.gopls.setup {

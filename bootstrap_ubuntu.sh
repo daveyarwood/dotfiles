@@ -170,16 +170,15 @@ git clone \
 ################################################################################
 
 echo
-echo "Installing Node.js..."
+echo "Installing Node.js and various npm packages..."
 echo
 curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt install -y nodejs
 npm config set prefix ~/npm
 
-
 # Install various Node and Yarn packages that I need globally.
-npm install -g chromedriver vmd yarn
-yarn global add diagnostic-languageserver
+npm install -g \
+  chromedriver vmd yarn diagnostic-languageserver bash-language-server
 
 ################################################################################
 # Install Go
