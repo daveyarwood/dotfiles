@@ -148,7 +148,7 @@ function! ToggleConjureLog() abort
   endif
 endfunction
 
-augroup additional_conjure_bindings
+augroup additional_conjure_bindings_etc
   autocmd!
 
   autocmd FileType clojure,fennel,janet,racket
@@ -167,7 +167,12 @@ augroup additional_conjure_bindings
   " some reason.
   autocmd BufEnter conjure-log-* nmap <buffer> q <localleader>lq
 
+  " Ensure that the log buffer's ft is set to Clojure. (I think Conjure used to
+  " do this automatically, but then it stopped doing it for some reason.)
   autocmd BufEnter conjure-log-*.cljc set ft=clojure
+
+  " Disable LSP diagnostics in the Conjure log buffer
+  autocmd BufEnter conjure-log-* lua vim.diagnostic.disable()
 augroup END
 
 
