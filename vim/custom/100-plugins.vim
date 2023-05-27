@@ -18,8 +18,10 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'jose-elias-alvarez/null-ls.nvim' " Dependency of prettier.nvim
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'MunifTanjim/prettier.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim' " Dependency of telescope
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }

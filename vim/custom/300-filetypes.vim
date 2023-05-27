@@ -30,7 +30,6 @@ augroup javascript_filetype_settings
   autocmd FileType javascript call JavaScriptFold()
   autocmd FileType javascript setl fen
   autocmd FileType javascript setl nocindent
-  autocmd BufWritePost *.js,*.ts,*.tsx CocCommand prettier.formatFile
 augroup END
 
 
