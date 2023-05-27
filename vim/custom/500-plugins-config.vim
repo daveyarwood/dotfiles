@@ -416,39 +416,6 @@ let g:Hexokinase_refreshEvents = [
       \ ]
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => lightline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:lightline = {
-  \   'colorscheme': 'onehalfdark',
-  \   'active': {
-  \     'left':[ [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-  \     ],
-  \     'right': [['lineinfo'],
-  \               ['percent'],
-  \               ['fileformat', 'fileencoding', 'filetype']]
-  \   },
-	\   'component': {
-	\     'lineinfo': ' %3l:%-2v',
-	\   },
-  \   'component_function': {
-  \     'gitbranch': 'FugitiveHead',
-  \   }
-  \ }
-let g:lightline.separator = {
-	\   'left': '', 'right': ''
-  \}
-let g:lightline.subseparator = {
-	\   'left': '', 'right': ''
-  \}
-
-let g:lightline.tabline = {
-  \   'left': [ ['tabs'] ],
-  \   'right': [ ['close'] ]
-  \ }
-
-
 """""""""""""""""""""""""""""""
 " => Merlin (OCAML)
 """""""""""""""""""""""""""""""

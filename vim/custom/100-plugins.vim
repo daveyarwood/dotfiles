@@ -3,7 +3,6 @@ call plug#begin('~/.vim/bundle')
 " aesthetic
 Plug 'ayu-theme/ayu-vim'
 Plug 'cormacrelf/vim-colors-github'
-Plug 'itchyny/lightline.vim'
 Plug 'm00qek/baleia.nvim'
 Plug 'morhetz/gruvbox'
 Plug 'nvim-tree/nvim-web-devicons'
@@ -24,6 +23,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'MunifTanjim/prettier.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim' " Dependency of telescope
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-symbols.nvim'
