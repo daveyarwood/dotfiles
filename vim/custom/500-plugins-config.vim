@@ -193,7 +193,7 @@ let g:ctrlsf_extra_backend_args = {'rg': '--hidden --glob !tags --glob !.git/'}
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
-nmap <leader>td :CtrlSF -R TODO<bar>FIXME<CR>
+nmap <leader>tD :CtrlSF -R TODO<bar>FIXME<CR>
 nmap <leader>8 :CtrlSF -R '.{81,}'<CR>
 
 
@@ -323,63 +323,6 @@ nnoremap <silent> -
 " => elm-vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:elm_format_autosave = 0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => fzf
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <C-f> :FZF<CR>
-nnoremap <C-g> :GFiles<CR>
-nnoremap <C-g> :GFiles<CR>
-
-" I think I can't use <C-m> for this one because <C-m> is sort of the same thing
-" as Enter, so when I press Enter, :Maps<CR> is happening.
-nnoremap <leader>m :Maps<CR>
-
-" I can't use <C-h> because I use that to navigate between vim/tmux panes.
-nnoremap <leader>h :Helptags<CR>
-
-" I can't use <C-b> for this one because <C-b> is my tmux prefix key.
-"
-" Using <leader>bb instead of <leader>b because I have other buffer-related
-" mappings that start with <leader>b, e.g. <leader>bd to delete the current
-" buffer.
-nnoremap <leader>bl :Buffers<CR>
-
-" <C-t> is already the stock Vim keybinding for 'go back to where you were after
-" following a tag', and it's so ingrained in my muscle memory, I can't remap it
-" to something else. So this mapping is a bit of an oddball, but I'm OK with it.
-" It actually kind of fits in with the <leader>T mapping for tagbar, another Vim
-" plugin also related to tags, so it feels alright.
-"
-" Another note: I wanted <leader>t but I have other mappings for the neoterm
-" plugin that are <leader>t followed by another key. <leader>tt isn't so bad,
-" though.
-nnoremap <leader>tt :Tags<CR>
-
-" source: https://www.reddit.com/r/neovim/comments/djmehv/im_probably_really_late_to_the_party_but_fzf_in_a/f463fxr/
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-function! FloatingFZF() abort
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = float2nr(15)
-  let width = float2nr(80)
-  let horizontal = float2nr((&columns - width) / 2)
-  let vertical = float2nr((&lines - height) / 2)
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -513,40 +456,6 @@ if executable('opam')
   let g:opamshare = substitute(system('opam config var share 2>/dev/null'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => neoterm
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:neoterm_shell = 'fish'
-let g:neoterm_autoscroll = 1
-let g:neoterm_keep_term_open = 0
-let g:neoterm_autoinsert = 1
-
-nmap gt <Plug>(neoterm-repl-send)
-xmap gt <Plug>(neoterm-repl-send)
-nmap gtt <Plug>(neoterm-repl-send-line)
-
-" nnoremap <silent> <f10> :TREPLSendFile<cr>
-" nnoremap <silent> <f9> :TREPLSendLine<cr>
-" vnoremap <silent> <f9> :TREPLSendSelection<cr>
-
-" open the default terminal (mnemonic: terminal prompt)
-nnoremap <silent> ,tp :above Topen<CR>
-
-" prompt to use the default terminal or terminals 1-3
-" Usage: ,t<space>ls<CR>
-nnoremap ,t<space> :above T<space>
-nnoremap ,t1 :above T1<space>
-nnoremap ,t2 :above T2<space>
-nnoremap ,t3 :above T3<space>
-
-" hide/close terminal
-nnoremap <silent> ,tC :call neoterm#close()<cr>
-" clear terminal
-nnoremap <silent> ,tc :call neoterm#clear()<cr>
-" interrupts the current job (send a <c-c>)
-nnoremap <silent> ,ti :call neoterm#kill()<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -864,34 +773,6 @@ nmap <leader>wt <Plug>VimwikiMakeDiaryNote
 " tomorrow" mappings.
 nmap <leader>wy <Plug>VimwikiMakeYesterdayDiaryNote
 nmap <leader>wT <Plug>VimwikiMakeTomorrowDiaryNote
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vista
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
-let g:vista#renderer#enable_icon = 0
-let g:vista_sidebar_width = 40
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
-let g:vista_icon_indent = ["▸ ", ""]
-nnoremap <leader>T :Vista!!<CR>
-
-" Don't blink the cursor after jumping to definition.
-let g:vista_top_level_blink = [0, 0]
-
-" Jump to the definition the cursor is over for easy previewing.
-let g:vista_echo_cursor_strategy = 'scroll'
-
-" Close the Vista window once I choose something.
-let g:vista_close_on_jump = 1
-
-" Instead of the nested structure used by default, list all tags by kind, e.g.
-" all methods, then all namespaces, etc. This display looks cleaner to me.
-let g:vista#renderer#ctags = 'kind'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

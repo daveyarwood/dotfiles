@@ -18,27 +18,8 @@ autocmd BufEnter *.clj,*.cljs,*.edn stopinsert
 " (This doesn't work, for some reason.)
 " autocmd FileType clojure stopinsert
 
-" When Escape is pressed while in Terminal mode:
-" * If it's the FZF buffer, close it.
-" * Otherwise, enter Normal mode.
-tnoremap <silent> <esc> <C-\><C-n>:silent! call QuitFZFBuffer()<CR>
-
-" This mostly works, but results in errors like this sometimes being printed
-" in the the output that prints to the terminal AFTER exiting Vim:
-"
-" Error detected while processing function 57:
-" line   17:
-" E516: No buffers were deleted: bd! 7
-" Error running ( bash '/tmp/user/1000/nvimdrsnj1/10' )|'/home/dave/.fzf/bin/fzf'  '--multi' '--prompt' '~/.dotfiles/' --expect=ctrl-v,ctrl-x,ctrl-t --no-height > /tmp/user/1000/nvimdrsnj1/9
-"
-" Commenting it out for now, so I just have to use ^C to exit the FZF buffer. It
-" sure would be nice to be able to use Escape to exit it, instead. Oh well.
-function! QuitFZFBuffer() abort
-  " if bufname("%") =~ "fzf"
-  "   normal i<C-c>
-  "   bwipeout!
-  " endif
-endfunction
+" When Escape is pressed while in Terminal mode, enter Normal mode.
+tnoremap <silent> <esc> <C-\><C-n><CR>
 
 " " required for python remote plugins
 let g:python_host_prog = '/usr/bin/python'

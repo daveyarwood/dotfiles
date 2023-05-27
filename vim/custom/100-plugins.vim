@@ -24,6 +24,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim' " Dependency of telescope
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'PaterJason/cmp-conjure'
 Plug 'saadparwaiz1/cmp_luasnip'
@@ -35,12 +36,8 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'kassio/neoterm'
 Plug 'kristijanhusak/defx-icons'
 Plug 'kshenoy/vim-signature'
-Plug 'liuchengxu/vista.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'machakann/vim-sandwich'
 Plug 'ntpeters/vim-better-whitespace'
