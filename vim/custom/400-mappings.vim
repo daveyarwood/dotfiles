@@ -47,7 +47,7 @@ command! Q q
 " Disable highlight
 map <silent> <leader><cr> :noh<cr>
 
-nnoremap <leader>ec :Defx ~/.vim/custom/<cr>
+nnoremap <leader>ec :e! ~/.vim/custom/<cr>
 nnoremap <leader>ef :e! ~/.vim/custom/300-filetypes.vim<cr>
 nnoremap <leader>el :e! ~/.config/nvim/lua/user/config.lua<cr>
 nnoremap <leader>em :e! ~/.vim/custom/400-mappings.vim<cr>
