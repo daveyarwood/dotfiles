@@ -19,6 +19,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim' " Dependency of telescope
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -27,7 +28,6 @@ Plug 'PaterJason/cmp-conjure'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 " other editor enhancements
-Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'dyng/ctrlsf.vim'

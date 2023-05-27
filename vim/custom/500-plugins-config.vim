@@ -425,6 +425,16 @@ let g:gitgutter_map_keys = 0
 let g:gitgutter_terminal_reports_focus=0
 
 
+" Don't hide the sign column when there are no diagnostics/git changes. I like
+" it better this way because otherwise, my text keeps going back and forth
+" every time the diagnostics/gitgutter signs appear/disappear.
+set signcolumn=yes
+
+" If there are diagnostics in the sign column, I'd rather see those instead of
+" the gitgutter signs.
+let g:gitgutter_sign_allow_clobber = 0
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => gofmt
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
