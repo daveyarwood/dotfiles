@@ -1,6 +1,9 @@
+----- Auxiliary / LSP-adjacent plugins -----
+
 -- This plugin makes it easier to read diagnostics when there are more than one
 -- per line.
-require("lsp_lines").setup()
+local lsp_lines = require("lsp_lines")
+lsp_lines.setup()
 
 -- Disable virtual_text since it's redundant due to lsp_lines.
 vim.diagnostic.config({
@@ -13,6 +16,24 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+----- Mappings -----
+
+local nmap = require("user.fns").nmap
+
+nmap("gd", vim.lsp.buf.definition)
+nmap("K", vim.lsp.buf.hover)
+-- Because Conjure overwrites K, I also define the LSP hover as gK. That way, I
+-- can use either one when I'm working on Clojure code, depending on whether or
+-- not I have a REPL running.
+nmap("gK", vim.lsp.buf.hover)
+nmap("gr", vim.lsp.buf.references)
+nmap("[d", vim.diagnostic.goto_prev)
+nmap("]d", vim.diagnostic.goto_next)
+
+-- lsp_lines can be noisy when there are a lot of findings, so provide an easy
+-- binding to toggle it as needed
+nmap("<leader>l", lsp_lines.toggle)
 
 ----- Language servers -----
 

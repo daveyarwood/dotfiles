@@ -1,7 +1,19 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 
-telescope.setup {}
+telescope.setup {
+  pickers = {
+    buffers = { theme = "ivy" },
+    diagnostics = { theme = "ivy" },
+    find_files = { theme = "ivy" },
+    help_tags = { theme = "ivy" },
+    keymaps = { theme = "ivy" },
+    live_grep = { theme = "ivy" },
+    lsp_references = { theme = "ivy" },
+    lsp_workspace_symbols = { theme = "ivy" },
+    symbols = { theme = "ivy" },
+  }
+}
 
 -- Extensions
 
@@ -22,6 +34,7 @@ nmap("<leader>tf", builtin.find_files)
 nmap("<leader>tg", builtin.live_grep)
 nmap("<leader>th", builtin.help_tags)
 nmap("<leader>tm", builtin.keymaps)
+nmap("<leader>tr", builtin.lsp_references)
 nmap("<leader>ts", builtin.lsp_workspace_symbols)
 
 -- Because I jump around so much, it's nice to have a short mapping for this
