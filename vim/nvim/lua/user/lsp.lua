@@ -37,6 +37,21 @@ nmap("<leader>l", lsp_lines.toggle)
 
 ----- Language servers -----
 
+-- Temporarily disable file watcher to keep clojure-lsp from hanging
+-- Ref: https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
+--
+-- The downside of doing this is that LSP does not automatically update when
+-- changes to files happen outside of Neovim, e.g. when switching branches.
+--
+-- TODO: Try removing this workaround whenever the issue above is resolved.
+local ok, wf = pcall(require, "vim.lsp._watchfiles")
+if ok then
+   -- disable lsp watcher. Too slow on linux
+   wf._watchfunc = function()
+     return function() end
+   end
+end
+
 local lspconfig = require("lspconfig")
 local cmp_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
