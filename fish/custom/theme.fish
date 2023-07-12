@@ -115,9 +115,9 @@ function fish_prompt
   taskwarrior_task_count
   set_color normal # Undoes the --dim
 
-  # TODO: Adjust this if jha doesn't necessarily imply escalation. I'm still not
-  # totally sure how escalation works.
-  if grep -q "jha" < (echo $AWS_PROFILE | psub)
+  # TODO: Figure out what pattern corresponds to prod. Or maybe there is some
+  # other way to check whether my permissions are escalated?
+  if grep -q "some-prod-pattern?" < (echo $AWS_PROFILE | psub)
     echo -n " "
     set_color --background red
     echo -n $AWS_PROFILE
