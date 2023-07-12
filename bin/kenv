@@ -8,8 +8,8 @@ zecret="$CODEDIR/teammgmt/bin/zecret"
 
 export AWS_PAGER=""
 
-account="prod"
-role="DevOps"
+account="jha"
+role="ManagementAdmin"
 
 if [[ -n "$1" ]]; then
   account="$1"
