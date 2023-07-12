@@ -31,6 +31,10 @@ export AWS_PROFILE="kevel-$account-$role"
 aws sts get-caller-identity >/dev/null 2>/dev/null \
   || aws sso login
 
+# Ensure that the AWS environment variables (AWS_ACCESS_KEY_ID et al) are set,
+# since `pacs` doesn't work with SSO and needs those env vars set instead.
+eval "$(aws configure export-credentials --format env)"
+
 ################################################################################
 
 ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN)"
