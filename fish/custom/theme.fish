@@ -110,16 +110,25 @@ function fish_prompt
   set_color --bold $mode_color
   echo -n (prompt_segments | tail -n1)
 
-  set_color normal # undoes --bold
+  set_color normal # Undoes --bold
   set_color --dim white
   taskwarrior_task_count
-  set_color normal # undoes the --dim
+  set_color normal # Undoes the --dim
 
-  set_color --bold $mode_color
-
-  if set -q AWS_ACCESS_KEY_ID || set -q AWS_PROFILE
-    printf " 🔓"
+  # TODO: Adjust this if jha doesn't necessarily imply escalation. I'm still not
+  # totally sure how escalation works.
+  if grep -q "jha" < (echo $AWS_PROFILE | psub)
+    echo -n " "
+    set_color --background red
+    echo -n $AWS_PROFILE
+  else if test -n "$AWS_PROFILE"
+    echo -n " "
+    set_color --background blue
+    echo -n $AWS_PROFILE
   end
+
+  set_color normal # Undoes background color, if any
+  set_color --bold $mode_color
 
   printf ' → '
 
