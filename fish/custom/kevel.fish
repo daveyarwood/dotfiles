@@ -13,6 +13,36 @@ set -gx SAY_OPTS "-e tempo 1.25 -l en-uk"
 
 alias adzerk $ADZERK_CLI_TOOLS_REPO_PATH/adzerk
 
+# Add `pacs` to PATH, along with whatever other scripts they might add to this
+# dir in the future.
+add-dirs-to-path $CODEDIR/infrastructure/scripts
+
+function kescalate
+  if test (count $argv) -ne 1
+    echo "Usage: kescalate sc-XXXXX"
+    return 1
+  end
+
+  set -l ticket_id $argv[1]
+
+  set -l pacs_output (mktemp)
+  pacs -t $ticket_id > $pacs_output
+
+  set -gx AWS_ACCESS_KEY_ID (jq -r '.AWS_ACCESS_KEY_ID' $pacs_output)
+  set -gx AWS_SECRET_ACCESS_KEY (jq -r '.AWS_SECRET_ACCESS_KEY' $pacs_output)
+  set -gx AWS_SESSION_TOKEN (jq -r '.AWS_SESSION_TOKEN' $pacs_output)
+  set -gx KEVEL_ESCALATION_TICKET (jq -r '.escalationTicket' $pacs_output)
+  set -gx KEVEL_ACCOUNT_ID (jq -r '.accountId' $pacs_output)
+  set -gx KEVEL_ROLE_SES_NAME (jq -r '.role_ses_name' $pacs_output)
+  set -gx KEVEL_AWS_CONSOLE_URL (jq -r '.AWS_console_Login' $pacs_output)
+
+  rm $pacs_output
+
+  # Remove other AWS env vars hanging around from the role I needed to have
+  # assumed in order to escalate.
+  set -e AWS_PROFILE AWS_CREDENTIAL_EXPIRATION
+end
+
 function zerkurl
   if test -z $ADZERK_API_KEY
     echo "ERROR: ADZERK_API_KEY not set."
