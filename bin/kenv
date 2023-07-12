@@ -37,6 +37,11 @@ eval "$(aws configure export-credentials --format env)"
 
 ################################################################################
 
+# FIXME: These fail for the ReadOnlyDevOps role, but they need to be set in
+# order to run scripts. By the time I escalate, it's already too late.
+#
+# TODO: Figure out how best to handle these now.
+
 ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN)"
 export ADZERK_SLACK_TOKEN
 
