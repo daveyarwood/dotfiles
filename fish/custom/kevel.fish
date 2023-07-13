@@ -43,7 +43,7 @@ function kescalate
   set -e AWS_PROFILE AWS_CREDENTIAL_EXPIRATION
 
   # Since the escalated credentials don't have a profile where I could specify
-  # the region, I'll set in via the env var instead.
+  # the region, I'll set it via the env var instead.
   set -gx AWS_DEFAULT_REGION us-east-1
 end
 
