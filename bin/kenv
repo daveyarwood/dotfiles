@@ -20,7 +20,7 @@ if [[ -n "$2" ]]; then
 fi
 
 if [[ $# -gt 2 ]]; then
-  echo "Usage: $0 ACCOUNT ROLE"
+  >&2 echo "Usage: $0 ACCOUNT ROLE"
   exit 1
 fi
 
@@ -42,16 +42,16 @@ eval "$(aws configure export-credentials --format env)"
 #
 # TODO: Figure out how best to handle these now.
 
-ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN)"
+ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN || echo "")"
 export ADZERK_SLACK_TOKEN
 
-SHORTCUT_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN)"
+SHORTCUT_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN || echo "")"
 export SHORTCUT_API_TOKEN
 
 ################################################################################
 
 if [[ "$SHELL" != *"fish" ]]; then
-  echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
+  >&2 echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
 fi
 # NOTE: ssh-init is defined in ssh.fish
 "$SHELL" -i -C ssh-init
