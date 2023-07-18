@@ -85,6 +85,50 @@ function shortcut-member-id
   zchcurl /v3/member -s --fail | jq -r '.id'
 end
 
+function zchcreate
+  if test (count $argv) -lt 1 || test (count $argv) -gt 2
+    echo "Usage: zchcreate TITLE [DESCRIPTION]"
+    return 1
+  end
+
+  set -l title $argv[1]
+  set -l description $argv[2]
+
+  if test -z "$description"
+    set description "Story created by script. TODO: Write description"
+  end
+
+  set -l me (shortcut-member-id || return 1)
+
+  # I'll probably use this script for chore tasks most of the time. If there is
+  # an exception, I can just change the story type after the fact.
+  set -l story_type "chore"
+
+  set -l group_id "5eb164af-7cbb-450a-9821-9bacd12a6a4e" # Team: Management
+  set -l workflow_state_id 500000006 # Engineering & Support - Crushing
+  set -l project_id 6 # Management
+
+  set -l story_json \
+    (zchcurl \
+       "/v3/stories" \
+       -s --fail \
+       -d (jo "name=$title" \
+              "description=$description" \
+              "owner_ids="(jo -a "$me") \
+              "project_id=$project_id" \
+              "group_id=$group_id" \
+              "workflow_state_id=$workflow_state_id" \
+              "story_type=$story_type"))
+
+  set -l story_id (echo "$story_json" | jq -r '.id')
+  set -l story_url (echo "$story_json" | jq -r '.app_url')
+
+  echo "Story ID: $story_id"
+
+  # Open story in browser for editing
+  xdg-open "$story_url"
+end
+
 function zchown
   set -l shortcut_member_id (shortcut-member-id || return 1)
 
