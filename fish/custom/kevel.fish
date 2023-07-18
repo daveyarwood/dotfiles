@@ -86,7 +86,7 @@ function shortcut-member-id
 end
 
 function zchown
-  set shortcut_member_id (shortcut-member-id || return 1)
+  set -l shortcut_member_id (shortcut-member-id || return 1)
 
   for story_id in $argv
     echo "Fetching story $story_id..."
@@ -107,7 +107,7 @@ function zchown
 end
 
 function zchdisown
-  set shortcut_member_id (shortcut-member-id || return 1)
+  set -l shortcut_member_id (shortcut-member-id || return 1)
 
   for story_id in $argv
     echo "Fetching story $story_id..."
