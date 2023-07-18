@@ -81,22 +81,23 @@ function zchcurl
        $argv
 end
 
+function shortcut-member-id
+  zchcurl /v3/member -s --fail | jq -r '.id'
+end
+
 function zchown
-  if test -z $SHORTCUT_MEMBER_ID
-    echo "ERROR: SHORTCUT_MEMBER_ID not set."
-    return 1
-  end
+  set shortcut_member_id (shortcut-member-id || return 1)
 
   for story_id in $argv
     echo "Fetching story $story_id..."
     set -l story (zchcurl /v2/stories/$story_id -s 2>&1); or return $status
 
-    echo "Adding $SHORTCUT_MEMBER_ID as owner..."
+    echo "Adding $shortcut_member_id as owner..."
     zchcurl /v2/stories/$story_id \
       -X PUT \
       -d (jo owner_ids=(echo $story \
 			| jq -c ".owner_ids
-				   | . += [\"$SHORTCUT_MEMBER_ID\"]
+				   | . += [\"$shortcut_member_id\"]
 				   | unique")) \
       # Just output the headers to STDERR so I can see if the update was
       # successful.
@@ -106,10 +107,7 @@ function zchown
 end
 
 function zchdisown
-  if test -z $SHORTCUT_MEMBER_ID
-    echo "ERROR: SHORTCUT_MEMBER_ID not set."
-    return 1
-  end
+  set shortcut_member_id (shortcut-member-id || return 1)
 
   for story_id in $argv
     echo "Fetching story $story_id..."
@@ -119,13 +117,13 @@ function zchdisown
       return $status
     end
 
-    echo "Removing $SHORTCUT_MEMBER_ID as owner/follower..."
+    echo "Removing $shortcut_member_id as owner/follower..."
     zchcurl /v2/stories/$story_id \
       -X PUT \
       -d (jo owner_ids=(echo $story \
-			| jq -c ".owner_ids | . -= [\"$SHORTCUT_MEMBER_ID\"]")  \
+			| jq -c ".owner_ids | . -= [\"$shortcut_member_id\"]")  \
 	     follower_ids=(echo $story \
-			   | jq -c ".follower_ids | . -= [\"$SHORTCUT_MEMBER_ID\"]")) \
+			   | jq -c ".follower_ids | . -= [\"$shortcut_member_id\"]")) \
       # Just output the headers to STDERR so I can see if the update was
       # successful.
       -sD /dev/stderr >/dev/null
