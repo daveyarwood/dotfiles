@@ -8,8 +8,8 @@ zecret="$CODEDIR/teammgmt/bin/zecret"
 
 export AWS_PAGER=""
 
-account="jha"
-role="ReadOnlyDevOps"
+account="dev"
+role="DevOps"
 
 if [[ -n "$1" ]]; then
   account="$1"
@@ -36,11 +36,6 @@ aws sts get-caller-identity >/dev/null 2>/dev/null \
 eval "$(aws configure export-credentials --format env)"
 
 ################################################################################
-
-# FIXME: These fail for the ReadOnlyDevOps role, but they need to be set in
-# order to run scripts. By the time I escalate, it's already too late.
-#
-# TODO: Figure out how best to handle these now.
 
 ADZERK_SLACK_TOKEN="$("$zecret" ADZERK_SLACK_TOKEN || echo "")"
 export ADZERK_SLACK_TOKEN
