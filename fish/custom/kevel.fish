@@ -28,7 +28,14 @@ function kescalate
   set -l pacs_output (mktemp)
   pacs -t $ticket_id > $pacs_output
 
-  set -gx AWS_ACCESS_KEY_ID (jq -r '.AWS_ACCESS_KEY_ID' $pacs_output)
+  set -l aws_access_key_id (jq -r '.AWS_ACCESS_KEY_ID // ""' $pacs_output)
+
+  if test -z "$aws_access_key_id"
+    cat "$pacs_output"
+    return 1
+  end
+
+  set -gx AWS_ACCESS_KEY_ID "$aws_access_key_id"
   set -gx AWS_SECRET_ACCESS_KEY (jq -r '.AWS_SECRET_ACCESS_KEY' $pacs_output)
   set -gx AWS_SESSION_TOKEN (jq -r '.AWS_SESSION_TOKEN' $pacs_output)
   set -gx KEVEL_ESCALATION_TICKET (jq -r '.escalationTicket' $pacs_output)
