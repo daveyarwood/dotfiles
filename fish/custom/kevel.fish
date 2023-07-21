@@ -52,6 +52,12 @@ function kescalate
   # Since the escalated credentials don't have a profile where I could specify
   # the region, I'll set it via the env var instead.
   set -gx AWS_DEFAULT_REGION us-east-1
+
+  # I have to do this here because the ReadOnlyDevOps role (needed in order to
+  # escalate) does not have access to these secrets.
+  set -l zecret "$CODEDIR/teammgmt/bin/zecret"
+  set -gx ADZERK_SLACK_TOKEN ($zecret ADZERK_SLACK_TOKEN || echo "")
+  set -gx SHORTCUT_API_TOKEN ($zecret KEVEL_CLUBHOUSE_API_TOKEN || echo "")
 end
 
 function zerkurl
