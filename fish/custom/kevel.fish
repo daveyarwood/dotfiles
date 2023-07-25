@@ -17,6 +17,10 @@ alias adzerk $ADZERK_CLI_TOOLS_REPO_PATH/adzerk
 # dir in the future.
 add-dirs-to-path $CODEDIR/infrastructure/scripts
 
+# This is used by some scripts (e.g. `list-amis`) to switch to that profile and
+# do things specifically in the JHA ReadOnlyDevOps account.
+set -gx KEVEL_JHA_READONLY_PROFILE kevel-jha-ReadOnlyDevOps
+
 function kescalate
   if test (count $argv) -ne 1
     echo "Usage: kescalate sc-XXXXX"
