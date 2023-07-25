@@ -43,6 +43,9 @@ export ADZERK_SLACK_TOKEN
 SHORTCUT_API_TOKEN="$("$zecret" KEVEL_CLUBHOUSE_API_TOKEN || echo "")"
 export SHORTCUT_API_TOKEN
 
+GITHUB_TOKEN="$("$zecret" GITHUB_TOKEN || echo "")"
+export GITHUB_TOKEN
+
 ################################################################################
 
 if [[ "$SHELL" != *"fish" ]]; then
