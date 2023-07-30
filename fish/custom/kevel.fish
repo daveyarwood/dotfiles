@@ -21,6 +21,11 @@ add-dirs-to-path $CODEDIR/infrastructure/scripts
 # do things specifically in the JHA ReadOnlyDevOps account.
 set -gx KEVEL_JHA_READONLY_PROFILE kevel-jha-ReadOnlyDevOps
 
+function valid_json
+  echo $argv[1] | jq -e . >/dev/null 2>&1
+  return $status
+end
+
 function kescalate
   if test (count $argv) -ne 1
     echo "Usage: kescalate sc-XXXXX"
@@ -99,7 +104,14 @@ function zchcurl
 end
 
 function shortcut-member-id
-  zchcurl /v3/member -s --fail | jq -r '.id'
+  set -l response_json (zchcurl /v3/member -s --fail)
+
+  if ! valid_json "$response_json"
+    echo "$response_json" >/dev/stderr
+    return 1
+  end
+
+  echo "$response_json" | jq -r '.id'
 end
 
 function zchcreate
@@ -136,6 +148,11 @@ function zchcreate
               "group_id=$group_id" \
               "workflow_state_id=$workflow_state_id" \
               "story_type=$story_type"))
+
+  if ! valid_json "$story_json"
+    echo "$story_json" >/dev/stderr
+    return 1
+  end
 
   set -l story_id (echo "$story_json" | jq -r '.id')
   set -l story_url (echo "$story_json" | jq -r '.app_url')
