@@ -303,6 +303,15 @@ if executable('opam')
 endif
 
 
+"""""""""""""""""""""""""""""""
+" => Neoformat
+"""""""""""""""""""""""""""""""
+augroup format_js_code_on_save
+  autocmd!
+  autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx Neoformat prettierd
+augroup END
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => nim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
