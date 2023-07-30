@@ -81,7 +81,6 @@ Plug 'iloginow/vim-stylus'
 Plug 'IoLanguage/io', { 'rtp': 'extras/SyntaxHighlighters/Vim' }
 Plug 'jceb/vim-orgmode'
 Plug 'jdonaldson/vaxe'
-Plug 'jtratner/vim-flavored-markdown'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vader.vim'
 Plug 'kchmck/vim-coffee-script'

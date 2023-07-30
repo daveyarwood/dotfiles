@@ -144,12 +144,16 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => markdown
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup markdown
-  autocmd!
-  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-  "for some reason, I have to set the filetype to ghmarkdown, and then set it to markdown, in order to get all of the syntax highlighting. cool!
-  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
-augroup END
+" Enable highlighting code within code fences in Markdown files.
+let g:markdown_fenced_languages = [
+      \ 'bash',
+      \ 'clojure',
+      \ 'html',
+      \ 'json',
+      \ 'javascript',
+      \ 'ruby',
+      \ 'typescript',
+      \ ]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
