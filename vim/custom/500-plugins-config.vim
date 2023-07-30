@@ -579,6 +579,9 @@ nnoremap <buffer> <leader>vF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'path_html': '~/Sync/vimwiki/html'}]
 
+" Only enable Vimwiki bindings when editing files in the path(s) above
+let g:vimwiki_global_ext = 0
+
 function! CreateSkeletonDiaryEntry() abort
   if line('$') == 1 && getline(1) == ''
     read !cat ~/Sync/vimwiki/diary/template.wiki
