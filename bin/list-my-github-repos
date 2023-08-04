@@ -6,24 +6,11 @@ require 'octokit'
 
 GITHUB_TOKEN = ENV['GITHUB_TOKEN'] or raise 'GITHUB_TOKEN environment variable not set.'
 
-github = Octokit::Client.new(access_token: GITHUB_TOKEN)
+github = Octokit::Client.new(access_token: GITHUB_TOKEN, auto_paginate: true)
 
 def names_of_non_forked_repos(repos)
   repos.reject { |repo| repo[:fork] }.map(&:name)
 end
 
-# only fetches the first page (30 repos)
-data = github.repos('daveyarwood')
-repos = names_of_non_forked_repos(data)
-
-# loop until there are no more pages
-page = []
-next_page = nil
-while page != next_page
-  data = github.last_response.rels[:next].get.data
-  next_page = names_of_non_forked_repos(data)
-  page = next_page
-  repos += next_page
-end
-
-puts repos
+puts github.repos('daveyarwood')
+           .reject { |repo| repo[:fork] }.map(&:name)
