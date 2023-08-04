@@ -6,11 +6,10 @@ require 'octokit'
 
 GITHUB_TOKEN = ENV['GITHUB_TOKEN'] or raise 'GITHUB_TOKEN environment variable not set.'
 
-github = Octokit::Client.new(:access_token => GITHUB_TOKEN)
+github = Octokit::Client.new(access_token: GITHUB_TOKEN)
 
 def names_of_non_forked_repos(repos)
-  repos.select {|repo| !repo[:fork]}
-       .map    {|repo| repo.name}
+  repos.reject { |repo| repo[:fork] }.map(&:name)
 end
 
 # only fetches the first page (30 repos)
