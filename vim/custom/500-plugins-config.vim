@@ -151,13 +151,13 @@ endfunction
 augroup additional_conjure_bindings_etc
   autocmd!
 
-  autocmd FileType clojure,fennel,janet,racket
+  autocmd FileType clojure,fennel,janet,racket,rust
         \ nnoremap <buffer>
         \ <localleader>cc :call ToggleConjureLog()<CR>
 
   " mnemonic: eval prompt
   " (like how <localleader>ee is eval expression)
-  autocmd FileType clojure,fennel,janet,racket
+  autocmd FileType clojure,fennel,janet,racket,rust
         \ nnoremap <buffer>
         \ <localleader>ep :ConjureEval<space>
 
