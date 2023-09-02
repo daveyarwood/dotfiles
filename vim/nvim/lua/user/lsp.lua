@@ -76,7 +76,7 @@ lspconfig.gopls.setup {
   },
 }
 
-require'lspconfig'.lua_ls.setup {
+lspconfig.lua_ls.setup {
   capabilities = cmp_lsp_capabilities,
   settings = {
     Lua = {
