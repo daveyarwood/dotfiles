@@ -103,6 +103,8 @@ lspconfig.lua_ls.setup {
   },
 }
 
+lspconfig.rust_analyzer.setup{}
+
 lspconfig.solargraph.setup {
   capabilities = cmp_lsp_capabilities
 }
