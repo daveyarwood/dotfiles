@@ -2,7 +2,9 @@
 set -e
 
 if [[ -z "$GITHUB_TOKEN" ]]; then
-  export GITHUB_TOKEN="$(gpg -d "$HOME/.github-token.asc")"
+  GITHUB_TOKEN="$(gpg -d "$HOME/.github-token.asc")"
+  export GITHUB_TOKEN
+
   if [[ -z "$GITHUB_TOKEN" ]]; then
     echo "ERROR: GITHUB_TOKEN not set"
     exit 1
@@ -26,7 +28,7 @@ cd "$wallpaper_dir"
 cp "$wallpaper" "$current_wallpaper"
 wallpapers=$(ls | grep -v "$current_wallpaper_basename")
 wallpapers_count=$(echo -e "$wallpapers" | wc -l)
-if (( $wallpapers_count > $history_size )); then
+if (( wallpapers_count > history_size )); then
   oldest_file=$(echo -e "$wallpapers" | head -n1)
   echo "History full; removing oldest file: $oldest_file"
   rm "$oldest_file"
