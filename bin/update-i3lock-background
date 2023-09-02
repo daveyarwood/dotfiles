@@ -19,6 +19,16 @@ current_wallpaper="$current_wallpaper_dir/$current_wallpaper_basename"
 generator_dir="$HOME/code/code-wallpaper"
 history_size=25 # number of previous wallpapers to keep
 
+# The code below generates a new wallpaper in $generator_dir and moves it to
+# $wallpaper_dir. However, I've been seeing wallpapers slowly accumulating in
+# $generator_dir. I think what might be happening is that something (e.g. me
+# closing my laptop) interrupts the wallpaper generation, and then this script
+# bombs out before it gets a chance to move the wallpaper into $wallpaper_dir.
+#
+# To address this, we can simply remove any abandoned wallpapers in
+# $generator_dir here.
+rm -rf "$generator_dir"/20*.png
+
 cd "$generator_dir"
 wallpaper=$(bundle exec generate-wallpaper.rb)
 echo "New wallpaper: $wallpaper"
