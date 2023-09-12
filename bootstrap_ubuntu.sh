@@ -51,7 +51,8 @@ sudo apt install -y \
   vlc \
   sox libsox-fmt-mp3 \
   timidity \
-  syncthing
+  syncthing \
+  firefox
 
 ################################################################################
 # Set up /tmp behavior the way I want it
