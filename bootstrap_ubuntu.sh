@@ -284,17 +284,6 @@ bash \
   "$HOME/bin"
 
 ################################################################################
-# Install Boot
-################################################################################
-
-echo
-echo "Installing Boot..."
-echo
-
-# Source: https://github.com/boot-clj/boot#install
-sudo bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
-
-################################################################################
 # Install Neovim
 ################################################################################
 
@@ -629,25 +618,6 @@ sudo apt-get update
 # Example how to remove using apt-get
 # sudo apt-get remove speedtest-cli
 sudo apt-get install speedtest
-
-################################################################################
-# Install dragon (simple way to drag-and-drop files from the command line)
-################################################################################
-
-echo
-echo "Installing dragon (drag-and-drop files from the command line)..."
-echo
-
-(
-  cd /tmp
-  git clone https://github.com/mwh/dragon
-  cd dragon
-  make
-  # Installs into ~/.local/bin by default, which works for me.
-  make install
-  cd /tmp
-  rm -rf dragon/
-)
 
 ################################################################################
 
