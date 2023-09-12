@@ -137,8 +137,8 @@ sudo apt install -y fish
 echo
 echo "Making fish the default shell..."
 echo
-which fish | sudo tee -a /etc/shells
-chsh -s "$(which fish)"
+command -v fish | sudo tee -a /etc/shells
+chsh -s "$(command -v fish)"
 
 ################################################################################
 # Install jenv
@@ -365,7 +365,7 @@ sudo update-alternatives --config x-session-manager
 # Necessary in order for the `light` program (which manages brightness; I have
 # key bindings set up so that my brightness up/down keys invoke `light`) to be
 # run without sudo.
-sudo usermod -a -G video $USER
+sudo usermod -a -G video "$USER"
 echo "NOTE: You'll need to restart in order for brightness keys to work."
 
 # Set it up so that when I close my laptop lid, it locks i3.
@@ -389,7 +389,7 @@ ExecStartPost=/usr/bin/sleep 1
 WantedBy=sleep.target
 EOF
 
-sudo systemctl enable suspend@$USER.service
+sudo systemctl enable "suspend@$USER.service"
 
 ################################################################################
 # Install i3-volume (volume control w/ on-screen display notifications)
