@@ -29,7 +29,7 @@ sudo apt install -y \
   imagemagick \
   compton \
   entr \
-  jq jo \
+  jq \
   htop \
   universal-ctags \
   python3-dev python3-pip \
@@ -618,6 +618,35 @@ sudo apt-get update
 # Example how to remove using apt-get
 # sudo apt-get remove speedtest-cli
 sudo apt-get install speedtest
+
+################################################################################
+# Install jo
+################################################################################
+
+# NOTE: You can install `jo` via apt, but the apt package is many versions
+# behind the latest release version.
+
+echo
+echo "Installing jo..."
+echo
+
+(
+  jo_version="1.9"
+  jo_folder="jo-$jo_version"
+  jo_tarball="$jo_folder.tar.gz"
+
+  curl -L \
+    "https://github.com/jpmens/jo/releases/download/$jo_version/$jo_tarball" \
+    | tar xzvf - -C /tmp
+
+  cd "/tmp/$jo_folder"
+
+  # Reference: https://github.com/jpmens/jo#build-from-release-tarball
+  autoreconf -i
+  ./configure
+  make check
+  sudo make install
+)
 
 ################################################################################
 
