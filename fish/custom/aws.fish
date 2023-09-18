@@ -11,4 +11,4 @@ if test -z "$AWS_PROFILE"
 end
 
 # Disable default behavior where the output is piped into `less`.
-set AWS_PAGER=""
+set -gx AWS_PAGER ""
