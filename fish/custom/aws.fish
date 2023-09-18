@@ -9,3 +9,6 @@ if test -z "$AWS_PROFILE"
   set -e AWS_SECRET_ACCESS_KEY
   set -e AWS_DEFAULT_REGION
 end
+
+# Disable default behavior where the output is piped into `less`.
+set AWS_PAGER=""
