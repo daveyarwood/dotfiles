@@ -22,6 +22,7 @@ set -q CODEDIR; or set -gx CODEDIR $HOME/code
 source $fish_runtime/custom/git.fish
 
 # misc configs (adding dirs to $PATH, etc.)
+source $fish_runtime/custom/aws.fish
 source $fish_runtime/custom/rbenv.fish
 source $fish_runtime/custom/pyenv.fish
 source $fish_runtime/custom/jenv.fish
