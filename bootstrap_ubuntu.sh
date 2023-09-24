@@ -19,6 +19,7 @@ sudo apt install -y \
   curl \
   gnupg \
   wget \
+  rlwrap \
   gdebi-core \
   git-all \
   arandr \
@@ -55,7 +56,9 @@ sudo apt install -y \
   timidity \
   syncthing \
   firefox \
-  fzf
+  fzf \
+  fish \
+  gimp
 
 ################################################################################
 # Set up /tmp behavior the way I want it
@@ -134,14 +137,9 @@ popd > /dev/null
 ################################################################################
 
 echo
-echo "Installing fish shell..."
-echo
-sudo apt install -y fish
-
-echo
 echo "Making fish the default shell..."
 echo
-command -v fish | sudo tee -a /etc/shells
+
 chsh -s "$(command -v fish)"
 
 ################################################################################
@@ -180,7 +178,7 @@ npm config set prefix ~/npm
 
 # Install various Node and Yarn packages that I need globally.
 npm install -g \
-  chromedriver vmd yarn diagnostic-languageserver bash-language-server
+  chromedriver vmd yarn diagnostic-languageserver bash-language-server neovim
 
 ################################################################################
 # Install Go
@@ -202,17 +200,16 @@ sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$go_tarball"
 rm "$go_tarball"
 popd > /dev/null
 
+# This is needed in order for the `go install` commands below to work.
+export PATH=$PATH:/usr/local/go/bin
+
 # I have Vim set up to run `goimports` (which is kind of like `gofmt`) every
 # time I save a Go file. `goimports` needs to be available on the PATH.
-go install golang.org/x/tools/cmd/goimports
+go install golang.org/x/tools/cmd/goimports@latest
 
 # Install gopls (language server)
 # Reference: https://github.com/golang/tools/blob/master/gopls/README.md#installation
 go install golang.org/x/tools/gopls@latest
-
-# Install staticcheck for extra intelligent linting
-# Reference: https://staticcheck.io/docs/getting-started/#installation
-go install honnef.co/go/tools/cmd/staticcheck@latest
 
 ################################################################################
 # Install Rust
@@ -222,7 +219,11 @@ echo
 echo "Installing Rust..."
 echo
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+install_rust="/tmp/install-rust.sh"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > "$install_rust"
+chmod +x "$install_rust"
+"$install_rust" -y
+rm "$install_rust"
 
 ################################################################################
 # Ruby-related setup
@@ -236,7 +237,7 @@ mkdir -p ~/.rbenv/plugins
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 # Install various Ruby gems required by scripts I use in my shell config, etc.
-gem install --user colorize dotiw bundler watir solargraph
+gem install --user colorize dotiw bundler watir solargraph neovim
 
 ################################################################################
 # Install Clojure CLI
@@ -246,16 +247,15 @@ echo
 echo "Installing Clojure CLI..."
 echo
 
-pushd /tmp > /dev/null
+# Ref: https://clojure.org/guides/install_clojure#_linux_instructions
 
-clj_installer="linux-install-1.11.1.1113.sh"
-
-curl -O "https://download.clojure.org/install/$clj_installer"
-chmod +x "$clj_installer"
-sudo "./$clj_installer"
-rm "$clj_installer"
-
-popd > /dev/null
+install_clj="/tmp/install-clj.sh"
+curl -L \
+  https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh \
+  > "$install_clj"
+chmod +x "$install_clj"
+sudo "$install_clj"
+rm "$install_clj"
 
 ################################################################################
 # Install Babashka
@@ -266,23 +266,11 @@ echo "Installing Babashka..."
 echo
 
 curl -sLo /tmp/install-bb \
-  https://raw.githubusercontent.com/babashka/babashka/master/install \
+  https://raw.githubusercontent.com/babashka/babashka/master/install
 
 chmod +x /tmp/install-bb
 /tmp/install-bb --dir "$HOME/bin"
 rm /tmp/install-bb
-
-################################################################################
-# Install jet
-################################################################################
-
-echo
-echo "Installing jet..."
-echo
-
-bash \
-  <(curl -s https://raw.githubusercontent.com/borkdude/jet/master/install) \
-  "$HOME/bin"
 
 ################################################################################
 # Install Neovim
@@ -304,8 +292,6 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
 python3 -m pip install --user --upgrade pynvim
-gem install --user neovim
-npm install -g neovim
 
 ################################################################################
 # Install dotfiles
@@ -334,10 +320,10 @@ echo
 echo "Installing vim-plug..."
 echo
 
-sh -c 'curl
-         -fLo
-         "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
-         --create-dirs
+sh -c 'curl \
+         -fLo \
+         "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" \
+         --create-dirs \
          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 vim +PlugInstall +qall
@@ -422,7 +408,7 @@ popd > /dev/null
 
 git clone \
   --depth 1 \
-  https://github.com:dexpota/kitty-themes.git \
+  https://github.com/dexpota/kitty-themes.git \
   ~/.config/kitty/kitty-themes
 
 pushd ~/.config/kitty > /dev/null
@@ -457,8 +443,19 @@ echo
 echo "Installing GitHub CLI (gh)..."
 echo
 
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-sudo apt-add-repository https://cli.github.com/packages
+# Ref: https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt
+
+curl \
+  -fsSL \
+  https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+
+sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+  | sudo tee /etc/apt/sources.list.d/github-cli.list \
+  > /dev/null
+
 sudo apt update
 sudo apt install -y gh
 
@@ -556,11 +553,10 @@ echo
 echo "Installing Spotify..."
 echo
 
-# Reference: https://www.spotify.com/us/download/linux/
+# Reference: https://www.spotify.com/de-en/download/linux/
 
-curl -sS \
-  https://download.spotify.com/debian/pubkey_0D811D58.gpg \
-  | sudo apt-key add -
+curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg \
+  | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
 
 echo "deb http://repository.spotify.com stable non-free" \
   | sudo tee /etc/apt/sources.list.d/spotify.list
