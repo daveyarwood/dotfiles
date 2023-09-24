@@ -634,15 +634,52 @@ echo
 )
 
 ################################################################################
-# Install misc. PIP packages
-################################################################################
-
-pip3 install google_speech
-
+# Install AWS CLI
 ################################################################################
 
 echo
-"$(dirname "$0")/bootstrap_kevel_ubuntu.sh"
+echo "Installing AWS CLI..."
+echo
+
+# Reference:
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
+pushd /tmp > /dev/null
+curl \
+  "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+  -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+popd > /dev/null
+echo
+
+################################################################################
+# Install AWS VPN client
+################################################################################
+
+echo
+echo "Installing AWS VPN client..."
+echo
+
+# Reference:
+# https://docs.aws.amazon.com/vpn/latest/clientvpn-user/client-vpn-connect-linux.html
+wget -q -O - \
+  https://d20adtppz83p9s.cloudfront.net/GTK/latest/debian-repo/awsvpnclient_public_key.asc \
+  | sudo apt-key add -
+echo "deb [arch=amd64] https://d20adtppz83p9s.cloudfront.net/GTK/latest/debian-repo ubuntu-20.04 main" \
+  | sudo tee /etc/apt/sources.list.d/aws-vpn-client.list
+  sudo apt update
+  sudo apt install -y awsvpnclient
+echo
+
+################################################################################
+# Install misc. PIP packages
+################################################################################
+
+echo
+echo "Installing misc. PIP packages..."
+echo
+
+pip3 install google_speech
 
 ################################################################################
 

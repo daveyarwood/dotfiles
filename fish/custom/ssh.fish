@@ -53,10 +53,6 @@ function ssh-init
   # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
   # throw a wrench in things, so this will make sure it always works. Whenever
   # I re-add a key, it prompts me for the passphrase.
-  if ! ssh-add -l | grep kevel.pem > /dev/null
-    ssh-add ~/.ssh/kevel.pem
-  end
-
   if ! ssh-add -l | grep id_rsa > /dev/null
     ssh-add ~/.ssh/id_rsa
   end

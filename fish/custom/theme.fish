@@ -115,11 +115,7 @@ function fish_prompt
   taskwarrior_task_count
   set_color normal # Undoes the --dim
 
-  if test -n "$KEVEL_ESCALATION_TICKET"
-    echo -n " "
-    set_color --background red
-    echo -n "esc: $KEVEL_ESCALATION_TICKET"
-  else if test -n "$AWS_PROFILE"
+  if test -n "$AWS_PROFILE"
     echo -n " "
     set_color --background blue
     echo -n $AWS_PROFILE
