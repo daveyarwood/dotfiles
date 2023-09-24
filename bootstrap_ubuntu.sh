@@ -15,7 +15,9 @@ echo
 echo "Installing various apt packages..."
 echo
 sudo apt install -y \
+  ca-certificates \
   curl \
+  gnupg \
   wget \
   gdebi-core \
   git-all \
@@ -158,8 +160,22 @@ git clone https://github.com/jenv/jenv.git ~/.jenv
 echo
 echo "Installing Node.js and various npm packages..."
 echo
-curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL \
+  https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+# Current LTS as of 2023-09-24; update as needed
+node_major=18
+
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$node_major.x nodistro main" \
+  | sudo tee /etc/apt/sources.list.d/nodesource.list
+
+sudo apt update
 sudo apt install -y nodejs
+
 npm config set prefix ~/npm
 
 # Install various Node and Yarn packages that I need globally.
