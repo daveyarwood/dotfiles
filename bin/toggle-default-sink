@@ -6,6 +6,17 @@ get_current_sink() {
   pactl info | sed -En 's/Default Sink: (.*)/\1/p'
 }
 
+sink_notification() {
+  local sink="$1"
+
+  # Clear the last notification for a cleaner view when toggling sinks
+  # repeatedly.
+  dunstctl close
+
+  notify-send "Default sink: $sink"
+
+}
+
 sinks="$(pactl list sinks short | cut -f2)"
 
 current_sink="$(get_current_sink)"
@@ -24,7 +35,7 @@ while read -r sink; do
     # To work around this, we'll check here that the sink selection "took", and
     # if it doesn't, then we'll ignore that sink and move on to the next one.
     if [[ "$(get_current_sink)" == "$sink" ]]; then
-      notify-send "Default sink: $sink"
+      sink_notification "$sink"
       exit
     else
       echo "WARN: failed to set sink to $sink; skipping it."
@@ -41,5 +52,5 @@ done <<< "$sinks"
 # loop back around to the beginning of the list and select the first one.
 sink="$(head -n1 <<< "$sinks")"
 
-notify-send "Default sink: $sink"
 pactl set-default-sink "$sink"
+sink_notification "$sink"
