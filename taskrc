@@ -55,3 +55,4 @@ urgency.user.tag.freetime.coefficient=-10.0
 urgency.uda.priority.H.coefficient=20.0
 urgency.uda.priority.M.coefficient=10.0
 urgency.uda.priority.L.coefficient=-10.0
+news.version=2.6.0
