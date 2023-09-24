@@ -2,16 +2,34 @@
 
 set -eo pipefail
 
+get_current_sink() {
+  pactl info | sed -En 's/Default Sink: (.*)/\1/p'
+}
+
 sinks="$(pactl list sinks short | cut -f2)"
 
-current_sink="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')"
+current_sink="$(get_current_sink)"
 
 switch_to_next=""
 while read -r sink; do
   if [[ "$switch_to_next" == "yes" ]]; then
-    notify-send "Default sink: $sink"
+    previous_sink="$sink"
+
     pactl set-default-sink "$sink"
-    exit
+
+    # Update 2023-09-24: I ran into an issue where, after selecting one sink in
+    # particular, it doesn't "take" and the sound system ends up re-selecting
+    # another sync, which messes up this whole toggling routine.
+    #
+    # To work around this, we'll check here that the sink selection "took", and
+    # if it doesn't, then we'll ignore that sink and move on to the next one.
+    if [[ "$(get_current_sink)" == "$sink" ]]; then
+      notify-send "Default sink: $sink"
+      exit
+    else
+      echo "WARN: failed to set sink to $sink; skipping it."
+      sink="$previous_sink"
+    fi
   fi
 
   if [[ "$sink" == "$current_sink" ]]; then
