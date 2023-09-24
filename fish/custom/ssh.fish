@@ -47,7 +47,7 @@ function ssh-init
   # a simple check to see if it's set to something invalid, and if it is, then
   # I pick the first file matching the expected pattern and use that instead.
   if ! ssh-add -l >/dev/null 2>/dev/null
-    set SSH_AUTH_SOCK (ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}' | head -n1)
+    set -gx SSH_AUTH_SOCK (ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}' | head -n1)
   end
 
   # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
@@ -57,3 +57,5 @@ function ssh-init
     ssh-add ~/.ssh/id_rsa
   end
 end
+
+ssh-init
