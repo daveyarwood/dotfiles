@@ -52,7 +52,8 @@ sudo apt install -y \
   sox libsox-fmt-mp3 \
   timidity \
   syncthing \
-  firefox
+  firefox \
+  fzf
 
 ################################################################################
 # Set up /tmp behavior the way I want it
