@@ -220,7 +220,7 @@ mkdir -p ~/.rbenv/plugins
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 # Install various Ruby gems required by scripts I use in my shell config, etc.
-gem install --user colorize dotiw bundler watir
+gem install --user colorize dotiw bundler watir solargraph
 
 ################################################################################
 # Install Clojure CLI
