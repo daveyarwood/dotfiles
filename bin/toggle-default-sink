@@ -15,42 +15,45 @@ sink_notification() {
 
   notify-send "Default sink: $sink"
 
+  echo "Selected sink: $sink"
 }
 
 sinks="$(pactl list sinks short | cut -f2)"
 
 current_sink="$(get_current_sink)"
 
-switch_to_next=""
+# Some of the sinks don't work - when you select the sink, it doesn't "take" and
+# the sound system ends up silently re-selecting a different sink.
+#
+# This script checks for that scenario and moves on to the next sink in the
+# list if the selection doesn't "take".
+#
+# We want the list of sinks to be in order starting after the currently selected
+# sink (and wrapping around when it reaches the end), so the loop below
+# constructs that list and saves it as $sinks_rotated.
+sinks_before="$(mktemp)"
+sinks_after="$(mktemp)"
+encountered_current_sink="no"
+
 while read -r sink; do
-  if [[ "$switch_to_next" == "yes" ]]; then
-    previous_sink="$sink"
-
-    pactl set-default-sink "$sink"
-
-    # Update 2023-09-24: I ran into an issue where, after selecting one sink in
-    # particular, it doesn't "take" and the sound system ends up re-selecting
-    # another sync, which messes up this whole toggling routine.
-    #
-    # To work around this, we'll check here that the sink selection "took", and
-    # if it doesn't, then we'll ignore that sink and move on to the next one.
-    if [[ "$(get_current_sink)" == "$sink" ]]; then
-      sink_notification "$sink"
-      exit
-    else
-      echo "WARN: failed to set sink to $sink; skipping it."
-      sink="$previous_sink"
-    fi
-  fi
-
   if [[ "$sink" == "$current_sink" ]]; then
-    switch_to_next="yes"
+    encountered_current_sink="yes"
+  elif [[ "$encountered_current_sink" == "yes" ]]; then
+    echo "$sink" >> "$sinks_after"
+  else
+    echo "$sink" >> "$sinks_before"
   fi
 done <<< "$sinks"
 
-# If we get this far, it means the last sink in the list was selected. So, we'll
-# loop back around to the beginning of the list and select the first one.
-sink="$(head -n1 <<< "$sinks")"
+sinks_rotated="$(cat "$sinks_after" "$sinks_before" <(echo "$current_sink"))"
 
-pactl set-default-sink "$sink"
-sink_notification "$sink"
+while read -r sink; do
+  pactl set-default-sink "$sink"
+
+  if [[ "$(get_current_sink)" == "$sink" ]]; then
+    sink_notification "$sink"
+    exit 0
+  else
+    echo "WARN: failed to set sink to $sink; skipping it."
+  fi
+done <<< "$sinks_rotated"
