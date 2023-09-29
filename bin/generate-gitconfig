@@ -27,6 +27,9 @@ cat <<EOF > "$HOME/.gitconfig"
 [credential]
   helper = $credential_helper
 
+[init]
+  defaultBranch = main
+
 [push]
   default = simple
 
