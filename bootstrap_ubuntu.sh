@@ -15,6 +15,8 @@ echo
 echo "Installing various apt packages..."
 echo
 sudo apt install -y \
+  software-properties-common \
+  apt-transport-https \
   ca-certificates \
   curl \
   gnupg \
@@ -55,7 +57,6 @@ sudo apt install -y \
   sox libsox-fmt-mp3 \
   timidity \
   syncthing \
-  firefox \
   fzf \
   fish \
   gimp
@@ -104,6 +105,36 @@ sudo dpkg -i /tmp/google-chrome.deb
 # else (e.g. firefox) here if we don't want Google Chrome as the default
 # browser.
 sudo update-alternatives --config x-www-browser
+
+################################################################################
+# Install Firefox
+################################################################################
+
+echo
+echo "Installing Firefox..."
+echo
+
+# NOTE: The `firefox` package in the default apt repository now points to the
+# snap package (╯°□°)╯︵ ┻━┻   So we have to do this instead.
+#
+# Ref:
+# https://www.linuxcapable.com/how-to-remove-firefox-snap-from-ubuntu-linux/
+#
+# I also had to do this when `sudo snap remove --purge firefox` failed:
+# https://askubuntu.com/a/1434769/725987
+
+sudo add-apt-repository ppa:mozillateam/ppa -y
+
+# This ensures that the `firefox` package will refer to the official Firefox
+# stable PPA, not the Ubuntu Snapcraft repository.
+echo -e "Package: firefox*\nPin: release o=LP-PPA-mozillateam-ppa\nPin-Priority: 550\n\nPackage: firefox*\nPin: release o=Ubuntu\nPin-Priority: -1" \
+  | sudo tee /etc/apt/preferences.d/99-mozillateamppa
+
+# Refresh package list.
+sudo apt update
+
+# Install Firefox from a REAL apt package.
+sudo apt install firefox -y
 
 ################################################################################
 # Install libsecret
@@ -280,7 +311,6 @@ echo
 echo "Installing Neovim..."
 echo
 
-sudo apt install -y software-properties-common
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 sudo apt install -y neovim
@@ -606,7 +636,7 @@ echo
 
 # Reference: https://www.speedtest.net/apps/cli
 
-sudo apt-get install gnupg1 apt-transport-https dirmngr
+sudo apt-get install gnupg1 dirmngr
 export INSTALL_KEY=379CE192D401AB61
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $INSTALL_KEY
 echo "deb https://ookla.bintray.com/debian generic main" | sudo tee  /etc/apt/sources.list.d/speedtest.list
