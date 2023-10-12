@@ -59,7 +59,8 @@ sudo apt install -y \
   syncthing \
   fzf \
   fish \
-  gimp
+  gimp \
+  newsboat
 
 ################################################################################
 # Set up /tmp behavior the way I want it
