@@ -351,7 +351,7 @@ sh -c 'curl \
          --create-dirs \
          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-vim +PlugInstall +qall
+nvim +PlugInstall +qall
 
 ################################################################################
 # Install i3
