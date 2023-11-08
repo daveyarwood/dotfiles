@@ -16,6 +16,8 @@
     ~/.config/fish/custom: fish/custom/
     ~/.config/helix: helix/
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
+    ~/.config/kitty/kitty-linux.conf: kitty/kitty-linux.conf
+    ~/.config/kitty/kitty-macos.conf: kitty/kitty-macos.conf
     ~/.config/nvim: vim/nvim/
     ~/.config/sxhkd/sxhkdrc: sxhkdrc
     ~/.ctags.d: ctags
