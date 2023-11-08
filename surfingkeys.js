@@ -48,10 +48,6 @@ settings.blacklist = {
 
 Hints.characters = "aoeuhtnsid',.pgcrlyf;qjkbwvzx"; // dvorak-style
 
-mapkey('ch', 'Open ClubHouse story', function() {
-  Front.openOmnibar({type: 'URLs', pref: "https://app.clubhouse.io/adzerk/story/"});
-});
-
 // disable "x" closing the tab. The "x" key in the Dvorak layout is hazardously
 // close to the mouse cursor nipple on my Thinkpad, making it all too easy for
 // my finger to slip and close the tab I'm on. I always use Ctrl-w anyway out of

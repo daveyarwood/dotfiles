@@ -8,47 +8,14 @@
  {:linters {:unresolved-symbol {:level :off}}}
 
  :macro-defs
- {adzerk.api.geir/defapicall
-  [:declaration :params :bound-elements]
-
-  adzerk.api.v1-fixes/with-json-body
-  [:bindings :bound-elements]
-
-  adzerk.env/def
-  [{:element [:declaration :element], :repeat true}]
-
-  adzerk.libclj.util/with-let
-  [:bindings :bound-elements]
-
-  adzerk.util/defdatafn
-  [:declaration
-   :params
-   {:element :element, :pred :string}
-   :params
-   :bound-elements]
-
-  castra.core/defrpc
-  [:declaration
-   {:element :element, :pred :string}
-   :function-params-and-bodies]
-
-  clojure.core/dotimes
+ {clojure.core/dotimes
   [:bindings :bound-elements]
 
   clojure.test.check.generators/let
   [:bindings :bound-elements]
 
-  geir-backend.query/defview
-  [:declaration
-   {:element :element, :pred :string}
-   :params
-   :bound-elements]
-
-  geir-backend.validation/defpre-
-  [:declaration :params :bound-elements]
-
-  geir-backend.validation/defvalidator-
-  [:declaration :params :bound-elements]
+  ;; NOTE: These hoplon and javelin configs could be packaged with the library,
+  ;; and then I wouldn't need them in my personal setup.
 
   hoplon.core/defelem
   [:declaration
@@ -61,9 +28,6 @@
 
   hoplon.core/for-tpl
   [:bindings :bound-elements]
-
-  integration.model/defstep
-  [:declaration :elements]
 
   javelin.core/cell-let
   [:bindings :bound-elements]
@@ -81,19 +45,4 @@
   [:bindings :bound-elements]
 
   javelin.core/with-let
-  [:bindings :bound-elements]
-
-  ui.form/definput
-  [:declaration :params :bound-elements]
-
-  ui.form/with-form
-  [:bindings :bound-elements]
-
-  ui.macros/with-attr-bindings
-  [:element :params :bound-elements]
-
-  ui.paging/defp
-  [:declaration :elements]
-
-  ui.util.experimental/with-dims
-  [:param :bindings :bound-elements]}}
+  [:bindings :bound-elements]}}
