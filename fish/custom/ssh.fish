@@ -46,14 +46,24 @@ function ssh-init
   # expect that it will be set to the wrong thing sometimes. So here, I am doing
   # a simple check to see if it's set to something invalid, and if it is, then
   # I pick the first file matching the expected pattern and use that instead.
-  if ! ssh-add -l >/dev/null 2>/dev/null
-    set -gx SSH_AUTH_SOCK (ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}' | head -n1)
+  #
+  # 2023-11-08: I've only had this problem on Linux, and macOS doesn't provide
+  # `ss`, so I added a guard here to only do this if `ss` is available on the
+  # PATH.
+  if command -v ss >/dev/null && ! ssh-add -l >/dev/null 2>/dev/null
+    set -gx SSH_AUTH_SOCK \
+      (ss -xl | grep -E '/tmp/ssh.*agent' | awk '{print $5}' | head -n1)
   end
 
   # Make sure SSH agent knows about my keys. This should Just Work, but tmux can
   # throw a wrench in things, so this will make sure it always works. Whenever
   # I re-add a key, it prompts me for the passphrase.
-  if ! ssh-add -l | grep id_rsa > /dev/null
+
+  if test -f ~/.ssh/id_ed25519 && ! ssh-add -l | grep -q ED25519
+    ssh-add ~/.ssh/id_ed25519
+  end
+
+  if test -f ~/.ssh/id_rsa && ! ssh-add -l | grep -q id_rsa
     ssh-add ~/.ssh/id_rsa
   end
 end
