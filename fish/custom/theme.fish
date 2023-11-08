@@ -3,8 +3,14 @@
 # If there are no recorded Alda API statuses in the last 5 minutes, returns
 # nothing.
 function last-alda-api-status
+  set -l results_dir /tmp/alda-api-status-results/
+
+  if ! test -d "$results_dir"
+    return
+  end
+
   set -l status_file (find \
-                        /tmp/alda-api-status-results/ \
+                        "$results_dir" \
                         -type f \
                         -mmin -5 \
                         | sort | tail -n1)
