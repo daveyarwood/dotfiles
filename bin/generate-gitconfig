@@ -2,7 +2,12 @@
 
 libsecret="/usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret"
 
+email="dave.yarwood@gmail.com"
+
 if [[ "$(uname)" == Darwin ]]; then
+  # HACK: This isn't really macOS specific, but this happens to be the email
+  # that I want to use on my work laptop.
+  email="dyarwood@govspend.com"
   credential_helper="osxkeychain"
 elif [[ -f "$libsecret" ]]; then
   credential_helper="$libsecret"
@@ -19,7 +24,7 @@ cat <<EOF > "$HOME/.gitconfig"
 
 [user]
   name = Dave Yarwood
-  email = dave.yarwood@gmail.com
+  email = $email
 
 [commit]
   gpgsign = true
