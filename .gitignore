@@ -1,3 +1,4 @@
 .lsp/
 .cpcache/
 .socket-port
+tmux*.log
