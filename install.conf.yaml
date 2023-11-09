@@ -25,6 +25,8 @@
     ~/.config/sxhkd/sxhkdrc: sxhkdrc
     ~/.ctags.d: ctags
     ~/.gitignore_global: gitignore_global
+    ~/.gnupg/gpg.conf: gnupg/gpg.conf
+    ~/.gnupg/gpg-agent.conf: gnupg/gpg-agent.conf
     ~/.hushlogin: hushlogin
     ~/.i3/config.base: i3/config.base
     ~/.i3/i3status.conf: i3/i3status.conf
