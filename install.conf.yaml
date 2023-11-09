@@ -5,7 +5,7 @@
 - clean: ['~']
 
 - link:
-    ~/.amethyst: amethyst
+    ~/.amethyst.yml: amethyst.yml
     ~/.bc.cfg: bc.cfg
     ~/.bin: bin
     ~/.clojure: clojure
