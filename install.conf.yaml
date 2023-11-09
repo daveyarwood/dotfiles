@@ -19,6 +19,9 @@
     ~/.config/kitty/kitty-linux.conf: kitty/kitty-linux.conf
     ~/.config/kitty/kitty-macos.conf: kitty/kitty-macos.conf
     ~/.config/nvim: vim/nvim/
+    # This is the Mac one (https://github.com/koekeishiya/skhd)
+    ~/.config/skhd/skhdrc: skhd/skhdrc
+    # This is the Linux one (https://github.com/baskerville/sxhkd)
     ~/.config/sxhkd/sxhkdrc: sxhkdrc
     ~/.ctags.d: ctags
     ~/.gitignore_global: gitignore_global
