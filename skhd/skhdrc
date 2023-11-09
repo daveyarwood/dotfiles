@@ -1,4 +1,4 @@
 # Reference: https://github.com/koekeishiya/skhd
 
 cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-cmd - b : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+cmd + shift - return : /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
