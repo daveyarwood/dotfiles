@@ -50,7 +50,6 @@ sudo apt install -y \
   libgtk-3-dev \
   tlp tlp-rdw acpi-call-dkms \
   taskwarrior \
-  kitty \
   audacity \
   inkscape \
   vlc \
@@ -426,6 +425,29 @@ unzip font.zip
 rm font.zip
 mv ./* ~/.fonts/
 popd > /dev/null
+
+################################################################################
+# Install kitty
+################################################################################
+
+# There is a `kitty` package in the official Ubuntu PPAs, but it's ludicrously
+# out-of-date. I am instead following the instructions here:
+# https://sw.kovidgoyal.net/kitty/binary
+
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh \
+  | sh /dev/stdin
+
+ln -sf \
+  ~/.local/kitty.app/bin/kitty \
+  ~/.local/kitty.app/bin/kitten \
+  ~/.local/bin/
+
+# This makes Kitty available as an option when we run `update-alternatives`
+# below to choose a default terminal.
+sudo update-alternatives --install \
+  /usr/bin/x-terminal-emulator \
+  x-terminal-emulator \
+  ~/.local/bin/kitty 50
 
 ################################################################################
 # Install kitty color themes
