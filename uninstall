@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+# Source:
+# https://github.com/anishathalye/dotbot/issues/152#issuecomment-394129600
+
+# I had to modify it slightly:
+# * Changed python to python3 in shebang line
+# * Added `Loader=yaml.CLoader` argument to `yaml.load` call
+
+# And I had to `pip3 install pyyaml` in order to make the `yaml` module
+# available.
+
+from __future__ import print_function
+
+import yaml
+import os
+
+CONFIG="install.conf.yaml"
+
+stream = open(CONFIG, "r")
+conf = yaml.load(stream, Loader=yaml.CLoader)
+
+for section in conf:
+    if 'link' in section:
+        for target in section['link']:
+            realpath = os.path.expanduser(target)
+            if os.path.islink(realpath):
+                print("Removing ", realpath)
+                os.unlink(realpath)
