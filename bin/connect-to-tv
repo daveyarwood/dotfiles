@@ -6,7 +6,7 @@
 i3-msg workspace 1
 
 # Connect to the TV using xrandr.
-~/.screenlayout/tv-only.sh
+~/.screenlayout/tv-only-via-docking-station.sh
 
 i3-msg rename workspace 1 to 9
 
