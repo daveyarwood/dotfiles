@@ -304,6 +304,39 @@ chmod +x /tmp/install-bb
 rm /tmp/install-bb
 
 ################################################################################
+# Install Lua language server
+################################################################################
+
+echo
+echo "Installing Lua language server..."
+echo
+
+(
+  version="3.7.3"
+
+  repo="LuaLS/lua-language-server"
+  folder="lua-language-server-$version-linux-x64"
+  tarball="$folder.tar.gz"
+
+  local_repo="$HOME/bin/$folder"
+  mkdir -p "$local_repo"
+
+  curl -L \
+    "https://github.com/$repo/releases/download/$version/$tarball" \
+    | tar xzvf - -C "$local_repo"
+
+  wrapper_script="$HOME/bin/lua-language-server"
+
+  cat > "$wrapper_script" <<-EOF
+#/usr/bin/env bash
+
+"\$(dirname "\$0")/$folder/bin/lua-language-server" "\$@"
+EOF
+
+  chmod +x "$wrapper_script"
+)
+
+################################################################################
 # Install Neovim
 ################################################################################
 
