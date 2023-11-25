@@ -18,9 +18,15 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    -- -- Accept currently selected item. Set `select` to `false` to only confirm
-    -- -- explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    -- Accept currently selected item. Set `select` to `true` to select the
+    -- first result, even if you haven't explicitly selected it.
+    --
+    -- 2023-11-25 Dave: I don't know why anyone would ever want the `select =
+    -- true` behavior. It makes it so that you can't press enter to go to the
+    -- next line without unintentionally triggering a completion... I had it set
+    -- that way for a long time (thanks to copypasta'd default config) and it
+    -- was absolutely maddening.
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
     -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#super-tab-like-mapping
     ["<Tab>"] = cmp.mapping(function(fallback)
