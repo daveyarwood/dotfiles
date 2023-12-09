@@ -4,7 +4,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'ayu-theme/ayu-vim'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'm00qek/baleia.nvim'
-Plug 'morhetz/gruvbox'
+Plug 'ellisonleao/gruvbox.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
