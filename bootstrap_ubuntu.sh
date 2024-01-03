@@ -209,7 +209,8 @@ npm config set prefix ~/npm
 
 # Install various Node and Yarn packages that I need globally.
 npm install -g \
-  chromedriver vmd yarn diagnostic-languageserver bash-language-server neovim
+  chromedriver vmd yarn diagnostic-languageserver bash-language-server neovim \
+  @bitwarden/cli
 
 ################################################################################
 # Install Go

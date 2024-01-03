@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require 'rubygems'
 require 'bundler/setup'
 require 'watir'
@@ -8,8 +10,8 @@ require 'colorize'
 exit 0 unless $PROGRAM_NAME == __FILE__
 
 def press_enter_to_continue
-  STDERR.puts "--- Press ENTER to continue ---"
-  STDIN.gets
+  warn '--- Press ENTER to continue ---'
+  $stdin.gets
 end
 
 def get_env(env_var)
@@ -22,7 +24,7 @@ SECU_PASSWORD = get_env 'SECU_PASSWORD'
 SECU_URL = 'https://www.ncsecu.org'
 
 if ARGV.count.zero?
-  STDERR.puts \
+  warn \
     "Usage: #{$PROGRAM_NAME} ACCOUNT_NAME_SUBSTRING [ACCOUNT_NAME_SUBSTRING...]"
   exit 1
 end
@@ -32,7 +34,7 @@ ACCOUNT_NAME_SUBSTRINGS = ARGV
 ################################################################################
 
 def account_row(browser, account_name_pattern)
-  STDERR.puts "Looking for account row..."
+  warn 'Looking for account row...'
 
   accounts_table = browser.table(id: 'CheckingSavingsMoneyMarket')
   accounts_table.wait_until(&:present?)
@@ -43,7 +45,7 @@ def account_row(browser, account_name_pattern)
 end
 
 def view_transactions_link(row)
-  STDERR.puts "Looking for \"View transactions\" link..."
+  warn 'Looking for "View transactions" link...'
 
   row.tds.each do |td|
     td.links.each do |link|
@@ -57,7 +59,7 @@ end
 # FIXME: This is the noticeable bottleneck of the script.
 # TODO: Figure out why it's so slow and see if I can make it faster somehow.
 def transactions(browser)
-  STDERR.puts "Collecting transaction info..."
+  warn 'Collecting transaction info...'
 
   transactions_table = browser.table(id: 'gridCheckingHistory')
   transactions_table.wait_until(&:present?)
@@ -107,13 +109,13 @@ browser.goto SECU_URL
 
 # FIXME: This assumes that `xsel` is available on the PATH
 `echo -n "#{SECU_USERNAME}" | xsel --clipboard --input`
-STDERR.puts "Copied username to clipboard. Please paste it into the user name" +
-  " input."
+warn 'Copied username to clipboard. Please paste it into the user name input.'
 press_enter_to_continue
 
 `echo -n "#{SECU_PASSWORD}" | xsel --clipboard --input`
-STDERR.puts "Copied password to clipboard. Please paste it into the password " +
-  "input and finish logging in."
+warn \
+  'Copied password to clipboard. Please paste it into the password input and ' \
+  'finish logging in.'
 press_enter_to_continue
 
 # browser.text_field(id: 'userIDHome').set SECU_USERNAME
@@ -134,13 +136,14 @@ ACCOUNT_OUTPUT = {}
 ACCOUNT_NAME_SUBSTRINGS.each do |account_name_substring|
   account_output_lines = []
 
-  STDERR.puts "\n####### #{account_name_substring} #######\n"
+  warn "\n####### #{account_name_substring} #######\n"
 
-  browser.goto "https://onlineaccess.ncsecu.org/O/accounts/balances.aspx"
+  browser.goto 'https://onlineaccess.ncsecu.org/O/accounts/balances.aspx'
 
   account_name_pattern = Regexp.new(account_name_substring, 'i')
 
-  account_row = account_row(browser, account_name_pattern) ||
+  account_row = \
+    account_row(browser, account_name_pattern) ||
     raise("No account found with name containing #{account_name_substring}.")
 
   view_transactions_link(account_row).click
@@ -157,10 +160,10 @@ end
 browser.quit
 
 ACCOUNT_OUTPUT.each do |account_name_substring, account_output_lines|
-  STDERR.puts "\n============================================================"
-  STDERR.puts "===== #{account_name_substring} ====="
-  STDERR.puts "============================================================\n"
-  account_output_lines.each {|line| puts line}
-  STDERR.puts
-  STDERR.puts
+  warn "\n============================================================"
+  warn "===== #{account_name_substring} ====="
+  warn "============================================================\n"
+  account_output_lines.each { |line| puts line }
+  warn ''
+  warn ''
 end
