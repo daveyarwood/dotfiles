@@ -222,7 +222,7 @@ echo
 
 # Reference: https://golang.org/doc/install
 
-go_version="1.18.10"
+go_version="1.19.13"
 go_tarball="go$go_version.linux-amd64.tar.gz"
 download_url="https://golang.org/dl/$go_tarball"
 
