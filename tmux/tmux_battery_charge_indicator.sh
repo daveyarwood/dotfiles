@@ -8,6 +8,10 @@ if [[ "$(uname)" == 'Linux' ]]; then
   total_charge=$(echo "$battery_info" | grep -o 'energy-full-design: \+[0-9]\+' | awk '{print $2}')
   charging=$(echo "$battery_info" | grep -c 'state: \+charging')
   fully_charged=$(echo "$battery_info" | grep -c 'state: \+fully-charged')
+  # `pending-charge` means AC power is on, but the battery is intentionally not
+  # being charged, e.g. to avoid short charging cycles. I've seen my battery in
+  # this state when it's plugged in, but essentially fully charged.
+  pending_charge=$(echo "$battery_info" | grep -c 'state: \+pending-charge')
 else
   battery_info="$(ioreg -rc AppleSmartBattery)"
   current_charge=$(echo "$battery_info" | grep -o '"CurrentCapacity" = [0-9]\+' | awk '{print $3}')
@@ -21,7 +25,9 @@ if [[ $charged_slots -gt 10 ]]; then
   charged_slots=10
 fi
 
-if [ "$charging" == "1" ] || [ "$fully_charged" == "1" ]; then
+if [ "$charging" == "1" ] || \
+   [ "$fully_charged" == "1" ] || \
+   [ "$pending_charge" == "1" ]; then
   echo -n '#[fg=yellow]'
 else
   echo -n '#[fg=red]'
