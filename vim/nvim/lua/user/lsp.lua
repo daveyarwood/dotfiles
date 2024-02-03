@@ -76,9 +76,23 @@ lspconfig.gopls.setup {
   },
 }
 
-lspconfig.kotlin_language_server.setup{
-  capabilities = cmp_lsp_capabilities,
-}
+-- 2024-02-03: I tried Kotlin language server and it mostly works, but there are
+-- some issues with resolving referencies from dependencies. I dug through the
+-- :LspInfo output and saw an "unsupported major version" error, which means my
+-- Java version (currently 17) isn't supported.
+--
+-- I found this related issue:
+-- https://github.com/fwcd/kotlin-language-server/issues/474
+--
+-- The workaround is to use Java 11, but I'm currently enjoying not having to
+-- manage multiple Java versions, so I'm just going to disable Kotlin language
+-- server for now.
+--
+-- TODO: Revisit in the future.
+--
+-- lspconfig.kotlin_language_server.setup{
+--   capabilities = cmp_lsp_capabilities,
+-- }
 
 lspconfig.lua_ls.setup {
   capabilities = cmp_lsp_capabilities,
