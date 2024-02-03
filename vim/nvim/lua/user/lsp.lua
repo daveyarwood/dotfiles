@@ -76,6 +76,10 @@ lspconfig.gopls.setup {
   },
 }
 
+lspconfig.kotlin_language_server.setup{
+  capabilities = cmp_lsp_capabilities,
+}
+
 lspconfig.lua_ls.setup {
   capabilities = cmp_lsp_capabilities,
   settings = {
