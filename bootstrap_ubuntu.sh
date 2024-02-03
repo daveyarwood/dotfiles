@@ -343,6 +343,46 @@ EOF
 )
 
 ################################################################################
+# Install Kotlin language server
+################################################################################
+
+echo
+echo "Installing Kotlin language server..."
+echo
+
+(
+  version="1.3.9"
+
+  repo="fwcd/kotlin-language-server"
+  folder="kotlin-language-server-$version"
+  zip_file="server.zip"
+
+  staging_dir="/tmp/kotlin-language-server"
+  mkdir -p "$staging_dir"
+
+  local_folder="$HOME/bin/$folder"
+  mkdir -p "$local_folder"
+
+  curl -L \
+    "https://github.com/$repo/releases/download/$version/$zip_file" \
+    > "$staging_dir/$zip_file"
+
+  unzip "$staging_dir/$zip_file" -d "$staging_dir"
+
+  mv "$staging_dir/server"/* "$local_folder"
+
+  wrapper_script="$HOME/bin/kotlin-language-server"
+
+  cat > "$wrapper_script" <<-EOF
+#!/usr/bin/env bash
+
+"\$(dirname "\$0")/$folder/bin/kotlin-language-server" "\$@"
+EOF
+
+  chmod +x "$wrapper_script"
+)
+
+################################################################################
 # Install Neovim
 ################################################################################
 
