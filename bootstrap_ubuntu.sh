@@ -334,7 +334,7 @@ echo
   wrapper_script="$HOME/bin/lua-language-server"
 
   cat > "$wrapper_script" <<-EOF
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 "\$(dirname "\$0")/$folder/bin/lua-language-server" "\$@"
 EOF
