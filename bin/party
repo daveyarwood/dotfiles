@@ -17,27 +17,31 @@ function party {
 
   if [ -z "$1" ]; then
     echo "Enter party word: "
-    read PARTY_WORD |  tr '[:upper:]' '[:lower:]'
+    read -r PARTY_WORD
+    PARTY_WORD="$(tr '[:upper:]' '[:lower:]' <<< "$PARTY_WORD")"
   else
     PARTY_WORD=$1
   fi
 
   if [ -z "$2" ]; then
     echo "Enter party word emoji (without colons): "
-    read WORD_EMOJI
+    read -r WORD_EMOJI
   else
     WORD_EMOJI=$2
   fi
 
   if [ -z "$3" ]; then
     echo "Enter background emoji (without colons): "
-    read BACKGROUND_EMOJI
+    read -r BACKGROUND_EMOJI
   else
     BACKGROUND_EMOJI=$3
   fi
 
+  echo "got here; $PARTY_WORD / $WORD_EMOJI / $BACKGROUND_EMOJI"
+
   echo
-  figlet -f banner $PARTY_WORD | sed -e "s/#/:$WORD_EMOJI:/g" -e 's/^/ /g' -e "s/ /:$BACKGROUND_EMOJI:/g"
+  figlet -f banner "$PARTY_WORD" \
+    | sed -e "s/#/:$WORD_EMOJI:/g" -e 's/^/ /g' -e "s/ /:$BACKGROUND_EMOJI:/g"
 }
 
 party "$@"
