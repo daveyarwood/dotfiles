@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: $0 SOURCE_BRANCH"
+  exit 1
+fi
+
+source_branch="$1"
+
+# Stash work on current branch
+
+current_branch="$(git branch --show-current)"
+
+git stash --include-untracked
+
+# Update source branch
+
+git checkout "$source_branch" --
+
+if git fetch --all --prune; then
+  git merge
+else
+  >&2 echo "WARN: git fetch --all --prune failed"
+fi
+
+git submodule update --init --recursive
+
+# Merge source branch into all other local branches
+
+git for-each-ref --format='%(refname:short)' refs/heads/ \
+  | while read -r branch; do
+  if [[ "$branch" == "develop" ]]; then
+    continue
+  fi
+
+  git checkout "$branch" --
+  git merge "$source_branch"
+  git push || true  # There might not be a remote branch yet
+done
+
+# Re-check out the branch that was initially checked out, and pop the stash
+
+git checkout "$current_branch" --
+
+git stash pop
