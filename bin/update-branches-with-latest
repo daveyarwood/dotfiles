@@ -13,7 +13,13 @@ source_branch="$1"
 
 current_branch="$(git branch --show-current)"
 
-git stash --include-untracked
+if [[ -n "$(git status --porcelain)" ]]; then
+  uncommitted_changes="yes"
+fi
+
+if [[ "$uncommitted_changes" == "yes" ]]; then
+  git stash --include-untracked
+fi
 
 # Update source branch
 
@@ -44,4 +50,6 @@ done
 
 git checkout "$current_branch" --
 
-git stash pop
+if [[ "$uncommitted_changes" == "yes" ]]; then
+  git stash pop
+fi
