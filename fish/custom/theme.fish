@@ -40,15 +40,6 @@ function fish_greeting;
     echo "Alda API is down!"
     set_color normal
   end
-
-  if which task >/dev/null
-    if test -f /tmp/task-projects.out
-      cat /tmp/task-projects.out
-    else
-      which snooze-tasks >/dev/null; and snooze-tasks
-      task ready 2>/dev/null
-    end
-  end
 end
 
 # Erase the default fish_mode_prompt; I have one built into my theme below.
@@ -60,13 +51,6 @@ function fish_mode_prompt; end
 # for that and treats my initial nesting level as 0.
 function nesting_level
   math -- "$SHLVL - 2"
-end
-
-function taskwarrior_task_count
-  which task >/dev/null; or return
-  set -l tasks_ready (task ready 2>/dev/null | grep -E '[0-9]+ tasks?')
-  test $status -eq 0; or return
-  printf ' (%s ready)' $tasks_ready
 end
 
 # Cribbed from oh-my-fish.
@@ -117,9 +101,6 @@ function fish_prompt
   echo -n (prompt_segments | tail -n1)
 
   set_color normal # Undoes --bold
-  set_color --dim white
-  taskwarrior_task_count
-  set_color normal # Undoes the --dim
 
   if test -n "$AWS_PROFILE"
     echo -n " "

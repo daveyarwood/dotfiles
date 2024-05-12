@@ -49,7 +49,6 @@ sudo apt install -y \
   libmagic-dev \
   libgtk-3-dev \
   tlp tlp-rdw acpi-call-dkms \
-  taskwarrior \
   audacity \
   inkscape \
   vlc \
