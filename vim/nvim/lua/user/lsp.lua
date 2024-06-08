@@ -8,14 +8,16 @@ lsp_lines.setup()
 vim.diagnostic.config({
   -- Disable virtual_text since it's redundant due to lsp_lines.
   virtual_text = false,
+  -- Fancier diagnostic signs in the gutter on the left
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+    }
+  }
 })
-
--- Fancier diagnostic signs in the gutter on the left
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 ----- Mappings -----
 
