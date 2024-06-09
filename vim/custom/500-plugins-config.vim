@@ -173,9 +173,8 @@ augroup additional_conjure_bindings_etc
 
   " Disable LSP diagnostics in the Conjure log buffer
   "
-  " (vim.diagnostic.disable takes an optional argument which is the number of
-  " the buffer to disable diagnostics in. 0 means the current buffer.)
-  autocmd BufEnter conjure-log-* lua vim.diagnostic.disable(0)
+  " (`bufnr = 0` means disable diagnostics only for the current buffer)
+  autocmd BufEnter conjure-log-* lua vim.diagnostic.enable(false, { bufnr = 0 })
 augroup END
 
 
