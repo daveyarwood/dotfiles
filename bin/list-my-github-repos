@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-gem 'octokit', '~> 7.0'
+gem 'octokit', '~> 8.0'
 
 require 'octokit'
 
