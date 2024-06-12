@@ -11,9 +11,9 @@ vim.diagnostic.config({
   -- Fancier diagnostic signs in the gutter on the left
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN] = " ",
-      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.ERROR] = "⛒ ",
+      [vim.diagnostic.severity.WARN] = "⚠ ",
+      [vim.diagnostic.severity.HINT] = "⛶ ",
       [vim.diagnostic.severity.INFO] = " ",
     }
   }
