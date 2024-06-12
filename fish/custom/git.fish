@@ -1,7 +1,6 @@
 generate-gitconfig
 
 alias g git
-alias gs 'git status'
 alias gc 'git commit -v'
 alias gco 'git checkout'
 function ga; git add $argv; git status; end
@@ -14,8 +13,20 @@ alias gpuo 'git push -u origin'
 alias gpud 'git push -u daveyarwood'
 alias gb 'git branch'
 
+function gs
+  git branch
+  echo
+  git status
+
+  set -l stashed_changes (git stash list)
+
+  if test -n "$stashed_changes"
+    echo -e "\n$stashed_changes"
+  end
+end
+
 function gaa
-  git add --all $argv; git status;
+  git add --all $argv; gs;
 end
 
 function gpl
