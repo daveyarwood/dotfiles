@@ -15,7 +15,7 @@ alias gpud 'git push -u daveyarwood'
 alias gb 'git branch'
 
 function gaa
-	git add --all $argv; git status;
+  git add --all $argv; git status;
 end
 
 function gpl
