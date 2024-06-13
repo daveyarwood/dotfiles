@@ -63,6 +63,13 @@ lspconfig.clojure_lsp.setup {
   capabilities = cmp_lsp_capabilities
 }
 
+lspconfig.eslint.setup {
+  -- I don't _think_ this part is relevant for eslint. I think tsserver should
+  -- handle all of the completions.
+  -- capabilities = cmp_lsp_capabilities
+  command = "eslint_d"
+}
+
 lspconfig.gopls.setup {
   capabilities = cmp_lsp_capabilities,
   cmd = {"gopls", "serve"},
