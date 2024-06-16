@@ -166,15 +166,6 @@ augroup additional_conjure_bindings_etc
   " Conjure. I would use Bclose, but it doesn't play nicely with Conjure for
   " some reason.
   autocmd BufEnter conjure-log-* nmap <buffer> q <localleader>lq
-
-  " Ensure that the log buffer's ft is set to Clojure. (I think Conjure used to
-  " do this automatically, but then it stopped doing it for some reason.)
-  autocmd BufEnter conjure-log-*.cljc set ft=clojure
-
-  " Disable LSP diagnostics in the Conjure log buffer
-  "
-  " (`bufnr = 0` means disable diagnostics only for the current buffer)
-  autocmd BufEnter conjure-log-* lua vim.diagnostic.enable(false, { bufnr = 0 })
 augroup END
 
 
