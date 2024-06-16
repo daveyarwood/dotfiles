@@ -11,10 +11,10 @@ vim.diagnostic.config({
   -- Fancier diagnostic signs in the gutter on the left
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = "⛒ ",
-      [vim.diagnostic.severity.WARN] = "⚠ ",
-      [vim.diagnostic.severity.HINT] = "⛶ ",
-      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.ERROR] = "🅴 ",
+      [vim.diagnostic.severity.WARN] = "🆆 ",
+      [vim.diagnostic.severity.INFO] = "🅸 ",
+      [vim.diagnostic.severity.HINT] = "🅷 ",
     }
   }
 })
@@ -30,6 +30,8 @@ nmap("K", vim.lsp.buf.hover)
 -- not I have a REPL running.
 nmap("gK", vim.lsp.buf.hover)
 nmap("gr", vim.lsp.buf.references)
+nmap("[d", vim.diagnostic.goto_prev)
+nmap("]d", vim.diagnostic.goto_next)
 
 -- lsp_lines can be noisy when there are a lot of findings, so provide an easy
 -- binding to toggle it as needed
@@ -61,6 +63,13 @@ lspconfig.bashls.setup {
 
 lspconfig.clojure_lsp.setup {
   capabilities = cmp_lsp_capabilities
+}
+
+lspconfig.eslint.setup {
+  -- I don't _think_ this part is relevant for eslint. I think tsserver should
+  -- handle all of the completions.
+  -- capabilities = cmp_lsp_capabilities
+  command = "eslint_d"
 }
 
 lspconfig.gopls.setup {
