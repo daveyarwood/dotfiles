@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+status_file="/tmp/nerd-dictation-resumed"
+
+if [[ -f "$status_file" ]]; then
+  if nerd-dictation suspend; then
+    notify-send "nerd-dictation suspended"
+    rm -f "$status_file"
+  else
+    notify-send -u critical "Failed to suspend nerd-dictation"
+  fi
+else
+  if nerd-dictation resume; then
+    notify-send "nerd-dictation resumed"
+    touch "$status_file"
+  else
+    notify-send -u critical "Failed to resume nerd-dictation"
+  fi
+fi
