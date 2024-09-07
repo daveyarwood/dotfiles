@@ -102,6 +102,16 @@ function fish_prompt
 
   set_color normal # Undoes --bold
 
+  # 2024-08-09 Hacks on top of hacks. nvm fails to use the correct Node version
+  # when I enter this directory (see `custom/node.fish`). Ideally, I should fix
+  # that, but for now, I at least want visibility in my prompt if I'm
+  # unexpectedly using the wrong version of Node.
+  if test $PWD = "$HOME/code/spark"
+    set_color --italic
+    echo -n " (node "(node --version)")"
+    set_color normal
+  end
+
   if test -n "$AWS_PROFILE"
     echo -n " "
     set_color --background blue
