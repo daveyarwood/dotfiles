@@ -66,7 +66,7 @@ lspconfig.clojure_lsp.setup {
 }
 
 lspconfig.eslint.setup {
-  -- I don't _think_ this part is relevant for eslint. I think tsserver should
+  -- I don't _think_ this part is relevant for eslint. I think ts_ls should
   -- handle all of the completions.
   -- capabilities = cmp_lsp_capabilities
   command = "eslint_d"
@@ -136,6 +136,6 @@ lspconfig.solargraph.setup {
   capabilities = cmp_lsp_capabilities
 }
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   capabilities = cmp_lsp_capabilities
 }
