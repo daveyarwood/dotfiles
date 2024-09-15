@@ -214,8 +214,8 @@ exec_always xset s off # disable screen blanking
 exec_always xset -dpms # disable display power management signaling
 
 # Dictation stuff
-exec --no-startup-id "~/bin/nerd-dictation-repo/nerd-dictation begin --vosk-model-dir=/home/dave/bin/nerd-dictation-repo/model --suspend-on-start --numbers-as-digits --numbers-min-value 2 --full-sentence"
-bindsym --release $mod+semicolon exec ~/.bin/toggle-nerd-dictation
+exec --no-startup-id snixembed --fork
+exec --no-startup-id talon
 
 # Toggle keyboard layout between Dvorak and QWERTY. (default: Dvorak)
 # NB: This script also disables CapsLock and remaps it to Escape, since this is
