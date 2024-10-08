@@ -298,7 +298,7 @@ endif
 """""""""""""""""""""""""""""""
 augroup format_js_code_on_save
   autocmd!
-  autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx Neoformat prettierd
+  autocmd BufWritePre *.json,*.js,*.jsx,*.ts,*.tsx Neoformat prettierd
 augroup END
 
 
