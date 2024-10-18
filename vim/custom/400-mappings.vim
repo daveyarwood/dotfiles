@@ -41,6 +41,9 @@ nnoremap <leader>eP :e! ~/.vim/custom/500-plugins-config.vim<cr>
 nnoremap <leader>ev :e! ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
+" Project-specific
+nnoremap <leader>ld :e! ~/code/spark/config/src/env/local-development.js<cr>
+
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
 nnoremap <leader>O O<Esc>O
