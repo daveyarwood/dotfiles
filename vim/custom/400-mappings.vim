@@ -19,21 +19,6 @@ nmap <C-x> :x!<cr>
 imap <C-s> <Esc><C-s>
 imap <C-x> <Esc><C-x>
 
-" FIXME: <C-X> is actually the same key code as <C-x>! Apparently the terminal
-" sends the same key code, so there is no way to differentiate. I'm just
-" commenting this out for now.
-"
-" TODO: Either get rid of this (maybe I don't want it after all) or come up with
-" a different keybinding.
-"
-" For when I'm feeling extra-confident: save commit and immediately git push
-" nmap <silent> <C-X> :call SaveCommitAndPush()<cr>
-" function! SaveCommitAndPush() abort
-"   x!
-"   Gina push
-"   Gina status
-" endfunction
-
 " disable shortcut to go into Ex mode, which I never use
 nnoremap Q <nop>
 
@@ -56,12 +41,11 @@ nnoremap <leader>eP :e! ~/.vim/custom/500-plugins-config.vim<cr>
 nnoremap <leader>ev :e! ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
+" Project-specific
+nnoremap <leader>ld :e! ~/code/spark/config/src/env/local-development.js<cr>
+
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
 nnoremap <leader>O O<Esc>O
 " append & prepend blank lines and go into insert mode
 nnoremap <C-o> o<Esc>O
-
-" like J (which appends next line to current line),
-" but works the other way (appends current line to previous line)
-nnoremap <Space>j kJ
