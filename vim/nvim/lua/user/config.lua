@@ -1,5 +1,5 @@
 require("user.cmp")
-require("user.copilot-chat")
+require("user.copilot")
 require("user.gitsigns")
 require("user.lsp")
 require("user.lualine")
