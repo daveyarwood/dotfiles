@@ -20,7 +20,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim' " Dependency of telescope
+Plug 'nvim-lua/plenary.nvim' " Dependency of telescope, CopilotChat
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -87,8 +87,10 @@ Plug 'zah/nim.vim'
 Plug 'benmills/vimux'
 Plug 'chrisbra/unicode.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'embear/vim-localvimrc'
+Plug 'github/copilot.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'jreybert/vimagit'
