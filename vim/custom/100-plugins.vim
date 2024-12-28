@@ -75,13 +75,6 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'ElmCast/elm-vim'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'habamax/vim-asciidoctor'
-" 2024-06-03: Adding this to work around buggy syntax highlighting when doing
-" something like this:
-"
-" import { type Something } from 'somewhere'
-"
-" TODO: Remove in the future if/when they fix this issue
-Plug 'HerringtonDarkholme/yats.vim'
 Plug 'idris-hackers/idris-vim'
 Plug 'iloginow/vim-stylus'
 Plug 'IoLanguage/io', { 'rtp': 'extras/SyntaxHighlighters/Vim' }
