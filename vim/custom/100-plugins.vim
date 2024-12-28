@@ -29,28 +29,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'PaterJason/cmp-conjure'
 Plug 'saadparwaiz1/cmp_luasnip'
 
-" other editor enhancements
-Plug 'benmills/vimux'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'dyng/ctrlsf.vim'
-Plug 'embear/vim-localvimrc'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-Plug 'jiangmiao/auto-pairs'
-Plug 'kshenoy/vim-signature'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'machakann/vim-sandwich'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'sbdchd/neoformat'
-Plug 'schickling/vim-bufonly'
-Plug 'stevearc/oil.nvim'
-Plug 'tommcdo/vim-lion'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-scripts/gitignore'
-
 " clojure things
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
@@ -106,13 +84,33 @@ Plug 'wlangstroth/vim-racket'
 Plug 'zah/nim.vim'
 
 " misc
+Plug 'benmills/vimux'
 Plug 'chrisbra/unicode.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'dyng/ctrlsf.vim'
+Plug 'embear/vim-localvimrc'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+Plug 'jiangmiao/auto-pairs'
 Plug 'jreybert/vimagit'
+Plug 'kshenoy/vim-signature'
 Plug 'lambdalisue/gina.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'machakann/vim-sandwich'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'sbdchd/neoformat'
+Plug 'schickling/vim-bufonly'
+Plug 'stevearc/oil.nvim'
+Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-unimpaired'
 Plug 'tyru/open-browser.vim'
+Plug 'vim-scripts/gitignore'
 Plug 'vimwiki/vimwiki'
 
 call plug#end()
