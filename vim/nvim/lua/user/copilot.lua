@@ -2,10 +2,10 @@ require('copilot').setup({
   panel = { enabled = false },
   suggestion = { enabled = false },
   filetypes = {
-    yaml = false,
-    markdown = false,
+    yaml = true,
+    markdown = true,
     help = false,
-    -- gitcommit = false,
+    gitcommit = true,
     gitrebase = false,
     hgcommit = false,
     svn = false,
