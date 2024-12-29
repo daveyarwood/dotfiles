@@ -213,9 +213,9 @@ exec_always xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec_always xset s off # disable screen blanking
 exec_always xset -dpms # disable display power management signaling
 
-# Dictation stuff
+# Fixes some applications' icons not appearing in the system tray. This is
+# needed for Talon, for example.
 exec --no-startup-id snixembed --fork
-exec --no-startup-id talon
 
 # Toggle keyboard layout between Dvorak and QWERTY. (default: Dvorak)
 # NB: This script also disables CapsLock and remaps it to Escape, since this is
