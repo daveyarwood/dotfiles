@@ -790,6 +790,23 @@ popd > /dev/null
 echo
 
 ################################################################################
+# Install AWS CLI Session Manager (SSM) plugin
+################################################################################
+
+echo
+echo "Installing AWS CLI Session Manager (SSM) plugin..."
+echo
+
+(
+  curl \
+    "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" \
+    -o "/tmp/session-manager-plugin.deb"
+
+  sudo dpkg -i "/tmp/session-manager-plugin.deb"
+)
+
+
+################################################################################
 # Install AWS VPN client
 ################################################################################
 
