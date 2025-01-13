@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function log() {
-  echo "$(date '+%Y-%m-%d %H:%M:%S') $@" > /dev/stderr
+  >&1 echo "$(date '+%Y-%m-%d %H:%M:%S') $*"
 }
 
 if ! nmcli dev | grep wifi | grep -q ' connected'; then
