@@ -125,3 +125,8 @@ function fish_prompt
 
   set_color normal
 end
+
+# 2025-03-25: Fish now appears to set the cursor to "line" in insert mode, but
+# for years, I've been used to the cursor always being "block". This ensures
+# that the cursor will still be "block" in insert mode.
+set fish_cursor_insert block
