@@ -33,19 +33,6 @@ function! s:DarkMode() abort
   colorscheme gruvbox
   lua require('user.lualine').set_lualine_theme('everforest')
 
-  " 2024-10-27: After updating Neovim recently, my status line  colors were
-  " inverted. This appears to have been a deliberate breaking change in Neovim
-  " requiring changes in nvim-lualine.
-  "
-  " The changes have not yet been implemented, but this was offered by another
-  " user as a workaround, and it works.
-  "
-  " See: https://github.com/nvim-lualine/lualine.nvim/issues/1312
-  "
-  " TODO: Remove this in the future if/when a fix arrives in nvim-lualine.
-  lua vim.api.nvim_set_hl(0, "StatusLine", {reverse = false})
-  lua vim.api.nvim_set_hl(0, "StatusLineNC", {reverse = false})
-
   " let ayucolor="dark"
   " colorscheme ayu
 endfunction
