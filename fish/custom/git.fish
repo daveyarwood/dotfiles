@@ -18,7 +18,7 @@ function gs
   echo
   git status
 
-  set -l stashed_changes (git stash list)
+  set -l stashed_changes "$(git stash list)"
 
   if test -n "$stashed_changes"
     echo -e "\n$stashed_changes"
