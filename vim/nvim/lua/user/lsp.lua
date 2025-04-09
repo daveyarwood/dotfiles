@@ -1,13 +1,7 @@
------ Auxiliary / LSP-adjacent plugins -----
-
--- This plugin makes it easier to read diagnostics when there are more than one
--- per line.
-local lsp_lines = require("lsp_lines")
-lsp_lines.setup()
+----- Diagnostic config -----
 
 vim.diagnostic.config({
-  -- Disable virtual_text since it's redundant due to lsp_lines.
-  virtual_text = false,
+  virtual_lines = true,
   -- Fancier diagnostic signs in the gutter on the left
   signs = {
     text = {
@@ -33,9 +27,12 @@ nmap("gr", vim.lsp.buf.references)
 nmap("[d", vim.diagnostic.goto_prev)
 nmap("]d", vim.diagnostic.goto_next)
 
--- lsp_lines can be noisy when there are a lot of findings, so provide an easy
--- binding to toggle it as needed
-nmap("<leader>l", lsp_lines.toggle)
+-- Virtual line diagnostics can be noisy when there are a lot of findings, so
+-- provide an easy binding to toggle them as needed.
+nmap("<leader>l", function()
+  local new_config = not vim.diagnostic.config().virtual_lines
+  vim.diagnostic.config({ virtual_lines = new_config })
+end)
 
 ----- Language servers -----
 

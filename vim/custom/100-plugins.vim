@@ -11,7 +11,6 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'vim-scripts/mayansmoke'
 
 " new neovim / lua / lsp-related stuff
-Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
