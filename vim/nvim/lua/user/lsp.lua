@@ -24,8 +24,8 @@ nmap("K", vim.lsp.buf.hover)
 -- not I have a REPL running.
 nmap("gK", vim.lsp.buf.hover)
 nmap("gr", vim.lsp.buf.references)
-nmap("[d", vim.diagnostic.goto_prev)
-nmap("]d", vim.diagnostic.goto_next)
+nmap("[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+nmap("]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
 
 -- Virtual line diagnostics can be noisy when there are a lot of findings, so
 -- provide an easy binding to toggle them as needed.
