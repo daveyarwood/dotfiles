@@ -18,7 +18,9 @@ require('copilot').setup({
 
 -- For example config, see:
 -- https://github.com/deathbeam/dotfiles/blob/master/nvim/.config/nvim/lua/config/copilot.lua
-require("CopilotChat").setup {}
+require("CopilotChat").setup {
+  model = 'claude-3.7-sonnet'
+}
 
 local nmap = require("user.fns").nmap
 
