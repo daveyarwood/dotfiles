@@ -36,15 +36,16 @@ ACCOUNT_NAME_SUBSTRINGS = ARGV
 BROWSER = Watir::Browser.new :chrome
 BROWSER.goto SECU_URL
 
-def account_row(account_name_pattern)
+def account_row(account_name_substring)
   warn 'Looking for account row...'
 
   accounts_table = BROWSER.table(id: 'CheckingSavingsMoneyMarket')
   accounts_table.wait_until(&:present?)
 
   accounts_table.tbody.trs.detect do |tr|
-    tr.tds.any? { |td| td.text =~ account_name_pattern }
-  end
+    tr.tds.any? { |td| td.text =~ Regexp.new(account_name_substring, 'i') }
+  end \
+  || raise("No account found with name containing #{account_name_substring}.")
 end
 
 def view_transactions_link(row)
@@ -84,10 +85,7 @@ end
 
 def sanitize(transaction_cells)
   transaction_cells.slice(1..-2).map do |cell_text|
-    cells = cell_text.slice(2..-2).map { |text| sanitize_cell(text) }
-
-    # Make text green if the transaction is a credit
-    cells.last.empty? ? cells : cells.map(&:green)
+    cell_text.slice(2..-2).map { |text| sanitize_cell(text) }
   end
 end
 
@@ -124,20 +122,27 @@ press_enter_to_continue
 # sign_in_button = BROWSER.input(type: 'submit', title: 'Login submit')
 # sign_in_button.click
 
+def parse_transaction_cells_text
+  sanitize(transaction_cells_text).map do |cell_values|
+    date, description, amount1, amount2 = cell_values
+    {
+      date: date,
+      description: description,
+      type: !amount1.empty? ? 'debit' : 'credit',
+      amount: !amount1.empty? ? amount1 : amount2
+    }
+  end
+end
+
 def account_transactions(account_name_substring)
   warn "\n####### #{account_name_substring} #######\n"
 
   BROWSER.goto 'https://onlineaccess.ncsecu.org/O/accounts/balances.aspx'
 
-  account_name_pattern = Regexp.new(account_name_substring, 'i')
+  row = account_row(account_name_substring)
+  view_transactions_link(row).click
 
-  account_row = \
-    account_row(account_name_pattern) ||
-    raise("No account found with name containing #{account_name_substring}.")
-
-  view_transactions_link(account_row).click
-
-  sanitize(transaction_cells_text).map { |row| row.join("\t") }
+  parse_transaction_cells_text
 end
 
 # HACK: For some reason, the `puts` output was getting buffered and not printed
@@ -157,7 +162,20 @@ ACCOUNT_TRANSACTIONS.each do |account_name_substring, account_transactions|
   warn "\n============================================================"
   warn "===== #{account_name_substring} ====="
   warn "============================================================\n"
-  account_transactions.each { |line| puts line }
+
+  max_date_length = \
+    account_transactions.map { |tx| tx[:date].size }.max
+
+  max_description_length = \
+    account_transactions.map { |tx| tx[:description].size }.max
+
+  account_transactions.each do |tx|
+    date = tx[:date].ljust(max_date_length)
+    description = tx[:description].ljust(max_description_length)
+    line = "#{date}   #{description}   #{tx[:amount]}"
+    puts tx[:type] == 'credit' ? line.green : line
+  end
+
   warn ''
   warn ''
 end
