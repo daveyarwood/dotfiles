@@ -19,3 +19,7 @@ require('copilot').setup({
 -- For example config, see:
 -- https://github.com/deathbeam/dotfiles/blob/master/nvim/.config/nvim/lua/config/copilot.lua
 require("CopilotChat").setup {}
+
+local nmap = require("user.fns").nmap
+
+nmap("<leader>c", ":CopilotChatToggle<cr>")
