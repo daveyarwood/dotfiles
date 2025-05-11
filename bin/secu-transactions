@@ -33,10 +33,13 @@ ACCOUNT_NAME_SUBSTRINGS = ARGV
 
 ################################################################################
 
-def account_row(browser, account_name_pattern)
+BROWSER = Watir::Browser.new :chrome
+BROWSER.goto SECU_URL
+
+def account_row(account_name_pattern)
   warn 'Looking for account row...'
 
-  accounts_table = browser.table(id: 'CheckingSavingsMoneyMarket')
+  accounts_table = BROWSER.table(id: 'CheckingSavingsMoneyMarket')
   accounts_table.wait_until(&:present?)
 
   accounts_table.tbody.trs.detect do |tr|
@@ -58,10 +61,10 @@ end
 
 # FIXME: This is the noticeable bottleneck of the script.
 # TODO: Figure out why it's so slow and see if I can make it faster somehow.
-def transactions(browser)
+def transaction_cells_text
   warn 'Collecting transaction info...'
 
-  transactions_table = browser.table(id: 'gridCheckingHistory')
+  transactions_table = BROWSER.table(id: 'gridCheckingHistory')
   transactions_table.wait_until(&:present?)
 
   transactions_table.tbody.trs.map do |row|
@@ -79,9 +82,9 @@ def sanitize_cell(text)
   end
 end
 
-def sanitize(transactions)
-  transactions.slice(1..-2).map do |transaction|
-    cells = transaction.slice(2..-2).map { |text| sanitize_cell(text) }
+def sanitize(transaction_cells)
+  transaction_cells.slice(1..-2).map do |cell_text|
+    cells = cell_text.slice(2..-2).map { |text| sanitize_cell(text) }
 
     # Make text green if the transaction is a credit
     cells.last.empty? ? cells : cells.map(&:green)
@@ -89,9 +92,6 @@ def sanitize(transactions)
 end
 
 ################################################################################
-
-browser = Watir::Browser.new :chrome
-browser.goto SECU_URL
 
 # HACK: This script used to successfully fill in the user name and password
 # fields and log in automatically. But then SECU did something that made that
@@ -118,11 +118,27 @@ warn \
   'finish logging in.'
 press_enter_to_continue
 
-# browser.text_field(id: 'userIDHome').set SECU_USERNAME
-# browser.text_field(id: 'userPasswordHome').set SECU_PASSWORD
+# BROWSER.text_field(id: 'userIDHome').set SECU_USERNAME
+# BROWSER.text_field(id: 'userPasswordHome').set SECU_PASSWORD
 
-# sign_in_button = browser.input(type: 'submit', title: 'Login submit')
+# sign_in_button = BROWSER.input(type: 'submit', title: 'Login submit')
 # sign_in_button.click
+
+def account_transactions(account_name_substring)
+  warn "\n####### #{account_name_substring} #######\n"
+
+  BROWSER.goto 'https://onlineaccess.ncsecu.org/O/accounts/balances.aspx'
+
+  account_name_pattern = Regexp.new(account_name_substring, 'i')
+
+  account_row = \
+    account_row(account_name_pattern) ||
+    raise("No account found with name containing #{account_name_substring}.")
+
+  view_transactions_link(account_row).click
+
+  sanitize(transaction_cells_text).map { |row| row.join("\t") }
+end
 
 # HACK: For some reason, the `puts` output was getting buffered and not printed
 # to the console until the very end (maybe Watir is doing something weird?). But
@@ -131,39 +147,17 @@ press_enter_to_continue
 #
 # So, instead of printing the lines immediately, we collect them in this map and
 # then print everything at the end the way we want it.
-ACCOUNT_OUTPUT = {}
-
-ACCOUNT_NAME_SUBSTRINGS.each do |account_name_substring|
-  account_output_lines = []
-
-  warn "\n####### #{account_name_substring} #######\n"
-
-  browser.goto 'https://onlineaccess.ncsecu.org/O/accounts/balances.aspx'
-
-  account_name_pattern = Regexp.new(account_name_substring, 'i')
-
-  account_row = \
-    account_row(browser, account_name_pattern) ||
-    raise("No account found with name containing #{account_name_substring}.")
-
-  view_transactions_link(account_row).click
-
-  transactions = transactions(browser)
-
-  sanitize(transactions).each do |row|
-    account_output_lines << row.join("\t")
-  end
-
-  ACCOUNT_OUTPUT[account_name_substring] = account_output_lines
+ACCOUNT_TRANSACTIONS = ACCOUNT_NAME_SUBSTRINGS.to_h do |substring|
+  [substring, account_transactions(substring)]
 end
 
-browser.quit
+BROWSER.quit
 
-ACCOUNT_OUTPUT.each do |account_name_substring, account_output_lines|
+ACCOUNT_TRANSACTIONS.each do |account_name_substring, account_transactions|
   warn "\n============================================================"
   warn "===== #{account_name_substring} ====="
   warn "============================================================\n"
-  account_output_lines.each { |line| puts line }
+  account_transactions.each { |line| puts line }
   warn ''
   warn ''
 end
