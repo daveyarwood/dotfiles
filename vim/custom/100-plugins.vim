@@ -90,6 +90,7 @@ Plug 'wlangstroth/vim-racket'
 Plug 'zah/nim.vim'
 
 " misc
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'benmills/vimux'
 Plug 'chrisbra/unicode.vim'
 Plug 'christoomey/vim-tmux-navigator'
