@@ -1,6 +1,6 @@
 add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin
 
-# Hacky workaround to automatically switch to Node 20 when entering this
+# Hacky workaround to automatically switch to Node 22 when entering this
 # particular project.
 #
 # This could easily be extended to automatically run `nvm use` when entering any
@@ -12,7 +12,7 @@ add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin
 # https://github.com/jorgebucaran/nvm.fish/pull/186
 function use-the-right-node-version --on-variable PWD
   if test $PWD = "$HOME/code/spark"
-    nvm use 20
+    nvm use 22.15.0
   end
 end
 
