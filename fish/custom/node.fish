@@ -12,7 +12,7 @@ add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin
 # https://github.com/jorgebucaran/nvm.fish/pull/186
 function use-the-right-node-version --on-variable PWD
   if test $PWD = "$HOME/code/spark"
-    nvm use 22.15.0
+    nvm use 22.16.0
   end
 end
 
