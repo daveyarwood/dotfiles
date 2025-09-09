@@ -18,3 +18,6 @@
   tests) the tests are all passing.
 
 - Instead of serving an app locally, ask me to serve it locally.
+
+- Make git commits often, with clear and descriptive commit messages. Each
+  commit should represent a single logical change and a working state.
