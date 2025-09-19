@@ -51,25 +51,25 @@ if ok then
    end
 end
 
-local lspconfig = require("lspconfig")
 local cmp_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.bashls.setup {
-  capabilities = cmp_lsp_capabilities
-}
+local enable_lsp = function(server_name, config)
+  vim.lsp.config(server_name, config)
+  vim.lsp.enable(server_name)
+end
 
-lspconfig.clojure_lsp.setup {
-  capabilities = cmp_lsp_capabilities
-}
+enable_lsp('bashls', { capabilities = cmp_lsp_capabilities })
 
-lspconfig.eslint.setup {
+enable_lsp('clojure_lsp', { capabilities = cmp_lsp_capabilities })
+
+enable_lsp('eslint', {
   -- I don't _think_ this part is relevant for eslint. I think ts_ls should
   -- handle all of the completions.
   -- capabilities = cmp_lsp_capabilities
   command = "eslint_d"
-}
+})
 
-lspconfig.gopls.setup {
+enable_lsp('gopls', {
   capabilities = cmp_lsp_capabilities,
   cmd = {"gopls", "serve"},
   settings = {
@@ -80,7 +80,7 @@ lspconfig.gopls.setup {
       staticcheck = true,
     },
   },
-}
+})
 
 -- 2024-02-03: I tried Kotlin language server and it mostly works, but there are
 -- some issues with resolving referencies from dependencies. I dug through the
@@ -96,11 +96,11 @@ lspconfig.gopls.setup {
 --
 -- TODO: Revisit in the future.
 --
--- lspconfig.kotlin_language_server.setup{
+-- enable_lsp('kotlin_language_server', {
 --   capabilities = cmp_lsp_capabilities,
--- }
+-- })
 
-lspconfig.lua_ls.setup {
+enable_lsp('lua_ls', {
   capabilities = cmp_lsp_capabilities,
   settings = {
     Lua = {
@@ -125,14 +125,10 @@ lspconfig.lua_ls.setup {
       },
     },
   },
-}
+})
 
-lspconfig.rust_analyzer.setup{}
+enable_lsp('rust_analyzer', {})
 
-lspconfig.solargraph.setup {
-  capabilities = cmp_lsp_capabilities
-}
+enable_lsp('solargraph', { capabilities = cmp_lsp_capabilities })
 
-lspconfig.ts_ls.setup {
-  capabilities = cmp_lsp_capabilities
-}
+enable_lsp('ts_ls', { capabilities = cmp_lsp_capabilities })
