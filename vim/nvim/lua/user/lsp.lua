@@ -51,22 +51,40 @@ if ok then
    end
 end
 
-local cmp_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 local enable_lsp = function(server_name, config)
   vim.lsp.config(server_name, config)
   vim.lsp.enable(server_name)
 end
 
+local cmp_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 enable_lsp('bashls', { capabilities = cmp_lsp_capabilities })
 
 enable_lsp('clojure_lsp', { capabilities = cmp_lsp_capabilities })
+
+-- 2025-09-19: I started getting a cryptic error after updating nvim-lspconfig
+-- and/or Neovim itself. Gemini did some research and suggested that I set
+-- `root_dir` to `require('lspconfig.util').find_git_ancestor`. So I tried that,
+-- but there was a deprecation warning saying to use this disgusting code
+-- instead.
+--
+-- Whatever, it works now.
+local root_dir = vim.fs.dirname(vim.fs.find(
+  '.git',
+  { path = vim.fn.expand('%:p:h'), upward = true }
+)[1])
 
 enable_lsp('eslint', {
   -- I don't _think_ this part is relevant for eslint. I think ts_ls should
   -- handle all of the completions.
   -- capabilities = cmp_lsp_capabilities
-  command = "eslint_d"
+  command = "eslint_d",
+  root_dir = root_dir,
+})
+
+enable_lsp('ts_ls', {
+  capabilities = cmp_lsp_capabilities,
+  root_dir = root_dir
 })
 
 enable_lsp('gopls', {
@@ -130,5 +148,3 @@ enable_lsp('lua_ls', {
 enable_lsp('rust_analyzer', {})
 
 enable_lsp('solargraph', { capabilities = cmp_lsp_capabilities })
-
-enable_lsp('ts_ls', { capabilities = cmp_lsp_capabilities })
