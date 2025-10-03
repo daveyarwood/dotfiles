@@ -113,6 +113,21 @@ let g:conjure#log#hud#passive_close_delay = 1000
 
 let g:conjure#highlight#enabled = v:true
 
+let g:conjure#filetypes = [
+      \ "clojure",
+      \ "fennel",
+      \ "janet",
+      \ "hy",
+      \ "julia",
+      \ "racket",
+      \ "scheme",
+      \ "lua",
+      \ "lisp",
+      \ "python",
+      \ "rust",
+      \ "sql"
+      \ ]
+
 let g:conjure#filetype#sicp = "conjure.client.racket.stdio"
 
 " Disable the automatic Babashka REPL, as I never use it, and it causes problems
