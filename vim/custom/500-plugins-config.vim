@@ -128,6 +128,12 @@ let g:conjure#filetypes = [
       \ "sql"
       \ ]
 
+" 2025-10-13: A working Conjure TypeScript setup would be awesome, but it's
+" still early days and at the moment, if I allow Conjure to be enabled for
+" TypeScript, it interferes with my LSP linting setup, which is super important
+" for TypeScript.
+let g:conjure#filetype#typescript = v:false
+
 let g:conjure#filetype#sicp = "conjure.client.racket.stdio"
 
 " Disable the automatic Babashka REPL, as I never use it, and it causes problems
