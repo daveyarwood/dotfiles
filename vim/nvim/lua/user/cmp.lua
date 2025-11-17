@@ -1,8 +1,5 @@
--- 2025-11-05: I had to disable LuaSnip for now because it started crashing
--- Neovim. I opened an issue: https://github.com/L3MON4D3/LuaSnip/issues/1399
-
 local cmp = require("cmp")
--- local luasnip = require("luasnip")
+local luasnip = require("luasnip")
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -13,11 +10,11 @@ end
 require('copilot_cmp').setup()
 
 cmp.setup({
-  -- snippet = {
-  --   expand = function(args)
-  --     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-  --   end,
-  -- },
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
@@ -39,8 +36,8 @@ cmp.setup({
         cmp.select_next_item()
       -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
       -- they way you will only jump inside the snippet region
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -51,8 +48,8 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      -- elseif luasnip.jumpable(-1) then
-      --   luasnip.jump(-1)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
