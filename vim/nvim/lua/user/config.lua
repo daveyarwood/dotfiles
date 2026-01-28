@@ -5,6 +5,7 @@
 -- https://www.reddit.com/r/neovim/comments/1jeg8v4/just_merged_an_option_to_control_the_default/
 vim.o.winborder = "rounded"
 
+require("user.baleia")
 require("user.cmp")
 require("user.copilot")
 require("user.gitsigns")

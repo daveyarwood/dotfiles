@@ -49,6 +49,8 @@ augroup END
 " => baleia
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Reference: https://github.com/m00qek/baleia.nvim#with-conjure
+" TODO: Update using the latest instructions. There is a new, Lua-based way to
+" do this.
 let s:baleia = luaeval("require('baleia').setup { line_starts_at = 3 }")
 let g:conjure#log#strip_ansi_escape_sequences_line_limit = 0
 autocmd BufWinEnter conjure-log-* call s:baleia.automatically(bufnr('%'))
