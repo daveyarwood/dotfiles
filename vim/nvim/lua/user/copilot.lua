@@ -1,4 +1,4 @@
-local selected_model = 'gemini-2.5-pro'
+local selected_model = 'claude-sonnet-4.5'
 
 require('copilot').setup({
   panel = { enabled = false },
