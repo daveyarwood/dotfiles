@@ -14,7 +14,17 @@ require('copilot').setup({
     cvs = false,
     ["."] = false,
   },
-  copilot_model = selected_model,
+  -- 2026-02-10: It appears that there is only one model that can be used for
+  -- completion, gpt-41-copilot. If I can't use Claude for completion, then I
+  -- don't really care which model it uses, so I'll just rely on whatever is the
+  -- default model.
+  --
+  -- In the future, if they give us choices, I can use this option to specify
+  -- which model I want to use.
+  --
+  -- Ref: https://github.com/zbirenbaum/copilot.lua/issues/649
+  --
+  -- copilot_model = selected_model,
   copilot_node_command = 'node', -- Node.js version must be > 18.x
   server_opts_overrides = {},
 })
