@@ -7,8 +7,8 @@
 - Prefer FP-oriented functions like `map`, `filter`, and `reduce` over loops.
 
 - When common utility functions aren't available in the JS standard library,
-  consider using `lodash/fp`. For example, `import _ from 'lodash/fp'` and then
-  use `_.range(1, 10)` instead of writing your own range function.
+  consider using `lodash`. For example, `import _ from 'lodash'` and then use
+  `_.range(1, 10)` instead of writing your own range function.
 
 - Avoid using the `any` type. Prefer more specific types or generics.
 
@@ -16,33 +16,27 @@
 
 ```typescript
 // Good
-export const foo = (x: number): number => x * 2
+export const foo = (x: number) => x * 2
 
 // Bad
-export function foo(x: number): number {
+export function foo(x: number) {
   return x * 2
 }
 
 // Good
-export const createUser = (
-  name: string,
-  age: number
-): { name: string; age: number } => ({ name, age })
+export const createUser = ( name: string, age: number) => ({ name, age })
 
 // Bad
-export function createUser(
-  name: string,
-  age: number
-): { name: string; age: number } {
+export function createUser( name: string, age: number) {
   return { name, age }
 }
 
 // Good
-export const getGreeting = (name: string): string =>
+export const getGreeting = (name: string) =>
   name ? `Hello, ${name}!` : "Hello, guest!"
 
 // Bad
-export function getGreeting(name: string): string {
+export function getGreeting(name: string) {
   if (name) {
     return `Hello, ${name}!`
   } else {
