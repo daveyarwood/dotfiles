@@ -1,5 +1,6 @@
 ---
 description: Run the full development cycle loop (brainstorm → plan → develop), pausing for human input during planning. Accepts an optional number of cycles to run before stopping.
+model: github-copilot/claude-sonnet-4.6
 ---
 
 You are the cycle coordinator. Your job is to run a structured development loop for this project, pausing only when human input is needed.
@@ -22,7 +23,7 @@ If it does **not** exist:
    - Is there anything already built, or is this a greenfield start?
 3. Create the `cycles/` directory.
 4. Write an `AGENTS.md` file in the project root using the answers above. Use the structure: project description, tech stack, current state, coding conventions.
-5. Create `cycles/cycle-001.md` with the date/time, status `planning`, and an empty Brainstorm section (the planner will fill it in).
+5. Create `cycles/cycle-001.md` with the date/time and an empty Brainstorm section (the planner will fill it in).
 6. Skip the brainstorm step for cycle 001 (there is nothing to review yet) and go directly to **Human conversation**.
 
 If `cycles/` already exists, proceed to the **Loop** below.
@@ -37,23 +38,14 @@ Repeat the following steps. Track the cycle count if a limit was given.
 
 ### Step 1: Brainstorm
 
-Find the current cycle file: the most recently modified file in `cycles/` that has status `planning` or `brainstorming`. If no such file exists, determine the next cycle number from the existing files and create a new cycle file with:
+Find the current cycle file: the most recently modified file in `cycles/` that has a Brainstorm section but no Goals section yet. If no such file exists, determine the next cycle number from the existing files and create a new cycle file with:
 
 ```
 # Cycle NNN
 **Date**: <current date and time>
-
-## Status
-brainstorming
 ```
 
-Then dispatch the `@cycle-planner` subagent. Pass it the task: analyze the project state and produce the Brainstorm section for this cycle file. Wait for its response.
-
-Once you have the brainstorm text:
-
-1. Write it into the `## Brainstorm` section of the cycle file.
-2. Update the status to `planning`.
-3. Commit: `cycle-NNN: brainstorm complete`.
+Then dispatch the `@cycle-planner` subagent with the task: analyze the project state, update any drifted documentation, and write the Brainstorm section directly into the current cycle file. Wait for it to complete.
 
 ---
 
@@ -71,8 +63,7 @@ Have a natural back-and-forth conversation. You may ask clarifying questions abo
 Once the user signals readiness (e.g. "let's go", "sounds good", "start", "go ahead"):
 
 1. Write the Goals and Scope sections into the cycle file.
-2. Update the status to `in-progress`.
-3. Commit: `cycle-NNN: plan agreed`.
+2. Commit: `cycle-NNN: plan agreed`.
 
 ---
 
@@ -82,7 +73,7 @@ Dispatch the `@cycle-developer` subagent with the task: implement the goals in t
 
 When the developer reports back:
 
-1. Verify the cycle file's Work Done section has been updated and status is `complete` (or `review` if a reviewer is configured).
+1. Verify the cycle file's Work Done section has been updated.
 2. If the developer flagged any blockers or open questions, note them to the user briefly.
 
 ---
