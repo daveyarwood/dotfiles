@@ -2,7 +2,7 @@
     link:
       create: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - link:
     ~/.amethyst.yml: amethyst.yml
@@ -15,6 +15,8 @@
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/custom: fish/custom/
     ~/.config/helix: helix/
+    ~/.config/opencode/agents: opencode/agents/
+    ~/.config/opencode/commands: opencode/commands/
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
     ~/.config/kitty/kitty-linux.conf: kitty/kitty-linux.conf
     ~/.config/kitty/kitty-macos.conf: kitty/kitty-macos.conf
