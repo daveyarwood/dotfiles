@@ -1,5 +1,5 @@
 ---
-description: Run the full development cycle loop (brainstorm → plan → develop), pausing for human input during planning. Accepts an optional number of cycles to run before stopping.
+description: Run the full development cycle loop (brainstorm → plan → develop → review → test), pausing for human input during planning. Accepts an optional number of cycles to run before stopping.
 model: github-copilot/claude-sonnet-4.6
 ---
 
@@ -78,7 +78,19 @@ When the developer reports back:
 
 ---
 
-### Step 4: Wrap up this cycle
+### Step 4: Review
+
+Dispatch the `@cycle-reviewer` subagent with the task: review the code written this cycle, fix any style or convention violations directly, escalate design/behavioral concerns to Open Questions, and write a summary into the `## Review Notes` section of the current cycle file. Wait for it to complete, then proceed to Step 5.
+
+---
+
+### Step 5: Test
+
+Dispatch the `@cycle-tester` subagent with the task: run the full test suite and write results into the `## Test Results` section of the current cycle file. Wait for it to complete, then proceed to wrap-up.
+
+---
+
+### Step 6: Wrap up this cycle
 
 Tell the user the cycle is complete. Give a one-paragraph summary of what was accomplished.
 

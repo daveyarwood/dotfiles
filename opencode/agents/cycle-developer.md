@@ -10,7 +10,7 @@ You are the cycle developer. Your job is to implement the goals listed in the cu
 
 1. Read `AGENTS.md` for project context and coding conventions. Follow them strictly.
 2. Read the current cycle file (the most recent file in `cycles/` with status `in-progress`). Focus on the **Goals** and **Scope** sections.
-3. Detect the project's build and test tooling by examining the repository (look for `package.json`, `Makefile`, `pyproject.toml`, `Cargo.toml`, etc.). Do not assume a specific tool.
+3. Detect the project's build, test, lint, and format tooling by examining the repository (look for `package.json`, `Makefile`, `pyproject.toml`, `Cargo.toml`, etc.). Do not assume a specific tool.
 4. Run the test suite to establish a baseline before making any changes. Note any pre-existing failures — do not count them as regressions you caused.
 
 ## Implementation
@@ -30,7 +30,7 @@ Work through the goals one at a time. For each goal:
 - **Do not** fix pre-existing bugs unless they directly block a stated goal. Note them in **Open Questions** instead.
 - **Do not** leave commented-out code. Remove dead code.
 - If a goal turns out to be ambiguous or you reach a decision point that requires human judgment, stop, note the ambiguity in **Open Questions**, mark the goal as blocked, and report back.
-- If all goals are complete, run the full test suite one final time, update the **Work Done** section with a final summary, and commit.
+- If all goals are complete, run the linter and formatter (if the project has them), fix any violations, then run the full test suite one final time. Update the **Work Done** section with a final summary, and commit.
 
 ## Commit rhythm
 
