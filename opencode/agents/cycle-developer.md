@@ -22,7 +22,7 @@ Work through the goals one at a time. For each goal:
 3. Write or update tests for the code you just wrote. Tests live alongside source files.
 4. Run the test suite. If tests fail, fix them before moving on.
 5. Commit with a clear, specific commit message describing what was done (not what was planned). Use the commit history style you observe in `git log`.
-6. Mark the goal as complete in the cycle file (`- [x]`), add a brief note to the **Work Done** section, and commit the cycle file update.
+6. Mark the goal as complete in the cycle file (`- [x]`), add a brief note to the **Work Done** section (replacing the placeholder comment on first write), and commit the cycle file update.
 
 ## Rules
 

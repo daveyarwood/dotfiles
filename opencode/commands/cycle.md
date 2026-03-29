@@ -23,7 +23,7 @@ If it does **not** exist:
    - Is there anything already built, or is this a greenfield start?
 3. Create the `cycles/` directory.
 4. Write an `AGENTS.md` file in the project root using the answers above. Use the structure: project description, tech stack, current state, coding conventions.
-5. Create `cycles/cycle-001.md` with the date/time and an empty Brainstorm section (the planner will fill it in).
+5. Create `cycles/cycle-001.md` using the full cycle file skeleton (see Step 1 of the Loop below for the template), substituting the current date/time. Commit it: `cycle-001: create cycle file`.
 6. Skip the brainstorm step for cycle 001 (there is nothing to review yet) and go directly to **Human conversation**.
 
 If `cycles/` already exists, proceed to the **Loop** below.
@@ -38,14 +38,41 @@ Repeat the following steps. Track the cycle count if a limit was given.
 
 ### Step 1: Brainstorm
 
-Find the current cycle file: the most recently modified file in `cycles/` that has a Brainstorm section but no Goals section yet. If no such file exists, determine the next cycle number from the existing files and create a new cycle file with:
+Find the current cycle file: the most recently modified file in `cycles/` that has a Brainstorm section but no Goals section yet. If no such file exists, determine the next cycle number from the existing files and create a new cycle file with the full skeleton below — substituting the correct cycle number and current date/time — then commit it: `cycle-NNN: create cycle file`.
 
-```
+```markdown
 # Cycle NNN
+
 **Date**: <current date and time>
+
+## Brainstorm
+
+<!-- to be filled in by cycle-planner -->
+
+## Goals
+
+<!-- to be filled in during human planning conversation -->
+
+## Scope
+
+<!-- to be filled in during human planning conversation -->
+
+## Work Done
+
+<!-- to be filled in by cycle-developer -->
+
+## Review Notes
+
+<!-- to be filled in by cycle-reviewer -->
+
+## Test Results
+
+<!-- to be filled in by cycle-tester -->
+
+## Open Questions
 ```
 
-Then dispatch the `@cycle-planner` subagent with the task: analyze the project state, update any drifted documentation, and write the Brainstorm section directly into the current cycle file. Wait for it to complete.
+Then dispatch the `@cycle-planner` subagent with the task: analyze the project state, update any drifted documentation, and write the Brainstorm section directly into the current cycle file, replacing the placeholder comment under `## Brainstorm`. Wait for it to complete.
 
 ---
 
@@ -62,7 +89,7 @@ Have a natural back-and-forth conversation. You may ask clarifying questions abo
 
 Once the user signals readiness (e.g. "let's go", "sounds good", "start", "go ahead"):
 
-1. Write the Goals and Scope sections into the cycle file.
+1. Write the Goals and Scope sections into the cycle file, replacing the placeholder comments under `## Goals` and `## Scope`.
 2. Commit: `cycle-NNN: plan agreed`.
 
 ---

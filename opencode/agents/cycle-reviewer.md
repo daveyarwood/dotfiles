@@ -50,7 +50,7 @@ For these, add an entry to the `## Open Questions` section of the cycle file ins
 
 ## Your output
 
-Write your findings directly into the `## Review Notes` section of the current cycle file. Use this structure:
+Write your findings directly into the `## Review Notes` section of the current cycle file, replacing the placeholder comment. Use this structure:
 
 ```
 ## Review Notes

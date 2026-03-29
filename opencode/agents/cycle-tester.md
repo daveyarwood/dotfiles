@@ -46,7 +46,7 @@ If the test command hangs (e.g. vitest runs in watch mode by default), add the a
 
 ## Your output
 
-Write your findings directly into the `## Test Results` section of the current cycle file. Use this structure:
+Write your findings directly into the `## Test Results` section of the current cycle file, replacing the placeholder comment. Use this structure:
 
 ```
 ## Test Results

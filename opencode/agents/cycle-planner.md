@@ -47,6 +47,6 @@ Speculative but grounded observations: Where is the project headed after a few m
 A list of concrete, scoped suggestions for what to work on. Aim for 4–8 suggestions ranging from obvious next steps (low-hanging fruit, bugs, continuation of prior work) to more creative or ambitious ideas. For each suggestion, give a one-sentence rationale. These are suggestions only — the human will decide what to focus on.
 ```
 
-Write the brainstorm directly into the `## Brainstorm` section of the current cycle file, then commit: `cycle-NNN: brainstorm complete`.
+Write the brainstorm directly into the `## Brainstorm` section of the current cycle file, replacing the placeholder comment. Then commit: `cycle-NNN: brainstorm complete`.
 
 Do not make any code changes. Your job is analysis, documentation, and synthesis only.
