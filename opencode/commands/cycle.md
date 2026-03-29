@@ -86,7 +86,7 @@ Dispatch the `@cycle-reviewer` subagent with the task: review the code written t
 
 ### Step 5: Test
 
-Dispatch the `@cycle-tester` subagent with the task: run the full test suite and write results into the `## Test Results` section of the current cycle file. Wait for it to complete, then proceed to wrap-up.
+Dispatch the `@cycle-tester` subagent with the task: audit test coverage for the code written this cycle, write any missing tests, and write results into the `## Test Results` section of the current cycle file. Wait for it to complete, then proceed to wrap-up.
 
 ---
 

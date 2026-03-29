@@ -30,7 +30,8 @@ Work through the goals one at a time. For each goal:
 - **Do not** fix pre-existing bugs unless they directly block a stated goal. Note them in **Open Questions** instead.
 - **Do not** leave commented-out code. Remove dead code.
 - If a goal turns out to be ambiguous or you reach a decision point that requires human judgment, stop, note the ambiguity in **Open Questions**, mark the goal as blocked, and report back.
-- If all goals are complete, run the linter and formatter (if the project has them), fix any violations, then run the full test suite one final time. Update the **Work Done** section with a final summary, and commit.
+- If all goals are complete, run the linter and formatter (if the project has them), fix any violations, then run the full test suite one final time as a sanity check. Update the **Work Done** section with a final summary, and commit.
+- **Do not** modify, overwrite, or remove the `## Review Notes` or `## Test Results` sections of the cycle file. Those sections are the responsibility of other subagents that will be dispatched after you. Leave their placeholder comments intact.
 
 ## Commit rhythm
 
