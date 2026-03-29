@@ -37,7 +37,7 @@ Do **not** nitpick formatting or style issues that a linter would catch — assu
 - Is a clear DRY violation with an obvious, low-risk fix
 - Is a minor correctness issue with a clear, safe fix
 
-After making fixes, run the test suite to confirm nothing broke. Commit any fixes: `cycle-NNN: review fixes`.
+After making fixes, run the test suite to confirm nothing broke. If tests fail, either fix them or revert your changes and add an entry to `## Open Questions` explaining what you tried and why it was left unresolved. Commit any fixes: `cycle-NNN: review fixes`.
 
 **Do not fix** anything that:
 
