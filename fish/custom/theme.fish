@@ -106,7 +106,7 @@ function fish_prompt
   # when I enter this directory (see `custom/node.fish`). Ideally, I should fix
   # that, but for now, I at least want visibility in my prompt if I'm
   # unexpectedly using the wrong version of Node.
-  if test $PWD = "$HOME/code/spark"
+  if test $PWD = "$HOME/code/spark" || test $PWD = "$HOME/code/spark-copy"
     set_color --italic
     echo -n " (node "(node --version)")"
     set_color normal
