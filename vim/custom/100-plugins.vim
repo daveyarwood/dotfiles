@@ -3,6 +3,7 @@ call plug#begin('~/.vim/bundle')
 " aesthetic
 Plug 'ayu-theme/ayu-vim'
 Plug 'cormacrelf/vim-colors-github'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 Plug 'm00qek/baleia.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
