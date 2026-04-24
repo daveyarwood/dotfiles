@@ -1,0 +1,159 @@
+#!/usr/bin/env bash
+#
+# Recreates the tmux layout I normally want after rebooting:
+#
+#   spark           Two windows:
+#                     services       6 panes (2x3 grid), each `cd ~/code/spark`
+#                     docker-compose `cd ~/code/spark` + `docker compose up ...`
+#
+#   <kebab-name>    One window `auggie` per recent Auggie session, each with
+#                   `cd <workspaceRoot>` followed by `auggie --resume <id>`.
+#                   The session names are produced by `recent-auggie-sessions`.
+#
+# Existing tmux sessions with the same target name are left alone. After all
+# sessions are created the script attaches to `spark`.
+
+set -eo pipefail
+
+# Bash bumps SHLVL on startup, so by the time we get here, $SHLVL is one
+# higher than the fish shell that invoked this script. When this script
+# launches a brand-new tmux server, the server snapshots its initial
+# environment from this bash process, and every pane ever spawned by that
+# server inherits the inflated SHLVL. That's not what we want - we want
+# panes launched via this script to behave identically to panes in a tmux
+# server that was started directly from fish.
+#
+# Decrementing SHLVL here cancels out bash's increment, so the tmux server
+# sees the same SHLVL that the invoking fish shell had. If a tmux server is
+# already running when this script runs, this is a no-op for pane env (the
+# server's initial env was fixed when it first started).
+SHLVL=$((SHLVL - 1))
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+RECENT_SCRIPT="$SCRIPT_DIR/recent-auggie-sessions"
+SPARK_DIR="$HOME/code/spark"
+
+ATTACH=1
+NUM_SESSIONS=10
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --no-attach) ATTACH=0 ;;
+    -n) shift; NUM_SESSIONS="$1" ;;
+    -h|--help)
+      cat <<EOF
+Usage: $(basename "$0") [--no-attach] [-n NUM_SESSIONS]
+
+Creates a hard-coded 'spark' tmux session and one tmux session per recent
+Auggie session (via recent-auggie-sessions). Attaches to 'spark' at the end
+unless --no-attach is given.
+EOF
+      exit 0
+      ;;
+    *) echo "unknown argument: $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+for cmd in tmux auggie jq; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "error: '$cmd' not found in PATH" >&2
+    exit 1
+  fi
+done
+
+if [[ ! -x "$RECENT_SCRIPT" ]]; then
+  echo "error: $RECENT_SCRIPT not found or not executable" >&2
+  exit 1
+fi
+
+session_exists() {
+  tmux has-session -t="$1" 2>/dev/null
+}
+
+# Send a command to a pane as if typed at the prompt (Enter at the end).
+send_cmd() {
+  local target="$1"
+  local cmd="$2"
+  tmux send-keys -t "$target" "$cmd" Enter
+}
+
+create_spark_session() {
+  if session_exists "spark"; then
+    echo "spark: already exists, skipping" >&2
+    return
+  fi
+
+  echo "spark: creating" >&2
+
+  # Window 1: services (6 panes, 2x3 grid). Start in $HOME so the fish
+  # directory hooks (nvm.fish) fire correctly when we cd into the repo.
+  tmux new-session -d -s spark -n services -c "$HOME"
+
+  # Create 5 extra panes for 6 total. Layout gets fixed up afterwards.
+  for _ in 1 2 3 4 5; do
+    tmux split-window -t spark:services -c "$HOME"
+    tmux select-layout -t spark:services tiled >/dev/null
+  done
+  tmux select-layout -t spark:services tiled >/dev/null
+
+  # cd into the spark repo in every pane. Read actual indices instead of
+  # assuming 0-based (my tmux config uses pane-base-index 1).
+  local pane_indices first_pane
+  pane_indices=$(tmux list-panes -t spark:services -F '#{pane_index}')
+  for p in $pane_indices; do
+    send_cmd "spark:services.$p" "cd $SPARK_DIR"
+  done
+  first_pane=$(printf '%s\n' "$pane_indices" | head -n 1)
+  tmux select-pane -t "spark:services.$first_pane"
+
+  # Window 2: docker-compose.
+  tmux new-window -t spark: -n docker-compose -c "$HOME"
+  send_cmd "spark:docker-compose" "cd $SPARK_DIR"
+  send_cmd "spark:docker-compose" \
+    "docker compose up --remove-orphans (docker compose config --services | grep -v mongo)"
+
+  tmux select-window -t spark:services
+}
+
+create_auggie_session() {
+  local name="$1"
+  local session_id="$2"
+  local workspace_root="$3"
+
+  if session_exists "$name"; then
+    echo "$name: already exists, skipping" >&2
+    return
+  fi
+
+  echo "$name: creating (resuming $session_id in $workspace_root)" >&2
+
+  tmux new-session -d -s "$name" -n auggie -c "$HOME"
+
+  if [[ -n "$workspace_root" && "$workspace_root" != "null" ]]; then
+    send_cmd "$name:auggie" "cd $workspace_root"
+  fi
+  send_cmd "$name:auggie" "auggie --resume $session_id"
+}
+
+create_spark_session
+
+echo "Generating names for $NUM_SESSIONS recent Auggie sessions..." >&2
+tsv=$("$RECENT_SCRIPT" "$NUM_SESSIONS")
+
+# Grab workspaceRoot for each session id in one go.
+sessions_json=$(auggie session list --all -n "$NUM_SESSIONS" --json)
+
+while IFS=$'\t' read -r session_id name; do
+  [[ -z "$session_id" ]] && continue
+  workspace_root=$(jq -r --arg id "$session_id" \
+    '.[] | select(.sessionId == $id) | .workspaceRoot // ""' \
+    <<<"$sessions_json")
+  create_auggie_session "$name" "$session_id" "$workspace_root"
+done <<<"$tsv"
+
+if [[ "$ATTACH" -eq 1 ]]; then
+  exec tmux -2 attach -t spark
+else
+  echo "Done. Skipping attach (--no-attach). Sessions:" >&2
+  tmux list-sessions >&2
+fi
