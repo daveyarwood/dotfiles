@@ -12,7 +12,13 @@ add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin
 # https://github.com/jorgebucaran/nvm.fish/pull/186
 function use-the-right-node-version --on-variable PWD
   if test $PWD = "$HOME/code/spark" || test $PWD = "$HOME/code/spark-copy"
-    nvm use 22.16.0
+    # Erase any inherited nvm_current_version so that `nvm use` does not
+    # short-circuit on the `$ver != $nvm_current_version` check and actually
+    # prepends nvm's bin dir to PATH in this shell. Without this, a pane whose
+    # parent shell had already activated Node 22 will see nvm_current_version
+    # set but no nvm bin dir in PATH, so `node` falls back to the Homebrew one.
+    set --erase nvm_current_version
+    nvm use --silent 22.16.0
   end
 end
 

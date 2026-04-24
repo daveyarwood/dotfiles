@@ -102,10 +102,9 @@ function fish_prompt
 
   set_color normal # Undoes --bold
 
-  # 2024-08-09 Hacks on top of hacks. nvm fails to use the correct Node version
-  # when I enter this directory (see `custom/node.fish`). Ideally, I should fix
-  # that, but for now, I at least want visibility in my prompt if I'm
-  # unexpectedly using the wrong version of Node.
+  # Show the active Node version when I'm in one of the Spark repos. The
+  # auto-switching is handled by `use-the-right-node-version` in
+  # `custom/node.fish`; this is just a visual confirmation in the prompt.
   if test $PWD = "$HOME/code/spark" || test $PWD = "$HOME/code/spark-copy"
     set_color --italic
     echo -n " (node "(node --version)")"
