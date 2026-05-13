@@ -74,7 +74,6 @@ Plug 'mattn/emmet-vim'
 Plug 'matze/vim-lilypond'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'othree/html5.vim' " dependency for vim-svelte
-Plug 'OrangeT/vim-csharp'
 Plug 'pangloss/vim-javascript'
 Plug 'PProvost/vim-ps1'
 Plug 'raichoo/purescript-vim'
