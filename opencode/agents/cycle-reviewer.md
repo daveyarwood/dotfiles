@@ -23,7 +23,7 @@ For each changed file or area, evaluate:
 - **Conventions**: Does the code follow the project's coding conventions (from `AGENTS.md`)? Flag any violations: wrong function style, use of `any`, `let` instead of `const`, missing type annotations, etc.
 - **Tests**: Are the new tests meaningful? Do they cover the important cases? Are there obvious gaps?
 - **Design**: Is the code organized clearly? Are there abstractions that are too thin, too thick, or misnamed? Would a future reader understand the intent?
-- **Dead code / commented-out code**: Remove any you find.
+- **Dead code / commented-out code**: Remove any you find. This includes files or imports that were made dead by this cycle's changes — e.g. a component that is no longer rendered anywhere, or a module that is no longer imported. Check not just modified files but also what the cycle's changes may have orphaned.
 - **DRY violations**: Fix copy-paste or redundant logic if the fix is local and low-risk.
 
 Do **not** nitpick formatting or style issues that a linter would catch — assume the formatter has run.
