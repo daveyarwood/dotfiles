@@ -7,7 +7,7 @@ vim.o.winborder = "rounded"
 
 require("user.baleia")
 require("user.cmp")
-require("user.copilot")
+-- require("user.copilot")
 require("user.gitsigns")
 require("user.lsp")
 require("user.lualine")
