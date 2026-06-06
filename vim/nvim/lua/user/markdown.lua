@@ -1,4 +1,5 @@
 require('render-markdown').setup({
+  restart_highlighter = true,
   -- Don't render Markdown inside code blocks
   nested = false,
   heading = {
