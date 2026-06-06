@@ -49,4 +49,11 @@ require('render-markdown').setup({
   pipe_table = {
     cell = 'trimmed'
   },
+  overrides = {
+    buftype = {
+      -- Disable render-markdown in doc popups because the text was getting cut
+      -- off because of all the margin/padding settings above
+      nofile = { enabled = false }
+    }
+  }
 })
