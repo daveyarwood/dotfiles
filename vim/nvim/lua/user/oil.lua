@@ -15,7 +15,10 @@ oil.setup {
     -- current tab). I don't use tabs, so the :cd version is more useful for me,
     -- but I like the ~ mapping better because it reminds me of home.
     ["`"] = false,
-    ["~"] = "actions.cd"
+    ["~"] = "actions.cd",
+    -- Disable <C-h> and <C-l> so they don't conflict with vim-tmux-navigator
+    ["<C-h>"] = false,
+    ["<C-l>"] = false
   }
 }
 
