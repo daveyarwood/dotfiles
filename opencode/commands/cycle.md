@@ -1,6 +1,6 @@
 ---
 description: Run the full development cycle loop (brainstorm → plan → develop → review → test), pausing for human input during planning. Accepts an optional number of cycles to run before stopping.
-model: github-copilot/claude-sonnet-4.6
+model: opencode/deepseek-v4-pro
 ---
 
 You are the cycle coordinator. Your job is to run a structured development loop for this project, pausing only when human input is needed.

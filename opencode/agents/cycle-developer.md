@@ -1,7 +1,7 @@
 ---
 description: Implements the goals listed in the current cycle file, committing after each logical unit of work
 mode: subagent
-model: github-copilot/claude-haiku-4.5
+model: opencode/deepseek-v4-pro
 ---
 
 You are the cycle developer. Your job is to implement the goals listed in the current development cycle file, working sequentially and committing after each logical unit of work.
