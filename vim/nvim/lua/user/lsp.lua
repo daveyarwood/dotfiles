@@ -74,17 +74,67 @@ local root_dir = vim.fs.dirname(vim.fs.find(
   { path = vim.fn.expand('%:p:h'), upward = true }
 )[1])
 
+-- JS/TS linting: I enable both eslint and oxlint. Each language server
+-- self-gates via its own root_dir logic, only attaching when it finds the
+-- corresponding config in the project tree (eslint.config.* / .eslintrc* for
+-- eslint, oxlint.config.* / .oxlintrc.json for oxlint). This keeps the config
+-- portable across projects that use either toolchain, without me having to
+-- toggle anything.
+--
+-- eslint's LSP defaults to format = true (it exposes `eslint --fix` as a
+-- formatting provider), but eslint is a linter, not a formatter, so I disable
+-- that. This keeps eslint out of the formatting picture entirely, which matters
+-- because I standardize on LSP formatting (see the format-on-save autocmd
+-- below): only genuine formatter LSPs like oxfmt should ever format.
 enable_lsp('eslint', {
-  -- I don't _think_ this part is relevant for eslint. I think ts_ls should
-  -- handle all of the completions.
-  -- capabilities = cmp_lsp_capabilities
-  command = "eslint_d",
-  root_dir = root_dir,
+  -- ts_ls handles completions, so no cmp capabilities needed here.
+  settings = {
+    format = false,
+  },
+})
+
+-- Resolve a project-local CLI binary by walking up from the current buffer's
+-- file to the nearest `node_modules/.bin/<tool>`. Falls back to the bare tool
+-- name (PATH lookup) if none is found.
+--
+-- This is needed because lspconfig's bundled oxlint/oxfmt configs only prefer
+-- the local binary when their `root_dir` happens to point at the directory that
+-- contains `node_modules/.bin`. In monorepos like spark, `root_dir` can resolve
+-- to a subpackage (e.g. web/) that has no local bin, so the bundled `cmd` would
+-- fall back to PATH and fail to spawn. Walking up from the file itself is
+-- layout-agnostic and works across any project.
+local function local_bin_cmd(tool)
+  return function(dispatchers, config)
+    local cmd = tool
+    local fname = vim.api.nvim_buf_get_name(0)
+    local start = fname ~= '' and vim.fs.dirname(fname) or (config or {}).root_dir
+    local bin = start and vim.fs.find(
+      vim.fs.joinpath('node_modules', '.bin', tool),
+      { path = start, upward = true }
+    )[1]
+    if bin and vim.fn.executable(bin) == 1 then
+      cmd = bin
+    end
+    return vim.lsp.rpc.start({ cmd, '--lsp' }, dispatchers)
+  end
+end
+
+enable_lsp('oxlint', {
+  capabilities = cmp_lsp_capabilities,
+  cmd = local_bin_cmd('oxlint'),
 })
 
 enable_lsp('ts_ls', {
   capabilities = cmp_lsp_capabilities,
-  root_dir = root_dir
+  root_dir = root_dir,
+  -- ts_ls advertises formatting, but its TypeScript-language-service formatter
+  -- is not what I want. I standardize on LSP formatting (see the format-on-save
+  -- autocmd below) and let oxfmt be the formatter, so disable ts_ls formatting
+  -- to keep it out of the formatting picture.
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
 })
 
 enable_lsp('gopls', {
@@ -148,3 +198,28 @@ enable_lsp('lua_ls', {
 enable_lsp('rust_analyzer', {})
 
 enable_lsp('solargraph', { capabilities = cmp_lsp_capabilities })
+
+-- JS/TS formatting: oxfmt runs as an LSP formatter and self-gates the same way
+-- oxlint does (only attaches when it finds an oxfmt config in the project
+-- tree). In projects that use it (e.g. spark), oxfmt formats on save via the
+-- autocmd below.
+enable_lsp('oxfmt', {
+  cmd = local_bin_cmd('oxfmt'),
+})
+
+----- Format on save (JS/TS/JSON) -----
+
+-- I standardize on LSP formatting. Every LSP that is not a real formatter is
+-- kept out of the formatting picture (eslint via format = false, ts_ls via
+-- on_attach above), so the only client that can format is a genuine formatter
+-- LSP such as oxfmt. That makes a bare vim.lsp.buf.format() correct: it formats
+-- with oxfmt in oxfmt projects, and is a no-op in projects that have no
+-- formatter LSP attached (e.g. prettier/eslint projects I haven't migrated to
+-- oxfmt yet).
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('format_js_code_on_save', { clear = true }),
+  pattern = { '*.json', '*.js', '*.jsx', '*.ts', '*.tsx' },
+  callback = function(args)
+    vim.lsp.buf.format({ bufnr = args.buf })
+  end,
+})
