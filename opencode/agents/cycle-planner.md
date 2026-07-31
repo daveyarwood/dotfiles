@@ -37,6 +37,9 @@ Write a "Brainstorm" section to be inserted into the new cycle file. Structure i
 ### Last cycle summary
 A concise (3–6 bullet points) summary of what was accomplished in the previous cycle. Focus on what changed, not what was planned.
 
+### Inter-cycle activity
+If `git log` shows commits between the last cycle file date and now that are not cycle-related (e.g., PRs merged from external contributors, autonomous agents, hotfixes), list them here as brief bullet points with dates. Format: `2026-07-29: Added rate limiting (Hermes, PR #42)`. This gives the human context for how the project reached its current state without requiring those contributions to create cycle files. Skip this subsection if there was no inter-cycle activity.
+
 ### Current project status
 An honest assessment of where the project stands right now. What is working? What is stubbed or missing? What is the gap between current state and the next meaningful milestone?
 
