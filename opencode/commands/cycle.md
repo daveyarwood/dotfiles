@@ -78,16 +78,36 @@ Then dispatch the `@cycle-planner` subagent with the task: analyze the project s
 
 ### Step 2: Human conversation
 
-Present the brainstorm output to the user in a readable way. Then say:
+Read the Brainstorm section from the current cycle file. Present it to the user for review using Lavish Editor (the preferred path) so they can visually annotate suggestions, answer open questions, and prioritize. Fall back to a text conversation if Lavish is unavailable.
+
+**Preferred: Lavish review**
+
+1. Build a Lavish HTML artifact from the brainstorm content. Place it at `.lavish/cycle-NNN-review.html`. Use the plan playbook (`npx -y lavish-axi playbook plan`) for structure guidance. The artifact should:
+   - Present each brainstorm suggestion as a card with title, description, and rationale
+   - Include accept/defer/customize controls for each item
+   - Surface any open questions the planner raised as annotated targets
+   - Use the project's design system if one exists (check `AGENTS.md`), otherwise fall back to the Lavish CDN design option
+2. Run `npx -y lavish-axi .lavish/cycle-NNN-review.html` to open it.
+3. Run `npx -y lavish-axi poll .lavish/cycle-NNN-review.html --agent-reply "Here are the brainstorm suggestions for cycle NNN. Annotate items to accept, defer, or customize. Answer any open questions directly on the relevant cards. When you're done, click Send & End and I'll write up the Goals and Scope."` — keep polling until the user sends feedback or ends the session.
+4. If the user ends the session (Send & End), translate their annotations into:
+   - A clear, concrete list of **Goals** (specific, implementable tasks)
+   - A **Scope** section (what is explicitly in scope vs. deferred)
+5. If the user sends feedback without ending (plain Send), apply their changes to the artifact and re-poll.
+6. Run `npx -y lavish-axi end .lavish/cycle-NNN-review.html` when done.
+
+**Fallback: Text conversation**
+
+If `npx -y lavish-axi` is unavailable or fails (sandbox, CI, etc.), fall back to a text conversation:
+
+Present the brainstorm output in chat. Then say:
 
 > "What would you like to focus on this cycle? You can accept any of the suggestions above, mix and match, add your own ideas, or tell me to defer something to a later cycle. When you're happy with the plan, say something like 'let's go' and I'll start development."
 
-Have a natural back-and-forth conversation. You may ask clarifying questions about scope or priorities. Your goal is to produce:
+Have a natural back-and-forth conversation to produce Goals and Scope. Do not open Lavish at all in this path.
 
-- A clear, concrete list of **Goals** (specific, implementable tasks)
-- A **Scope** section (what is explicitly in scope vs. deferred)
+**Finalize**
 
-Once the user signals readiness (e.g. "let's go", "sounds good", "start", "go ahead"):
+Once the user is satisfied (either from Lavish annotations or text conversation):
 
 1. Write the Goals and Scope sections into the cycle file, replacing the placeholder comments under `## Goals` and `## Scope`.
 2. Commit: `cycle-NNN: plan agreed`.
