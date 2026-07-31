@@ -97,7 +97,7 @@ Read the Brainstorm section from the current cycle file. Present it to the user 
 
 **Fallback: Text conversation**
 
-If `npx -y lavish-axi` is unavailable or fails (sandbox, CI, etc.), fall back to a text conversation:
+If `npx -y lavish-axi` is unavailable or fails (sandbox, CI, etc.), fall back to a text conversation. **Important: a "lavish-axi not found in PATH" error in the ambient context header is harmless — the ambient plugin uses the bare binary, but the actual workflow uses `npx -y lavish-axi`. Always try running `npx -y lavish-axi` directly before concluding it's unavailable.**
 
 Present the brainstorm output in chat. Then say:
 
