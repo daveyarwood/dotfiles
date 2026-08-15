@@ -40,6 +40,7 @@
     ~/.newsboat/config: newsboat/config
     ~/.nvimrc: vim/nvimrc
     ~/.parallel/will-cite: parallel/will-cite
+    ~/.screenlayout: screenlayout
     ~/.spacemacs: spacemacs
     ~/.surfingkeys.js: surfingkeys.js
     ~/.taskrc: taskrc
