@@ -9,7 +9,7 @@
     ~/.bc.cfg: bc.cfg
     ~/.bin: bin
     ~/.clojure: clojure
-    ~/.config/dunst/dunstrc: dunstrc
+    ~/.config/dunst: dunst
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/custom: fish/custom/
     ~/.config/helix: helix/
@@ -19,9 +19,9 @@
     ~/.config/kitty: kitty
     ~/.config/nvim: vim/nvim/
     # This is the Mac one (https://github.com/koekeishiya/skhd)
-    ~/.config/skhd/skhdrc: skhd/skhdrc
+    ~/.config/skhd: skhd
     # This is the Linux one (https://github.com/baskerville/sxhkd)
-    ~/.config/sxhkd/sxhkdrc: sxhkdrc
+    ~/.config/sxhkd: sxhkd
     ~/.ctags.d: ctags
     ~/.gemini/context: gemini/context
     ~/.gitignore_global: gitignore_global
@@ -36,7 +36,7 @@
     ~/.lsp/config.edn: lsp/config.edn
     ~/.newsboat/config: newsboat/config
     ~/.nvimrc: vim/nvimrc
-    ~/.parallel/will-cite: parallel/will-cite
+    ~/.parallel: parallel
     ~/.screenlayout: screenlayout
     ~/.spacemacs: spacemacs
     ~/.surfingkeys.js: surfingkeys.js
