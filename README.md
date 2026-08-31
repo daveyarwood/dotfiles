@@ -16,7 +16,6 @@ The full list is the source of truth — keep `install.sh` and `AGENTS.md` in sy
     brew install stow fish        # macOS; use apt on Linux
     git clone git@github.com:daveyarwood/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
-    git checkout rebuild-2026
     ./install.sh
 
 Run `install.sh` **before** launching apps that create their own config dirs.

@@ -9,17 +9,12 @@ Working rules for AI agents in this dotfiles repo.
    and only on a fresh machine. For a safe dry-run use a scratch target:
    `stow --target=/tmp/scratch-home -n .` (needs `stow` installed; `-n` simulates).
 
-2. **Check which branch you're on.** `master` is the legacy dotbot layout (still
-   used on the current Ubuntu machine); `rebuild-2026` is the stow-based layout
-   (for macOS + upcoming fresh Ubuntu). The layouts are different — do not
-   cross-contaminate. New work goes on `rebuild-2026`.
-
-3. **Home-mirror layout.** The repo root maps to `$HOME`; every repo path is the
+2. **Home-mirror layout.** The repo root maps to `$HOME`; every repo path is the
    literal path under `~` (dot-dirs `.config/…`, dot-files `.vimrc`, etc.). Use
    `git mv` for moves/renames to preserve history, and keep every path
    home-relative.
 
-4. **Track only portable config.** Never commit secrets, tokens, keys, caches,
+3. **Track only portable config.** Never commit secrets, tokens, keys, caches,
    history, or generated files — e.g. `.clj-kondo/`, `.lsp/` (caches),
    `.cpcache/`, `tags`, `.skill-lock.json`, `fish_history`, `fish_variables`.
    (Some of these are already gitignored; confirm before relying on it.)
