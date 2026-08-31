@@ -18,9 +18,7 @@
     ~/.config/opencode/agents: opencode/agents/
     ~/.config/opencode/commands: opencode/commands/
     ~/.agents/skills: agents/skills/
-    ~/.config/kitty/kitty.conf: kitty/kitty.conf
-    ~/.config/kitty/kitty-linux.conf: kitty/kitty-linux.conf
-    ~/.config/kitty/kitty-macos.conf: kitty/kitty-macos.conf
+    ~/.config/kitty: kitty
     ~/.config/nvim: vim/nvim/
     # This is the Mac one (https://github.com/koekeishiya/skhd)
     ~/.config/skhd/skhdrc: skhd/skhdrc

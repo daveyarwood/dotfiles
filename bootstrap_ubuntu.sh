@@ -545,30 +545,6 @@ sudo update-alternatives --install \
   ~/.local/bin/kitty 50
 
 ################################################################################
-# Install kitty color themes
-################################################################################
-
-git clone \
-  --depth 1 \
-  https://github.com/dexpota/kitty-themes.git \
-  ~/.config/kitty/kitty-themes
-
-pushd ~/.config/kitty > /dev/null
-ln -s ./kitty-themes/themes/Highway.conf ~/.config/kitty/theme.conf
-# Customize the theme to my liking:
-# * Brighten color2 from #128033 => #12d033
-# * Make color6 (formerly #68838b) an actual cyan => #00eeee
-# * Change selection fg/bg colors so that selections are actually readable:
-# ** selection_foreground #212224 (fine as is)
-# ** selection_background #384563 => #ffffed
-sed -i \
-  -e 's/\(color2 \+\).\+/\1#12d033/g' \
-  -e 's/\(color6 \+\).\+/\1#00eeee/g' \
-  -e 's/\(selection_background \+\).\+/\1#ffffed/g' \
-  ~/.config/kitty/theme.conf
-popd > /dev/null
-
-################################################################################
 # Set kitty as default terminal
 ################################################################################
 
