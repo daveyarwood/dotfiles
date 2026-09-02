@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+################################################################################
+
+if [[ $# -ne 1 ]]; then
+  >&2 echo "Usage: $0 AWS_PROFILE"
+  exit 1
+fi
+
+export AWS_PROFILE="$1"
+
+# Don't drop me into `less`
+export AWS_PAGER=""
+
+# Automate popping a browser open to log in via SSO, only if I'm not already
+# logged in.
+aws sts get-caller-identity >/dev/null 2>/dev/null \
+  || aws sso login
+
+################################################################################
+
+if [[ "$SHELL" != *"fish" ]]; then
+  >&2 echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
+fi
+# NOTE: ssh-init is defined in ssh.fish
+"$SHELL" -i -C ssh-init
