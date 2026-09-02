@@ -7,7 +7,7 @@ email="dave.yarwood@gmail.com"
 if [[ "$(uname)" == Darwin ]]; then
   # HACK: This isn't really macOS specific, but this happens to be the email
   # that I want to use on my work laptop.
-  email="dyarwood@govspend.com"
+  email="david.yarwood@fieldguide.io"
   credential_helper="osxkeychain"
 elif [[ -f "$libsecret" ]]; then
   credential_helper="$libsecret"
