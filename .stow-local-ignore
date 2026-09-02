@@ -1,4 +1,15 @@
+# Version-control metadata (never symlink into ~)
+\.git
+\.gitignore
+\.gitmodules
+
+# Repo-root files that aren't config to install
 install\.sh
 bootstrap_ubuntu\.sh
 AGENTS\.md
 README\.md
+
+# Editor artifacts (never symlink into ~)
+\..*\.sw.$       # vim/nvim swap files
+.+~              # backup files
+\#.*\#           # emacs autosave files

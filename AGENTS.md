@@ -21,9 +21,11 @@ Working rules for AI agents in this dotfiles repo.
 
 ## stow specifics
 
-- `.stow-local-ignore` lists repo-root files that must NOT be stowed into `~`:
-  `install.sh`, `bootstrap_ubuntu.sh`, `AGENTS.md`, `README.md`.
-- stow auto-ignores `.git*`, `README.*`, `LICENSE.*`.
+- `.stow-local-ignore` **replaces** stow's built-in default ignore list (not
+  additive). It must list *everything* that shouldn't be symlinked into `~`:
+  version-control metadata (`.git`, `.gitignore`, `.gitmodules`), repo-root files
+  (`install.sh`, `bootstrap_ubuntu.sh`, `AGENTS.md`, `README.md`), and editor
+  artifacts (vim swap `.foo.swp`, backups `foo~`, autosaves `#foo#`).
 - `.gitignore` and `.stow-local-ignore` are independent: stow reads the
   **filesystem**, not git. A gitignored-but-present file still gets stowed, so
   don't leave junk physically in the tree.
