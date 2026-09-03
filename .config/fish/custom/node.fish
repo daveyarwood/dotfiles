@@ -1,4 +1,19 @@
-add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin
+# pnpm keeps its global bin dir under a platform-specific home directory, and
+# needs PNPM_HOME pointed at it to install global packages there.
+if test -d $HOME/Library/pnpm
+  set -gx PNPM_HOME $HOME/Library/pnpm
+else
+  set -gx PNPM_HOME $HOME/.local/share/pnpm
+end
+
+add-dirs-to-path $HOME/npm/bin $HOME/.yarn/bin $PNPM_HOME/bin
+
+# ~/.npmrc expands $NODE_AUTH_TOKEN to authenticate against private GitHub
+# Packages registries. Read it from gh on each shell rather than storing a copy,
+# so it stays current when gh rotates the token.
+if command -v gh >/dev/null
+  set -gx NODE_AUTH_TOKEN (gh auth token 2>/dev/null)
+end
 
 # Automatically run `nvm use` upon entering a directory that specifies a Node
 # version via a `.nvmrc` or `.node-version` file, or that has an ancestor
