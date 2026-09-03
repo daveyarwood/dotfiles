@@ -42,7 +42,7 @@ nnoremap <leader>ev :e! ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
 " Project-specific
-nnoremap <leader>ld :e! ~/code/spark/config/src/env/local-development.js<cr>
+nnoremap <leader>lc :e! ~/code/fieldguide/config/.env.local<cr>
 
 " 'skip a line' variants of o/O
 nnoremap <leader>o o<CR>
