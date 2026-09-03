@@ -12,3 +12,8 @@ tags.temp.tmp
 # correctly?
 .clj-kondo/cache/
 .clj-kondo/.cache/
+
+# Claude Code writes per-project permission grants here. The `.local` tier is
+# machine-specific by design and never belongs in a repo; anything meant to be
+# shared goes in the project's .claude/settings.json instead.
+**/.claude/settings.local.json
