@@ -1,25 +1,15 @@
 #!/usr/bin/env bash
 
-libsecret="/usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret"
-
 email="dave.yarwood@gmail.com"
 
 if [[ "$(uname)" == Darwin ]]; then
   # HACK: This isn't really macOS specific, but this happens to be the email
   # that I want to use on my work laptop.
   email="david.yarwood@fieldguide.io"
-  credential_helper="osxkeychain"
-elif [[ -f "$libsecret" ]]; then
-  credential_helper="$libsecret"
-elif command -v gnome-keyring-daemon >/dev/null; then
-  credential_helper="/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring"
-else
-  echo "ERROR: Unclear which credential helper to use!"
-  exit 1
 fi
 
 cat <<EOF > "$HOME/.gitconfig"
-# This gitconfig was generated via ~/.bin/generate_gitconfig.
+# This gitconfig was generated via ~/.bin/generate-gitconfig.
 # Edit that file, not this one!
 
 [user]
@@ -28,9 +18,6 @@ cat <<EOF > "$HOME/.gitconfig"
 
 [commit]
   gpgsign = true
-
-[credential]
-  helper = $credential_helper
 
 [init]
   defaultBranch = main
@@ -53,3 +40,15 @@ cat <<EOF > "$HOME/.gitconfig"
 [interactive]
   diffFilter = delta --color-only
 EOF
+
+# Credential helper, per-platform.
+if [[ "$(uname)" == Darwin ]]; then
+  git config --global credential.helper osxkeychain
+else
+  gh_bin="$(command -v gh)"
+  if [[ -n "$gh_bin" ]]; then
+    # Use GitHub CLI's token for HTTPS git auth on GitHub.
+    git config --global 'credential.https://github.com.helper' "!$gh_bin auth git-credential"
+    git config --global 'credential.https://gist.github.com.helper' "!$gh_bin auth git-credential"
+  fi
+fi
