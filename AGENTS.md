@@ -43,6 +43,7 @@ alongside our config. These are pre-created by `install.sh` (keep this list and
 - `~/.gemini` / `~/.newsboat` — auth / state
 - `~/.gnupg` — keys (chmod 700)
 - `~/.i3` — generated `config` (from `generate-i3-config`)
+- `~/.vim` — vim-plug `bundle/`, `Session.vim`
 
 Everything else — a dir holding *only* my own static files — folds into a
 whole-dir symlink and needs no pre-creation (new files appear automatically).
