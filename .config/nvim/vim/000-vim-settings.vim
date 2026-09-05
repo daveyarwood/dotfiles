@@ -187,13 +187,13 @@ set startofline
 augroup reopen_last_file
   autocmd!
   autocmd VimLeave * nested
-        \ if (!isdirectory($HOME . "/.vim")) |
-        \ call mkdir($HOME . "/.vim") |
+        \ if (!isdirectory(stdpath('state'))) |
+        \ call mkdir(stdpath('state'), 'p') |
         \ endif |
-        \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+        \ execute "mksession! " . stdpath('state') . "/Session.vim"
   autocmd VimEnter * nested
-        \ if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
-        \ execute "source " . $HOME . "/.vim/Session.vim"
+        \ if argc() == 0 && filereadable(stdpath('state') . "/Session.vim") |
+        \ execute "source " . stdpath('state') . "/Session.vim"
 augroup END
 
 " Turn persistent undo on (means that you can undo even when you close a
