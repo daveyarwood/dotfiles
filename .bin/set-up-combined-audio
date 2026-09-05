@@ -13,8 +13,8 @@ set -eo pipefail
 # module-null-sink        sink_name=recording sink_properties=device.description=recording
 # module-null-sink        sink_name=combined sink_properties=device.description=combined
 # module-loopback source=recording.monitor sink=combined latency_msec=50
-# module-loopback source=alsa_input.pci-0000_06_00.6.HiFi__hw_Generic_1__source sink=combined latency_msec=50
-# module-loopback source=recording.monitor sink=alsa_output.pci-0000_06_00.6.HiFi__hw_Generic_1__sink latency_msec=50
+# module-loopback source=<default source> sink=combined latency_msec=50
+# module-loopback source=recording.monitor sink=<default sink> latency_msec=50
 # module-remap-source     source_name=combined-virtual master=combined.monitor
 #
 # In other words, it creates:
@@ -51,8 +51,8 @@ echo "Creating modules..."
 echo
 
 latency_ms=50
-headset_source="alsa_input.pci-0000_06_00.6.HiFi__hw_Generic_1__source"
-headset_sink="alsa_output.pci-0000_06_00.6.HiFi__hw_Generic_1__sink"
+headset_source="$(pactl get-default-source)"
+headset_sink="$(pactl get-default-sink)"
 
 echo -n "recording sink: "
 pactl load-module module-null-sink \
