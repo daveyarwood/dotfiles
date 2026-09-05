@@ -24,8 +24,8 @@ alias v. "vim ."
 alias vi. "vim ."
 alias vim. "vim ."
 
-# edit vimrc
-alias vimrc "vim $HOME/.vimrc"
+# edit nvim init
+alias vimrc "vim $HOME/.config/nvim/init.lua"
 
 # Edit a scratch file with the given extension (default: adoc)
 function vims
@@ -55,8 +55,8 @@ function vr
   end
 end
 
-alias vpi 'vim +PlugInstall /dev/null'
-alias vpu 'vim +PlugUpdate /dev/null'
+alias vpi 'vim "+Lazy sync" /dev/null'
+alias vpu 'vim "+Lazy update" /dev/null'
 
 # mnemonic: vim grep
 function vg

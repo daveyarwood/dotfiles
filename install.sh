@@ -14,8 +14,7 @@ mkdir -p \
   ~/.newsboat \
   ~/.lein \
   ~/.lsp \
-  ~/.i3 \
-  ~/.vim
+  ~/.i3
 
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg

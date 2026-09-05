@@ -32,14 +32,14 @@ command! Q q
 " Disable highlight
 map <silent> <leader><cr> :noh<cr>
 
-nnoremap <leader>ec :e! ~/.vim/custom/<cr>
-nnoremap <leader>ef :e! ~/.vim/custom/300-filetypes.vim<cr>
+nnoremap <leader>ec :e! ~/.config/nvim/vim/<cr>
+nnoremap <leader>ef :e! ~/.config/nvim/vim/300-filetypes.vim<cr>
 nnoremap <leader>el :e! ~/.config/nvim/lua/user/<cr>
-nnoremap <leader>em :e! ~/.vim/custom/400-mappings.vim<cr>
-nnoremap <leader>ep :e! ~/.vim/custom/100-plugins.vim<cr>
-nnoremap <leader>eP :e! ~/.vim/custom/500-plugins-config.vim<cr>
-nnoremap <leader>ev :e! ~/.vimrc<CR>
-nnoremap <leader>sv :source ~/.vimrc<CR>
+nnoremap <leader>em :e! ~/.config/nvim/vim/400-mappings.vim<cr>
+nnoremap <leader>ep :e! ~/.config/nvim/lua/user/plugins.lua<cr>
+nnoremap <leader>eP :e! ~/.config/nvim/vim/500-plugins-config.vim<cr>
+nnoremap <leader>ev :e! ~/.config/nvim/init.lua<CR>
+nnoremap <leader>sv :luafile ~/.config/nvim/init.lua<CR>
 
 " Project-specific
 nnoremap <leader>lc :e! ~/code/fieldguide/config/.env.local<cr>

@@ -3,3 +3,4 @@
 .socket-port
 tmux*.log
 .skill-lock.json
+lazy-lock.json
