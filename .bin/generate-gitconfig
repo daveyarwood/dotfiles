@@ -19,9 +19,7 @@ cat <<EOF > "$HOME/.gitconfig"
 [commit]
   gpgsign = true
 
-[credential "https://github.com"]
-  helper = !gh auth git-credential
-[credential "https://gist.github.com"]
+[credential]
   helper = !gh auth git-credential
 
 [init]
