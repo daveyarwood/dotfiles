@@ -8,17 +8,6 @@ if [[ "$(uname)" == Darwin ]]; then
   email="david.yarwood@fieldguide.io"
 fi
 
-credential_section=""
-gh_bin="$(command -v gh)"
-if [[ -n "$gh_bin" ]]; then
-  # GitHub CLI's token handles HTTPS git auth on GitHub (any platform, as long
-  # as `gh auth login` has been run).
-  credential_section="[credential \"https://github.com\"]
-  helper = !$gh_bin auth git-credential
-[credential \"https://gist.github.com\"]
-  helper = !$gh_bin auth git-credential"
-fi
-
 cat <<EOF > "$HOME/.gitconfig"
 # This gitconfig was generated via ~/.bin/generate-gitconfig.
 # Edit that file, not this one!
@@ -30,7 +19,10 @@ cat <<EOF > "$HOME/.gitconfig"
 [commit]
   gpgsign = true
 
-$credential_section
+[credential "https://github.com"]
+  helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+  helper = !gh auth git-credential
 
 [init]
   defaultBranch = main
