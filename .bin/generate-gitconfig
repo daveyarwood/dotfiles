@@ -2,10 +2,22 @@
 
 email="dave.yarwood@gmail.com"
 
+credential_section=""
+
 if [[ "$(uname)" == Darwin ]]; then
   # HACK: This isn't really macOS specific, but this happens to be the email
   # that I want to use on my work laptop.
   email="david.yarwood@fieldguide.io"
+  credential_section='[credential]
+  helper = osxkeychain'
+else
+  gh_bin="$(command -v gh)"
+  if [[ -n "$gh_bin" ]]; then
+    credential_section="[credential \"https://github.com\"]
+  helper = !$gh_bin auth git-credential
+[credential \"https://gist.github.com\"]
+  helper = !$gh_bin auth git-credential"
+  fi
 fi
 
 cat <<EOF > "$HOME/.gitconfig"
@@ -18,6 +30,8 @@ cat <<EOF > "$HOME/.gitconfig"
 
 [commit]
   gpgsign = true
+
+$credential_section
 
 [init]
   defaultBranch = main
@@ -40,15 +54,3 @@ cat <<EOF > "$HOME/.gitconfig"
 [interactive]
   diffFilter = delta --color-only
 EOF
-
-# Credential helper, per-platform.
-if [[ "$(uname)" == Darwin ]]; then
-  git config --global credential.helper osxkeychain
-else
-  gh_bin="$(command -v gh)"
-  if [[ -n "$gh_bin" ]]; then
-    # Use GitHub CLI's token for HTTPS git auth on GitHub.
-    git config --global 'credential.https://github.com.helper' "!$gh_bin auth git-credential"
-    git config --global 'credential.https://gist.github.com.helper' "!$gh_bin auth git-credential"
-  fi
-fi
