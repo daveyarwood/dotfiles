@@ -73,3 +73,6 @@ function gsu
     end
   end
 end
+
+# Helper to quickly jump into a repo directory from any other directory
+alias rf "cd (begin; echo ~/.dotfiles; find ~/code -maxdepth 1 -type d; end | fzf)"
