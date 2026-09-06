@@ -5,7 +5,6 @@
 
 # Repo-root files that aren't config to install
 install\.sh
-bootstrap_ubuntu\.sh
 AGENTS\.md
 README\.md
 
