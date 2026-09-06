@@ -578,10 +578,9 @@ nnoremap <buffer> <leader>vF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'path_html': '~/Sync/vimwiki/html'}]
-
-" Only enable Vimwiki bindings when editing files in the path(s) above
-let g:vimwiki_global_ext = 0
+" Note: g:vimwiki_list, g:vimwiki_global_ext, and g:vimwiki_menu are set in
+" lua/user/plugins.lua via the plugin's `init` hook, because vimwiki snapshots
+" g:vimwiki_* at load time and plugins load before this file is sourced.
 
 function! CreateSkeletonDiaryEntry() abort
   if line('$') == 1 && getline(1) == ''

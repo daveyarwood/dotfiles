@@ -121,5 +121,18 @@ return {
   { "tpope/vim-unimpaired" },
   { "tyru/open-browser.vim" },
   { "vim-scripts/gitignore" },
-  { "vimwiki/vimwiki" },
+  { "vimwiki/vimwiki",
+    init = function()
+      -- vimwiki snapshots g:vimwiki_* into g:vimwiki_global_vars when its
+      -- plugin script loads, and lazy.nvim loads plugins before sourcing the
+      -- Vimscript config (500-plugins-config.vim). So these must live in
+      -- `init`, which lazy runs before vimwiki loads.
+      vim.g.vimwiki_list = { { path = "~/Sync/vimwiki", path_html = "~/Sync/vimwiki/html" } }
+      vim.g.vimwiki_global_ext = 0
+      -- Neovim's TUI menu model doesn't register the "Vimwiki.Table" submenu
+      -- vimwiki expects to `nmenu enable/disable` on buffer enter/leave, so it
+      -- throws E329. Disable the menu entirely; I never use a GUI menu bar.
+      vim.g.vimwiki_menu = ""
+    end,
+  },
 }
