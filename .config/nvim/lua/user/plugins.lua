@@ -23,7 +23,7 @@ return {
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-path" },
   { "hrsh7th/nvim-cmp" },
-  { "L3MON4D3/LuaSnip", tag = "v2.*", build = "make install_jsregexp" },
+  { "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp" },
   { "lewis6991/gitsigns.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   { "neovim/nvim-lspconfig" },
   { "nvim-lua/plenary.nvim" },
