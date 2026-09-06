@@ -22,6 +22,11 @@ cat <<EOF > "$HOME/.gitconfig"
 [credential]
   helper = !gh auth git-credential
 
+# Force all GitHub remotes through HTTPS, even when a URL is SSH-flavored.
+[url "https://github.com/"]
+  insteadOf = git@github.com:
+  insteadOf = ssh://git@github.com/
+
 [init]
   defaultBranch = main
 
