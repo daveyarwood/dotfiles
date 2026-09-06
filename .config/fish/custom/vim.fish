@@ -55,8 +55,12 @@ function vr
   end
 end
 
-alias vpi 'vim "+Lazy sync" /dev/null'
-alias vpu 'vim "+Lazy update" /dev/null'
+# NB: lazy.nvim defers registering the `:Lazy` command until VeryLazy, so a
+# plain `vim "+Lazy sync"` fails with "Not an editor command: Lazy". Running
+# headless makes lazy register the command eagerly; the bang makes nvim wait
+# for the sync/update to finish before quitting.
+alias vpi 'vim --headless "+Lazy! sync" +qa'
+alias vpu 'vim --headless "+Lazy! update" +qa'
 
 # mnemonic: vim grep
 function vg
