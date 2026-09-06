@@ -201,57 +201,10 @@ augroup END
 " => Clojure
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Paul copy-pasted me this from his own vimrc on 2021-04-21.
-function! ClojureTagLookup()
-  let word = expand('<cword>')
-  if word =~ ".*/.*"
-    let sym_words = split(word, "/")
-    let first_tag = taglist(sym_words[0])
-    if len(first_tag) == 1
-      let first_tag = first_tag[0]
-      if first_tag['kind'] == 'a'
-        let nsname = matchlist(first_tag['cmd'], '[\(.*\) :as .*')[1]
-        let second_tag = taglist("^".sym_words[1]."$")
-        let criteria = "has_key(v:val, 'namespace') && v:val['namespace'] == '".nsname."'"
-        let x = filter(second_tag, criteria)
-        if len(x) == 1
-          let t = x[0]
-          " Drop the trailing '/' from the tag's command/regex entry
-          let cmd = strpart((t.cmd),0,strlen((t.cmd))-1)
-          " Are we on a version of Vim that has gettagstack and
-          " settagstack?
-          if exists('*gettagstack')
-            "TODO: Update the tagstack
-          endif
-          "exe 'tag '.(t.name) " This doesn't work as expected, because it doesn't jump to the tag that was just found
-          " So let's 'edit' the file from the tag, and use the regex
-          " to jump to the line
-          exe 'e '. (t.filename)
-          exe ':'. cmd
-          return
-        endif
-      endif
-    endif
-    let word = sym_words[1]
-  endif
-
-  let first_tag = taglist("^".word."$")
-  if len(first_tag) == 1
-    exe 'tag' word
-  else
-    exe 'tselect' word
-  endif
-endfunction
-
 augroup clojure_and_hoplon
   autocmd!
   autocmd BufNewFile,BufRead  *.cljs.hl,*.boot set filetype=clojure
   autocmd BufNewFile,BufRead  *.html.hl        set filetype=html
-
-  " Lookup the tag under cursor, accounting for ns
-  autocmd FileType clojure
-        \ nnoremap <buffer> <C-]>
-        \ :call ClojureTagLookup()<cr>
 augroup END
 
 

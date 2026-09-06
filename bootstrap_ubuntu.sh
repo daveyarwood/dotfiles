@@ -36,7 +36,6 @@ sudo apt install -y \
   entr \
   jq \
   htop \
-  universal-ctags \
   python3-dev python3-pip \
   rbenv ruby-dev \
   openjdk-17-jdk \

@@ -197,12 +197,7 @@ augroup END
 """"""""""""""""""""""""""""""
 let g:ctrlsf_auto_focus = {"at": "start"}
 let g:ctrlsf_winsize = '100%'
-" Ignore ctags files. I have this in my global gitignore, which rg respects
-" when you run rg at the command-line, but for some reason, it isn't respected
-" when using rg via ctrlsf. Weird.
-"
-" As a workaround, this rg option has the same desired effect.
-let g:ctrlsf_extra_backend_args = {'rg': '--hidden --glob !tags --glob !.git/'}
+let g:ctrlsf_extra_backend_args = {'rg': '--hidden --glob !.git/'}
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordExec
 nmap <leader>F :CtrlSFOpen<CR>:CtrlSFUpdate<CR>
@@ -323,11 +318,11 @@ fun! JumpToDef()
   if exists("*GotoDefinition_" . &filetype)
     call GotoDefinition_{&filetype}()
   else
-    exe "norm! \<C-]>"
+    lua vim.lsp.buf.definition()
   endif
 endfun
 
-" Jump to tag
+" Jump to definition
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
 

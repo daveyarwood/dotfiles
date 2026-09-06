@@ -106,7 +106,6 @@ return {
   { "jreybert/vimagit" },
   { "kshenoy/vim-signature" },
   { "lambdalisue/gina.vim" },
-  { "ludovicchabant/vim-gutentags" },
   { "machakann/vim-sandwich" },
   { "ntpeters/vim-better-whitespace" },
   { "schickling/vim-bufonly" },
