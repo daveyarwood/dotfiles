@@ -60,7 +60,13 @@ end
 # headless makes lazy register the command eagerly; the bang makes nvim wait
 # for the sync/update to finish before quitting.
 alias vpi 'vim --headless "+Lazy! sync" +qa'
-alias vpu 'vim --headless "+Lazy! update" +qa'
+
+# vpu shows lazy.nvim's full update output, then a summary of which plugins
+# actually changed and the date of the commit now checked out. See
+# ~/.config/nvim/lua/user/vpu.lua for the summary logic.
+function vpu
+  vim --headless "+lua require('user.vpu').update()" +qa
+end
 
 # mnemonic: vim grep
 function vg
