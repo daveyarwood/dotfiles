@@ -74,5 +74,8 @@ function gsu
   end
 end
 
-# Helper to quickly jump into a repo directory from any other directory
-alias rf "cd (begin; echo ~/.dotfiles; find ~/code -maxdepth 1 -type d; end | fzf)"
+# Helper to quickly jump into a repo directory from any other directory and show
+# git status.
+alias rf "cd (begin; echo ~/.dotfiles; find ~/code -maxdepth 1 -type d; end | fzf); gs"
+# Like rf, but jumps into opencode.
+alias of "cd (begin; echo ~/.dotfiles; find ~/code -maxdepth 1 -type d; end | fzf); opencode"
