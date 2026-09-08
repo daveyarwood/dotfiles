@@ -83,6 +83,19 @@ To stay portable across both tools, a component must:
   `cycle-*` agents are opencode-only in practice — they pin
   `opencode/deepseek-v4-pro`). Omit `model:` to inherit each tool's default.
 
+Sharing a name between `skills/` and `commands/` is fine, and is the normal
+wrapper pattern: opencode doesn't register a command per skill, so a thin
+command is what makes a skill user-invocable there. Claude Code lists skills and
+user commands in one namespace, so the shared name appears twice in `/skills`,
+and the **skill wins** when invoked — with arguments passed through to it. The
+wrapper is simply redundant on Claude Code, where skills are user-invocable
+already (`lavish` is in this state).
+
+The one thing to watch is drift: anything the wrapper adds beyond "use the
+`<name>` skill" is silently dropped on Claude Code, and editing the wrapper
+changes opencode only. Keep wrappers thin, and put substance in the SKILL.md
+where both tools read it.
+
 Validate a component directory with `claude plugin validate .agents/skills`.
 
 ## Per-tool notes
