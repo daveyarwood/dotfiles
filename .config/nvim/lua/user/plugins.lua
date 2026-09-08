@@ -5,6 +5,39 @@
 -- to preserve vim-plug's load-everything behavior until lazy-loading is added
 -- deliberately.
 
+-- nvim-treesitter's two branches track different Neovim lines and are not
+-- interchangeable: `master` supports 0.10/0.11 and explicitly does not support
+-- 0.12, while `main` requires 0.12+. Running `master` on 0.12 breaks every
+-- Markdown buffer: it registers its query directives with `all = false`, an
+-- option 0.12 removed, so a handler that expects a single node is handed a
+-- list of nodes instead ("attempt to call method 'range' (a nil value)",
+-- surfacing via render-markdown.nvim). This repo is shared between a Neovim
+-- 0.11 machine and a 0.12 one, so pick the branch to match.
+local treesitter
+if vim.fn.has("nvim-0.12") == 1 then
+  -- No config needed on `main`: Neovim 0.12 bundles the markdown and
+  -- markdown_inline parsers render-markdown.nvim needs, and I don't turn on
+  -- treesitter highlighting anywhere.
+  treesitter = { "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" }
+else
+  treesitter = {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    build = ":TSUpdate",
+    config = function()
+      -- render-markdown.nvim needs the markdown parser. Install it (plus
+      -- markdown_inline, which markdown requires) automatically on fresh
+      -- machines instead of leaving manual :TSInstall as a step.
+      -- sync_install blocks startup so parsers exist before any buffer opens;
+      -- otherwise the first markdown file can race a background install.
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "markdown", "markdown_inline" },
+        sync_install = true,
+      })
+    end,
+  }
+end
+
 return {
   -- aesthetic -----------------------------------------------------------------
   { "ayu-theme/ayu-vim" },
@@ -33,24 +66,7 @@ return {
     build = "make",
     dependencies = { "nvim-telescope/telescope.nvim" } },
   { "nvim-telescope/telescope-symbols.nvim" },
-  -- nvim-treesitter's `main` branch tracks nightly Neovim (0.12+), which uses
-  -- vim.list.* APIs absent from 0.11. This machine ships Neovim 0.11 via apt,
-  -- so pin `master`, the stable line supporting 0.10/0.11.
-  { "nvim-treesitter/nvim-treesitter",
-    branch = "master",
-    build = ":TSUpdate",
-    config = function()
-      -- render-markdown.nvim needs the markdown parser. Install it (plus
-      -- markdown_inline, which markdown requires) automatically on fresh
-      -- machines instead of leaving manual :TSInstall as a step.
-      -- sync_install blocks startup so parsers exist before any buffer opens;
-      -- otherwise the first markdown file can race a background install.
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "markdown", "markdown_inline" },
-        sync_install = true,
-      })
-    end,
-  },
+  treesitter,
   { "PaterJason/cmp-conjure" },
   { "saadparwaiz1/cmp_luasnip" },
 
