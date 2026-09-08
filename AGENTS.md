@@ -57,12 +57,16 @@ the `skills/` + `commands/` + `agents/` layout both tools use:
 - `.agents/commands/<name>.md`
 - `.agents/agents/<name>.md`
 
-Each tool's config dir reaches it through **whole-dir** symlinks (committed to
-the repo, so `install.sh` reproduces them), which is what makes a newly added
-component show up in every tool without extra wiring:
+Each tool reaches it through **whole-dir** symlinks, which is what makes a newly
+added component show up in every tool without extra wiring:
 
-- `.claude/{skills,commands,agents}` → `../.agents/*`
-- `.config/opencode/{commands,agents}` → `../../.agents/*`
+- `.config/opencode/{commands,agents}` → `../../.agents/*` — tracked symlinks,
+  stowed like any other file.
+- `~/.claude/{skills,commands,agents}` → `.agents/*` — created by `install.sh`,
+  **not** tracked in the repo. A tracked `.claude/` would double as this repo's
+  *project-level* config dir (the repo root mirrors `$HOME`), so every skill
+  would load twice while working in `~/.dotfiles` and show up twice in
+  `/skills`.
 
 Never replace these with per-file symlinks — new files would then need linking
 by hand. Add new components to `.agents/`, never to a tool's own directory.
@@ -83,14 +87,13 @@ Validate a component directory with `claude plugin validate .agents/skills`.
 
 ## Per-tool notes
 
-- **Claude Code**: `~/.claude` stays real (session state); only
-  `skills/`, `commands/`, and `agents/` are symlinked in from `.agents/`. The
-  repo's `.claude/` doubles as this repo's *project-level* config, so anything
-  added there is loaded twice when working in `~/.dotfiles` — user-level and
-  project-level components with the same name dedupe, so this is harmless, but
-  keep real files out of `.claude/`. There is no per-command disable in Claude
-  Code (skills can be toggled in `/skills`; commands cannot), so a shared
-  command appears on every machine.
+- **Claude Code**: `~/.claude` stays real (session state); `skills/`,
+  `commands/`, and `agents/` are linked in from `.agents/` by `install.sh`.
+  Don't add a tracked `.claude/` to this repo (see above — it duplicates every
+  skill). Claude Code has no support for `~/.agents`; `~/.claude` is the only
+  user-level location it reads. There is no per-command disable (skills can be
+  toggled in `/skills`; commands cannot), so a shared command appears on every
+  machine.
 - **fish**: `~/.config/fish/` is co-managed by fisher (`conf.d/`, `functions/`,
   `completions/`, `themes/`, `fish_plugins`). Only `config.fish` and `custom/`
   live here. Don't claim `conf.d/`.

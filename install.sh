@@ -23,3 +23,12 @@ chmod 700 ~/.gnupg
 
 cd "$(dirname "$0")"
 stow .
+
+# Claude Code reads components only from ~/.claude, and the repo root mirrors
+# $HOME — so a tracked .claude/ would double as this repo's *project-level*
+# config dir, loading every skill twice while working in ~/.dotfiles (they show
+# up twice in /skills). Link them in from the shared .agents/ root instead.
+# -n so an existing link is replaced rather than followed into.
+for component in skills commands agents; do
+  ln -sfn "$PWD/.agents/$component" ~/.claude/"$component"
+done
