@@ -39,6 +39,7 @@ alongside our config. These are pre-created by `install.sh` (keep this list and
 - `~/.config` — top-level
 - `~/.config/fish` — fish_variables
 - `~/.config/opencode` — node_modules/, opencode.jsonc
+- `~/.claude` — sessions/, history.jsonl, settings.json, caches
 - `~/.clojure` / `~/.lein` / `~/.lsp` — caches, self-installs
 - `~/.gemini` / `~/.newsboat` — auth / state
 - `~/.gnupg` — keys (chmod 700)
@@ -47,8 +48,49 @@ alongside our config. These are pre-created by `install.sh` (keep this list and
 Everything else — a dir holding *only* my own static files — folds into a
 whole-dir symlink and needs no pre-creation (new files appear automatically).
 
+## Shared agent config (`.agents/`)
+
+`.agents/` is the tool-neutral source of truth for agent components, mirroring
+the `skills/` + `commands/` + `agents/` layout both tools use:
+
+- `.agents/skills/<name>/SKILL.md`
+- `.agents/commands/<name>.md`
+- `.agents/agents/<name>.md`
+
+Each tool's config dir reaches it through **whole-dir** symlinks (committed to
+the repo, so `install.sh` reproduces them), which is what makes a newly added
+component show up in every tool without extra wiring:
+
+- `.claude/{skills,commands,agents}` → `../.agents/*`
+- `.config/opencode/{commands,agents}` → `../../.agents/*`
+
+Never replace these with per-file symlinks — new files would then need linking
+by hand. Add new components to `.agents/`, never to a tool's own directory.
+
+To stay portable across both tools, a component must:
+
+- **Skills**: have `name` and `description` frontmatter. Extra keys
+  (`argument-hint`, `author`, `metadata`) are tolerated by both.
+- **Agents**: have a `name` field. Claude Code silently skips agent files
+  without one (opencode infers it from the filename, so this is easy to miss).
+  `mode: subagent` is ignored by Claude Code and safe to keep.
+- **Both**: avoid provider-specific `model:` pins. Claude Code loads the file
+  but the spawn fails with a 404 `model_not_found` (this is why `/cycle` and the
+  `cycle-*` agents are opencode-only in practice — they pin
+  `opencode/deepseek-v4-pro`). Omit `model:` to inherit each tool's default.
+
+Validate a component directory with `claude plugin validate .agents/skills`.
+
 ## Per-tool notes
 
+- **Claude Code**: `~/.claude` stays real (session state); only
+  `skills/`, `commands/`, and `agents/` are symlinked in from `.agents/`. The
+  repo's `.claude/` doubles as this repo's *project-level* config, so anything
+  added there is loaded twice when working in `~/.dotfiles` — user-level and
+  project-level components with the same name dedupe, so this is harmless, but
+  keep real files out of `.claude/`. There is no per-command disable in Claude
+  Code (skills can be toggled in `/skills`; commands cannot), so a shared
+  command appears on every machine.
 - **fish**: `~/.config/fish/` is co-managed by fisher (`conf.d/`, `functions/`,
   `completions/`, `themes/`, `fish_plugins`). Only `config.fish` and `custom/`
   live here. Don't claim `conf.d/`.

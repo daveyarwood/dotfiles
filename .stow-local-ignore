@@ -8,6 +8,10 @@ install\.sh
 AGENTS\.md
 README\.md
 
+# Per-machine local settings Claude Code writes into this repo's project-level
+# .claude/ (which doubles as ~/.claude); must not be stowed as user settings
+settings\.local\.json
+
 # Editor artifacts (never symlink into ~)
 \..*\.sw.$       # vim/nvim swap files
 .+~              # backup files
