@@ -76,7 +76,7 @@ end
 
 function list-cloned-repos
   echo ~/.dotfiles
-  find ~/code -maxdepth 1 -type d
+  find ~/code -mindepth 1 -maxdepth 1 -type d
 end
 
 # Helpers to jump into a repo directory from any other directory and perform
