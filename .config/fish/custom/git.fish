@@ -74,8 +74,13 @@ function gsu
   end
 end
 
-# Helper to quickly jump into a repo directory from any other directory and show
-# git status.
-alias rf "cd (begin; echo ~/.dotfiles; find ~/code -maxdepth 1 -type d; end | fzf); gs"
-# Like rf, but jumps into opencode.
-alias of "cd (begin; echo ~/.dotfiles; find ~/code -maxdepth 1 -type d; end | fzf); opencode"
+function list-cloned-repos
+  echo ~/.dotfiles
+  find ~/code -maxdepth 1 -type d
+end
+
+# Helpers to jump into a repo directory from any other directory and perform
+# useful actions (show git status, open coding harness).
+alias rf "cd (list-cloned-repos | fzf); gs"
+alias of "cd (list-cloned-repos | fzf); opencode"
+alias cf "cd (list-cloned-repos | fzf); claude"
