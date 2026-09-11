@@ -32,3 +32,9 @@ stow .
 for component in skills commands agents; do
   ln -sfn "$PWD/.agents/$component" ~/.claude/"$component"
 done
+
+# Same reasoning for the user-level instruction file: ~/.claude/CLAUDE.md is the
+# only user-level location Claude Code reads, so the tool-neutral copy in
+# .agents/ is linked in rather than tracked at .claude/CLAUDE.md, which would
+# double as this repo's project-level instructions and load twice here.
+ln -sfn "$PWD/.agents/AGENTS.md" ~/.claude/CLAUDE.md

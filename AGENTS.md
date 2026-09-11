@@ -2,6 +2,11 @@
 
 Working rules for AI agents in this dotfiles repo.
 
+**Not to be confused with `.agents/AGENTS.md`**, which is the *user-level*
+instruction file linked to `~/.claude/CLAUDE.md` and applies to every project on
+this machine. This file is scoped to working on this repo. Same filename, one
+directory apart, different jobs.
+
 ## Critical rules
 
 1. **Never run `stow` against the live `$HOME`.** `stow .` symlinks the whole
@@ -56,6 +61,7 @@ the `skills/` + `commands/` + `agents/` layout both tools use:
 - `.agents/skills/<name>/SKILL.md`
 - `.agents/commands/<name>.md`
 - `.agents/agents/<name>.md`
+- `.agents/AGENTS.md` - user-level instructions, not a component directory
 
 Each tool reaches it through **whole-dir** symlinks, which is what makes a newly
 added component show up in every tool without extra wiring:
@@ -70,6 +76,12 @@ added component show up in every tool without extra wiring:
 
 Never replace these with per-file symlinks — new files would then need linking
 by hand. Add new components to `.agents/`, never to a tool's own directory.
+
+**The one exception is `.agents/AGENTS.md`**, which is a per-file link to
+`~/.claude/CLAUDE.md`, created by `install.sh`. The rule above exists so newly
+added files appear without hand-wiring, and a single instruction file has no
+new-file problem. Keep it small: it loads into every session on every project,
+so only cross-cutting preferences belong in it.
 
 To stay portable across both tools, a component must:
 
@@ -101,7 +113,8 @@ Validate a component directory with `claude plugin validate .agents/skills`.
 ## Per-tool notes
 
 - **Claude Code**: `~/.claude` stays real (session state); `skills/`,
-  `commands/`, and `agents/` are linked in from `.agents/` by `install.sh`.
+  `commands/`, and `agents/` are linked in from `.agents/` by `install.sh`, as is
+  `CLAUDE.md`, which points at `.agents/AGENTS.md`.
   Don't add a tracked `.claude/` to this repo (see above — it duplicates every
   skill). Claude Code has no support for `~/.agents`; `~/.claude` is the only
   user-level location it reads. There is no per-command disable (skills can be
