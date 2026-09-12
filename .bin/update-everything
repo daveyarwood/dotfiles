@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+# Prevent apt's `list`/`show` output from dropping into a pager. Mirrors the
+# APT_PAGER="" we already export for fish in .config/fish/custom/ubuntu.fish.
+export APT_PAGER=""
+
+check_only=false
+[[ "${1:-}" == "--check-only" ]] && check_only=true
+
+# Pause between steps so each one's output can be eyeballed. Set to 0 to disable.
+: "${STEP_PAUSE_SECONDS:=2}"
+
+section() { printf '\n\033[1;34m== %s ==\033[0m\n' "$*"; }
+
+step() {
+  local desc="$1" rc=0 result=1
+  shift
+  printf '\n  \033[1;33m%s\033[0m\n\n' "$desc"
+  "$@"
+  rc=$?
+  # fwupdmgr returns 2 when there is nothing to do (e.g. metadata already up
+  # to date, no firmware updates pending) — treat that as success.
+  if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then
+    printf '  \033[32mok\033[0m\n'
+    result=0
+  else
+    printf '  \033[31mFAILED (exit %d)\033[0m\n' "$rc" >&2
+  fi
+  sleep "$STEP_PAUSE_SECONDS"
+  return "$result"
+}
+
+# Cache sudo credentials now so the password isn't re-requested mid-run.
+sudo -v
+
+# ── Check ────────────────────────────────────────────────────────────────────
+section "apt"
+step "apt update" sudo apt update
+apt list --upgradable
+sleep "$STEP_PAUSE_SECONDS"
+
+section "firmware (fwupd)"
+step "fwupdmgr refresh" fwupdmgr refresh --no-unreported-check
+fwupdmgr get-updates --no-unreported-check
+sleep "$STEP_PAUSE_SECONDS"
+
+section "npm global packages"
+npm outdated -g || true
+sleep "$STEP_PAUSE_SECONDS"
+
+section "pipx"
+pipx list
+sleep "$STEP_PAUSE_SECONDS"
+
+if $check_only; then
+  echo
+  echo "Check complete — rerun without --check-only to apply updates."
+  exit 0
+fi
+
+echo
+read -rp "--- Press ENTER to apply updates, or Ctrl-C to abort --- "
+
+# Re-cache sudo in case the pause above let the timestamp expire.
+sudo -v
+
+# ── Apply ────────────────────────────────────────────────────────────────────
+section "apt"
+step "apt upgrade" sudo apt upgrade -y
+step "apt autoremove" sudo apt autoremove -y
+
+section "npm global packages"
+# Semver-safe: `npm update -g` won't cross majors (e.g. language servers).
+# Advance a package a major deliberately with `npm install -g <pkg>@latest`.
+step "npm update -g" npm update -g
+
+section "pipx"
+step "pipx upgrade-all" pipx upgrade-all
+
+section "neovim plugins"
+step "vpu" vim --headless "+lua require('user.vpu').update()" +qa
+
+section "firmware (fwupd)"
+step "fwupdmgr update" sudo fwupdmgr update -y --no-reboot-check --no-unreported-check
+echo "  Firmware that requires it will be applied on the next reboot."
