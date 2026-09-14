@@ -24,5 +24,5 @@ aws sts get-caller-identity >/dev/null 2>/dev/null \
 if [[ "$SHELL" != *"fish" ]]; then
   >&2 echo "WARN: Expected SHELL to be fish, but it's not! Uh-oh..."
 fi
-# NOTE: ssh-init is defined in ssh.fish
-"$SHELL" -i -C ssh-init
+
+"$SHELL" -i
