@@ -55,6 +55,69 @@ commands[11]:
 
 Run `npx -y notion-axi --help` for global flags, or `npx -y notion-axi <command> --help` for per-command usage.
 
+## Truncation on `page view`
+
+`page view` is backed by Notion's [Retrieve a page as
+Markdown](https://developers.notion.com/reference/retrieve-page-markdown)
+endpoint, `GET /v1/pages/{page_id}/markdown`, whose `truncated` and
+`unknown_block_ids` fields surface as `body_truncated` in notion-axi output. So
+`body_truncated: true` means two unrelated things. Tell them apart by whether
+`body_chars_total` is present.
+
+- **`body_truncated: true` with `body_chars_total: <n>`.** The ordinary ~1500
+  char preview, applied by notion-axi. `--full` returns the whole body. There is
+  no length ceiling on `--full`: a 38,153 char body comes back complete, with no
+  truncation fields in the output at all.
+- **`body_truncated: true` still set under `--full`, and no `body_chars_total`.**
+  Notion itself could not return part of the page, and no flag will fix it. Three
+  documented causes: the page exceeds the record limit of roughly 20,000
+  **blocks** (not characters), permissions block a subtree, or the block type is
+  not supported by markdown rendering yet. A single unrenderable block sets the
+  flag for the entire page, so this usually means no prose is missing at all. Do
+  not read it as "the document is cut off", and do not re-run with `--full`
+  expecting more.
+
+To see exactly which blocks are missing, go to `ntn` and read the JSON:
+
+```
+ntn pages get <page_id> --json
+```
+
+`.markdown.unknown_block_ids` lists them, up to 100, and `.markdown.truncated`
+is the boolean. Plain `ntn pages get <page_id>` appends a warning line naming the
+same problem, which is the quickest check. Each one also appears inline in the
+body where it belongs, as `<unknown url="..." alt="..."/>`, so you can see the
+context it was in.
+
+The documented recovery is to pass an unknown block id back to the **same**
+endpoint as the `page_id`, which returns that block's subtree:
+
+```
+npx -y notion-axi api GET /v1/pages/<block_id>/markdown --full
+```
+
+Expect `object_not_found` when the block was unknown for permissions reasons;
+that is the documented behavior, not a bad id.
+
+**The documented recovery does not always terminate.** For a `link_to_page`
+block (an alias, one page pointing at another) the markdown endpoint returns the
+block as unknown again, naming itself in `unknown_block_ids`, so following the
+official advice loops forever. Break out through the block API instead, then read
+the target:
+
+```
+npx -y notion-axi api GET /v1/blocks/<block_id> --full
+```
+
+That returns `link_to_page.page_id`, which is an ordinary page id to `page view`.
+
+**`api` paths need the `/v1/` prefix.** `GET /blocks/<id>` and `GET /pages/<id>`
+both fail with `400 invalid_request_url`; `GET /v1/blocks/<id>` works. Easy to
+misread as a bad id or a permissions problem.
+
+The markdown endpoint also takes `include_transcript=true` to pull meeting note
+transcripts, which are omitted by default.
+
 ## Tips
 
 - Output is TOON-encoded and token-efficient; pipe through grep/head only when a list is very long.
