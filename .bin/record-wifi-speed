@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+function log() {
+  >&1 echo "$(date '+%Y-%m-%d %H:%M:%S') $*"
+}
+
+if ! nmcli dev | grep wifi | grep -q ' connected'; then
+  log "Unable to check wifi speed. Wifi not connected."
+  rm -f /tmp/wifi-speed
+  exit 1
+fi
+
+exclude_file="/tmp/wifi-speed-excludes"
+exclude_ttl=86400
+now="$(date '+%s')"
+
+excluded=()
+if [[ -f "$exclude_file" ]]; then
+  while read -r id ts; do
+    [[ "$id" =~ ^[0-9]+$ ]] || continue
+    [[ "$ts" =~ ^[0-9]+$ ]] || continue
+    (( now - ts < exclude_ttl )) && excluded+=("$id")
+  done < "$exclude_file"
+fi
+
+result=""
+download_mbps=0
+
+for attempt in 1 2 3; do
+  args=()
+  for id in "${excluded[@]}"; do
+    args+=(--exclude "$id")
+  done
+
+  log "Running speed test..."
+  result="$(speedtest --json "${args[@]}")"
+
+  if [[ -z "$result" ]]; then
+    log "Attempt ${attempt} produced no output."
+    continue
+  fi
+
+  download_mbps="$(jq -r '.download / 1000000 | floor' <<< "$result")"
+
+  if [[ "$download_mbps" -gt 0 ]]; then
+    break
+  fi
+
+  server_id="$(jq -r '.server.id // empty' <<< "$result")"
+  if [[ -n "$server_id" ]]; then
+    excluded+=("$server_id")
+    echo "$server_id $now" >> "$exclude_file"
+  fi
+  log "Attempt ${attempt} returned no throughput; excluding server ${server_id} and retrying."
+  result=""
+done
+
+tmp_exclude="$(mktemp)"
+printf '%s\n' "${excluded[@]}" | sort -u | while read -r id; do
+  [[ -n "$id" ]] && echo "$id $now" >> "$tmp_exclude"
+done
+mv "$tmp_exclude" "$exclude_file"
+
+if [[ -z "$result" || "$download_mbps" -le 0 ]]; then
+  log "Speed test failed after retries. Keeping previous result."
+  exit 1
+fi
+
+results_dir="/tmp/wifi-speed-results"
+mkdir -p "$results_dir"
+jq -S . <<< "$result" > "$results_dir/$(date '+%Y%m%d%H%M%S').json"
+
+upload_mbps="$(jq -r '.upload / 1000000 | floor' <<< "$result")"
+
+if [[ "$download_mbps" -lt 200 ]]; then
+  color="#FFA500"
+elif [[ "$download_mbps" -lt 300 ]]; then
+  color="#FFD700"
+else
+  color="#00D000"
+fi
+
+printf '<span color="%s">%d🠋 %d🠉 Mbit/s</span>' \
+  "$color" "$download_mbps" "$upload_mbps" > /tmp/wifi-speed
+
+log "Download ${download_mbps} Mbit/s, Upload ${upload_mbps} Mbit/s."
