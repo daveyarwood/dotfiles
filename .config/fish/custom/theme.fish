@@ -23,49 +23,7 @@ set -g fish_color_search_match white --background=brblack
 set -g fish_color_selection white --bold --background=brblack
 set -g fish_color_valid_path --underline
 
-# Returns the status code (e.g. 200) of the last recorded Alda API status.
-#
-# If there are no recorded Alda API statuses in the last 5 minutes, returns
-# nothing.
-function last-alda-api-status
-  set -l results_dir /tmp/alda-api-status-results/
-
-  if ! test -d "$results_dir"
-    return
-  end
-
-  set -l status_file (find \
-                        "$results_dir" \
-                        -type f \
-                        -mmin -5 \
-                        | sort | tail -n1)
-
-  # Usually, I would write if [[ -n "$status_file" ]], but for some reason, when
-  # there are 0 results, $status_file ends up being a 1-character empty string
-  # of some kind. Maybe a quirk of fish?
-  if test (echo $status_file | wc -c) -gt 1
-    cat $status_file
-  end
-end
-
-function fish_greeting;
-  set -l status_code (last-alda-api-status)
-
-  if test -z $status_code
-    # No status recorded in the last 5 minutes, so do nothing. I could go ahead
-    # and check the status explicitly here, but I don't want to delay the
-    # terminal starting up. I'm sure I'll notice if I don't see anything printed
-    # here for a while.
-  else if test $status_code = 200
-    set_color --dim white
-    echo "Alda API is up."
-    set_color normal
-  else
-    set_color --bold red
-    echo "Alda API is down!"
-    set_color normal
-  end
-end
+function fish_greeting; end
 
 # Erase the default fish_mode_prompt; I have one built into my theme below.
 function fish_mode_prompt; end

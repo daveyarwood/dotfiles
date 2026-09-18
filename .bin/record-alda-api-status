@@ -6,6 +6,7 @@ function log() {
 
 if ! nmcli dev | grep wifi | grep -q ' connected'; then
   log "Unable to check Alda API status. Wifi not connected."
+  rm -f /tmp/alda-api-status
   exit 1
 fi
 
@@ -23,5 +24,11 @@ if [[ -z "$status_code" ]]; then
 fi
 
 echo "$status_code" > "$results_dir/$(date '+%Y%m%d%H%M%S')"
+
+if [[ "$status_code" == "200" ]]; then
+  printf '<span color="#00D000">Alda API up</span>' > /tmp/alda-api-status
+else
+  printf '<span color="#CC1616">Alda API down</span>' > /tmp/alda-api-status
+fi
 
 log "Successfully recorded Alda API response."
