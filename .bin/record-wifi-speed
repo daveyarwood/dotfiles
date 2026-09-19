@@ -12,10 +12,16 @@ fi
 
 exclude_file="/tmp/wifi-speed-excludes"
 exclude_ttl=86400
+# A server returning less than this many Mbit/s is treated as a bad node and
+# excluded, then the test retries against another server. Set high enough to
+# skip a congested/broken server (e.g. an ISP box reading 8 Mbit/s while every
+# other server returns 400+), but low enough to still surface real wifi issues.
+min_mbps=50
 now="$(date '+%s')"
 
 excluded=()
 if [[ -f "$exclude_file" ]]; then
+  # Rehydrate the exclude list from disk, dropping entries past exclude_ttl.
   while read -r id ts; do
     [[ "$id" =~ ^[0-9]+$ ]] || continue
     [[ "$ts" =~ ^[0-9]+$ ]] || continue
@@ -42,7 +48,10 @@ for attempt in 1 2 3; do
 
   download_mbps="$(jq -r '.download / 1000000 | floor' <<< "$result")"
 
-  if [[ "$download_mbps" -gt 0 ]]; then
+  # Accept the result only if it clears the floor. A slow-but-nonzero result
+  # (e.g. "27 down 2 up") is just as suspect as a zero-throughput one, so it
+  # falls through to the exclude-and-retry logic below.
+  if [[ "$download_mbps" -ge "$min_mbps" ]]; then
     break
   fi
 
@@ -51,7 +60,7 @@ for attempt in 1 2 3; do
     excluded+=("$server_id")
     echo "$server_id $now" >> "$exclude_file"
   fi
-  log "Attempt ${attempt} returned no throughput; excluding server ${server_id} and retrying."
+  log "Attempt ${attempt} throughput ${download_mbps} Mbit/s below floor (${min_mbps}); excluding server ${server_id} and retrying."
   result=""
 done
 
@@ -61,7 +70,9 @@ printf '%s\n' "${excluded[@]}" | sort -u | while read -r id; do
 done
 mv "$tmp_exclude" "$exclude_file"
 
-if [[ -z "$result" || "$download_mbps" -le 0 ]]; then
+if [[ -z "$result" || "$download_mbps" -lt "$min_mbps" ]]; then
+  # Every attempt failed to clear the floor: keep the previous reading rather
+  # than display a number produced by a bad server.
   log "Speed test failed after retries. Keeping previous result."
   exit 1
 fi
