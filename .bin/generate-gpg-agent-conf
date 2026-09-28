@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+conf="$HOME/.gnupg/gpg-agent.conf"
+
+pinentry=""
+
+if [[ "$(uname)" == Darwin && -x /opt/homebrew/bin/pinentry-mac ]]; then
+  # pinentry-mac shows a GUI dialog that works even when gpg is invoked from a
+  # process with no visible terminal, and its "Save in Keychain" option
+  # survives gpg-agent restarts (which `brew upgrade gnupg` causes).
+  pinentry="pinentry-program /opt/homebrew/bin/pinentry-mac"
+fi
+
+content="$(cat <<EOF
+# This gpg-agent.conf was generated via ~/.bin/generate-gpg-agent-conf.
+# Edit that file, not this one!
+
+default-cache-ttl 34560000
+max-cache-ttl 34560000
+$pinentry
+EOF
+)"
+
+# Replace a leftover stow symlink rather than writing through it into the repo.
+if [[ -L "$conf" ]]; then
+  rm -f "$conf"
+fi
+
+if [[ ! -f "$conf" || "$(cat "$conf")" != "$content" ]]; then
+  mkdir -p "$HOME/.gnupg"
+  printf '%s\n' "$content" > "$conf"
+fi

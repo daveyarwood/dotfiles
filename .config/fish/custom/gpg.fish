@@ -1,3 +1,5 @@
+generate-gpg-agent-conf
+
 set -gx GPG_TTY (tty)
 
 # decrypt encrypted .fish files and source them
