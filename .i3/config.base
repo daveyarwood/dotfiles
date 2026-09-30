@@ -68,7 +68,7 @@ bindsym $mod+p exec "xdg-open 'https://app.reclaim.ai/planner'"
 # start a file manager
 bindsym $mod+Shift+f exec nemo
 
-# Open sound settings
+# Toggle sound sources
 bindsym $mod+Shift+s exec ~/.bin/toggle-default-sink
 
 # kill focused window
