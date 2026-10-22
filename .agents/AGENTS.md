@@ -13,7 +13,18 @@ belong here. Anything project-specific goes in that project's own `AGENTS.md`.
 
 Reached by Claude Code as `~/.claude/CLAUDE.md`, symlinked here by
 `install.sh`, because `~/.claude` is the only user-level location Claude Code
-reads.
+reads. OpenCode reaches it as the Claude Code fallback when no
+`~/.config/opencode/AGENTS.md` exists.
+
+## Code conventions
+
+@conventions.md
+
+That covers language, style and testing, the same in every repo. Claude Code
+expands the import above at session start. OpenCode does not expand
+`@`-imports, so `.config/opencode/opencode.json` lists `conventions.md`
+directly in its `instructions` array instead; both paths point at the one
+file, and neither tool gets it twice.
 
 **This repo is public.** Nothing private goes in this file: no compensation, no
 candid notes about people, no employer-internal detail, no secrets. That is a

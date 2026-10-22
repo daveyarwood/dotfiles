@@ -12,7 +12,6 @@ mkdir -p \
   ~/.config/opencode \
   ~/.claude \
   ~/.clojure \
-  ~/.gemini \
   ~/.newsboat \
   ~/.lein \
   ~/.lsp \
@@ -38,3 +37,9 @@ done
 # .agents/ is linked in rather than tracked at .claude/CLAUDE.md, which would
 # double as this repo's project-level instructions and load twice here.
 ln -sfn "$PWD/.agents/AGENTS.md" ~/.claude/CLAUDE.md
+
+# OpenCode falls back to ~/.claude/CLAUDE.md for global rules, but it does not
+# expand the @conventions.md import inside that file the way Claude Code does.
+# .config/opencode/opencode.json lists .agents/conventions.md directly in its
+# "instructions" array instead, so OpenCode still gets the global code
+# conventions. stow already places that file; nothing to link here.
