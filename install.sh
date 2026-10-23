@@ -12,7 +12,6 @@ mkdir -p \
   ~/.config/opencode \
   ~/.claude \
   ~/.clojure \
-  ~/.gemini \
   ~/.newsboat \
   ~/.lein \
   ~/.lsp \
@@ -38,3 +37,9 @@ done
 # .agents/ is linked in rather than tracked at .claude/CLAUDE.md, which would
 # double as this repo's project-level instructions and load twice here.
 ln -sfn "$PWD/.agents/AGENTS.md" ~/.claude/CLAUDE.md
+
+# OpenCode reads its global rules from ~/.config/opencode/AGENTS.md and falls
+# back to ~/.claude/CLAUDE.md only when that file is absent, so the file has to
+# be there rather than merely reachable by fallback. stow will not place it:
+# .stow-local-ignore matches AGENTS.md at any depth, not only at the repo root.
+ln -sfn "$PWD/.agents/AGENTS.md" ~/.config/opencode/AGENTS.md
