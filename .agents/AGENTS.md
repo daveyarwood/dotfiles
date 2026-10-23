@@ -13,8 +13,9 @@ belong here. Anything project-specific goes in that project's own `AGENTS.md`.
 
 Reached by Claude Code as `~/.claude/CLAUDE.md`, symlinked here by
 `install.sh`, because `~/.claude` is the only user-level location Claude Code
-reads. OpenCode reaches it as the Claude Code fallback when no
-`~/.config/opencode/AGENTS.md` exists.
+reads. OpenCode has its own global rules file, `~/.config/opencode/AGENTS.md`,
+and reaches this one as the Claude Code compatibility fallback when that file
+does not exist.
 
 ## Code conventions
 

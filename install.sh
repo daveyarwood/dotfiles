@@ -38,8 +38,11 @@ done
 # double as this repo's project-level instructions and load twice here.
 ln -sfn "$PWD/.agents/AGENTS.md" ~/.claude/CLAUDE.md
 
-# OpenCode falls back to ~/.claude/CLAUDE.md for global rules, but it does not
-# expand the @conventions.md import inside that file the way Claude Code does.
-# .config/opencode/opencode.json lists .agents/conventions.md directly in its
-# "instructions" array instead, so OpenCode still gets the global code
-# conventions. stow already places that file; nothing to link here.
+# OpenCode has its own global rules file, ~/.config/opencode/AGENTS.md, and only
+# falls back to ~/.claude/CLAUDE.md, the Claude Code compatibility path, when
+# that file does not exist. Nothing here creates one, so OpenCode reads the file
+# linked above; a ~/.config/opencode/AGENTS.md added later would take precedence
+# and hide it. OpenCode also does not expand the @conventions.md import inside
+# that file the way Claude Code does, so .config/opencode/opencode.json lists
+# .agents/conventions.md directly in its "instructions" array instead. stow
+# already places that file; nothing to link here.
