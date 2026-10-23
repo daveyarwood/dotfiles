@@ -11,11 +11,11 @@ or not it is relevant, which is the same ambient-context cost that makes a
 skill preferable to an MCP server. Only genuinely cross-cutting preferences
 belong here. Anything project-specific goes in that project's own `AGENTS.md`.
 
-Reached by Claude Code as `~/.claude/CLAUDE.md`, symlinked here by
-`install.sh`, because `~/.claude` is the only user-level location Claude Code
-reads. OpenCode has its own global rules file, `~/.config/opencode/AGENTS.md`,
-and reaches this one as the Claude Code compatibility fallback when that file
-does not exist.
+Both tools reach this file as their user-level instruction file: Claude Code as
+`~/.claude/CLAUDE.md` and OpenCode as `~/.config/opencode/AGENTS.md`. Both are
+links created by `install.sh`, the first because a tracked `.claude/` would
+double as this repo's own project-level config, the second because
+`.stow-local-ignore` matches `AGENTS.md` at any depth.
 
 ## Code conventions
 
@@ -23,9 +23,9 @@ does not exist.
 
 That covers language, style and testing, the same in every repo. Claude Code
 expands the import above at session start. OpenCode does not expand
-`@`-imports, so `.config/opencode/opencode.json` lists `conventions.md`
-directly in its `instructions` array instead; both paths point at the one
-file, and neither tool gets it twice.
+`@`-imports, so `.config/opencode/opencode.json` names `.agents/conventions.md`
+in its `instructions` array instead. Both routes end at the one file, and
+neither tool reads it twice.
 
 **This repo is public.** Nothing private goes in this file: no compensation, no
 candid notes about people, no employer-internal detail, no secrets. That is a

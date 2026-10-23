@@ -38,11 +38,8 @@ done
 # double as this repo's project-level instructions and load twice here.
 ln -sfn "$PWD/.agents/AGENTS.md" ~/.claude/CLAUDE.md
 
-# OpenCode has its own global rules file, ~/.config/opencode/AGENTS.md, and only
-# falls back to ~/.claude/CLAUDE.md, the Claude Code compatibility path, when
-# that file does not exist. Nothing here creates one, so OpenCode reads the file
-# linked above; a ~/.config/opencode/AGENTS.md added later would take precedence
-# and hide it. OpenCode also does not expand the @conventions.md import inside
-# that file the way Claude Code does, so .config/opencode/opencode.json lists
-# .agents/conventions.md directly in its "instructions" array instead. stow
-# already places that file; nothing to link here.
+# OpenCode reads its global rules from ~/.config/opencode/AGENTS.md and falls
+# back to ~/.claude/CLAUDE.md only when that file is absent, so the file has to
+# be there rather than merely reachable by fallback. stow will not place it:
+# .stow-local-ignore matches AGENTS.md at any depth, not only at the repo root.
+ln -sfn "$PWD/.agents/AGENTS.md" ~/.config/opencode/AGENTS.md
