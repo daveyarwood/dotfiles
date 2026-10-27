@@ -73,45 +73,13 @@ Flags:
 
 ## The API by hand
 
-Three calls, if the script is not the right tool.
+Not documented here. `scripts/api.ts` is the wire format: the `X-RD-Token`
+header, the `Idempotency-Key`, the free `check_cost` dry run, the submit, the
+poll path, and the read of `base64_images` against `output_urls`, all under the
+field names the API itself uses. Read it before reaching for curl.
 
-Auth is the `X-RD-Token` header on every request. Generation is always async:
-the POST is accepted with a `task_id` and the result comes from polling that
-task.
-
-Price the request first. `"check_cost": true` is a free dry run that generates
-nothing and charges nothing:
-
-```bash
-curl -sS https://api.retrodiffusion.ai/v2/inferences \
-  -H "X-RD-Token: $RETRO_DIFFUSION_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"prompt":"test","prompt_style":"rd_pro__default","width":64,"height":64,"num_images":1,"check_cost":true}'
-# {"balance_cost": 0.18, "model": "check_cost", "base64_images": [], "remaining_balance": 99.82}
-```
-
-Submit for real. Persist a unique `Idempotency-Key` first, so a lost response
-can be retried with identical inputs instead of a second charge:
-
-```bash
-curl -sS https://api.retrodiffusion.ai/v2/inferences \
-  -H "X-RD-Token: $RETRO_DIFFUSION_API_KEY" -H 'Content-Type: application/json' \
-  -H "Idempotency-Key: $(uuidgen)" \
-  -d '{"prompt":"a squat round flask of glowing crimson liquid","prompt_style":"rd_pro__default","width":64,"height":64,"num_images":1,"remove_bg":true}'
-# {"status":"accepted","task_id":"8d24e990-...","request_id":"8d24e990-...","message":"..."}
-```
-
-Poll `GET /v2/inferences/tasks/{task_id}` every couple of seconds until the
-status is `succeeded` or `failed`. A success carries the generation:
-
-```json
-{"created_at": 1783523045, "balance_cost": 0.18, "base64_images": ["iVBORw0KGgo..."],
- "model": "rd_pro", "remaining_balance": 99.82, "request_id": "8d24e990-..."}
-```
-
-`base64_images` holds raw base64 PNG, with no `data:` prefix. Decode each entry
-and write it to disk. A large result, an animation in particular, arrives as
-hosted urls in `output_urls` with `base64_images` empty, so read both fields.
-Pass `"upload_outputs": true` to ask for urls every time.
+One flag the script does not send: `upload_outputs: true` asks for hosted urls
+on every response instead of base64.
 
 ## Styles
 
