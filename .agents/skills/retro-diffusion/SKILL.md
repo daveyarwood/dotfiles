@@ -12,7 +12,7 @@ metadata:
 Retro Diffusion turns a text prompt into pixel art. This skill covers still
 images: logos, icons, sprites, item art, portraits.
 
-Every request is one POST plus a poll. `scripts/generate.py` in this skill does
+Every request is one POST plus a poll. `scripts/generate.ts` in this skill does
 both and writes the decoded PNGs.
 
 ## Setup
@@ -24,13 +24,18 @@ key in that header and nowhere else: nothing in this skill writes it to disk, to
 a repo, or to a log. If the variable is unset, ask Dave for the key instead of
 hunting the filesystem.
 
+The script is TypeScript with no dependencies, so there is nothing to install
+and no build step. Node 22.18 or newer runs it directly, using its own type
+stripping, and imports only globals and `node:` builtins. `node --version` says
+which one you have.
+
 Base URL: `https://api.retrodiffusion.ai/v2`. The v1 host still answers and needs
 no migration.
 
 ## Generate a still
 
 ```bash
-python3 .agents/skills/retro-diffusion/scripts/generate.py \
+node .agents/skills/retro-diffusion/scripts/generate.ts \
   --prompt "a squat round flask of glowing crimson liquid, cork stopper, bright highlight on the upper-left rim" \
   --style rd_pro__default --width 64 --height 64 --remove-bg --out potion.png
 ```
