@@ -57,7 +57,9 @@ Flags:
 - `--num-images` how many takes of the prompt to generate in one request.
   Default 1.
 - `--seed` an integer. Reuse it to iterate on a composition and change only the
-  prompt. Omit it for a fresh result each run.
+  prompt. Two runs at one seed do not come back as the same image, so treat it
+  as a way to hold a composition steady, not as a fixed output. Omit it for a
+  fresh result each run.
 - `--remove-bg` writes a transparent background. Pair it with a flat contrasting
   background named in the prompt.
 - `--input-image` a PNG on disk, for img2img. `--strength` says how much to
