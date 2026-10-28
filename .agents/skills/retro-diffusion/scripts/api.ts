@@ -5,6 +5,7 @@
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, parse } from "node:path";
+import { setTimeout as sleep } from "node:timers/promises";
 
 export const BASE_URL = "https://api.retrodiffusion.ai/v2";
 
@@ -64,9 +65,6 @@ export const fail: (message: string) => never = (message) => {
   console.error(`error: ${message}`);
   process.exit(1);
 };
-
-const sleep = (milliseconds: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 const parseJson = (text: string): unknown => {
   try {
