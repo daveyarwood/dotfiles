@@ -206,22 +206,23 @@ const main = async (argv: string[]): Promise<void> => {
   };
 
   if (checkCost) {
-    const quote = await costQuote(token, payload);
-    console.log(`cost $${money(quote.balance_cost)}  remaining balance $${money(quote.remaining_balance)}`);
+    const { balance_cost, remaining_balance } = await costQuote(token, payload);
+    console.log(`cost $${money(balance_cost)}  remaining balance $${money(remaining_balance)}`);
     return;
   }
 
-  const accepted = await submitInference(token, payload, randomUUID());
-  console.log(`task ${accepted.task_id}`);
-  const result = await pollTask(accepted.task_id, token, timeout);
+  const { task_id } = await submitInference(token, payload, randomUUID());
+  console.log(`task ${task_id}`);
+  const result = await pollTask(task_id, token, timeout);
+  const { model, balance_cost, remaining_balance } = result;
 
   const outputPath = out ?? defaultOut(prompt);
   for (const path of await writeImages(result, outputPath)) {
     console.log(`wrote ${path}`);
   }
   console.log(
-    `model ${result.model}  cost $${money(result.balance_cost)}  ` +
-      `remaining balance $${money(result.remaining_balance)}`,
+    `model ${model}  cost $${money(balance_cost)}  ` +
+      `remaining balance $${money(remaining_balance)}`,
   );
 };
 
