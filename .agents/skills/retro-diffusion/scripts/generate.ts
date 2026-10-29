@@ -131,8 +131,23 @@ const defaultOut = (prompt: string): string => {
 };
 
 const main = async (argv: string[]): Promise<void> => {
-  const values = parseOptions(argv);
-  const prompt = values.prompt;
+  const {
+    prompt,
+    style,
+    width,
+    height,
+    "num-images": numImages,
+    seed,
+    "extra-prompt": extraPrompt,
+    "input-image": inputImage,
+    strength,
+    "reference-image": referenceImages,
+    "remove-bg": removeBg,
+    out,
+    timeout,
+    "check-cost": checkCostFlag,
+  } = parseOptions(argv);
+
   if (prompt === undefined || prompt === "") {
     return fail(`--prompt is required\n\n${USAGE}`);
   }
@@ -144,19 +159,19 @@ const main = async (argv: string[]): Promise<void> => {
 
   const options: GenerateOptions = {
     prompt,
-    style: values.style,
-    width: asNumber("width", values.width, true),
-    height: asNumber("height", values.height, true),
-    numImages: asNumber("num-images", values["num-images"], true),
-    seed: asOptionalNumber("seed", values.seed, true),
-    extraPrompt: values["extra-prompt"],
-    inputImage: values["input-image"],
-    strength: asOptionalNumber("strength", values.strength, false),
-    referenceImages: values["reference-image"],
-    removeBg: values["remove-bg"] ?? false,
-    out: values.out,
-    timeout: asNumber("timeout", values.timeout, false),
-    checkCost: values["check-cost"] ?? false,
+    style,
+    width: asNumber("width", width, true),
+    height: asNumber("height", height, true),
+    numImages: asNumber("num-images", numImages, true),
+    seed: asOptionalNumber("seed", seed, true),
+    extraPrompt,
+    inputImage,
+    strength: asOptionalNumber("strength", strength, false),
+    referenceImages,
+    removeBg: removeBg ?? false,
+    out,
+    timeout: asNumber("timeout", timeout, false),
+    checkCost: checkCostFlag ?? false,
   };
 
   const payload: InferencePayload = {
@@ -183,8 +198,8 @@ const main = async (argv: string[]): Promise<void> => {
   console.log(`task ${accepted.task_id}`);
   const result = await pollTask(accepted.task_id, token, options.timeout);
 
-  const out = options.out ?? defaultOut(options.prompt);
-  for (const path of await writeImages(result, out)) {
+  const outputPath = out ?? defaultOut(options.prompt);
+  for (const path of await writeImages(result, outputPath)) {
     console.log(`wrote ${path}`);
   }
   console.log(
