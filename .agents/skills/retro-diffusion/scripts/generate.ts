@@ -124,9 +124,9 @@ const defaultOut = (prompt: string): string => {
   const slug = prompt
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
+    .replace(/^-+/, "")
     .slice(0, 40)
-    .replace(/^-+|-+$/g, "");
+    .replace(/-+$/, "");
   return join("retro-diffusion", `${slug || "image"}.png`);
 };
 
