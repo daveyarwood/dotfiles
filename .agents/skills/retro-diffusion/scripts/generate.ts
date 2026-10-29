@@ -21,7 +21,7 @@ import { parseArgs } from "node:util";
 
 import {
   type InferencePayload,
-  checkCost,
+  checkCost as costQuote,
   encodeImage,
   fail,
   pollTask,
@@ -69,9 +69,26 @@ type GenerateOptions = {
   checkCost: boolean;
 };
 
-const parseOptions = (argv: string[]) => {
+// Parsing, converting and validating all live here, so every caller gets a
+// GenerateOptions rather than the raw strings parseArgs hands back.
+const parseOptions = (argv: string[]): GenerateOptions => {
   try {
-    return parseArgs({
+    const {
+      prompt,
+      style,
+      width,
+      height,
+      "num-images": numImages,
+      seed,
+      "extra-prompt": extraPrompt,
+      "input-image": inputImage,
+      strength,
+      "reference-image": referenceImages,
+      "remove-bg": removeBg,
+      out,
+      timeout,
+      "check-cost": checkCost,
+    } = parseArgs({
       args: argv,
       allowPositionals: false,
       options: {
@@ -91,6 +108,27 @@ const parseOptions = (argv: string[]) => {
         "check-cost": { type: "boolean" },
       },
     }).values;
+
+    if (prompt === undefined || prompt === "") {
+      return fail(`--prompt is required\n\n${USAGE}`);
+    }
+
+    return {
+      prompt,
+      style,
+      width: asNumber("width", width, true),
+      height: asNumber("height", height, true),
+      numImages: asNumber("num-images", numImages, true),
+      seed: asOptionalNumber("seed", seed, true),
+      extraPrompt,
+      inputImage,
+      strength: asOptionalNumber("strength", strength, false),
+      referenceImages,
+      removeBg: removeBg ?? false,
+      out,
+      timeout: asNumber("timeout", timeout, false),
+      checkCost: checkCost ?? false,
+    };
   } catch (error) {
     return fail(`${error instanceof Error ? error.message : String(error)}\n\n${USAGE}`);
   }
@@ -136,69 +174,48 @@ const main = async (argv: string[]): Promise<void> => {
     style,
     width,
     height,
-    "num-images": numImages,
+    numImages,
     seed,
-    "extra-prompt": extraPrompt,
-    "input-image": inputImage,
+    extraPrompt,
+    inputImage,
     strength,
-    "reference-image": referenceImages,
-    "remove-bg": removeBg,
+    referenceImages,
+    removeBg,
     out,
     timeout,
-    "check-cost": checkCostFlag,
+    checkCost,
   } = parseOptions(argv);
-
-  if (prompt === undefined || prompt === "") {
-    return fail(`--prompt is required\n\n${USAGE}`);
-  }
 
   const token = process.env.RETRO_DIFFUSION_API_KEY;
   if (token === undefined || token === "") {
     return fail("RETRO_DIFFUSION_API_KEY is not set.");
   }
 
-  const options: GenerateOptions = {
-    prompt,
-    style,
-    width: asNumber("width", width, true),
-    height: asNumber("height", height, true),
-    numImages: asNumber("num-images", numImages, true),
-    seed: asOptionalNumber("seed", seed, true),
-    extraPrompt,
-    inputImage,
-    strength: asOptionalNumber("strength", strength, false),
-    referenceImages,
-    removeBg: removeBg ?? false,
-    out,
-    timeout: asNumber("timeout", timeout, false),
-    checkCost: checkCostFlag ?? false,
-  };
-
   const payload: InferencePayload = {
-    prompt: options.prompt,
-    prompt_style: options.style,
-    width: options.width,
-    height: options.height,
-    num_images: options.numImages,
-    ...defined("seed", options.seed),
-    ...defined("extra_prompt", options.extraPrompt),
-    ...defined("strength", options.strength),
-    ...defined("input_image", await imagePayload(options.inputImage)),
-    ...defined("reference_images", await imageListPayload(options.referenceImages)),
-    ...defined("remove_bg", options.removeBg ? true : undefined),
+    prompt,
+    prompt_style: style,
+    width,
+    height,
+    num_images: numImages,
+    ...defined("seed", seed),
+    ...defined("extra_prompt", extraPrompt),
+    ...defined("strength", strength),
+    ...defined("input_image", await imagePayload(inputImage)),
+    ...defined("reference_images", await imageListPayload(referenceImages)),
+    ...defined("remove_bg", removeBg ? true : undefined),
   };
 
-  if (options.checkCost) {
-    const quote = await checkCost(token, payload);
+  if (checkCost) {
+    const quote = await costQuote(token, payload);
     console.log(`cost $${money(quote.balance_cost)}  remaining balance $${money(quote.remaining_balance)}`);
     return;
   }
 
   const accepted = await submitInference(token, payload, randomUUID());
   console.log(`task ${accepted.task_id}`);
-  const result = await pollTask(accepted.task_id, token, options.timeout);
+  const result = await pollTask(accepted.task_id, token, timeout);
 
-  const outputPath = out ?? defaultOut(options.prompt);
+  const outputPath = out ?? defaultOut(prompt);
   for (const path of await writeImages(result, outputPath)) {
     console.log(`wrote ${path}`);
   }
