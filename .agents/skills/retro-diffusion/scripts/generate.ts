@@ -139,7 +139,7 @@ const main = async (argv: string[]): Promise<void> => {
 
   const token = process.env.RETRO_DIFFUSION_API_KEY;
   if (token === undefined || token === "") {
-    return fail("RETRO_DIFFUSION_API_KEY is not set. Ask Dave for the key.");
+    return fail("RETRO_DIFFUSION_API_KEY is not set.");
   }
 
   const options: GenerateOptions = {
