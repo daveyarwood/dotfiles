@@ -12,11 +12,17 @@ fi
 
 exclude_file="/tmp/wifi-speed-excludes"
 exclude_ttl=86400
-# A server returning less than this many Mbit/s is treated as a bad node and
-# excluded, then the test retries against another server. Set high enough to
-# skip a congested/broken server (e.g. an ISP box reading 8 Mbit/s while every
-# other server returns 400+), but low enough to still surface real wifi issues.
+# A server returning less than this many Mbit/s is treated as a suspect node
+# and excluded, then the test retries against another server. The floor only
+# means something on a fast connection: on slow wifi (hotel, hotspot) every
+# server reads low, so an all-slow run is accepted as the real speed rather
+# than blamed on the servers. Set high enough to skip a congested/broken
+# server (e.g. an ISP box reading 8 Mbit/s while every other server returns
+# 400+), but low enough to still surface real wifi issues.
 min_mbps=50
+# Two samples are enough to tell "bad server" from "slow connection": one
+# retry against another server. More attempts just burn data on slow wifi.
+max_attempts=2
 now="$(date '+%s')"
 
 excluded=()
@@ -31,8 +37,11 @@ fi
 
 result=""
 download_mbps=0
+best_result=""
+best_mbps=0
+cleared_floor=false
 
-for attempt in 1 2 3; do
+for (( attempt=1; attempt<=max_attempts; attempt++ )); do
   args=()
   for id in "${excluded[@]}"; do
     args+=(--exclude "$id")
@@ -43,36 +52,53 @@ for attempt in 1 2 3; do
 
   if [[ -z "$result" ]]; then
     log "Attempt ${attempt} produced no output."
+    result=""
     continue
   fi
 
   download_mbps="$(jq -r '.download / 1000000 | floor' <<< "$result")"
 
-  # Accept the result only if it clears the floor. A slow-but-nonzero result
-  # (e.g. "27 down 2 up") is just as suspect as a zero-throughput one, so it
-  # falls through to the exclude-and-retry logic below.
-  if [[ "$download_mbps" -ge "$min_mbps" ]]; then
+  # Keep the best sample so far. If every attempt is slow, this is what gets
+  # reported: a slow result then means slow wifi, not a bad server.
+  if (( download_mbps > best_mbps )); then
+    best_mbps="$download_mbps"
+    best_result="$result"
+  fi
+
+  # A result that clears the floor proves the connection is fast and this
+  # server is fine, so accept it and keep the exclusions made along the way.
+  if (( download_mbps >= min_mbps )); then
+    cleared_floor=true
     break
   fi
 
   server_id="$(jq -r '.server.id // empty' <<< "$result")"
   if [[ -n "$server_id" ]]; then
     excluded+=("$server_id")
-    echo "$server_id $now" >> "$exclude_file"
+    log "Attempt ${attempt} throughput ${download_mbps} Mbit/s below floor (${min_mbps}); excluding server ${server_id} and retrying."
+  else
+    log "Attempt ${attempt} throughput ${download_mbps} Mbit/s below floor (${min_mbps}); retrying."
   fi
-  log "Attempt ${attempt} throughput ${download_mbps} Mbit/s below floor (${min_mbps}); excluding server ${server_id} and retrying."
   result=""
 done
 
-tmp_exclude="$(mktemp)"
-printf '%s\n' "${excluded[@]}" | sort -u | while read -r id; do
-  [[ -n "$id" ]] && echo "$id $now" >> "$tmp_exclude"
-done
-mv "$tmp_exclude" "$exclude_file"
+if [[ "$cleared_floor" == true ]]; then
+  # A server proved the connection is fast, so the servers skipped above were
+  # genuinely bad. Persist the exclusions for exclude_ttl.
+  tmp_exclude="$(mktemp)"
+  printf '%s\n' "${excluded[@]}" | sort -u | while read -r id; do
+    [[ -n "$id" ]] && echo "$id $now" >> "$tmp_exclude"
+  done
+  mv "$tmp_exclude" "$exclude_file"
+else
+  # No server cleared the floor: the wifi is slow, not the servers. Report the
+  # best sample and leave the exclude list untouched, so slow wifi cannot
+  # blacklist every server.
+  result="$best_result"
+  download_mbps="$best_mbps"
+fi
 
-if [[ -z "$result" || "$download_mbps" -lt "$min_mbps" ]]; then
-  # Every attempt failed to clear the floor: keep the previous reading rather
-  # than display a number produced by a bad server.
+if [[ -z "$result" ]]; then
   log "Speed test failed after retries. Keeping previous result."
   exit 1
 fi
