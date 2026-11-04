@@ -20,6 +20,7 @@ belongs here, not there, so no repo has to restate it.
 - `yarn`, not `npm`.
 - Small modules with one responsibility each, organized by domain. No `util`
   file, and no dead code left behind.
+- DRY. Extract the shared logic rather than copy-pasting it.
 
 ## Tests
 
