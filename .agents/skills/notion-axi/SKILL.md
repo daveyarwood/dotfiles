@@ -118,6 +118,19 @@ misread as a bad id or a permissions problem.
 The markdown endpoint also takes `include_transcript=true` to pull meeting note
 transcripts, which are omitted by default.
 
+## `page update --replace` trashes child pages
+
+A subpage is a block in its parent's body, so `--replace` on a page that has a
+subpage moves the subpage to the trash, with no warning. Seen 2026-09-30, when
+the new markdown did not mention the subpage. Untested: whether keeping its
+`<page url="...">` tag in the new markdown preserves it.
+
+Before a `--replace`, check `page view <id> --full` for `<page url=...>` tags.
+If there are any and you want to keep them, edit with `--append` or at the
+block level instead. To recover one, run `page archive <subpage_id> --restore`.
+That brings it back under the same parent with its content intact, and the
+link reappears in the parent's body.
+
 ## Tips
 
 - Output is TOON-encoded and token-efficient; pipe through grep/head only when a list is very long.
