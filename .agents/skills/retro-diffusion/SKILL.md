@@ -37,7 +37,7 @@ no migration.
 ```bash
 node .agents/skills/retro-diffusion/scripts/generate.ts \
   --prompt "a squat round flask of glowing crimson liquid, cork stopper, bright highlight on the upper-left rim" \
-  --style rd_pro__default --width 64 --height 64 --remove-bg --out potion.png
+  --style rd_core__default --width 64 --height 64 --remove-bg --out potion.png
 ```
 
 The script prints the paths it wrote, the charge, and the remaining balance:
@@ -45,27 +45,32 @@ The script prints the paths it wrote, the charge, and the remaining balance:
 ```
 task 8d24e990-...
 wrote potion.png
-model rd_pro  cost $0.18  remaining balance $99.82
+model rd_core  cost $0.10  remaining balance $99.90
 ```
 
 Flags:
 
 - `--prompt` the subject, described concretely. Required.
-- `--style` a `prompt_style` id. Defaults to `rd_pro__default`.
+- `--style` a `prompt_style` id. Defaults to `rd_core__default`.
 - `--width` and `--height` in pixels. Default 64 each. Size limits are per
   style, so check the style list below before going large.
 - `--num-images` how many takes of the prompt to generate in one request.
   Default 1.
-- `--seed` an integer. Reuse it to iterate on a composition and change only the
-  prompt. Two runs at one seed do not come back as the same image, so treat it
-  as a way to hold a composition steady, not as a fixed output. Omit it for a
-  fresh result each run.
+- `--seed` an integer. The vendor docs call it reproducible and it is not. Two
+  runs of one prompt at seed 12345 came back with no pixel in common, on
+  `rd_core` and on `rd_pro` alike, and their block brightness correlated at 0.04
+  and -0.07, which is no correlation. A third run at a different seed came back
+  as far from the first as the repeat did. The seed travels on the request and
+  nothing observable changes with it, so it cannot hold a composition steady.
+  Get several takes of one prompt from `--num-images`, and carry a look from
+  image to image with `--reference-image` or `--input-image`.
 - `--remove-bg` writes a transparent background. Pair it with a flat contrasting
   background named in the prompt.
 - `--input-image` a PNG on disk, for img2img. `--strength` says how much to
   change it, 0 to 1, default 0.75 on the API side.
-- `--reference-image` a PNG on disk, repeatable, up to 9. RD Pro styles only.
-  These guide style and content without redrawing the source.
+- `--reference-image` a PNG on disk, repeatable, up to 9. `rd_core` and `rd_pro`
+  styles only, and the other families ignore it. These guide style and content
+  without redrawing the source.
 - `--out` where to write the images. Defaults to `retro-diffusion/<slug>.png`,
   with `-1`, `-2` and so on appended when a request returns more than one image.
 - `--check-cost` prints the price and stops without generating or charging.
@@ -88,42 +93,59 @@ Style ids are opaque strings. Take them from this list or from
 capabilities from the prefix.
 
 Image styles charge a flat rate per image at any size. `num_images` is clamped
-to the style's cap and the clamped count is what gets charged.
+to the style's cap and the clamped count is what gets charged. `rd_core` and
+`rd_pro` are the only two families that take `reference_images`.
 
-RD Pro, $0.18 per image, the highest quality and the only family that takes
-`reference_images`:
+RD Core, $0.10 per image at any size up to 512px, the default and the best
+value in the API. It takes the same 9 reference images as RD Pro, and the
+vendor reports it about four times faster:
+
+- `rd_core__default`, `__painterly`, `__simple`, `__fantasy`, `__horror`,
+  `__scifi`, `__isometric`, `__topdown`, `__platformer`: 16 to 512px, up to 4
+  images per request.
+- `rd_core__dungeon_map`, `__spritesheet`, `__hexagonal_tiles`,
+  `__inventory_items`: 128 to 512px, up to 4.
+- `rd_core__fps_weapon`, `__typography`: 64 to 512px, up to 4.
+- `rd_core__ui_panel`: 256x256 only, up to 4.
+
+RD Pro, $0.18 per image, half Core's ceiling for nearly double the price. It
+earns that price in one place: the nine styles below take 16 images in one
+request where every `rd_core` style stops at 4.
 
 - `rd_pro__default`, `__painterly`, `__fantasy`, `__horror`, `__scifi`,
   `__simple`, `__isometric`, `__topdown`, `__platformer`: 12 to 256px, up to 16
   images per request.
-- `rd_pro__dungeon_map`, `__spritesheet`, `__typography`: 64 to 256px, up to 4.
-  `__fps_weapon` is also $0.25.
+- `rd_pro__dungeon_map`, `__spritesheet`, `__typography`, `__fps_weapon`:
+  64 to 256px, up to 4.
 - `rd_pro__hexagonal_tiles`, `__ui_panel`, `__inventory_items`: 256x256 only,
   up to 4.
-- `rd_pro__pixelate` and `rd_pro__edit` need `input_image`.
+- `rd_pro__pixelate` and `__edit` need `input_image`.
   `__pixelate` is 16 to 256px and converts an existing image into pixel art,
   `__edit` is 64 to 256px.
 
 RD Plus, $0.06 per image:
 
-- `default`, `retro`, `watercolor`, `textured`, `cartoon`, `ui_element`,
-  `item_sheet`, `character_turnaround`, `environment`, `isometric`,
+- `rd_plus__default`, `retro`, `watercolor`, `textured`, `cartoon`,
+  `ui_element`, `item_sheet`, `character_turnaround`, `isometric`,
   `isometric_asset`, `topdown_map`, `topdown_asset`: 64 to 384px, up to 16.
-- `classic` and `skill_icon`: 32 to 192px.
-- `low_res`, `mc_item`, `mc_texture`: 16 to 128px.
-- `topdown_item`: 16 to 96px.
+- `rd_plus__environment`: 64 to 512px, up to 16.
+- `rd_plus__classic` and `skill_icon`: 32 to 192px.
+- `rd_plus__low_res`, `mc_item`, `mc_texture`: 16 to 128px.
+- `rd_plus__topdown_item`: 16 to 96px.
 
-RD Fast, $0.03 per image, the cheapest way to draft:
+RD Fast, $0.03 per image, the cheapest way to draft. The flux-served ids carry
+a `:rd_flux` suffix and `item_sheet` does not:
 
-- `default`, `simple`, `detailed`, `retro`, `game_asset`, `portrait`,
-  `texture`, `ui`, `item_sheet`, `character_turnaround`, `no_style`, `1_bit`:
-  64 to 384px, up to 16, and 15 for `default`.
-- `low_res`, `mc_item`, `mc_texture`: 16 to 128px.
+- `default:rd_flux`, `simple:rd_flux`, `detailed:rd_flux`, `retro:rd_flux`,
+  `game_asset:rd_flux`, `portrait:rd_flux`, `texture:rd_flux`,
+  `ui_element:rd_flux`, `item_sheet`, `character_turnaround:rd_flux`,
+  `no_style:rd_flux`, `rd_fast__1_bit`: 64 to 384px, up to 16.
+- `rd_fast__low_res`, `mc_item`, `mc_texture`: 16 to 128px.
 
 RD Mini at $0.06, or $0.03 for the `fast_` ids, aliases the Plus and Fast
-low-res styles and its response names the routed model: `classic`, `skill_icon`,
-`low_res`, `mc_item`, `mc_texture`, `fast_low_res`, `fast_mc_item`,
-`fast_mc_texture`, `topdown_item`.
+low-res styles and its response names the routed model: `rd_mini__classic`,
+`skill_icon`, `low_res`, `mc_item`, `mc_texture`, `fast_low_res`,
+`fast_mc_item`, `fast_mc_texture`, `topdown_item`.
 
 ## Picking a size and a background
 
@@ -135,7 +157,7 @@ per sheet.
 - Character sprites 16 to 48px retro, 96 to 128px for a showcase piece.
 - Single tiles 16 to 32px.
 - Dialogue busts 64px, portraits 96 to 128px.
-- Scenes and key art 256px, which is RD Pro's ceiling, or 256x144 for 16:9.
+- Scenes and key art 512px, which is rd_core's ceiling, or 512x288 for 16:9.
 
 For a standalone asset, name a flat background color that contrasts the subject
 in the prompt, white by default, and pass `remove_bg`. Writing "on a transparent
@@ -152,9 +174,11 @@ deliverable.
 For variants of one image, seasons or weather or a recolour, generate the base
 once and derive each variant with the `image_edit` tool. Separate generations of
 the same prompt come back as unrelated compositions. For one character across
-several images, generate it once with RD Pro and pass that output as a
-`reference_image` afterwards. Pass an existing image to `rd_pro__pixelate` to
-convert it; `reference_images` re-imagines rather than converts.
+several images, generate it once with `rd_core__default` and pass that output as
+a `reference_image` afterwards. `rd_core` takes the same reference images for
+$0.10 an image, so Pro buys nothing here. Pass an existing image to
+`rd_pro__pixelate` to convert it; `reference_images` re-imagines rather than
+converts.
 
 ## Costs and balance
 
@@ -166,7 +190,10 @@ convert it; `reference_images` re-imagines rather than converts.
 
 A generation is charged before it runs and refunded automatically when it fails.
 `check_cost` is the free way to price anything, including a submission that is
-otherwise identical to a real one.
+otherwise identical to a real one. Price is per image and does not move with
+size: `rd_core` $0.10, `rd_pro` $0.18, `rd_plus` $0.06, `rd_fast` $0.03,
+`rd_mini` $0.06 or $0.03. `check_cost` quotes $0.10 for `rd_core__default` at
+both 64px and 512px, and $0.40 for `rd_core__dungeon_map` with `num_images` 4.
 
 ## Failures and recovery
 
