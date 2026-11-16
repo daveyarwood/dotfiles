@@ -115,8 +115,8 @@ request where every `rd_core` style stops at 4.
 - `rd_pro__default`, `__painterly`, `__fantasy`, `__horror`, `__scifi`,
   `__simple`, `__isometric`, `__topdown`, `__platformer`: 12 to 256px, up to 16
   images per request.
-- `rd_pro__dungeon_map`, `__spritesheet`, `__typography`, `__fps_weapon`:
-  64 to 256px, up to 4.
+- `rd_pro__dungeon_map`, `__spritesheet`, `__typography`: 64 to 256px, up to 4.
+  `__fps_weapon` is also $0.25.
 - `rd_pro__hexagonal_tiles`, `__ui_panel`, `__inventory_items`: 256x256 only,
   up to 4.
 - `rd_pro__pixelate` and `__edit` need `input_image`.
@@ -125,9 +125,9 @@ request where every `rd_core` style stops at 4.
 
 RD Plus, $0.06 per image:
 
-- `rd_plus__default`, `retro`, `watercolor`, `textured`, `cartoon`,
-  `ui_element`, `item_sheet`, `character_turnaround`, `isometric`,
-  `isometric_asset`, `topdown_map`, `topdown_asset`: 64 to 384px, up to 16.
+- `rd_plus__default`, `__retro`, `__watercolor`, `__textured`, `__cartoon`,
+  `__ui_element`, `__item_sheet`, `__character_turnaround`, `__isometric`,
+  `__isometric_asset`, `__topdown_map`, `__topdown_asset`: 64 to 384px, up to 16.
 - `rd_plus__environment`: 64 to 512px, up to 16.
 - `rd_plus__classic` and `skill_icon`: 32 to 192px.
 - `rd_plus__low_res`, `mc_item`, `mc_texture`: 16 to 128px.
@@ -140,12 +140,13 @@ a `:rd_flux` suffix and `item_sheet` does not:
   `game_asset:rd_flux`, `portrait:rd_flux`, `texture:rd_flux`,
   `ui_element:rd_flux`, `item_sheet`, `character_turnaround:rd_flux`,
   `no_style:rd_flux`, `rd_fast__1_bit`: 64 to 384px, up to 16.
-- `rd_fast__low_res`, `mc_item`, `mc_texture`: 16 to 128px.
+- `rd_fast__low_res`, `rd_fast__mc_item`, `rd_fast__mc_texture`: 16 to 128px.
 
 RD Mini at $0.06, or $0.03 for the `fast_` ids, aliases the Plus and Fast
 low-res styles and its response names the routed model: `rd_mini__classic`,
-`skill_icon`, `low_res`, `mc_item`, `mc_texture`, `fast_low_res`,
-`fast_mc_item`, `fast_mc_texture`, `topdown_item`.
+`rd_mini__skill_icon`, `rd_mini__low_res`, `rd_mini__mc_item`,
+`rd_mini__mc_texture`, `rd_mini__fast_low_res`, `rd_mini__fast_mc_item`,
+`rd_mini__fast_mc_texture`, `rd_mini__topdown_item`.
 
 ## Picking a size and a background
 
@@ -191,7 +192,7 @@ converts.
 A generation is charged before it runs and refunded automatically when it fails.
 `check_cost` is the free way to price anything, including a submission that is
 otherwise identical to a real one. Price is per image and does not move with
-size: `rd_core` $0.10, `rd_pro` $0.18, `rd_plus` $0.06, `rd_fast` $0.03,
+size: `rd_core` $0.10, `rd_pro` $0.18 (`__fps_weapon` $0.25), `rd_plus` $0.06, `rd_fast` $0.03,
 `rd_mini` $0.06 or $0.03. `check_cost` quotes $0.10 for `rd_core__default` at
 both 64px and 512px, and $0.40 for `rd_core__dungeon_map` with `num_images` 4.
 
