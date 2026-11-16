@@ -42,7 +42,7 @@ const USAGE = `Usage: node generate.ts --prompt <text> [options]
   --width <px>             default 64
   --height <px>            default 64
   --num-images <n>         takes of the prompt in one request, default 1
-  --seed <int>             does not make output repeatable, see SKILL.md
+  --seed <int>             the integer sent to the API as the request seed
   --extra-prompt <text>    second texture for tileset styles
   --input-image <png>      source for img2img
   --strength <0-1>         how much to change the input image
