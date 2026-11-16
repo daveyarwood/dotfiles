@@ -46,7 +46,7 @@ const USAGE = `Usage: node generate.ts --prompt <text> [options]
   --extra-prompt <text>    second texture for tileset styles
   --input-image <png>      source for img2img
   --strength <0-1>         how much to change the input image
-  --reference-image <png>  repeatable, rd_core and rd_pro styles, up to 9
+  --reference-image <png>  repeatable, up to 9, on the styles the selector flags
   --remove-bg              write a transparent background
   --out <path>             default retro-diffusion/<slug>.png
   --timeout <seconds>      how long to wait for the task, default 300
