@@ -105,10 +105,6 @@ about four times faster:
 - `rd_core__fps_weapon`, `__typography`: 64 to 512px, up to 4.
 - `rd_core__ui_panel`: 256x256 only, up to 4.
 
-RD Pro is the one family that takes 16 images in a request, which is the only
-job that earns its price. Every `rd_core` style stops at 4, and Pro caps at
-256px against Core's 512.
-
 RD Plus, RD Fast and RD Mini are cheaper draft tiers. Their ids and limits are
 in the selector. `rd_mini` aliases the Plus and Fast low-res styles, and its
 response names the routed model.
