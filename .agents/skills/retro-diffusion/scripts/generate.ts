@@ -6,7 +6,7 @@
 //
 //     node .agents/skills/retro-diffusion/scripts/generate.ts \
 //         --prompt "a squat round flask of glowing crimson liquid" \
-//         --style rd_pro__default --width 64 --height 64 --remove-bg --out potion.png
+//         --style rd_core__default --width 64 --height 64 --remove-bg --out potion.png
 //
 //     node .agents/skills/retro-diffusion/scripts/generate.ts --prompt "test" --check-cost
 //
@@ -38,15 +38,15 @@ const money = (value: number): string => value.toFixed(2);
 const USAGE = `Usage: node generate.ts --prompt <text> [options]
 
   --prompt <text>          the subject, described concretely (required)
-  --style <id>             prompt_style id, default rd_pro__default
+  --style <id>             prompt_style id, default rd_core__default
   --width <px>             default 64
   --height <px>            default 64
   --num-images <n>         takes of the prompt in one request, default 1
-  --seed <int>             reuse it to iterate on a composition
+  --seed <int>             the integer sent to the API as the request seed
   --extra-prompt <text>    second texture for tileset styles
   --input-image <png>      source for img2img
   --strength <0-1>         how much to change the input image
-  --reference-image <png>  repeatable, RD Pro styles only, up to 9
+  --reference-image <png>  repeatable, up to 9, on the styles the selector flags
   --remove-bg              write a transparent background
   --out <path>             default retro-diffusion/<slug>.png
   --timeout <seconds>      how long to wait for the task, default 300
@@ -93,7 +93,7 @@ const parseOptions = (argv: string[]): GenerateOptions => {
       allowPositionals: false,
       options: {
         prompt: { type: "string" },
-        style: { type: "string", default: "rd_pro__default" },
+        style: { type: "string", default: "rd_core__default" },
         width: { type: "string", default: "64" },
         height: { type: "string", default: "64" },
         "num-images": { type: "string", default: "1" },
