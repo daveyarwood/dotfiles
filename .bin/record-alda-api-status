@@ -14,6 +14,8 @@ results_dir="/tmp/alda-api-status-results"
 mkdir -p "$results_dir"
 
 status_code="$(curl -s \
+                 --connect-timeout 5 \
+                 --max-time 10 \
                  -o /dev/null \
                  -w "%{http_code}" \
                  https://api.alda.io/releases/latest)"
@@ -27,8 +29,10 @@ echo "$status_code" > "$results_dir/$(date '+%Y%m%d%H%M%S')"
 
 if [[ "$status_code" == "200" ]]; then
   printf '<span color="#00D000">Alda API up</span>' > /tmp/alda-api-status
+elif [[ "$status_code" == "000" ]]; then
+  log "Could not reach Alda API (network/DNS issue). Leaving status unchanged."
 else
   printf '<span color="#CC1616">Alda API down</span>' > /tmp/alda-api-status
 fi
 
-log "Successfully recorded Alda API response."
+log "Recorded Alda API status: $status_code"
