@@ -27,7 +27,14 @@ mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
 
 cd "$(dirname "$0")"
-stow .
+
+# Library/ holds macOS launchd agents. Elsewhere, stow would link it in as
+# ~/Library, so leave it out.
+if [[ "$(uname)" == "Darwin" ]]; then
+  stow .
+else
+  stow --ignore='Library' .
+fi
 
 # Claude Code reads components only from ~/.claude, and the repo root mirrors
 # $HOME — so a tracked .claude/ would double as this repo's *project-level*
