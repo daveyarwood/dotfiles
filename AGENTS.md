@@ -49,6 +49,8 @@ alongside our config. These are pre-created by `install.sh` (keep this list and
 - `~/.gemini` / `~/.newsboat` — auth / state
 - `~/.gnupg` — keys (chmod 700)
 - `~/.i3` — generated `config` (from `generate-i3-config`)
+- `~/Library/LaunchAgents` (macOS) — other apps' agents; `install.sh` also
+  loads ours with `launchctl bootstrap`
 
 Everything else — a dir holding *only* my own static files — folds into a
 whole-dir symlink and needs no pre-creation (new files appear automatically).

@@ -17,6 +17,12 @@ mkdir -p \
   ~/.lsp \
   ~/.i3
 
+# macOS: ~/Library/LaunchAgents holds other apps' agents too, so it stays real
+# and stow links our plists into it one by one.
+if [[ "$(uname)" == "Darwin" ]]; then
+  mkdir -p ~/Library/LaunchAgents
+fi
+
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
 
@@ -43,3 +49,12 @@ ln -sfn "$PWD/.agents/AGENTS.md" ~/.claude/CLAUDE.md
 # be there rather than merely reachable by fallback. stow will not place it:
 # .stow-local-ignore matches AGENTS.md at any depth, not only at the repo root.
 ln -sfn "$PWD/.agents/AGENTS.md" ~/.config/opencode/AGENTS.md
+
+# Load our launchd agents. bootout first so a re-run picks up plist changes.
+if [[ "$(uname)" == "Darwin" ]]; then
+  for plist in Library/LaunchAgents/*.plist; do
+    label=$(basename "$plist" .plist)
+    launchctl bootout "gui/$(id -u)/$label" 2>/dev/null || true
+    launchctl bootstrap "gui/$(id -u)" ~/"$plist"
+  done
+fi

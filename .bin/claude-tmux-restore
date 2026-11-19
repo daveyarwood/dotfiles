@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+#
+# Reopens the Claude Code sessions recorded by `claude-tmux-snapshot`, one tmux
+# window each, with the window names they had. Each window runs
+# `claude --resume <session-id>` from the session's original directory, at a
+# shell prompt, so the window stays open when Claude exits.
+#
+# By default it reads the newest snapshot from before the current boot, which
+# is the one you want after a reboot. Sessions that are already running are
+# skipped, so running it twice is harmless.
+
+set -euo pipefail
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/claude-tmux"
+SESSIONS_DIR="$HOME/.claude/sessions"
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [-n] [-t SESSION] [--current-boot | FILE]
+
+Opens one tmux window per Claude session in a snapshot.
+
+  -n, --dry-run    Print what would be opened, and open nothing.
+  -t SESSION       tmux session to add windows to. Defaults to the current
+                   one inside tmux, otherwise 'default' (created if missing).
+  --current-boot   Use this boot's snapshot instead of the previous boot's,
+                   e.g. after the tmux server crashed without a reboot.
+  FILE             Use this snapshot file. They live in $STATE_DIR.
+EOF
+}
+
+boot_epoch() {
+  sysctl -n kern.boottime | sed -E 's/^{ sec = ([0-9]+),.*/\1/'
+}
+
+dry_run=0
+target=""
+current_boot=0
+file=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n|--dry-run) dry_run=1 ;;
+    -t) shift; target="$1" ;;
+    --current-boot) current_boot=1 ;;
+    -h|--help) usage; exit 0 ;;
+    -*) echo "unknown option: $1" >&2; usage >&2; exit 2 ;;
+    *) file="$1" ;;
+  esac
+  shift
+done
+
+if [[ -z "$file" ]]; then
+  this_boot="$STATE_DIR/$(boot_epoch).tsv"
+  if [[ "$current_boot" -eq 1 ]]; then
+    file="$this_boot"
+  else
+    file=$(find "$STATE_DIR" -maxdepth 1 -name '*.tsv' 2>/dev/null \
+      | grep -vxF "$this_boot" | sort -r | head -n 1 || true)
+  fi
+fi
+if [[ -z "$file" || ! -f "$file" ]]; then
+  echo "error: no snapshot found in $STATE_DIR" >&2
+  exit 1
+fi
+echo "Restoring from $file (written $(date -r "$file" '+%Y-%m-%d %H:%M'))" >&2
+
+# Session IDs of Claude processes that are running now.
+live_sessions=$(
+  shopt -s nullglob
+  for f in "$SESSIONS_DIR"/*.json; do
+    pid=$(jq -r .pid "$f")
+    if ps -p "$pid" -o command= 2>/dev/null | grep -q claude; then
+      jq -r .sessionId "$f"
+    fi
+  done
+)
+
+if [[ -z "$target" ]]; then
+  if [[ -n "${TMUX:-}" ]]; then
+    target=$(tmux display-message -p '#S')
+  else
+    target=default
+  fi
+fi
+if [[ "$dry_run" -eq 0 ]] && ! tmux has-session -t "=$target" 2>/dev/null; then
+  tmux new-session -d -s "$target" -c "$HOME"
+  echo "Created tmux session '$target'. Attach with: tmux attach -t $target" >&2
+fi
+
+while IFS=$'\t' read -r _ window_name cwd session_id; do
+  [[ -n "$session_id" ]] || continue
+  if grep -qxF "$session_id" <<<"$live_sessions"; then
+    echo "skip $window_name: already running" >&2
+    continue
+  fi
+  if [[ ! -d "$cwd" ]]; then
+    echo "skip $window_name: $cwd no longer exists" >&2
+    continue
+  fi
+  echo "open $window_name: claude --resume $session_id in $cwd" >&2
+  [[ "$dry_run" -eq 1 ]] && continue
+  window=$(tmux new-window -d -P -F '#{window_id}' -t "=$target:" -n "$window_name" -c "$cwd")
+  tmux send-keys -t "$window" "claude --resume $session_id" Enter
+done < "$file"

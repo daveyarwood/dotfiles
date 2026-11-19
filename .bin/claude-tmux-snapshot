@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+#
+# Records which Claude Code sessions are open and which tmux window each one
+# is in, so that `claude-tmux-restore` can reopen them after a reboot. The
+# launchd agent in ~/Library/LaunchAgents/local.claude-tmux-snapshot.plist
+# runs this every two minutes.
+#
+# Claude writes ~/.claude/sessions/<pid>.json for every running session, with
+# its session ID and cwd. This script keeps the ones whose process is alive,
+# finds each one's tmux window through the process's tty, and writes one line
+# per session:
+#
+#   <window-index> TAB <window-name> TAB <cwd> TAB <session-id>
+#
+# The output file is named after the boot time
+# (~/.local/state/claude-tmux/<boot-epoch>.tsv), so a session started after a
+# reboot never overwrites the list from before it. When no sessions are open
+# the script writes nothing, so a tmux crash that takes every Claude process
+# with it leaves the last good snapshot in place.
+#
+# Window names: a window you renamed by hand keeps its name. A window tmux
+# named automatically (after the process, e.g. `2.1.329`) gets a kebab-case
+# version of the session's title instead. A background session (`claude --bg`)
+# is found through the `claude attach <id>` process showing it, and goes at the
+# end of the list if no window is showing it.
+
+set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/claude-tmux"
+SESSIONS_DIR="$HOME/.claude/sessions"
+PROJECTS_DIR="$HOME/.claude/projects"
+KEEP_SNAPSHOTS=10
+
+boot_epoch() {
+  sysctl -n kern.boottime | sed -E 's/^{ sec = ([0-9]+),.*/\1/'
+}
+
+# Lowercase, non-alphanumerics to hyphens, at most four words.
+kebab() {
+  tr '[:upper:]' '[:lower:]' \
+    | tr -c 'a-z0-9' '-' \
+    | sed -E 's/-+/-/g; s/^-//; s/-$//' \
+    | cut -d- -f1-4
+}
+
+is_alive() {
+  ps -p "$1" -o command= 2>/dev/null | grep -q claude
+}
+
+# The tty of the terminal showing a session, without the /dev/ prefix, or
+# nothing. An interactive session runs on its own tty. A background session
+# runs under the daemon, so look for the `claude attach <job-id>` process.
+session_tty() {
+  local pid="$1" kind="$2" job_id="$3"
+  if [[ "$kind" == "interactive" ]]; then
+    ps -p "$pid" -o tty= | tr -d ' '
+  else
+    ps -axo tty=,command= \
+      | awk -v job="$job_id" '$0 ~ "claude attach " job "( |$)" { print $1; exit }'
+  fi
+}
+
+session_title() {
+  local session_id="$1" name="$2" name_source="$3"
+  if [[ -n "$name" && "$name_source" != "derived" ]]; then
+    printf '%s\n' "$name"
+    return
+  fi
+  local transcript
+  transcript=$(find "$PROJECTS_DIR" -maxdepth 2 -name "$session_id.jsonl" -print -quit)
+  if [[ -n "$transcript" ]]; then
+    grep '"type":"ai-title"' "$transcript" | tail -n 1 | jq -r '.aiTitle // empty'
+  fi
+}
+
+# Lines of: tty TAB window-index TAB automatic-rename TAB window-name
+panes=$(tmux list-panes -a \
+  -F '#{s|/dev/||:pane_tty}	#{window_index}	#{automatic-rename}	#{window_name}' \
+  2>/dev/null || true)
+
+rows=""
+shopt -s nullglob
+for file in "$SESSIONS_DIR"/*.json; do
+  IFS=$'\t' read -r pid kind session_id cwd job_id name_source name < <(
+    jq -r '[.pid, .kind, .sessionId, .cwd, (.jobId // "-"),
+            (.nameSource // "-"), (.name // "")] | @tsv' "$file"
+  ) || continue
+
+  [[ "$kind" == "interactive" || "$kind" == "bg" ]] || continue
+  is_alive "$pid" || continue
+
+  tty=$(session_tty "$pid" "$kind" "$job_id")
+  pane=""
+  if [[ -n "$tty" && "$tty" != "??" ]]; then
+    pane=$(awk -F'\t' -v tty="$tty" '$1 == tty { print; exit }' <<<"$panes")
+  fi
+
+  index=999
+  window_name=""
+  if [[ -n "$pane" ]]; then
+    IFS=$'\t' read -r _ index auto_rename pane_window_name <<<"$pane"
+    [[ "$auto_rename" == "0" ]] && window_name="$pane_window_name"
+  fi
+  if [[ -z "$window_name" ]]; then
+    window_name=$(session_title "$session_id" "$name" "$name_source" | kebab)
+  fi
+  [[ -n "$window_name" ]] || window_name="claude-${session_id:0:8}"
+
+  rows+="$index	$window_name	$cwd	$session_id"$'\n'
+done
+
+[[ -n "$rows" ]] || exit 0
+
+mkdir -p "$STATE_DIR"
+tmp=$(mktemp "$STATE_DIR/.snapshot.XXXXXX")
+printf '%s' "$rows" | sort -t $'\t' -k1,1n > "$tmp"
+mv "$tmp" "$STATE_DIR/$(boot_epoch).tsv"
+
+# Keep the newest few snapshots. Boot epochs all have the same number of
+# digits, so a plain sort is chronological.
+find "$STATE_DIR" -maxdepth 1 -name '*.tsv' | sort -r | tail -n +$((KEEP_SNAPSHOTS + 1)) \
+  | while read -r old; do rm -f "$old"; done
