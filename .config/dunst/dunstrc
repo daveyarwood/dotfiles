@@ -37,7 +37,7 @@
 
     # Width of the notification window in pixels. A single number is a constant
     # width; two numbers set a minimum and maximum, e.g. (0, 500).
-    width = 500
+    width = 540
 
     # Offset from the corner of the screen given by origin. Format: (x, y) or NxN.
     origin = top-right
