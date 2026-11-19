@@ -30,6 +30,9 @@ export SHLVL=$((SHLVL - 1))
 source "$(dirname -- "${BASH_SOURCE[0]}")/claude-sessions"
 
 SHORT_LIVED_SECONDS=3600
+# A session this script creates starts with two windows in this repo: `code`
+# (nvim on the README) and `lunch` (a shell in lab/). Restored sessions follow.
+CODE_DIR="$HOME/code/fg-outpost"
 
 usage() {
   cat <<EOF
@@ -41,7 +44,8 @@ one from a tmux server other than the one running now.
 
   -n, --dry-run    Print what would be opened, and open nothing.
   -t SESSION       tmux session to add windows to. Defaults to the current
-                   one inside tmux, otherwise 'default' (created if missing).
+                   one inside tmux, otherwise 'default'. A session this
+                   creates starts with 'code' (nvim) and 'lunch' windows.
   -l, --list       List every snapshot, newest first, and exit.
   FILE             Use only this snapshot file.
 
@@ -139,7 +143,9 @@ if [[ -z "$target" ]]; then
   fi
 fi
 if [[ "$dry_run" -eq 0 ]] && ! tmux has-session -t "=$target" 2>/dev/null; then
-  tmux new-session -d -s "$target" -c "$HOME"
+  tmux new-session -d -s "$target" -n code -c "$CODE_DIR"
+  tmux send-keys -t "=$target:code" "nvim README.md" Enter
+  tmux new-window -d -t "=$target:" -n lunch -c "$CODE_DIR/lab"
   echo "Created tmux session '$target'. Attach with: tmux attach -t $target" >&2
 fi
 
