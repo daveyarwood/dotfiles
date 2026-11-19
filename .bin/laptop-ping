@@ -1,0 +1,255 @@
+#!/usr/bin/env python3
+"""Sample what I am doing on the laptop and POST it to the sleep-coach agent.
+
+Started by an i3 exec line, one sample every five minutes. The other end is the
+`laptop-ping` webhook route in the Hermes sleep-coach setup, which appends each
+sample to a file that the nightly bedtime check reads. The point is targeted:
+chess and GitHub already tell the check that I am up, and this adds the thing
+they cannot see, which is a video on this screen at 1 AM.
+
+The sample is context, not a decision. The nightly check decides whether to
+nudge; this exists so that when it does, it already knows what I was doing and
+can say so instead of asking.
+
+  idle_seconds    seconds since the last keyboard or mouse input, from the X
+                  idle counter. This is the "am I actually at the machine" bit.
+  youtube         whether a visible window's title mentions YouTube, and that
+                  title. While a video plays the window title IS the video's
+                  title, so this catches a long video a history read misses.
+  active_window   the focused window's title.
+  history         pages visited in the last three hours, newest first: how many
+                  minutes ago, the host, and the page title.
+  steam, games    whether Steam or a Steam game is running.
+  browser, proc_count
+
+Firefox's places.sqlite is read copy-first, because Firefox holds the original
+open. Two things that file never contains: pages visited in a private window,
+which Mozilla's private browsing policy forbids writing to any file or database
+in the profile, and the embedded and iframe loads Firefox marks hidden, which
+the query skips exactly as its own history UI does.
+
+The secret is read from ~/.config/laptop-ping/env, which is not in this repo:
+
+    LAPTOP_PING_URL=https://<dashboard host>/webhooks/laptop-ping
+    LAPTOP_PING_SECRET=<the route secret>
+
+Usage: laptop-ping [--loop]. Run it with no arguments for one sample and a line
+on stdout saying what the far end made of it. --loop samples every five minutes
+until it is killed, and holds a lock so that the extra copies an i3 restart
+starts exit immediately instead of doubling the pings.
+"""
+
+import datetime
+import fcntl
+import glob
+import hashlib
+import hmac
+import json
+import os
+import shutil
+import sqlite3
+import subprocess
+import sys
+import tempfile
+import time
+import urllib.parse
+import urllib.request
+
+ENV_FILE = os.path.expanduser("~/.config/laptop-ping/env")
+LOCK_FILE = os.path.join(os.environ.get("XDG_RUNTIME_DIR") or "/tmp",
+                         "laptop-ping.lock")
+FIREFOX_ROOT = os.path.expanduser("~/.mozilla/firefox")
+PROC = "/proc"
+BROWSER_CLASSES = ("firefox", "chromium", "google-chrome", "brave-browser")
+BROWSER_NAMES = ("firefox", "firefox-bin", "chromium", "chrome", "brave")
+STEAM_HINTS = ("steam",)
+HISTORY_HOURS = 3
+HISTORY_LIMIT = 12
+SAMPLE_INTERVAL = 300
+POST_TIMEOUT = 15
+
+
+def load_env(path=ENV_FILE):
+    env = {}
+    with open(path) as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            env[key.strip()] = value.strip().strip('"').strip("'")
+    return env
+
+
+def run(cmd):
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    return proc.stdout.strip() if proc.returncode == 0 else ""
+
+
+def idle_seconds():
+    """Seconds since the last input, from the X idle counter."""
+    text = run(["xprintidle"])
+    try:
+        return int(text.split()[0]) // 1000
+    except (IndexError, ValueError):
+        return None
+
+
+def window_titles():
+    """Visible browser window titles, and the focused window's title.
+
+    Every visible window is asked, not only the focused one, so a video running
+    fullscreen on another workspace still shows up.
+    """
+    titles, seen = [], set()
+    for klass in BROWSER_CLASSES:
+        out = run(["xdotool", "search", "--onlyvisible", "--class", klass,
+                   "getwindowname", "%@"])
+        for line in out.splitlines():
+            line = line.strip()
+            if line and line not in seen:
+                seen.add(line)
+                titles.append(line)
+    active = run(["xdotool", "getactivewindow", "getwindowname"]) or None
+    return titles, active
+
+
+def process_scan():
+    """Browser and Steam presence, game executables, and the process count."""
+    browser = steam = False
+    games, total = [], 0
+    for path in glob.glob(os.path.join(PROC, "[0-9]*", "cmdline")):
+        try:
+            with open(path, "rb") as fh:
+                raw = fh.read()
+        except OSError:
+            continue
+        parts = [part.decode("utf-8", "replace") for part in raw.split(b"\0") if part]
+        if not parts:
+            continue
+        total += 1
+        name = os.path.basename(parts[0]).lower()
+        if any(hint in name for hint in STEAM_HINTS):
+            steam = True
+        if "steamapps" in " ".join(parts).lower():
+            steam = True
+            game = os.path.basename(parts[0])
+            if game and game not in games:
+                games.append(game)
+        if name in BROWSER_NAMES:
+            browser = True
+    return browser, steam, games[:6], total
+
+
+def firefox_history():
+    """Recent pages, newest first, and how long ago youtube.com was last visited.
+
+    visit_date counts MICROSECONDS since the Unix epoch, the number that goes
+    wrong in most history readers. The copy is thrown away afterwards.
+    """
+    cutoff_us = int((time.time() - HISTORY_HOURS * 3600) * 1e6)
+    visits = []
+    for profile in glob.glob(os.path.join(FIREFOX_ROOT, "*", "places.sqlite")):
+        tmpdir = tempfile.mkdtemp(prefix="laptop-ping-")
+        copied = os.path.join(tmpdir, "places.sqlite")
+        try:
+            shutil.copy2(profile, copied)
+            for suffix in ("-wal", "-shm"):
+                if os.path.exists(profile + suffix):
+                    shutil.copy2(profile + suffix, copied + suffix)
+            conn = sqlite3.connect("file:{}?mode=ro".format(copied), uri=True)
+            try:
+                rows = conn.execute(
+                    "SELECT p.url, p.title, v.visit_date FROM moz_historyvisits v "
+                    "JOIN moz_places p ON p.id = v.place_id "
+                    "WHERE p.hidden = 0 AND v.visit_date > ? "
+                    "ORDER BY v.visit_date DESC LIMIT 60",
+                    (cutoff_us,),
+                ).fetchall()
+            finally:
+                conn.close()
+        except (OSError, sqlite3.Error):
+            continue
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
+        for url, title, visit_date in rows:
+            visits.append({
+                "minutes_ago": round(max(0.0, (time.time() * 1e6 - float(visit_date)) / 60e6), 1),
+                "host": urllib.parse.urlsplit(url or "").netloc,
+                "title": (title or "").strip()[:100] or None,
+                "url": url or "",
+            })
+    visits.sort(key=lambda visit: visit["minutes_ago"])
+    youtube_minutes = next((visit["minutes_ago"] for visit in visits
+                            if "youtube.com" in visit["url"]), None)
+    return visits, youtube_minutes
+
+
+def sample():
+    titles, active = window_titles()
+    hits = [title for title in titles if "youtube" in title.lower()]
+    if active and "youtube" in active.lower() and active not in hits:
+        hits.append(active)
+    browser, steam, games, total = process_scan()
+    visits, youtube_minutes = firefox_history()
+    return {
+        "ts": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
+        "idle_seconds": idle_seconds(),
+        "youtube": bool(hits),
+        "youtube_detail": hits[0][:120] if hits else None,
+        "active_window": active[:120] if active else None,
+        "browser": browser,
+        "steam": steam,
+        "games": games,
+        "youtube_visit_minutes": youtube_minutes,
+        "history": [{"minutes_ago": visit["minutes_ago"], "host": visit["host"],
+                     "title": visit["title"]} for visit in visits[:HISTORY_LIMIT]],
+        "proc_count": total,
+    }
+
+
+def post(env, payload):
+    body = json.dumps(payload, separators=(",", ":")).encode()
+    signature = hmac.new(env.get("LAPTOP_PING_SECRET", "").encode(), body,
+                         hashlib.sha256).hexdigest()
+    request = urllib.request.Request(env["LAPTOP_PING_URL"], data=body, headers={
+        "Content-Type": "application/json",
+        "X-Hub-Signature-256": "sha256=" + signature,
+        "X-GitHub-Event": "laptop-ping",
+        "X-GitHub-Delivery": datetime.datetime.now().strftime("%Y%m%d%H%M%S"),
+        "User-Agent": "laptop-ping/1.0",
+    })
+    with urllib.request.urlopen(request, timeout=POST_TIMEOUT) as response:
+        return response.status, response.read().decode("utf-8", "replace")[:200]
+
+
+def once():
+    try:
+        payload = sample()
+        status, body = post(load_env(), payload)
+    except Exception as exc:  # noqa: BLE001 - the loop must survive one bad run
+        print("{} error: {}: {}".format(datetime.datetime.now().isoformat(),
+                                        type(exc).__name__, exc))
+        return 1
+    print("{} status={} {}".format(payload["ts"], status, body))
+    return 0 if 200 <= status < 300 else 1
+
+
+def main():
+    if "--loop" not in sys.argv[1:]:
+        return once()
+    lock = open(LOCK_FILE, "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        return 0
+    while True:
+        once()
+        time.sleep(SAMPLE_INTERVAL)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
