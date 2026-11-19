@@ -1,0 +1,18 @@
+# Sourced (not run) by claude-tmux-snapshot and claude-tmux-restore: where snapshots
+# live, and how to tell whether a Claude session is still running.
+
+CLAUDE_TMUX_STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/claude-tmux"
+CLAUDE_SESSIONS_DIR="$HOME/.claude/sessions"
+
+# One snapshot file per boot, named after the boot time in epoch seconds.
+current_boot_snapshot() {
+  local epoch
+  epoch=$(sysctl -n kern.boottime | sed -E 's/^{ sec = ([0-9]+),.*/\1/')
+  printf '%s/%s.tsv\n' "$CLAUDE_TMUX_STATE_DIR" "$epoch"
+}
+
+# Claude writes $CLAUDE_SESSIONS_DIR/<pid>.json per session. Checking the
+# command as well as the PID guards against a reused PID.
+is_claude_running() {
+  ps -p "$1" -o command= 2>/dev/null | grep -q claude
+}

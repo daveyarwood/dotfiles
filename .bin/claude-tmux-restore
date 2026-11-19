@@ -11,8 +11,7 @@
 
 set -euo pipefail
 
-STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/claude-tmux"
-SESSIONS_DIR="$HOME/.claude/sessions"
+source "$(dirname -- "${BASH_SOURCE[0]}")/claude-sessions"
 
 usage() {
   cat <<EOF
@@ -25,12 +24,8 @@ Opens one tmux window per Claude session in a snapshot.
                    one inside tmux, otherwise 'default' (created if missing).
   --current-boot   Use this boot's snapshot instead of the previous boot's,
                    e.g. after the tmux server crashed without a reboot.
-  FILE             Use this snapshot file. They live in $STATE_DIR.
+  FILE             Use this snapshot file. They live in $CLAUDE_TMUX_STATE_DIR.
 EOF
-}
-
-boot_epoch() {
-  sysctl -n kern.boottime | sed -E 's/^{ sec = ([0-9]+),.*/\1/'
 }
 
 dry_run=0
@@ -50,16 +45,16 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$file" ]]; then
-  this_boot="$STATE_DIR/$(boot_epoch).tsv"
+  this_boot=$(current_boot_snapshot)
   if [[ "$current_boot" -eq 1 ]]; then
     file="$this_boot"
   else
-    file=$(find "$STATE_DIR" -maxdepth 1 -name '*.tsv' 2>/dev/null \
+    file=$(find "$CLAUDE_TMUX_STATE_DIR" -maxdepth 1 -name '*.tsv' 2>/dev/null \
       | grep -vxF "$this_boot" | sort -r | head -n 1 || true)
   fi
 fi
 if [[ -z "$file" || ! -f "$file" ]]; then
-  echo "error: no snapshot found in $STATE_DIR" >&2
+  echo "error: no snapshot found in $CLAUDE_TMUX_STATE_DIR" >&2
   exit 1
 fi
 echo "Restoring from $file (written $(date -r "$file" '+%Y-%m-%d %H:%M'))" >&2
@@ -67,9 +62,8 @@ echo "Restoring from $file (written $(date -r "$file" '+%Y-%m-%d %H:%M'))" >&2
 # Session IDs of Claude processes that are running now.
 live_sessions=$(
   shopt -s nullglob
-  for f in "$SESSIONS_DIR"/*.json; do
-    pid=$(jq -r .pid "$f")
-    if ps -p "$pid" -o command= 2>/dev/null | grep -q claude; then
+  for f in "$CLAUDE_SESSIONS_DIR"/*.json; do
+    if is_claude_running "$(jq -r .pid "$f")"; then
       jq -r .sessionId "$f"
     fi
   done
