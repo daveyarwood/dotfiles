@@ -20,6 +20,13 @@
 
 set -euo pipefail
 
+# Bash adds 1 to SHLVL when it starts. If this script starts the tmux server
+# (run before tmux, e.g. right after a reboot), the server copies its
+# environment from here, and every shell in every window would start one level
+# too deep. Undo bash's increment so the server matches one started from your
+# shell. It makes no difference when a server is already running.
+export SHLVL=$((SHLVL - 1))
+
 source "$(dirname -- "${BASH_SOURCE[0]}")/claude-sessions"
 
 SHORT_LIVED_SECONDS=3600
