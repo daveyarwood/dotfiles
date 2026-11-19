@@ -139,6 +139,37 @@ Validate a component directory with `claude plugin validate .agents/skills`.
   `~/.bin/generate-gpg-agent-conf` (run from `gpg.fish`), not tracked. It adds
   `pinentry-mac` on macOS only. Nothing under `.gnupg/` is tracked.
 
+## Restoring Claude sessions after a reboot (macOS)
+
+After a reboot or a tmux crash, `claude-tmux-restore` reopens the Claude Code
+sessions that were open, one tmux window each, with their old window names.
+The launchd agent `local.claude-tmux-snapshot` runs `claude-tmux-snapshot` every
+two minutes to record them. Snapshots live in `~/.local/state/claude-tmux/`, one
+file per tmux server. How it chooses a snapshot, and why, is in the header
+comments of `.bin/claude-tmux-snapshot` and `.bin/claude-tmux-restore`. Both
+scripts source the shared helpers in `.bin/claude-sessions`. Read those before
+changing anything.
+
+- **It depends on Claude Code internals.** Each running session writes
+  `~/.claude/sessions/<pid>.json`, with `sessionId`, `cwd` and `kind`
+  (`interactive`, or `bg` for `claude --bg`). Transcripts carry `ai-title`
+  lines. None of this is a documented interface. If snapshots come out empty or
+  without window names after a Claude update, check these first.
+- **launchd runs jobs in a different environment.** It sets no locale, and
+  without a UTF-8 one tmux prints tabs in `-F` output as `_`, which is why the
+  snapshot script sets `LANG`. A test from your shell can pass and still fail
+  under launchd, so after changing the snapshot script run it with
+  `launchctl kickstart -k gui/$(id -u)/local.claude-tmux-snapshot` and read the
+  file it writes.
+- **Never test against the live tmux server or the live state directory.** The
+  scripts find everything through `HOME`, `XDG_STATE_HOME` and `TMUX_TMPDIR`,
+  so pointing those at a temp dir, with `TMUX` unset, isolates a test run. A
+  fake session is a tmux window running `exec -a claude sleep 600`,
+  plus a matching `<pid>.json`. Testing a restore that really opens windows
+  needs a stopped session to resume, never one that is running.
+- After editing the plist, reload it: `launchctl bootout` then
+  `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/<label>.plist`.
+
 ## Conventions
 
 - Commit after each meaningful unit of work; review `git diff` before committing.
