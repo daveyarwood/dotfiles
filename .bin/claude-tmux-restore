@@ -5,38 +5,52 @@
 # `claude --resume <session-id>` from the session's original directory, at a
 # shell prompt, so the window stays open when Claude exits.
 #
-# By default it reads the newest snapshot from before the current boot, which
-# is the one you want after a reboot. Sessions that are already running are
-# skipped, so running it twice is harmless.
+# By default it reads the newest snapshot from a tmux server other than the one
+# running now. After a reboot or a tmux crash, that is the server you lost.
+#
+# If that server never had a restore run in it and lasted under an hour, it
+# probably died before you got to restore into it (Rippling sometimes restarts
+# twice), so the snapshot before it is included too, and so on back. A server
+# you worked in for longer without restoring means you chose to start fresh,
+# and the chain stops there. Each restore leaves a <snapshot>.restored marker
+# for the server it ran in.
+#
+# Sessions that are already running are skipped, so running it twice is
+# harmless. --list shows every snapshot, to pick one by hand.
 
 set -euo pipefail
 
 source "$(dirname -- "${BASH_SOURCE[0]}")/claude-sessions"
 
+SHORT_LIVED_SECONDS=3600
+
 usage() {
   cat <<EOF
-Usage: $(basename "$0") [-n] [-t SESSION] [--current-boot | FILE]
+Usage: $(basename "$0") [-n] [-t SESSION] [FILE]
+       $(basename "$0") --list
 
-Opens one tmux window per Claude session in a snapshot.
+Opens one tmux window per Claude session in a snapshot: by default the newest
+one from a tmux server other than the one running now.
 
   -n, --dry-run    Print what would be opened, and open nothing.
   -t SESSION       tmux session to add windows to. Defaults to the current
                    one inside tmux, otherwise 'default' (created if missing).
-  --current-boot   Use this boot's snapshot instead of the previous boot's,
-                   e.g. after the tmux server crashed without a reboot.
-  FILE             Use this snapshot file. They live in $CLAUDE_TMUX_STATE_DIR.
+  -l, --list       List every snapshot, newest first, and exit.
+  FILE             Use only this snapshot file.
+
+Snapshots live in $CLAUDE_TMUX_STATE_DIR.
 EOF
 }
 
 dry_run=0
 target=""
-current_boot=0
+list=0
 file=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -n|--dry-run) dry_run=1 ;;
     -t) shift; target="$1" ;;
-    --current-boot) current_boot=1 ;;
+    -l|--list) list=1 ;;
     -h|--help) usage; exit 0 ;;
     -*) echo "unknown option: $1" >&2; usage >&2; exit 2 ;;
     *) file="$1" ;;
@@ -44,20 +58,61 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-if [[ -z "$file" ]]; then
-  this_boot=$(current_boot_snapshot)
-  if [[ "$current_boot" -eq 1 ]]; then
-    file="$this_boot"
-  else
-    file=$(find "$CLAUDE_TMUX_STATE_DIR" -maxdepth 1 -name '*.tsv' 2>/dev/null \
-      | grep -vxF "$this_boot" | sort -r | head -n 1 || true)
-  fi
+# The running server's snapshot, or nothing if no server is running.
+this_server=$(current_server_snapshot || true)
+
+snapshots() {
+  find "$CLAUDE_TMUX_STATE_DIR" -maxdepth 1 -name '*.tsv' 2>/dev/null | sort -r
+}
+
+is_restored_into() { [[ -e "${1%.tsv}.restored" ]]; }
+
+# Seconds between the server starting (the file name) and its last snapshot.
+lifetime() {
+  local started
+  started=$(basename "$1" | cut -d- -f1)
+  echo $(( $(stat -f %m "$1") - started ))
+}
+
+if [[ "$list" -eq 1 ]]; then
+  snapshots | while read -r f; do
+    notes=""
+    [[ "$f" == "$this_server" ]] && notes+=", this tmux server"
+    is_restored_into "$f" && notes+=", restored into"
+    printf '%s  written %s, lasted %s min, %s sessions%s\n' "$f" \
+      "$(date -r "$f" '+%Y-%m-%d %H:%M')" "$(( $(lifetime "$f") / 60 ))" \
+      "$(wc -l < "$f" | tr -d ' ')" "$notes"
+    cut -f2 "$f" | sed 's/^/    /'
+  done
+  exit 0
 fi
-if [[ -z "$file" || ! -f "$file" ]]; then
-  echo "error: no snapshot found in $CLAUDE_TMUX_STATE_DIR" >&2
+
+# Newest first: the latest other server, then older ones while each newer one
+# is short-lived and never had a restore.
+chosen=()
+if [[ -n "$file" ]]; then
+  chosen=("$file")
+else
+  while read -r f; do
+    chosen+=("$f")
+    if is_restored_into "$f" || (( $(lifetime "$f") >= SHORT_LIVED_SECONDS )); then
+      break
+    fi
+  done < <(snapshots | grep -vxF "${this_server:-/}")
+fi
+if [[ ${#chosen[@]} -eq 0 || ! -f "${chosen[0]}" ]]; then
+  echo "error: no snapshot from another tmux server in $CLAUDE_TMUX_STATE_DIR" >&2
   exit 1
 fi
-echo "Restoring from $file (written $(date -r "$file" '+%Y-%m-%d %H:%M'))" >&2
+for f in "${chosen[@]}"; do
+  echo "Restoring from $f (written $(date -r "$f" '+%Y-%m-%d %H:%M'), lasted $(( $(lifetime "$f") / 60 )) min)" >&2
+done
+# Newest snapshot first, so a session in two of them keeps its newest name.
+rows=$(cat "${chosen[@]}" | awk -F'\t' '!seen[$4]++')
+if [[ -z "$rows" ]]; then
+  echo "Nothing to restore: every session had closed. See --list for older snapshots." >&2
+  exit 0
+fi
 
 # Session IDs of Claude processes that are running now.
 live_sessions=$(
@@ -95,4 +150,8 @@ while IFS=$'\t' read -r _ window_name cwd session_id; do
   [[ "$dry_run" -eq 1 ]] && continue
   window=$(tmux new-window -d -P -F '#{window_id}' -t "=$target:" -n "$window_name" -c "$cwd")
   tmux send-keys -t "$window" "claude --resume $session_id" Enter
-done < "$file"
+done <<<"$rows"
+
+if [[ "$dry_run" -eq 0 ]]; then
+  touch "$(current_server_snapshot | sed 's/\.tsv$/.restored/')"
+fi

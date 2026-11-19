@@ -1,14 +1,16 @@
-# Sourced (not run) by claude-tmux-snapshot and claude-tmux-restore: where snapshots
-# live, and how to tell whether a Claude session is still running.
+# Sourced (not run) by claude-tmux-snapshot and claude-tmux-restore: where
+# snapshots live, and how to tell whether a Claude session is still running.
 
 CLAUDE_TMUX_STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/claude-tmux"
 CLAUDE_SESSIONS_DIR="$HOME/.claude/sessions"
 
-# One snapshot file per boot, named after the boot time in epoch seconds.
-current_boot_snapshot() {
-  local epoch
-  epoch=$(sysctl -n kern.boottime | sed -E 's/^{ sec = ([0-9]+),.*/\1/')
-  printf '%s/%s.tsv\n' "$CLAUDE_TMUX_STATE_DIR" "$epoch"
+# One snapshot file per tmux server, named <start-time>-<pid>.tsv. A reboot and
+# a tmux crash both start a new server, so the list from before either one
+# survives anything recorded afterwards. Prints nothing if no server is running.
+current_server_snapshot() {
+  local key
+  key=$(tmux list-sessions -F '#{start_time}-#{pid}' 2>/dev/null | head -n 1)
+  [[ -n "$key" ]] && printf '%s/%s.tsv\n' "$CLAUDE_TMUX_STATE_DIR" "$key"
 }
 
 # Claude writes $CLAUDE_SESSIONS_DIR/<pid>.json per session. Checking the

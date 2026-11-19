@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #
 # Records which Claude Code sessions are open and which tmux window each one
-# is in, so that `claude-tmux-restore` can reopen them after a reboot. The
-# launchd agent in ~/Library/LaunchAgents/local.claude-tmux-snapshot.plist
-# runs this every two minutes.
+# is in, so that `claude-tmux-restore` can reopen them after a reboot or a
+# tmux crash. The launchd agent in
+# ~/Library/LaunchAgents/local.claude-tmux-snapshot.plist runs this every two
+# minutes.
 #
 # Claude writes ~/.claude/sessions/<pid>.json for every running session, with
 # its session ID and cwd. This script keeps the ones whose process is alive,
@@ -12,11 +13,16 @@
 #
 #   <window-index> TAB <window-name> TAB <cwd> TAB <session-id>
 #
-# The output file is named after the boot time
-# (~/.local/state/claude-tmux/<boot-epoch>.tsv), so a session started after a
-# reboot never overwrites the list from before it. When no sessions are open
-# the script writes nothing, so a tmux crash that takes every Claude process
-# with it leaves the last good snapshot in place.
+# There is one output file per tmux server, named after the server's start
+# time and PID (~/.local/state/claude-tmux/<start-time>-<pid>.tsv). A reboot
+# and a tmux crash both start a new server, so sessions opened afterwards go to
+# a new file and the list from before survives. If no tmux server is running,
+# there is nothing to restore into, and the script writes nothing.
+#
+# When every session in a server has closed, its file is emptied, so a restore
+# doesn't reopen sessions you closed on purpose. A server that never had a
+# Claude session gets no file, so a reboot before you've restored anything
+# (Rippling sometimes restarts twice) doesn't hide the list from before.
 #
 # Window names: a window you renamed by hand keeps its name. A window tmux
 # named automatically (after the process, e.g. `2.1.329`) gets a kebab-case
@@ -104,14 +110,19 @@ for file in "$CLAUDE_SESSIONS_DIR"/*.json; do
   rows+="$index	$window_name	$cwd	$session_id"$'\n'
 done
 
-[[ -n "$rows" ]] || exit 0
+snapshot=$(current_server_snapshot) || exit 0
+[[ -n "$rows" || -f "$snapshot" ]] || exit 0
 
 mkdir -p "$CLAUDE_TMUX_STATE_DIR"
 tmp=$(mktemp "$CLAUDE_TMUX_STATE_DIR/.snapshot.XXXXXX")
 printf '%s' "$rows" | sort -t $'\t' -k1,1n > "$tmp"
-mv "$tmp" "$(current_boot_snapshot)"
+mv "$tmp" "$snapshot"
 
-# Keep the newest few snapshots. Boot epochs all have the same number of
+# Keep the newest few snapshots. Start times all have the same number of
 # digits, so a plain sort is chronological.
 find "$CLAUDE_TMUX_STATE_DIR" -maxdepth 1 -name '*.tsv' | sort -r | tail -n +$((KEEP_SNAPSHOTS + 1)) \
   | while read -r old; do rm -f "$old"; done
+# Drop restore markers whose snapshot is gone.
+find "$CLAUDE_TMUX_STATE_DIR" -maxdepth 1 -name '*.restored' | while read -r marker; do
+  [[ -e "${marker%.restored}.tsv" ]] || rm -f "$marker"
+done
