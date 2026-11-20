@@ -40,10 +40,6 @@ safe to repeat.
   principle unless they are specific to this change.
 - Let a question come back. A short reply the reader can question beats four
   paragraphs they skim, and they will ask.
-- Detail belongs where the work happens. A note between agents can carry all of
-  it, because the reader there needs it. The copy that reaches the person who
-  owns the code carries what changed and what to look at first, one line per
-  finding, with no account of the argument behind a decision.
 
 ## Patterns to detect and fix
 
