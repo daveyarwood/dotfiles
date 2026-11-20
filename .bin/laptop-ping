@@ -4,8 +4,8 @@
 One sample per run. The other end is the `laptop-ping` webhook route in the
 Hermes sleep-coach setup, which appends each sample to a file that the nightly
 bedtime check reads. The point is targeted: chess and GitHub already tell the
-check that I am up, and this adds the thing they cannot see, which is a video on
-this screen at 1 AM.
+check that I am up, and this adds the thing they cannot see, which is the laptop
+itself being in use.
 
 The sample is context, not a decision. The nightly check decides whether to
 nudge; this exists so that when it does, it already knows what I was doing and
@@ -13,9 +13,9 @@ can say so instead of asking.
 
   idle_seconds    seconds since the last keyboard or mouse input, from the X
                   idle counter. This is the "am I actually at the machine" bit.
-  youtube         whether a visible window's title mentions YouTube, and that
-                  title. While a video plays the window title IS the video's
-                  title, so this catches a long video a history read misses.
+  windows         the titles of the browser windows that are visible, for
+                  context on what I am doing. While a video plays, the window
+                  title is the video's title.
   active_window   the focused window's title.
   history         pages visited in the last three hours, newest first: how many
                   minutes ago, the host, and the page title.
@@ -66,6 +66,7 @@ GAME_ROOT = "steamapps/common/"
 STEAM_RUNTIMES = ("steamlinuxruntime", "proton")
 HISTORY_HOURS = 3
 HISTORY_LIMIT = 12
+WINDOW_LIMIT = 6
 POST_TIMEOUT = 15
 
 
@@ -99,10 +100,10 @@ def idle_seconds():
 
 
 def window_titles():
-    """Visible browser window titles, and the focused window's title.
+    """The visible browser window titles, and the focused window's title.
 
-    Every visible window is asked, not only the focused one, so a video running
-    fullscreen on another workspace still shows up.
+    Every visible window is asked, not only the focused one, so a video playing
+    fullscreen on another workspace is still named.
     """
     titles, seen = [], set()
     for klass in BROWSER_CLASSES:
@@ -155,7 +156,7 @@ def process_scan():
 
 
 def firefox_history():
-    """Recent pages, newest first, and how long ago youtube.com was last visited.
+    """Recent pages, newest first.
 
     visit_date counts MICROSECONDS since the Unix epoch, the number that goes
     wrong in most history readers. The copy is thrown away afterwards.
@@ -190,30 +191,22 @@ def firefox_history():
                 "minutes_ago": round(max(0.0, (time.time() * 1e6 - float(visit_date)) / 60e6), 1),
                 "host": urllib.parse.urlsplit(url or "").netloc,
                 "title": (title or "").strip()[:100] or None,
-                "url": url or "",
             })
     visits.sort(key=lambda visit: visit["minutes_ago"])
-    youtube_minutes = next((visit["minutes_ago"] for visit in visits
-                            if "youtube.com" in visit["url"]), None)
-    return visits, youtube_minutes
+    return visits
 
 
 def sample():
     titles, active = window_titles()
-    hits = [title for title in titles if "youtube" in title.lower()]
-    if active and "youtube" in active.lower() and active not in hits:
-        hits.append(active)
     browser, games, total = process_scan()
-    visits, youtube_minutes = firefox_history()
+    visits = firefox_history()
     return {
         "ts": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
         "idle_seconds": idle_seconds(),
-        "youtube": bool(hits),
-        "youtube_detail": hits[0][:120] if hits else None,
+        "windows": [title[:120] for title in titles[:WINDOW_LIMIT]],
         "active_window": active[:120] if active else None,
         "browser": browser,
         "games": games,
-        "youtube_visit_minutes": youtube_minutes,
         "history": [{"minutes_ago": visit["minutes_ago"], "host": visit["host"],
                      "title": visit["title"]} for visit in visits[:HISTORY_LIMIT]],
         "proc_count": total,
@@ -239,7 +232,7 @@ def once():
     try:
         payload = sample()
         status, body = post(load_env(), payload)
-    except Exception as exc:  # noqa: BLE001 - one bad run must not stop the next
+    except Exception as exc:  # a bad run prints one line, not a traceback
         print("{} error: {}: {}".format(datetime.datetime.now().isoformat(),
                                         type(exc).__name__, exc))
         return 1
