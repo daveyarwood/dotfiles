@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Sample what I am doing on the laptop and POST it to the sleep-coach agent.
 
-Run by cron every five minutes from 10 PM to 4 AM, the only hours a bedtime
-check can read a sample. The other end is the `laptop-ping` webhook route in the
+One sample per run. The other end is the `laptop-ping` webhook route in the
 Hermes sleep-coach setup, which appends each sample to a file that the nightly
 bedtime check reads. The point is targeted: chess and GitHub already tell the
 check that I am up, and this adds the thing they cannot see, which is a video on
@@ -21,8 +20,8 @@ can say so instead of asking.
   history         pages visited in the last three hours, newest first: how many
                   minutes ago, the host, and the page title.
   games           Steam games running, named from the game's directory under
-                  steamapps/common. A Steam client sitting in the tray is not a
-                  game, so a minimized Steam cannot read as gaming.
+                  steamapps/common. The Steam client on its own is not a game and
+                  is not reported.
   browser, proc_count
 
 Firefox's places.sqlite is read copy-first, because Firefox holds the original
@@ -36,15 +35,8 @@ The secret is read from ~/.config/laptop-ping/env, which is not in this repo:
     LAPTOP_PING_URL=https://<dashboard host>/webhooks/laptop-ping
     LAPTOP_PING_SECRET=<the route secret>
 
-Usage: laptop-ping. Run it with no arguments for one sample and a line on stdout
-saying what the far end made of it. Cron runs it through the night, and the
-crontab line has to hand over `DISPLAY` and `XAUTHORITY`, which i3 used to pass
-down to it and cron does not:
-
-    */5 22-23,0-3 * * * DISPLAY=:0 XAUTHORITY=$HOME/.Xauthority ~/.bin/laptop-ping
-
-Without those two, xprintidle and xdotool fail and idle_seconds and the window
-titles come back null, which is most of what the check reads.
+Usage: laptop-ping. One run takes one sample and prints a line saying what the far
+end made of it. It is meant to be run from cron.
 """
 
 import datetime
@@ -70,7 +62,7 @@ BROWSER_NAMES = ("firefox", "firefox-bin", "chromium", "chrome", "brave")
 GAME_ROOT = "steamapps/common/"
 # Valve's runtimes ship in steamapps/common in every library and stay alive for
 # as long as a Proton game runs, so the scan below picks them up as games. They
-# are not, and naming one would have the check report pressure-vessel.
+# are not games.
 STEAM_RUNTIMES = ("steamlinuxruntime", "proton")
 HISTORY_HOURS = 3
 HISTORY_LIMIT = 12
@@ -134,8 +126,8 @@ def process_scan():
     there, which for a Proton game comes out of the Windows path in its command
     line, so backslashes are folded to slashes before the split.
 
-    The Steam client is not a game. It sits minimized in the tray for days at a
-    time, and counting it reported gaming on evenings he never played.
+    The Steam client is not a game: it sits minimized in the tray for days at a
+    time, and its own processes are not counted.
     """
     browser = False
     games, total = [], 0
@@ -247,7 +239,7 @@ def once():
     try:
         payload = sample()
         status, body = post(load_env(), payload)
-    except Exception as exc:  # noqa: BLE001 - the loop must survive one bad run
+    except Exception as exc:  # noqa: BLE001 - one bad run must not stop the next
         print("{} error: {}: {}".format(datetime.datetime.now().isoformat(),
                                         type(exc).__name__, exc))
         return 1
