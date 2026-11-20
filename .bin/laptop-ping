@@ -1,0 +1,306 @@
+#!/usr/bin/env python3
+"""Sample what I am doing on the laptop and POST it to the sleep-coach agent.
+
+One sample per run. The other end is the `laptop-ping` webhook route in the
+Hermes sleep-coach setup, which appends each sample to a file that the nightly
+bedtime check reads. The point is targeted: chess and GitHub already tell the
+check that I am up, and this adds the thing they cannot see, which is the laptop
+itself being in use.
+
+The sample is context, not a decision. The nightly check decides whether to
+nudge; this exists so that when it does, it already knows what I was doing and
+can say so instead of asking.
+
+  idle_seconds    seconds since the last keyboard or mouse input, from the X
+                  idle counter. This is the "am I actually at the machine" bit.
+  windows         the titles of the browser windows i3 has on screen, for
+                  context on what I am doing. While a video plays, the window
+                  title is the video's title.
+  active_window   the focused window's title.
+  history         pages visited in the last three hours, newest first: how many
+                  minutes ago, the host, and the page title. Read from every
+                  Firefox profile on the machine, wherever it is installed.
+  games           Steam games running, named from the game's directory under
+                  steamapps/common. The Steam client on its own is not a game and
+                  is not reported.
+  browser         whether a browser window is on screen, from the same list as
+                  windows. A browser process that is only in the tray is not a
+                  browser here.
+  proc_count
+
+Needs xdotool and xprintidle on PATH, with DISPLAY and XAUTHORITY set, which cron
+does not do on its own. Without xprintidle the sample still goes out with a null
+idle and the run says so on stdout: the far end reads a null idle as no activity
+at all, so that is the one field worth shouting about.
+
+Firefox's places.sqlite is read copy-first, because Firefox holds the original
+open. Two things that file never contains: pages visited in a private window,
+which Mozilla's private browsing policy forbids writing to any file or database
+in the profile, and the embedded and iframe loads Firefox marks hidden, which
+the query skips exactly as its own history UI does.
+
+The secret is read from ~/.config/laptop-ping/env, which is not in this repo:
+
+    LAPTOP_PING_URL=https://<dashboard host>/webhooks/laptop-ping
+    LAPTOP_PING_SECRET=<the route secret>
+
+Usage: laptop-ping. One run takes one sample, prints a line saying what the far
+end made of it, and prints a note for anything it could not read. It is meant to
+be run from cron.
+"""
+
+import datetime
+import glob
+import hashlib
+import hmac
+import json
+import os
+import shutil
+import sqlite3
+import subprocess
+import sys
+import tempfile
+import time
+import urllib.parse
+import urllib.request
+
+ENV_FILE = os.path.expanduser("~/.config/laptop-ping/env")
+# Firefox writes its profile wherever it was installed from: the deb here, the
+# snap under ~/snap/firefox, the flatpak under ~/.var/app.
+FIREFOX_ROOTS = ("~/.mozilla/firefox",
+                 "~/snap/firefox/common/.mozilla/firefox",
+                 "~/.var/app/org.mozilla.firefox/.mozilla/firefox")
+PROC = "/proc"
+BROWSER_CLASSES = ("firefox", "chromium", "google-chrome", "brave-browser")
+GAME_ROOT = "steamapps/common/"
+# Valve's runtimes ship in steamapps/common in every library and stay alive for
+# as long as a Proton game runs, so the scan below picks them up as games. They
+# are not games.
+STEAM_RUNTIMES = ("steamlinuxruntime", "proton")
+HISTORY_HOURS = 3
+HISTORY_LIMIT = 12
+WINDOW_LIMIT = 6
+POST_TIMEOUT = 15
+
+
+def load_env(path=ENV_FILE):
+    env = {}
+    with open(path) as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            env[key.strip()] = value.strip().strip('"').strip("'")
+    return env
+
+
+def run(cmd):
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    return proc.stdout.strip() if proc.returncode == 0 else ""
+
+
+def idle_seconds():
+    """Seconds since the last input, from the X idle counter.
+
+    xprintidle is the only way to ask this without linking to the X libraries,
+    and it is its own package on Ubuntu rather than part of x11-xserver-utils.
+    A missing xprintidle leaves this null, so say so rather than let the sample
+    go out quietly: null idle is what the far end reads as no activity at all.
+    """
+    if not shutil.which("xprintidle"):
+        return None
+    text = run(["xprintidle"])
+    try:
+        return int(text.split()[0]) // 1000
+    except (IndexError, ValueError):
+        return None
+
+
+def window_ids(klass):
+    """The ids of one browser class's windows.
+
+    xdotool's --onlyvisible is a map_state check, so this is "mapped on a
+    workspace i3 is showing", not "not covered by anything". A window behind a
+    fullscreen terminal answers yes.
+    """
+    out = run(["xdotool", "search", "--onlyvisible", "--class", klass])
+    return [line.strip() for line in out.splitlines() if line.strip()]
+
+
+def managed(window_id):
+    """Whether i3 manages this window.
+
+    Only a managed window is one I can be looking at. Firefox keeps a window of
+    its own that is mapped and never managed, and it survives every workspace
+    change and every fullscreen toggle, so it would sit in the sample both before
+    and after those moves, forever. The test is the one the window manager
+    itself uses: a managed window has a desktop, and get_desktop_for_window
+    fails on a window that has none.
+    """
+    return bool(run(["xdotool", "get_desktop_for_window", window_id]))
+
+
+def window_titles():
+    """The visible browser window titles, and the focused window's title.
+
+    Every visible window is asked, not only the focused one, so a video playing
+    fullscreen on another workspace is still named. Tabs are out of reach of
+    xdotool: a window is named by its active tab, and history carries the rest.
+    """
+    titles = []
+    for klass in BROWSER_CLASSES:
+        kept = [wid for wid in window_ids(klass) if managed(wid)]
+        if not kept:
+            continue
+        for line in run(["xdotool", "getwindowname"] + kept).splitlines():
+            line = line.strip()
+            if line and line not in titles:
+                titles.append(line)
+    active = run(["xdotool", "getactivewindow", "getwindowname"]) or None
+    return titles, active
+
+
+def process_scan():
+    """Running Steam games, and the process count.
+
+    A game is a process whose command line points into a library's
+    steamapps/common directory, which is where Steam installs and launches games
+    from, so only a launched game qualifies. The name is the game's directory
+    there, which for a Proton game comes out of the Windows path in its command
+    line, so backslashes are folded to slashes before the split.
+
+    The Steam client is not a game: it sits minimized in the tray for days at a
+    time, and its own processes are not counted.
+    """
+    games, total = [], 0
+    for path in glob.glob(os.path.join(PROC, "[0-9]*", "cmdline")):
+        try:
+            with open(path, "rb") as fh:
+                raw = fh.read()
+        except OSError:
+            continue
+        parts = [part.decode("utf-8", "replace") for part in raw.split(b"\0") if part]
+        if not parts:
+            continue
+        total += 1
+        combined = " ".join(parts).replace("\\", "/")
+        at = combined.lower().find(GAME_ROOT)
+        if at != -1:
+            game = combined[at + len(GAME_ROOT):].split("/")[0].strip()
+            if (game and game not in games
+                    and not game.lower().startswith(STEAM_RUNTIMES)):
+                games.append(game)
+    return games[:6], total
+
+
+def firefox_history():
+    """Recent pages, newest first, from every Firefox profile on this machine.
+
+    visit_date counts MICROSECONDS since the Unix epoch, the number that goes
+    wrong in most history readers. The copy is thrown away afterwards.
+
+    Each profile that cannot be read is reported rather than passed over: an
+    empty list looked exactly like privacy until now, and it was a profile in a
+    location this never searched.
+    """
+    cutoff_us = int((time.time() - HISTORY_HOURS * 3600) * 1e6)
+    visits, notes = [], []
+    profiles = []
+    for root in FIREFOX_ROOTS:
+        profiles.extend(sorted(glob.glob(os.path.join(
+            os.path.expanduser(root), "*", "places.sqlite"))))
+    if not profiles:
+        notes.append("no places.sqlite under any of: {}".format(
+            ", ".join(FIREFOX_ROOTS)))
+    for profile in profiles:
+        tmpdir = tempfile.mkdtemp(prefix="laptop-ping-")
+        copied = os.path.join(tmpdir, "places.sqlite")
+        rows = []
+        try:
+            shutil.copy2(profile, copied)
+            for suffix in ("-wal", "-shm"):
+                if os.path.exists(profile + suffix):
+                    shutil.copy2(profile + suffix, copied + suffix)
+            conn = sqlite3.connect("file:{}?mode=ro".format(copied), uri=True)
+            try:
+                rows = conn.execute(
+                    "SELECT p.url, p.title, v.visit_date FROM moz_historyvisits v "
+                    "JOIN moz_places p ON p.id = v.place_id "
+                    "WHERE p.hidden = 0 AND v.visit_date > ? "
+                    "ORDER BY v.visit_date DESC LIMIT 60",
+                    (cutoff_us,),
+                ).fetchall()
+            finally:
+                conn.close()
+        except (OSError, sqlite3.Error) as exc:
+            notes.append("{}: {}: {}".format(profile, type(exc).__name__, exc))
+            continue
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
+        for url, title, visit_date in rows:
+            visits.append({
+                "minutes_ago": round(max(0.0, (time.time() * 1e6 - float(visit_date)) / 60e6), 1),
+                "host": urllib.parse.urlsplit(url or "").netloc,
+                "title": (title or "").strip()[:100] or None,
+            })
+    visits.sort(key=lambda visit: visit["minutes_ago"])
+    return visits, notes
+
+
+def sample():
+    """One sample, and a note for anything this run could not read."""
+    titles, active = window_titles()
+    games, total = process_scan()
+    visits, notes = firefox_history()
+    idle = idle_seconds()
+    if idle is None:
+        notes.append("idle_seconds is null: xprintidle is missing, or DISPLAY "
+                     "and XAUTHORITY are not set")
+    return {
+        "ts": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
+        "idle_seconds": idle,
+        "windows": [title[:120] for title in titles[:WINDOW_LIMIT]],
+        "active_window": active[:120] if active else None,
+        "browser": bool(titles),
+        "games": games,
+        "history": [{"minutes_ago": visit["minutes_ago"], "host": visit["host"],
+                     "title": visit["title"]} for visit in visits[:HISTORY_LIMIT]],
+        "proc_count": total,
+    }, notes
+
+
+def post(env, payload):
+    body = json.dumps(payload, separators=(",", ":")).encode()
+    signature = hmac.new(env.get("LAPTOP_PING_SECRET", "").encode(), body,
+                         hashlib.sha256).hexdigest()
+    request = urllib.request.Request(env["LAPTOP_PING_URL"], data=body, headers={
+        "Content-Type": "application/json",
+        "X-Hub-Signature-256": "sha256=" + signature,
+        "X-GitHub-Event": "laptop-ping",
+        "X-GitHub-Delivery": datetime.datetime.now().strftime("%Y%m%d%H%M%S"),
+        "User-Agent": "laptop-ping/1.0",
+    })
+    with urllib.request.urlopen(request, timeout=POST_TIMEOUT) as response:
+        return response.status, response.read().decode("utf-8", "replace")[:200]
+
+
+def once():
+    try:
+        payload, notes = sample()
+        status, body = post(load_env(), payload)
+    except Exception as exc:  # a bad run prints one line, not a traceback
+        print("{} error: {}: {}".format(datetime.datetime.now().isoformat(),
+                                        type(exc).__name__, exc))
+        return 1
+    print("{} status={} {}".format(payload["ts"], status, body))
+    for note in notes:
+        print("note: {}".format(note))
+    return 0 if 200 <= status < 300 else 1
+
+
+if __name__ == "__main__":
+    sys.exit(once())
