@@ -25,6 +25,22 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 - **Let some mess in.** Perfect structure looks machine-made.
 - **Be specific.** Not "this is concerning" but "there's something unsettling about agents churning away at 3am."
 
+## Audience
+
+Depth belongs to the reader. Calibrate to what they already know, not to what is
+safe to repeat.
+
+- A reader who asked for the change already decided it. Report the change and
+  drop the argument for it. "Renamed to `AUTH_TOKEN` in the setting, the module,
+  the route and the tests" beats a paragraph on why the new name is right.
+- Never restate the request back before answering it. Telling the reader what
+  they just said costs them a read.
+- Explain what they cannot see: the constraint you hit, the version that failed
+  first, the number you measured. Leave out the language, the pattern and the
+  principle unless they are specific to this change.
+- Let a question come back. A short reply the reader can question beats four
+  paragraphs they skim, and they will ask.
+
 ## Patterns to detect and fix
 
 ### Content
