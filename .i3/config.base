@@ -211,11 +211,6 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id run_keybase
 exec_always --no-startup-id "killall dunst; dunst"
 exec_always --no-startup-id "killall sxhkd; sxhkd"
-
-# Sample what I am doing on this laptop and send it to the sleep-coach agent,
-# which reads it during the nightly bedtime check. The script holds a lock, so
-# the extra copies an i3 restart spawns exit on their own.
-exec_always --no-startup-id ~/.bin/laptop-ping --loop
 exec_always sh ~/.fehbg # set wallpaper
 exec_always xset r rate 250 50 # set keyboard autorepeat delay and rate
 exec_always xset s off # disable screen blanking

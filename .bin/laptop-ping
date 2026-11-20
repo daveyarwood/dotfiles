@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Sample what I am doing on the laptop and POST it to the sleep-coach agent.
 
-Started by an i3 exec line, one sample every five minutes. The other end is the
-`laptop-ping` webhook route in the Hermes sleep-coach setup, which appends each
-sample to a file that the nightly bedtime check reads. The point is targeted:
-chess and GitHub already tell the check that I am up, and this adds the thing
-they cannot see, which is a video on this screen at 1 AM.
+Run by cron every five minutes from 10 PM to 4 AM, the only hours a bedtime
+check can read a sample. The other end is the `laptop-ping` webhook route in the
+Hermes sleep-coach setup, which appends each sample to a file that the nightly
+bedtime check reads. The point is targeted: chess and GitHub already tell the
+check that I am up, and this adds the thing they cannot see, which is a video on
+this screen at 1 AM.
 
 The sample is context, not a decision. The nightly check decides whether to
 nudge; this exists so that when it does, it already knows what I was doing and
@@ -19,7 +20,9 @@ can say so instead of asking.
   active_window   the focused window's title.
   history         pages visited in the last three hours, newest first: how many
                   minutes ago, the host, and the page title.
-  steam, games    whether Steam or a Steam game is running.
+  games           Steam games running, named from the game's directory under
+                  steamapps/common. A Steam client sitting in the tray is not a
+                  game, so a minimized Steam cannot read as gaming.
   browser, proc_count
 
 Firefox's places.sqlite is read copy-first, because Firefox holds the original
@@ -33,14 +36,18 @@ The secret is read from ~/.config/laptop-ping/env, which is not in this repo:
     LAPTOP_PING_URL=https://<dashboard host>/webhooks/laptop-ping
     LAPTOP_PING_SECRET=<the route secret>
 
-Usage: laptop-ping [--loop]. Run it with no arguments for one sample and a line
-on stdout saying what the far end made of it. --loop samples every five minutes
-until it is killed, and holds a lock so that the extra copies an i3 restart
-starts exit immediately instead of doubling the pings.
+Usage: laptop-ping. Run it with no arguments for one sample and a line on stdout
+saying what the far end made of it. Cron runs it through the night, and the
+crontab line has to hand over `DISPLAY` and `XAUTHORITY`, which i3 used to pass
+down to it and cron does not:
+
+    */5 22-23,0-3 * * * DISPLAY=:0 XAUTHORITY=$HOME/.Xauthority ~/.bin/laptop-ping
+
+Without those two, xprintidle and xdotool fail and idle_seconds and the window
+titles come back null, which is most of what the check reads.
 """
 
 import datetime
-import fcntl
 import glob
 import hashlib
 import hmac
@@ -56,16 +63,17 @@ import urllib.parse
 import urllib.request
 
 ENV_FILE = os.path.expanduser("~/.config/laptop-ping/env")
-LOCK_FILE = os.path.join(os.environ.get("XDG_RUNTIME_DIR") or "/tmp",
-                         "laptop-ping.lock")
 FIREFOX_ROOT = os.path.expanduser("~/.mozilla/firefox")
 PROC = "/proc"
 BROWSER_CLASSES = ("firefox", "chromium", "google-chrome", "brave-browser")
 BROWSER_NAMES = ("firefox", "firefox-bin", "chromium", "chrome", "brave")
-STEAM_HINTS = ("steam",)
+GAME_ROOT = "steamapps/common/"
+# Valve's runtimes ship in steamapps/common in every library and stay alive for
+# as long as a Proton game runs, so the scan below picks them up as games. They
+# are not, and naming one would have the check report pressure-vessel.
+STEAM_RUNTIMES = ("steamlinuxruntime", "proton")
 HISTORY_HOURS = 3
 HISTORY_LIMIT = 12
-SAMPLE_INTERVAL = 300
 POST_TIMEOUT = 15
 
 
@@ -118,8 +126,18 @@ def window_titles():
 
 
 def process_scan():
-    """Browser and Steam presence, game executables, and the process count."""
-    browser = steam = False
+    """Browser presence, running Steam games, and the process count.
+
+    A game is a process whose command line points into a library's
+    steamapps/common directory, which is where Steam installs and launches games
+    from, so only a launched game qualifies. The name is the game's directory
+    there, which for a Proton game comes out of the Windows path in its command
+    line, so backslashes are folded to slashes before the split.
+
+    The Steam client is not a game. It sits minimized in the tray for days at a
+    time, and counting it reported gaming on evenings he never played.
+    """
+    browser = False
     games, total = [], 0
     for path in glob.glob(os.path.join(PROC, "[0-9]*", "cmdline")):
         try:
@@ -132,16 +150,16 @@ def process_scan():
             continue
         total += 1
         name = os.path.basename(parts[0]).lower()
-        if any(hint in name for hint in STEAM_HINTS):
-            steam = True
-        if "steamapps" in " ".join(parts).lower():
-            steam = True
-            game = os.path.basename(parts[0])
-            if game and game not in games:
+        combined = " ".join(parts).replace("\\", "/")
+        at = combined.lower().find(GAME_ROOT)
+        if at != -1:
+            game = combined[at + len(GAME_ROOT):].split("/")[0].strip()
+            if (game and game not in games
+                    and not game.lower().startswith(STEAM_RUNTIMES)):
                 games.append(game)
         if name in BROWSER_NAMES:
             browser = True
-    return browser, steam, games[:6], total
+    return browser, games[:6], total
 
 
 def firefox_history():
@@ -193,7 +211,7 @@ def sample():
     hits = [title for title in titles if "youtube" in title.lower()]
     if active and "youtube" in active.lower() and active not in hits:
         hits.append(active)
-    browser, steam, games, total = process_scan()
+    browser, games, total = process_scan()
     visits, youtube_minutes = firefox_history()
     return {
         "ts": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
@@ -202,7 +220,6 @@ def sample():
         "youtube_detail": hits[0][:120] if hits else None,
         "active_window": active[:120] if active else None,
         "browser": browser,
-        "steam": steam,
         "games": games,
         "youtube_visit_minutes": youtube_minutes,
         "history": [{"minutes_ago": visit["minutes_ago"], "host": visit["host"],
@@ -238,18 +255,5 @@ def once():
     return 0 if 200 <= status < 300 else 1
 
 
-def main():
-    if "--loop" not in sys.argv[1:]:
-        return once()
-    lock = open(LOCK_FILE, "w")
-    try:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except OSError:
-        return 0
-    while True:
-        once()
-        time.sleep(SAMPLE_INTERVAL)
-
-
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(once())
