@@ -6,7 +6,7 @@
 //
 //     node .agents/skills/retro-diffusion/scripts/generate.ts \
 //         --prompt "a squat round flask of glowing crimson liquid" \
-//         --style rd_core__default --width 64 --height 64 --remove-bg --out potion.png
+//         --style rd_lite__default --width 64 --height 64 --remove-bg --out potion.png
 //
 //     node .agents/skills/retro-diffusion/scripts/generate.ts --prompt "test" --check-cost
 //
@@ -38,7 +38,7 @@ const money = (value: number): string => value.toFixed(2);
 const USAGE = `Usage: node generate.ts --prompt <text> [options]
 
   --prompt <text>          the subject, described concretely (required)
-  --style <id>             prompt_style id, default rd_core__default
+  --style <id>             prompt_style id, default rd_lite__default
   --width <px>             default 64
   --height <px>            default 64
   --num-images <n>         takes of the prompt in one request, default 1
@@ -93,7 +93,7 @@ const parseOptions = (argv: string[]): GenerateOptions => {
       allowPositionals: false,
       options: {
         prompt: { type: "string" },
-        style: { type: "string", default: "rd_core__default" },
+        style: { type: "string", default: "rd_lite__default" },
         width: { type: "string", default: "64" },
         height: { type: "string", default: "64" },
         "num-images": { type: "string", default: "1" },
